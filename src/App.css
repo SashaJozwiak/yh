@@ -1,0 +1,34 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  min-width: 320px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.header {
+  border: 1px solid;
+  height: 4rem;
+  flex-shrink: 0;
+}
+
+.balance {
+  border: 1px solid;
+}
+
+.main {
+  flex-grow: 1;
+  overflow-y: auto;
+  border: 1px solid;
+}
+
+.footer {
+  border: 1px solid;
+  height: 4rem;
+  flex-shrink: 0;
+}
