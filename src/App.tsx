@@ -22,7 +22,9 @@ function App() {
   });
 
   useEffect(() => {
-    console.log(WebApp.initDataUnsafe)
+    console.log('unsafe: ', WebApp.initDataUnsafe)
+    console.log('safe: ', WebApp.initData)
+
     const user = WebApp.initDataUnsafe.user;
     console.log('user: ', user)
     if (user) {
