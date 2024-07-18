@@ -1,7 +1,9 @@
 //import eruda from 'eruda'
 
-//import { useEffect, useState } from 'react';
-//import WebApp from '@twa-dev/sdk';
+import { useEffect, useState } from 'react';
+import WebApp from '@twa-dev/sdk';
+
+import { UserData } from './types/userData';
 
 import './App.css';
 
@@ -11,14 +13,23 @@ import './App.css';
   e.preventDefault();
 }); */
 
-function App() {
 
+
+
+function App() {
+  const [userData, setUserData] = useState<UserData | string>();
+
+  useEffect(() => {
+    console.log(WebApp)
+    setUserData(WebApp.initData);
+  }, []);
+
+  console.log('userData: ', userData)
 
   return (
     <>
       <div className='header'>
         header
-
       </div>
 
       <div className='balance'>

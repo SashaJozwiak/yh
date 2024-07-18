@@ -14,7 +14,7 @@ const manifestUrl = 'https://sashajozwiak.github.io/yh/tonconnect-manifest.json'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <TonConnectUIProvider manifestUrl={manifestUrl}>
-      <App />s
+      <App />
     </TonConnectUIProvider>
   </React.StrictMode>
 )
