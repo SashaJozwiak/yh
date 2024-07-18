@@ -14,11 +14,34 @@ eruda.init();//just for debug
 }); */
 
 function App() {
-  const [userData, setUserData] = useState<UserData | object>({});
+  const [userData, setUserData] = useState<UserData>({
+    id: null,
+    userName: '',
+    languageCode: '',
+    photoUrl: ''
+  });
 
   useEffect(() => {
     console.log(WebApp.initDataUnsafe)
-    setUserData(WebApp.initDataUnsafe);
+    const user = WebApp.initDataUnsafe.user;
+    console.log('user: ', user)
+    if (user) {
+      setUserData({
+        id: user.id,
+        userName: user.username || '',
+        languageCode: user.language_code || '',
+        photoUrl: user.photo_url || ''
+      });
+    } else {
+      setUserData({
+        id: 757322479,
+        userName: "Jozwiak",
+        languageCode: "en",
+        photoUrl: 'https://cs14.pikabu.ru/avatars/3400/x3400884-1273444445.png'
+      });
+    }
+
+
   }, []);
 
   console.log('userData: ', userData)
@@ -26,7 +49,10 @@ function App() {
   return (
     <>
       <div className='header'>
-        header
+        <img width={50} height={50} src={userData.photoUrl}></img>
+        <p>{userData.id}</p>
+        <p>{userData.userName}</p>
+        <p>{userData.languageCode}</p>
       </div>
 
       <div className='balance'>
