@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useStore } from '../../store/main';
 
+import { /* TonConnectButton, */ useTonConnectModal } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 
 import s from './header.module.css'
@@ -8,6 +9,8 @@ import s from './header.module.css'
 export const Header: React.FC = () => {
     const user = useStore((state) => state.user);
     const setUser = useStore((state) => state.setUser);
+
+    const { state, open, close } = useTonConnectModal();
 
     useEffect(() => {
         const user = WebApp.initDataUnsafe.user;
@@ -36,17 +39,22 @@ export const Header: React.FC = () => {
             </div>
 
             <div className={s.speed}>
-                <p>5315 / ч.</p>
+                <p>1.2/ч.</p>
             </div>
 
             <div className={s.settings}>
                 {/* <div className={s.lang}>{user.languageCode}</div> */}
 
-                <p>Settings</p>
+                {/* <p>Настройки</p> */}
+                {/* <TonConnectButton className={s.tonbutton} /> */}
 
-
+                <button className={s.tonbutton} onClick={state?.status == 'closed' ? open : close}>Кошелек</button>
             </div>
+            <div>state: {state?.status}</div>
 
+            {/* <div>Modal state: {state?.status}</div>
+            <button onClick={open}>Open modal</button>
+            <button onClick={close}>Close modal</button> */}
 
         </div>
     )
