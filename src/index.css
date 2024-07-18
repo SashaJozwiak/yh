@@ -5,7 +5,7 @@
 
   /* color-scheme: dark; */
   color: rgba(255, 255, 255, 0.87);
-  background: linear-gradient(#1c1f24, gray); /* #242424; */
+  background: linear-gradient(rgb(30 41 59), rgb(100 116 139)); /* #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

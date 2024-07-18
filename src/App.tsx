@@ -1,12 +1,12 @@
+//import { useEffect } from 'react';
+//import { useStore } from './store/main';
+
+
 import eruda from 'eruda'
 
-import { useEffect, /* useState */ } from 'react';
-import WebApp from '@twa-dev/sdk';
-
-//import { UserData } from './types/userData';
-
 import './App.css';
-import { useStore } from './store/main';
+import { Header } from './components/Header/Header';
+
 
 eruda.init();//just for debug
 
@@ -14,14 +14,13 @@ eruda.init();//just for debug
   e.preventDefault();
 }); */
 
+const App: React.FC = function () {
+/* const user = useStore((state) => state.user);
+const setUser = useStore((state) => state.setUser); */
 
+  //console.log(user)
 
-function App() {
-  const user = useStore((state) => state.user)
-
-  console.log(user)
-
-  useEffect(() => {
+  /* useEffect(() => {
     const user = WebApp.initDataUnsafe.user;
 
     if (user) {
@@ -31,7 +30,7 @@ function App() {
         languageCode: user.language_code || ''
       };
 
-      useStore.getState().setUser(newUser);
+      setUser(newUser);
     } else {
       const newUser = {
         id: 757322479,
@@ -39,20 +38,20 @@ function App() {
         languageCode: "en",
       };
 
-      useStore.getState().setUser(newUser);
+      setUser(newUser);
     }
 
-  }, []);
+  }, [setUser]); */
 
   //console.log('userData: ', userData)
 
   return (
     <>
-      <div className='header'>
-        <p>{user.id}</p>
-        <p>{user.userName}</p>
-        <p>{user.languageCode}</p>
-      </div>
+
+
+      <Header />
+
+
 
       <div className='balance'>
         balance
