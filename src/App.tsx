@@ -1,4 +1,4 @@
-//import eruda from 'eruda'
+import eruda from 'eruda'
 
 import { useEffect, useState } from 'react';
 import WebApp from '@twa-dev/sdk';
@@ -7,14 +7,11 @@ import { UserData } from './types/userData';
 
 import './App.css';
 
-//eruda.init();//just for debug
+eruda.init();//just for debug
 
 /* document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
 }); */
-
-
-
 
 function App() {
   const [userData, setUserData] = useState<UserData | string>();
