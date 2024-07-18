@@ -17,7 +17,7 @@ function App() {
   const [userData, setUserData] = useState<UserData | string>();
 
   useEffect(() => {
-    console.log(WebApp)
+    console.log(WebApp.initDataUnsafe)
     setUserData(WebApp.initData);
   }, []);
 
