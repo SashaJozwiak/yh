@@ -14,11 +14,11 @@ eruda.init();//just for debug
 }); */
 
 function App() {
-  const [userData, setUserData] = useState<UserData | string>();
+  const [userData, setUserData] = useState<UserData | object>({});
 
   useEffect(() => {
     console.log(WebApp.initDataUnsafe)
-    setUserData(WebApp.initData);
+    setUserData(WebApp.initDataUnsafe);
   }, []);
 
   console.log('userData: ', userData)
