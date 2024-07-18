@@ -1,11 +1,12 @@
 import eruda from 'eruda'
 
-import { useEffect, useState } from 'react';
+import { useEffect, /* useState */ } from 'react';
 import WebApp from '@twa-dev/sdk';
 
-import { UserData } from './types/userData';
+//import { UserData } from './types/userData';
 
 import './App.css';
+import { useStore } from './store/main';
 
 eruda.init();//just for debug
 
@@ -13,48 +14,44 @@ eruda.init();//just for debug
   e.preventDefault();
 }); */
 
+
+
 function App() {
-  const [userData, setUserData] = useState<UserData>({
-    id: null,
-    userName: '',
-    languageCode: '',
-    photoUrl: ''
-  });
+  const user = useStore((state) => state.user)
+
+  console.log(user)
 
   useEffect(() => {
-    console.log('unsafe: ', WebApp.initDataUnsafe)
-    console.log('safe: ', WebApp.initData)
-
     const user = WebApp.initDataUnsafe.user;
-    console.log('user: ', user)
+
     if (user) {
-      setUserData({
+      const newUser = {
         id: user.id,
         userName: user.username || '',
-        languageCode: user.language_code || '',
-        photoUrl: user.photo_url || ''
-      });
+        languageCode: user.language_code || ''
+      };
+
+      useStore.getState().setUser(newUser);
     } else {
-      setUserData({
+      const newUser = {
         id: 757322479,
         userName: "Jozwiak",
         languageCode: "en",
-        photoUrl: 'https://cs14.pikabu.ru/avatars/3400/x3400884-1273444445.png'
-      });
-    }
+      };
 
+      useStore.getState().setUser(newUser);
+    }
 
   }, []);
 
-  console.log('userData: ', userData)
+  //console.log('userData: ', userData)
 
   return (
     <>
       <div className='header'>
-        <img width={50} height={50} src={userData.photoUrl}></img>
-        <p>{userData.id}</p>
-        <p>{userData.userName}</p>
-        <p>{userData.languageCode}</p>
+        <p>{user.id}</p>
+        <p>{user.userName}</p>
+        <p>{user.languageCode}</p>
       </div>
 
       <div className='balance'>

@@ -1,7 +1,5 @@
 export interface UserData {
     id: number | null;
-    userName: string;
-    languageCode: string;
-    photoUrl: string;
-
+    username: string;
+    language_code: string;
 }
