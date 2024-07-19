@@ -5,6 +5,7 @@ import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 
 import s from './header.module.css'
+import './header.css'
 
 export const Header: React.FC = () => {
     const userFriendlyAddress = useTonAddress();
