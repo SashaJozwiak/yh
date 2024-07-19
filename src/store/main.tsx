@@ -7,12 +7,16 @@ export const useStore = create<UseStore>((set) => ({
     {
         id: 757322479,
         userName: 'Jozwiak',
-        languageCode: 'en'
+        languageCode: 'en',
+        userFriendlyAddress: '',
+        rawAddress: '',
     },
-
     setUser: (user: User) => set(() => ({ user })),
-
-    //increasePopulation: () => set((state) => ({ id: state.id + 1 })),
-    //removeAllBears: () => set({ id: 0 }),
-
+    addAddresses: (addresses) => set((state) => ({
+        user: {
+            ...state.user,
+            userFriendlyAddress: addresses.userFriendlyAddress,
+            rawAddress: addresses.rawAddress,
+        }
+    })),
 }))

@@ -37,7 +37,7 @@ const App: React.FC = function () {
 
         <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
           width="50.000000pt" height="50.000000pt" viewBox="0 0 250.000000 250.000000"
-          /* preserveAspectRatio="xMidYMid meet" */>
+        >
           <g transform="translate(0.000000,224.000000) scale(0.100000,-0.100000)"
             fill="white" stroke="none">
             <path d="M350 1550 c-65 -22 -130 -86 -148 -147 -9 -29 -12 -179 -12 -529 0
@@ -56,7 +56,6 @@ const App: React.FC = function () {
             -55 -30 3 -41 30 -22 53 15 18 21 19 44 2z"/>
           </g>
         </svg>
-
 
         <p>{currencyFormat(2341.55)}</p>
         {/* <img style={{ marginTop: '0.3rem', opacity: '0' }} width={70} src={wallet} alt="wallet_img" /> */}

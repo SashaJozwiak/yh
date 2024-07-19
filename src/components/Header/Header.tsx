@@ -1,16 +1,35 @@
-import { useEffect } from 'react';
+import { useEffect, /* useState */ } from 'react';
 import { useStore } from '../../store/main';
 
-import { /* TonConnectButton, */ useTonConnectModal } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 
 import s from './header.module.css'
 
 export const Header: React.FC = () => {
-    const user = useStore((state) => state.user);
-    const setUser = useStore((state) => state.setUser);
+    const userFriendlyAddress = useTonAddress();
+    const rawAddress = useTonAddress(false);
 
-    const { state, open, close } = useTonConnectModal();
+    const user = useStore((state) => state.user);
+    const addresses = useStore((state) => (
+        {
+            userFriendlyAddress: state.user.userFriendlyAddress,
+            rawAddress: state.user.rawAddress
+        })
+    );
+    const setUser = useStore((state) => state.setUser);
+    const addAddresses = useStore((state) => state.addAddresses);
+
+    useEffect(() => {
+        if (rawAddress) {
+            const addresses = {
+                userFriendlyAddress,
+                rawAddress
+            }
+            addAddresses(addresses)
+        }
+
+    }, [addAddresses, rawAddress, userFriendlyAddress])
 
     useEffect(() => {
         const user = WebApp.initDataUnsafe.user;
@@ -18,7 +37,9 @@ export const Header: React.FC = () => {
             const newUser = {
                 id: user.id,
                 userName: user.username || '',
-                languageCode: user.language_code || ''
+                languageCode: user.language_code || '',
+                userFriendlyAddress: '',
+                rawAddress: '',
             };
             setUser(newUser);
         } else {
@@ -26,6 +47,8 @@ export const Header: React.FC = () => {
                 id: 757322479,
                 userName: "Jozwiak",
                 languageCode: "en",
+                userFriendlyAddress: '',
+                rawAddress: '',
             };
             setUser(newUser);
         }
@@ -40,22 +63,14 @@ export const Header: React.FC = () => {
 
             <div className={s.speed}>
                 <p>1.2/ч.</p>
+                <p>{addresses.rawAddress}</p>
+                <p>{addresses.userFriendlyAddress}</p>
+
             </div>
 
             <div className={s.settings}>
-                {/* <div className={s.lang}>{user.languageCode}</div> */}
-
-                {/* <p>Настройки</p> */}
-                {/* <TonConnectButton className={s.tonbutton} /> */}
-
-                <button className={s.tonbutton} onClick={state?.status == 'closed' ? open : close}>Кошелек</button>
+                <TonConnectButton className={s.tonbutton} />
             </div>
-            <div>state: {state?.status}</div>
-
-            {/* <div>Modal state: {state?.status}</div>
-            <button onClick={open}>Open modal</button>
-            <button onClick={close}>Close modal</button> */}
-
         </div>
     )
 }
