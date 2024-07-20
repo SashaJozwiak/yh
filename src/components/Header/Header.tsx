@@ -101,7 +101,7 @@ export const Header: React.FC = () => {
             </button>
 
             <div className={s.speed}>
-                <p>12.21ч</p>
+                <p>00.00/ч</p>
             </div>
 
             <div className={s.settings}>

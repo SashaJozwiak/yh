@@ -1,8 +1,6 @@
 .manage {
     flex-grow: 1;
     overflow-y: auto;
-    //border: 1px solid;
-    
 }
 
 .statbar {
@@ -14,26 +12,26 @@
     background-color: rgb(71 85 105);
     height: 3.5rem;
     width: 100vw;
-    padding: 0.5rem 1rem 0;
-    //border-bottom: 1px solid gray;
-    /* border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    z-index: 100; */
-
-    //box-shadow: 0px 7px 8px 0px rgba(240, 240, 240, 0.2);
-    //box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    padding: 0.5rem 0.6rem 0.5rem;
 }
 
 .tabs {
     background-color: rgb(53,66,86); 
     padding: 0 0.8rem;
+    font-size: 1.2rem;
+    width: 3rem;
 
-    
 
-    
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    //border-top-left-radius: 1rem;
+    //border-top-right-radius: 1rem;
+    border-radius: 0.3rem;
+
+    box-shadow: inset 2px 2px 5px rgb(100 100 100 / 50%);
     //border-radius:none;
+}
+
+.ontab {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .list {
@@ -41,7 +39,7 @@
     flex-grow: 1;
     overflow-y: auto;
     //background-color:black;
-    padding: 0 1rem;
+    padding: 0 0.6rem;
     //border: 1px solid;
 }
 
@@ -51,30 +49,32 @@
     //padding: 0.5rem;
     //border: 1px solid;
 
+    //font-size: 1rem;
+
     border-radius: 0.3rem;
     background-color:rgb(51 65 85);
 
     box-shadow: -2px -2px 5px #000, 2px 2px 5px #000000;
-    margin-bottom: 0.5rem;
+    //margin-bottom: 0.5rem;
 }
 
 .hold {
     padding: 0 0.3rem;
-    animation: changecolor 1s infinite linear;
+    //animation: changecolor 1s infinite linear;
+    width: 7rem;
     
 }
 
 @keyframes changecolor {
     0% {
-        //opacity: 0;
-        color:white;
+        color: rgb(226 232 240);
     }
+
     50% {
-        color:white;
+        color: rgb(100 116 139);
     }
     100% {
-        //opacity: 1;
-        color:white;
+        color: rgb(226 232 240);
     }
 }
 
