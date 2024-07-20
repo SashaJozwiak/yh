@@ -11,7 +11,7 @@ export const Balance = () => {
             <div className={s.balance}>
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                     width="50.000000pt" height="50.000000pt" viewBox="0 0 250.000000 250.000000">
-                    <g transform="translate(0.000000,224.000000) scale(0.100000,-0.100000)"
+                    <g transform="translate(0.000000,215.000000) scale(0.100000,-0.100000)"
                         fill="white" stroke="none">
                         <path d="M350 1550 c-65 -22 -130 -86 -148 -147 -9 -29 -12 -179 -12 -529 0
                             -470 1 -491 21 -534 24 -54 43 -75 91 -106 67 -43 136 -46 832 -42 711 4 681
