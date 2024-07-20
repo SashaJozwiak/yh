@@ -28,8 +28,12 @@
     background-color: rgb(53,66,86); 
     padding: 0 0.8rem;
 
+    
+
+    
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    //border-radius:none;
 }
 
 .list {
