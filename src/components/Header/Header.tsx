@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, /* useState, */ useCallback } from 'react';
 import { useStore } from '../../store/main';
 
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
@@ -9,7 +9,7 @@ import './header.css'
 
 export const Header: React.FC = () => {
 
-    const [balance, setBalance] = useState<string | null>(null);
+    //const [balance, setBalance] = useState<string | null>(null);
 
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
@@ -40,7 +40,8 @@ export const Header: React.FC = () => {
             const data = await response.json();
             console.log('data: ', data)
             const tonBalance = (data.balance / 10 ** 9).toFixed(2);
-            setBalance(tonBalance);
+            console.log('balance: ', tonBalance);
+            //setBalance(tonBalance);
         } catch (error) {
             console.error('Failed to fetch balance:', error);
         }
