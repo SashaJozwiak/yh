@@ -1,4 +1,4 @@
-import React from 'react'
+//import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx';
 
@@ -12,9 +12,9 @@ WebApp.ready();
 const manifestUrl = 'https://sashajozwiak.github.io/yh/tonconnect-manifest.json';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <TonConnectUIProvider manifestUrl={manifestUrl}>
       <App />
     </TonConnectUIProvider>
-  </React.StrictMode>
+  //</React.StrictMode>
 )

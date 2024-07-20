@@ -1,0 +1,44 @@
+.manage {
+    flex-grow: 1;
+    overflow-y: auto;
+    //border: 1px solid;
+    
+}
+
+.statbar {
+    position:fixed;
+    display:flex;
+    justify-content: space-between;
+    gap:0.5rem;
+    background-color: rgb(44,56,75);
+    height: 3.5rem;
+    width: 100vw;
+    padding: 0.5rem;
+    //border-bottom: 1px solid gray;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    z-index: 100;
+
+box-shadow: 0px 7px 8px 0px rgba(240, 240, 240, 0.2);
+}
+
+.list {
+    margin-top:3.5rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    //background-color:black;
+    padding: 0 1rem;
+    //border: 1px solid;
+}
+
+.refresh, .hold {
+    //width:10rem;
+    //height:100%;
+    //padding: 0.5rem;
+    //border: 1px solid;
+
+    border-radius: 0.3rem;
+    background-color:rgb(51 65 85);
+
+    box-shadow: -2px -2px 5px #000, 2px 2px 5px #000000;
+}

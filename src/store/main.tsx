@@ -1,13 +1,14 @@
 import { create } from 'zustand'
-import { User, UseStore } from '../types/stores'
+import { User, UseStore, UseUserBalances } from '../types/stores'
+import { devtools } from 'zustand/middleware'
 //import { UserData } from '../types/userData'
 
-export const useStore = create<UseStore>((set) => ({
+export const useUserData = create<UseStore>()(devtools((set) => ({
     user:
     {
-        id: 757322479,
-        userName: 'Jozwiak',
-        languageCode: 'en',
+        id: null,
+        userName: '',
+        languageCode: '',
         userFriendlyAddress: '',
         rawAddress: '',
     },
@@ -19,4 +20,18 @@ export const useStore = create<UseStore>((set) => ({
             rawAddress: addresses.rawAddress,
         }
     })),
-}))
+})))
+
+export const useUserBalances = create<UseUserBalances>()(devtools((set) => ({
+    bal: {
+        ton: 0,
+        usdt: 0,
+    },
+    setUserBalance: (currency: string, value: number) => set((state) => ({
+        bal: {
+            ...state.bal,
+            [currency]: value,
+        }
+    })),
+
+})))
