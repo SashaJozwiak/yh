@@ -98,7 +98,7 @@ export const Header: React.FC = () => {
 
             <div className={s.speed}>
                 <p>1.2/ч.</p>
-                <p>{balance}</p>
+                {/* <p>{balance}</p> */}
 
             </div>
 
