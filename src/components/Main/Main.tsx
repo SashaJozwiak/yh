@@ -26,7 +26,7 @@ export const Main: React.FC = () => {
                     </button> */}
                 </div>
 
-                <div className={s.list}>
+                <div className={`${s.list} scroll`}>
                     <p style={{ border: '1px solid', padding: '0.5rem 0', margin: '0.5rem 0', borderRadius: '0.5rem' }}>text1</p>
                     <p style={{ border: '1px solid', padding: '0.5rem 0', margin: '0.5rem 0' }}>text1</p>
                     <p style={{ border: '1px solid', padding: '0.5rem 0', margin: '0.5rem 0' }}>text1</p>
