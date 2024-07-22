@@ -4,14 +4,9 @@ import { useUserData } from '../../store/main';
 
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
-
-import s from './header.module.css'
-
-
-
+import s from './header.module.css';
 
 export const Header: React.FC = () => {
-
     //const [balance, setBalance] = useState<string | null>(null);
 
     const userFriendlyAddress = useTonAddress();
@@ -90,7 +85,6 @@ export const Header: React.FC = () => {
     }, [addAddresses, rawAddress, userFriendlyAddress])
 
     console.log(useUserData(state => state))
-
 
     return (
         <div className={s.header}>

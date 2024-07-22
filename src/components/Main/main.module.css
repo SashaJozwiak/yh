@@ -4,7 +4,7 @@
 }
 
 .statbar {
-    position:fixed;
+    //position:fixed;
     display:flex;
     justify-content: space-between;
     gap:0.5rem;
@@ -18,8 +18,9 @@
 .tabs {
     background-color: rgb(53,66,86); 
     padding: 0 0.8rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     width: 3rem;
+    height: 2.5rem;
 
 
     //border-top-left-radius: 1rem;
@@ -35,7 +36,7 @@
 }
 
 .list {
-    margin-top:3.5rem;
+    //margin-top:3.5rem;
     flex-grow: 1;
     overflow-y: auto;
     //background-color:black;
@@ -65,18 +66,76 @@
     
 }
 
-@keyframes changecolor {
+/* @keyframes changecolor {
     0% {
         color: rgb(226 232 240);
     }
-
     50% {
         color: rgb(100 116 139);
     }
     100% {
         color: rgb(226 232 240);
     }
+} */
+
+.rocket {
+    position:relative;
+    top:0px;
+    left:0px;
+    transform: rotate(-45deg);
+
 }
+
+/* @keyframes roketup2 {
+    0% {
+        transform: rotate(-45deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-45deg);
+    }
+}
+
+
+@keyframes roketup {
+    0% {
+        top:-1px;
+        left:2px;
+        transform: rotate(-45deg);
+    }
+
+    20% {
+        top:0px;
+        left:0px;
+    }
+
+    40% {
+        top:-1px;
+        left:2px;
+    }
+
+    60% {
+        top:0px;
+        left:0px;
+        transform: rotate(0deg);
+    }
+
+    80% {
+        top:-1px;
+        left:2px;
+    }
+
+    100% {
+        top:0px;
+        left:0px;
+        transform: rotate(-45deg);
+    }
+} */
+
 
 .refresh {
     width:2.5rem;
