@@ -13,12 +13,16 @@ export interface UseStore {
 }
 
 export interface Balances {
-    ton: number;
-    usdt: number;
-    [key: string]: number;
+    name: string;
+    value: number;
+    range: [number, number];
+    inH: number;
+    speed: number;
 }
 
 export interface UseUserBalances {
-    bal: Balances;
+    bal: Balances[];
     setUserBalance: (currency: string, value: number) => void;
+    updateBalance: (value: number) => void;
+    updateSpeed: (name: string, speed: number) => void;
 }
