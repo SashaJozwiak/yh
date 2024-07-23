@@ -1,6 +1,6 @@
-import { useEffect, /* useState, */ useCallback } from 'react';
+import { useEffect, /* useState, */ /* useCallback */ } from 'react';
 
-import { useUserData, useUserBalances } from '../../store/main';
+import { useUserData, /* useUserBalances */ } from '../../store/main';
 
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
@@ -9,36 +9,11 @@ import s from './header.module.css';
 export const Header: React.FC = () => {
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
+    const rawAddressInState = useUserData(state => state.user.rawAddress);
 
     const user = useUserData((state) => state.user);
-    const rawAddressInState = useUserData((state) => state.user.rawAddress);
     const setUser = useUserData((state) => state.setUser);
     const addAddresses = useUserData((state) => state.addAddresses);
-
-    const updateBalance = useUserBalances((state) => state.updateBalance);
-
-    const fetchBalance = useCallback(async (rawAddress: string) => {
-        console.log(`start fetch for ${rawAddress}`)
-        try {
-            const response = await fetch(`https://tonapi.io/v2/accounts/${encodeURIComponent(rawAddress)}`, {
-                headers: {
-                    'accept': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            console.log('data: ', data)
-            const tonBalance = (data.balance / 10 ** 9).toFixed(2);
-            console.log('balance: ', tonBalance);
-            updateBalance(+tonBalance);
-        } catch (error) {
-            console.error('Failed to fetch balance:', error);
-        }
-    }, [updateBalance]);
 
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
@@ -52,7 +27,7 @@ export const Header: React.FC = () => {
                 rawAddress: '',
             };
             setUser(newUser);
-        } else {
+        } else if (user.id !== 757322479) {
             const newUser = {
                 id: 757322479,
                 userName: "Jozwiak",
@@ -64,19 +39,12 @@ export const Header: React.FC = () => {
             setUser(newUser);
             console.log('write jozwiak user in store finish')
         }
-    }, [setUser]);
+    }, [setUser, user.id]);
 
-    useEffect(() => {
-        console.log('check new address')
-        if (rawAddressInState) {
-            console.log('have new address and start fetch')
-            fetchBalance(rawAddressInState);
-        }
-    }, [rawAddressInState, fetchBalance]);
 
     useEffect(() => {
         console.log('check rawaddress from wallet')
-        if (rawAddress) {
+        if (rawAddress && rawAddress !== rawAddressInState) {
             console.log('write addresses  wallet')
             const addresses = {
                 userFriendlyAddress,
@@ -84,9 +52,9 @@ export const Header: React.FC = () => {
             }
             addAddresses(addresses)
         }
-    }, [addAddresses, rawAddress, userFriendlyAddress])
+    }, [addAddresses, rawAddress, userFriendlyAddress, rawAddressInState])
 
-    console.log(useUserData(state => state))
+    console.log(user)
 
     return (
         <div className={s.header}>

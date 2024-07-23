@@ -23,6 +23,6 @@ export interface Balances {
 export interface UseUserBalances {
     bal: Balances[];
     setUserBalance: (currency: string, value: number) => void;
-    updateBalance: (value: number) => void;
+    updateBalance: (rawAddress: string,) => void;
     updateSpeed: (name: string, speed: number) => void;
 }
