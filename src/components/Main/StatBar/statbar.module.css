@@ -25,6 +25,7 @@
 }
 
 .hold, .refresh{
+    color:white;
     border-radius: 0.3rem;
     background-color:rgb(51 65 85);
     box-shadow: -2px -2px 5px #000, 2px 2px 5px #000000;

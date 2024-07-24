@@ -7,6 +7,8 @@
 .listitem {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    flex: 1 0 30%; 
     //gap: 1rem;
     border: 1px solid; 
     padding: 0.6rem 0.5rem; 
@@ -18,4 +20,27 @@
     flex-basis: 4rem;
     text-align:left;
     //border:1px solid;
+}
+
+.progressbar {
+    flex: 0 0 100%;
+    height: 0.5rem;
+    background-color:white;
+    border-radius:0.3rem;
+}
+
+.progress {
+    background-color: green;
+    height: 0.5rem;
+    width:0;
+}
+
+.range0 {
+    color: lightgrey;
+    font-size: 0.8rem;
+}
+
+.range1 {
+    color: lightgrey;
+    font-size: 0.8rem;
 }

@@ -5,6 +5,7 @@ import { useUserData, /* useUserBalances */ } from '../../store/main';
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
+import { useBalance } from '../../store/balance';
 
 export const Header: React.FC = () => {
     const userFriendlyAddress = useTonAddress();
@@ -14,6 +15,8 @@ export const Header: React.FC = () => {
     const user = useUserData((state) => state.user);
     const setUser = useUserData((state) => state.setUser);
     const addAddresses = useUserData((state) => state.addAddresses);
+
+    const actualSpeed = useBalance(state => state.balance.speed)
 
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
@@ -59,13 +62,14 @@ export const Header: React.FC = () => {
     return (
         <div className={s.header}>
             <button className={s.profile}>
-                <p style={{ fontSize: '0.92rem' }}>
-                    {user.userName.slice(0, 8)}
+                <p style={{ fontSize: '1rem' }}>
+                    {/* {user.userName.slice(0, 8)} */}
+                    Profile
                 </p>
             </button>
 
             <div className={s.speed}>
-                <p>00.00/ч</p>
+                <p>{actualSpeed.toFixed(2)}/ч</p>
             </div>
 
             <div className={s.settings}>
