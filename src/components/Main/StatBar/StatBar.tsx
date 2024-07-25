@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
-import { useJettonsBalances, useUserBalances } from '../../../store/main'
+import { useUserData, useJettonsBalances, useUserBalances } from '../../../store/main'
 import { useBalance } from '../../../store/balance';
 import { useNav } from '../../../store/nav';
+
+import { ButtonTimer } from './ButtonTimer/ButtonTimer';
 
 import s from './statbar.module.css'
 
 export const StatBar: React.FC = () => {
     const [speed, setSpeed] = useState(0)
+
+    const rawAddress = useUserData(state => state.user.rawAddress)
     const balance = useUserBalances(state => state.bal)
     const balancesJ = useJettonsBalances(state => state.jettons)
 
@@ -29,7 +33,7 @@ export const StatBar: React.FC = () => {
         //onst now = new Date();
 
         setBalance({
-            //balance: 0,
+            balance: balanceData.balance + (speed * balanceData.period),
             speed: speed,
             isHold: true,
             startData: new Date().toISOString(),
@@ -50,9 +54,10 @@ export const StatBar: React.FC = () => {
                 className={`${s.tabs} ${!nav ? s.ontab : null}`}> … </button>
             <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/ч</p>
             <button
+                disabled={balanceData.isHold || !rawAddress}
                 onClick={pushHold}
-                className={s.hold}>
-                <h3>HOLD!</h3>
+                className={`${s.hold} ${balanceData.isHold ? s.holdOn : null}`}>
+                <h3>{balanceData.isHold ? <ButtonTimer /> : <span style={{ color: rawAddress ? 'white' : 'grey' }}>HOLD!</span>}</h3>
             </button>
         </div>
     )

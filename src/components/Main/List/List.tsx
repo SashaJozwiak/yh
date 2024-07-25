@@ -46,7 +46,7 @@ export const List: React.FC = () => {
                 return (
                     <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                         <h4 className={s.currname}>{currency.name}</h4>
-                        <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span>{/* /{(currency.range[1]).toLocaleString('ru')} */} {(currency.name).toLowerCase()}</div>
+                        <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
                         <div><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/ч</div>
                         <div className={s.progressbar}>
                             <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
@@ -57,13 +57,12 @@ export const List: React.FC = () => {
                 );
             })}
 
-
             {
                 rawAddress ? balanceJ.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                             <h4 className={s.currname}>{currency.name}</h4>
-                            <div><span style={{ fontWeight: 'bold' }}>{currency.value}</span>{/* /{(currency.range[1]).toLocaleString('ru')}*/} {(currency.name).toLowerCase()}</div>
+                            <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
                             <div><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/ч</div>
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>

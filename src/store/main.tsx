@@ -36,7 +36,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
         {
             name: 'BONUS',
             value: 100,
-            range: [0.01, 999999],
+            range: [0.1, 999999],
             inH: 10000,
             speed: 0,
         },
@@ -44,7 +44,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             name: 'TON',
             value: 0,
             range: [0.01, 100],
-            inH: 200,
+            inH: 100,
             speed: 0,
         }
     ],
@@ -102,7 +102,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             address: '0:b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe',
             value: 0,
             range: [0.01, 1000],
-            inH: 200,
+            inH: 100,
             speed: 0,
         },
         {
@@ -110,7 +110,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             address: '0:97cceec78682b97c342e08e344e3797cf90b2b7aae73abcf5954d8449dadb878',
             value: 0,
             range: [350, 100000],
-            inH: 200,
+            inH: 100,
             speed: 0,
         }
     ],

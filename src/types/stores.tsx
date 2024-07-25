@@ -59,7 +59,7 @@ export interface BalanceObj {
     balance: number;
     isHold: boolean;
     speed: number;
-    period: 24,
+    period: number,
     finishData: string;
     startData: string;
 }

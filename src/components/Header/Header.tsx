@@ -62,14 +62,14 @@ export const Header: React.FC = () => {
     return (
         <div className={s.header}>
             <button className={s.profile}>
-                <p style={{ fontSize: '1rem' }}>
+                <p style={{ fontSize: '0.8rem' }}>
                     {/* {user.userName.slice(0, 8)} */}
-                    Profile
+                    Кабинет
                 </p>
             </button>
 
             <div className={s.speed}>
-                <p>{actualSpeed.toFixed(2)}/ч</p>
+                <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/ч</p>
             </div>
 
             <div className={s.settings}>

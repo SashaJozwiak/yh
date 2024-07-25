@@ -39,14 +39,14 @@ export const Balance = () => {
                 if (elapsedTime >= periodInMs) {
                     // Если прошло достаточно времени, устанавливаем окончательный баланс и очищаем интервал
                     setCurrentBalance(balanceData.balance);
-                    setBalanceData({ balance: balanceData.balance, isHold: false });
+                    setBalanceData({ balance: balanceData.balance, isHold: false, speed: 0.00 });
                     if (intervalRef.current !== null) {
                         clearInterval(intervalRef.current);
                         intervalRef.current = null;
                     }
                 } else {
                     // Если время еще не истекло, обновляем баланс на основе прошедшего времени и скорости
-                    const newBalance = balanceData.balance + (speed * (elapsedTime / 1000 / 60 / 60));
+                    const newBalance = balanceData.balance - (speed * balanceData.period) + (speed * (elapsedTime / 1000 / 60 / 60));
                     setCurrentBalance(newBalance);
                 }
             };

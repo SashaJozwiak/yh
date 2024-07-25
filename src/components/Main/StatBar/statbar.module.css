@@ -6,7 +6,7 @@
     background-color: rgb(100 116 139);
     background-color: rgb(71 85 105);
     height: 3.5rem;
-    width: 100vw;
+    //width: 100vw;
     padding: 0.5rem 0.6rem 0.5rem;
 }
 
@@ -29,9 +29,14 @@
     border-radius: 0.3rem;
     background-color:rgb(51 65 85);
     box-shadow: -2px -2px 5px #000, 2px 2px 5px #000000;
+    
 }
 
 .hold {
     padding: 0 0.3rem;
     width: 7rem;
+}
+
+.holdOn {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
