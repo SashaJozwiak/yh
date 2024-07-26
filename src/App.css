@@ -27,7 +27,44 @@
 }
 
 .footer {
-  border: 1px solid;
-  height: 5rem;
-  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  //border: 1px solid black;
+  //border-radius: 1rem;
+
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+
+
+
+
+  //margin: 0 0.5rem;
+  background-color: rgba(71, 85, 105, 0.85);
+  background-color: rgba(71, 85, 105, 0.80);
+  padding: 0 0.5rem;
+
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+
+}
+
+.btn {
+  flex: 1 1 0;
+  padding: 0.2rem 0rem;
+  width: 0;
+  margin: 0.5rem auto 0.8rem;
+  //border: 1px solid;
+  border-radius: 1rem;
+  background-color: transparent;
+
+  color:white;
+  font-weight: bold;
+}
+
+.btnOn {
+  background-color: rgb(51 65 85);
 }

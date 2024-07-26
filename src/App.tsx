@@ -30,7 +30,10 @@ const App: React.FC = function () {
       <Header />
       <Main />
       <div className='footer'>
-        footer
+        <button className='btn btnOn'><p>JUST</p>HOLD</button>
+        <button className='btn'><p>UP</p>BONUS</button>
+        <button className='btn' style={{ color: 'gray' }}><p>GET</p>LOAN</button>
+        <button className='btn'><p>VIEW</p>STAGE</button>
       </div>
     </>
   );

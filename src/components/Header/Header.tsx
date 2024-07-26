@@ -64,7 +64,7 @@ export const Header: React.FC = () => {
             <button className={s.profile}>
                 <p style={{ fontSize: '0.8rem' }}>
                     {/* {user.userName.slice(0, 8)} */}
-                    Кабинет
+                    Cabinet
                 </p>
             </button>
 
