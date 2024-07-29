@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useUserData, useJettonsBalances, useUserBalances } from '../../../store/main'
+import { useUserData, useJettonsBalances, useUserBalances, useStonFi } from '../../../store/main'
 import { useBalance } from '../../../store/balance';
 import { useNav } from '../../../store/nav';
 
@@ -13,9 +13,12 @@ export const StatBar: React.FC = () => {
     const rawAddress = useUserData(state => state.user.rawAddress)
     const balance = useUserBalances(state => state.bal)
     const balancesJ = useJettonsBalances(state => state.jettons)
+    const balancesSF = useStonFi(state => state.pools)
 
     const speedBal = useUserBalances(state => state.totalSpeed)
     const speedBalJ = useJettonsBalances(state => state.totalSpeedJ)
+    const speedBalSF = useStonFi(state => state.totalSpeedSF)
+
 
     const nav = useNav(state => state.nav.list)
     const setNavList = useNav(state => state.setNavList)
@@ -25,8 +28,8 @@ export const StatBar: React.FC = () => {
 
     useEffect(() => {
         console.log(speedBal(), speedBalJ())
-        setSpeed(speedBal() + speedBalJ());
-    }, [balance, balancesJ, speedBal, speedBalJ])
+        setSpeed(speedBal() + speedBalJ() + speedBalSF());
+    }, [balance, balancesJ, balancesSF, speedBal, speedBalJ, speedBalSF])
 
 
     const pushHold = () => {
@@ -52,7 +55,7 @@ export const StatBar: React.FC = () => {
             <button
                 onClick={() => setNavList(false)}
                 className={`${s.tabs} ${!nav ? s.ontab : null}`}> … </button>
-            <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/ч</p>
+            <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/h</p>
             <button
                 disabled={balanceData.isHold || !rawAddress}
                 onClick={pushHold}

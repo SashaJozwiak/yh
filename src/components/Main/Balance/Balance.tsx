@@ -3,7 +3,7 @@ import { useBalance } from '../../../store/balance';
 import s from './balance.module.css';
 
 const currencyFormat = (num: number) => {
-    const formatted = num.toFixed(3).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
+    const formatted = num > 10000 ? num.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ') : num > 1000 ? num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ') : num.toFixed(3).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
     return formatted;
 }
 
@@ -15,14 +15,6 @@ export const Balance = () => {
 
     const [currentBalance, setCurrentBalance] = useState(balanceData.balance);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-    useEffect(() => {
-        // Загрузка данных из localStorage
-        const savedBalanceData = localStorage.getItem('balanceData');
-        if (savedBalanceData) {
-            setBalanceData(JSON.parse(savedBalanceData));
-        }
-    }, [setBalanceData]);
 
     useEffect(() => {
         if (balanceData.isHold) {

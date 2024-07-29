@@ -25,6 +25,11 @@
     background-color:rgb(51 65 85);
 
     box-shadow: -2px -2px 5px #000, 2px 2px 5px #000000;
+    //box-shadow: inset 2px 2px 5px rgb(100 100 100 / 50%);
+}
+
+.ontab {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .settings{
@@ -33,7 +38,6 @@
     box-shadow: none;
     width: 9rem;
 }
-
 
 .speed {
     background-color: rgb(71 85 105);

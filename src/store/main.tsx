@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { User, UseStore, UseUserBalances, UseUserBalancesJ } from '../types/stores'
+import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi } from '../types/stores'
 import { devtools } from 'zustand/middleware'
 //import { UserData } from '../types/userData'
 
@@ -39,6 +39,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             range: [0.1, 999999],
             inH: 10000,
             speed: 0,
+            src: '',
         },
         {
             name: 'TON',
@@ -46,6 +47,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             range: [0.01, 100],
             inH: 100,
             speed: 0,
+            src: '',
         }
     ],
     totalSpeed: () => {
@@ -104,16 +106,19 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             range: [0.01, 1000],
             inH: 100,
             speed: 0,
+            src: '',
         },
         {
             name: 'PEPE',
             address: '0:97cceec78682b97c342e08e344e3797cf90b2b7aae73abcf5954d8449dadb878',
             value: 0,
-            range: [350, 100000],
+            range: [300, 100000],
             inH: 100,
             speed: 0,
+            src: '',
         }
     ],
+    loadStatus: false,
     totalSpeedJ: () => {
         const state = get();
         return state.jettons.reduce((acc, currency) => {
@@ -123,6 +128,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
     },
 
     updateBalanceJ: async (rawAddress: string) => {
+        set({ loadStatus: true });
         try {
             const response = await fetch(`https://tonapi.io/v2/accounts/${encodeURIComponent(rawAddress)}/jettons`, {
                 headers: {
@@ -156,6 +162,8 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             });
         } catch (error) {
             console.error('Failed to fetch balance jettons:', error);
+        } finally {
+            set({ loadStatus: false })
         }
     },
 
@@ -164,4 +172,81 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             item.name === name ? { ...item, speed } : item
         ),
     })),
+
+}))
+
+export const useStonFi = create<UseStonFi>((set, get) => ({
+    pools: [
+        {
+            name: 'TON/USDT',
+            address: 'EQD8TJ8xEWB1SpnRE4d89YO3jl0W0EiBnNS4IBaHaUmdfizE',
+            value: 0,
+            range: [0.1, 100],
+            inH: 100,
+            speed: 0,
+        },
+    ],
+    loadStatus: false,
+    updateBalanceSF: async (rawAddress: string) => {
+        set({ loadStatus: true });
+        try {
+            const response = await fetch(`https://api.ston.fi/v1/wallets/${encodeURIComponent(rawAddress)}/farms`, {
+                headers: {
+                    'accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            //const filteredPools = data.farm_list.filter(farm => farm.pool_address === 'TON/USDT');
+            //console.log('get: ', get().pools)
+
+            get().pools.map(pool => {
+                const isPool = data.farm_list.find(poolIn => poolIn.pool_address === pool.address);
+                console.log('ispool: ', isPool);
+                if (isPool && isPool.status === 'operational' && Array.isArray(isPool.nft_infos) && isPool.nft_infos.length > 0) {
+                    const totalStakedTokens = isPool.nft_infos
+                        .filter(nft => nft.status === 'active')
+                        .reduce((acc, nft) => acc + parseInt(nft.staked_tokens, 10), 0);
+                    console.log('Total staked tokens for active NFTs: ', totalStakedTokens);
+                    set(state => {
+                        const updatedPools = state.pools.map(p => {
+                            if (p.address === isPool.pool_address) {
+                                return {
+                                    ...p,
+                                    value: totalStakedTokens / 1000000
+                                };
+                            }
+                            return p;
+                        });
+
+                        return { pools: updatedPools };
+                    });
+                }
+            })
+
+            console.log('stonfi_tonusdt_balance: ', data);
+        } catch (error) {
+            console.error('Failed to fetch balance jettons:', error);
+        } finally {
+            set({ loadStatus: false })
+        }
+
+    },
+    updateSpeedSF: (name: string, speed: number) => set((state) => ({
+        pools: state.pools.map(item =>
+            item.name === name ? { ...item, speed } : item
+        )
+    })),
+    totalSpeedSF: () => {
+        const state = get();
+        return state.pools.reduce((acc, currency) => {
+            //const speed = ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
+            return acc + currency.speed;
+        }, 0);
+    },
+
 }))

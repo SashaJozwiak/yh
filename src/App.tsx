@@ -4,11 +4,14 @@ import { useEffect } from 'react';
 import { Header } from './components/Header/Header';
 import { Main } from './components/Main/Main';
 
+import { useNav } from './store/nav';
+import { useUserData, useUserBalances, useJettonsBalances, useStonFi } from './store/main'
 
 import WebApp from '@twa-dev/sdk';
 import eruda from 'eruda'
 
 import './App.css';
+import { Footer } from './components/Footer/Footer';
 
 
 eruda.init();//just for debug
@@ -19,22 +22,46 @@ eruda.init();//just for debug
 
 const App: React.FC = function () {
 
+  const nav = useNav((state) => state.nav.main)
+
+  const rawAddress = useUserData(state => state.user.rawAddress);
+  const updateBalance = useUserBalances((state) => state.updateBalance);
+  const updateBalanceJ = useJettonsBalances((state) => state.updateBalanceJ);
+
+  const updateStonFiBalance = useStonFi((state) => state.updateBalanceSF)
+
+  console.log('Main render')
+
   useEffect(() => {
     if (!WebApp.isExpanded) {
       WebApp.expand();
     }
   }, []);
 
+  useEffect(() => {
+    console.log('render change rawaddres in LIST')
+    if (rawAddress) {
+      updateBalance(rawAddress);
+    }
+  }, [rawAddress, updateBalance]);
+
+  useEffect(() => {
+    console.log('render change rawaddres in LIST jettons')
+    if (rawAddress) {
+      updateBalanceJ(rawAddress);
+      updateStonFiBalance(rawAddress)
+    }
+  }, [rawAddress, updateBalanceJ, updateStonFiBalance]);
+
   return (
     <>
       <Header />
-      <Main />
-      <div className='footer'>
-        <button className='btn btnOn'><p>JUST</p>HOLD</button>
-        <button className='btn'><p>UP</p>BONUS</button>
-        <button className='btn' style={{ color: 'gray' }}><p>GET</p>LOAN</button>
-        <button className='btn'><p>VIEW</p>STAGE</button>
-      </div>
+      {nav === 'hold' && <Main />}
+      {nav === 'bonus' && <h2>bonus</h2>}
+      {nav === 'loan' && <h2>loan</h2>}
+      {nav === 'stage' && <h2>stage</h2>}
+      {nav === 'cabinet' && <h2>cabinet</h2>}
+      <Footer />
     </>
   );
 }

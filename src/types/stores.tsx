@@ -12,12 +12,15 @@ export interface UseStore {
     addAddresses: (addresses: { userFriendlyAddress: string; rawAddress: string }) => void;
 }
 
+//===
+
 export interface Balances {
     name: string;
     value: number;
     range: [number, number];
     inH: number;
     speed: number;
+    src: string;
 }
 
 export interface UseUserBalances {
@@ -28,6 +31,8 @@ export interface UseUserBalances {
     totalSpeed: () => number;
 }
 
+//===
+
 export interface BalancesJ {
     name: string;
     address: string;
@@ -35,25 +40,31 @@ export interface BalancesJ {
     range: [number, number];
     inH: number;
     speed: number;
+    src: string;
 }
 
 export interface UseUserBalancesJ {
     jettons: BalancesJ[];
+    loadStatus: boolean;
     updateBalanceJ: (rawAddress: string) => void;
     updateSpeedJ: (name: string, speed: number) => void;
     totalSpeedJ: () => number;
 }
 
+//===
+
 export interface NavObj {
     list: boolean;
-    main: boolean;
+    main: string;
 }
 
 export interface UseNav {
     nav: NavObj;
     setNavList: (bool: boolean) => void;
+    setMainNav: (tabName: string) => void;
 }
 
+//=== main balance and state
 
 export interface BalanceObj {
     balance: number;
@@ -68,4 +79,21 @@ export interface UseBalance {
     balance: BalanceObj;
     setBalanceData: (balance: Partial<BalanceObj>) => void;
     setBalance: (value: number) => void;
+}
+
+export interface PoolsSFState {
+    name: string;
+    address: string;
+    value: number;
+    range: [number, number];
+    inH: number;
+    speed: number;
+}
+
+export interface UseStonFi {
+    pools: PoolsSFState[];
+    loadStatus: boolean;
+    updateBalanceSF: (rawAddress: string) => void;
+    updateSpeedSF: (name: string, speed: number) => void;
+    totalSpeedSF: () => number;
 }

@@ -1,13 +1,18 @@
 import { useEffect, /* useState, */ /* useCallback */ } from 'react';
 
 import { useUserData, /* useUserBalances */ } from '../../store/main';
+import { useBalance } from '../../store/balance';
+import { useNav } from '../../store/nav';
 
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
-import { useBalance } from '../../store/balance';
+
 
 export const Header: React.FC = () => {
+    const changeNav = useNav((state) => state.setMainNav)
+    const nav = useNav((state) => state.nav.main);
+
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
     const rawAddressInState = useUserData(state => state.user.rawAddress);
@@ -61,15 +66,16 @@ export const Header: React.FC = () => {
 
     return (
         <div className={s.header}>
-            <button className={s.profile}>
+            <button
+                onClick={() => changeNav('cabinet')}
+                className={`${s.profile} ${nav === 'cabinet' ? s.ontab : null}`}>
                 <p style={{ fontSize: '0.8rem' }}>
-                    {/* {user.userName.slice(0, 8)} */}
                     Cabinet
                 </p>
             </button>
 
             <div className={s.speed}>
-                <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/ч</p>
+                <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/h</p>
             </div>
 
             <div className={s.settings}>
