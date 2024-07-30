@@ -4,7 +4,7 @@ import { useNav } from '../../../store/nav';
 
 import s from './list.module.css'
 
-const formatNumber = (num) => {
+const formatNumber = (num: number) => {
     if (num > 999) {
         return `${Math.floor(num / 1000)}k`;
     }
@@ -74,9 +74,9 @@ export const List: React.FC = () => {
                         <div className={s.progressbar}>
                             <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
                         </div>
-                        <div className={s.range0}>{formatNumber(currency.range[0])} - {formatNumber(currency.range[1])} {currency.name}</div>
+                        <div className={s.range0}>{formatNumber(currency.range[0])} - {formatNumber(currency.range[1])}</div>
                         {currency.name !== 'BONUS' && <button className={s.news}>news</button>}
-                        <div className={s.range1}>до {formatNumber(currency.inH)}/h</div>
+                        <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                     </div>
                 );
             })}
@@ -91,14 +91,14 @@ export const List: React.FC = () => {
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
                             </div>
-                            <div className={s.range0}>{formatNumber(currency.range[0])} - {formatNumber(currency.range[1])} {currency.name}</div>
+                            <div className={s.range0}>{formatNumber(currency.range[0])} - {formatNumber(currency.range[1])}</div>
                             <button className={s.news}>news</button>
-                            <div className={s.range1}>до {formatNumber(currency.inH)}/h</div>
+                            <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                         </div>
                     );
                 }) : <h2>Подключите кошелёк!</h2>
             }
-            {balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && <h3 style={{ color: 'lightgray', borderBottom: '2px dashed', width: '8rem', margin: '0 auto' }}>Stonfi Farms</h3>}
+            {balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && <h3 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Farms</h3>}
             {rawAddress &&
                 balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                     return (
@@ -111,7 +111,7 @@ export const List: React.FC = () => {
                             </div>
                             <div className={s.range0}>{formatNumber(currency.range[0])} - {formatNumber(currency.range[1])} Lp</div>
                             {/* <button className={s.news}>news</button> */}
-                            <div className={s.range1}>до {formatNumber(currency.inH)}/h</div>
+                            <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                         </div>
                     )
                 })}
