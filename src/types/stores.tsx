@@ -97,3 +97,17 @@ export interface UseStonFi {
     updateSpeedSF: (name: string, speed: number) => void;
     totalSpeedSF: () => number;
 }
+
+
+export interface Task {
+    id: number;
+    title: string;
+    price: number;
+    completed: boolean;
+    src: string;
+}
+
+export interface UseTasks {
+    tasks: Task[];
+    completeTask: (id: number) => void;
+}

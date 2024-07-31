@@ -1,0 +1,24 @@
+.stagelist {
+    list-style-type:none;
+    padding: 1rem;
+
+    font-size: 1.3rem;
+    font-size: calc(3vw * 2);
+    text-align:left;
+}
+
+.listelement, .listelementonchain {
+    margin: 0.2rem;
+    border-radius: 2rem;
+    //box-shadow: inset 3px 3px 5px rgb(100 100 100 / 90%);
+}
+
+.ok {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.listelementonchain {
+    text-align:center;
+    margin: 0 auto;
+    font-size: calc(2.5vw * 2);
+}

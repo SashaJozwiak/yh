@@ -37,7 +37,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             name: 'BONUS',
             value: 100,
             range: [0.1, 999999],
-            inH: 10000,
+            inH: 1000,
             speed: 0,
             src: '',
         },
@@ -47,7 +47,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             range: [0.01, 100],
             inH: 100,
             speed: 0,
-            src: '',
+            src: 'https://t.me/tonblockchain',
         }
     ],
     totalSpeed: () => {
@@ -106,7 +106,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             range: [0.01, 1000],
             inH: 100,
             speed: 0,
-            src: '',
+            src: 'https://t.me/OfficialTether',
         },
         {
             name: 'PEPE',

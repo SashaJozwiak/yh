@@ -1,7 +1,8 @@
-import { /* useState, */ useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useStonFi, useJettonsBalances, useUserBalances, useUserData } from '../../../store/main'
 import { useNav } from '../../../store/nav';
 
+import WebApp from '@twa-dev/sdk';
 import s from './list.module.css'
 
 const formatNumber = (num: number) => {
@@ -12,6 +13,8 @@ const formatNumber = (num: number) => {
 };
 
 export const List: React.FC = () => {
+    const [showButton, setShowButton] = useState(false);
+
     const rawAddress = useUserData(state => state.user.rawAddress);
 
     const balance = useUserBalances(state => state.bal)
@@ -36,7 +39,7 @@ export const List: React.FC = () => {
         });
     }, [balance, updateSpeed]);
 
-    console.log('loadStatus: ', loadStatus);
+    //console.log('loadStatus: ', loadStatus);
 
     useEffect(() => {
         balanceJ.forEach((currency) => {
@@ -60,7 +63,29 @@ export const List: React.FC = () => {
         });
     }, [balancePoolsSF, updateSpeedSF]);
 
-    console.log('balance: ', balance, 'balanceJ: ', balanceJ);
+    const handleScrollUp = () => {
+        const scrollElement = document.querySelector('.scroll');
+        if (scrollElement) {
+            scrollElement.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+        }
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollElement = document.querySelector('.scroll');
+            if (scrollElement) {
+                setShowButton(scrollElement.scrollTop > 20); // Показывать кнопку, если прокрутили на 100px вниз
+            }
+        };
+
+        const scrollElement = document.querySelector('.scroll');
+        if (scrollElement) {
+            scrollElement.addEventListener('scroll', handleScroll);
+            return () => scrollElement.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
+
+    //console.log('balance: ', balance, 'balanceJ: ', balanceJ);
 
     return (
         <div className={`${s.list} scroll`}>
@@ -74,8 +99,15 @@ export const List: React.FC = () => {
                         <div className={s.progressbar}>
                             <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
                         </div>
-                        <div className={s.range0}>{formatNumber(currency.range[0])} - {formatNumber(currency.range[1])}</div>
-                        {currency.name !== 'BONUS' && <button className={s.news}>news</button>}
+                        <div className={s.range0}>{formatNumber(currency.range[0])}-{formatNumber(currency.range[1])}</div>
+                        {currency.name !== 'BONUS' && <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                //window.location.href = currency.src;
+                                WebApp.openTelegramLink(currency.src);
+
+                            }}
+                            className={s.news}>news</button>}
                         <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                     </div>
                 );
@@ -91,13 +123,20 @@ export const List: React.FC = () => {
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
                             </div>
-                            <div className={s.range0}>{formatNumber(currency.range[0])} - {formatNumber(currency.range[1])}</div>
-                            <button className={s.news}>news</button>
+                            <div className={s.range0}>{formatNumber(currency.range[0])}-{formatNumber(currency.range[1])}</div>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    //window.location.href = currency.src;
+                                    WebApp.openTelegramLink(currency.src);
+                                }}
+                                className={s.news}>news</button>
                             <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                         </div>
                     );
                 }) : <h2>Подключите кошелёк!</h2>
             }
+
             {balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && <h3 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Farms</h3>}
             {rawAddress &&
                 balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
@@ -109,14 +148,17 @@ export const List: React.FC = () => {
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
                             </div>
-                            <div className={s.range0}>{formatNumber(currency.range[0])} - {formatNumber(currency.range[1])} Lp</div>
+                            <div className={s.range0}>{formatNumber(currency.range[0])}-{formatNumber(currency.range[1])}Lp</div>
                             {/* <button className={s.news}>news</button> */}
                             <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                         </div>
                     )
                 })}
 
-
+            {showButton && <div
+                onClick={handleScrollUp}
+                className={s.goTop}
+            >↑</div>}
         </div>
     )
 }
