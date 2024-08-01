@@ -115,7 +115,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             range: [1000, 50000],
             inH: 100,
             speed: 0,
-            src: '',
+            src: 'https://t.me/notcoin',
         }
     ],
     loadStatus: false,

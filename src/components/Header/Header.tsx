@@ -67,7 +67,7 @@ export const Header: React.FC = () => {
     return (
         <div className={s.header}>
             <button
-                onClick={() => changeNav('cabinet')}
+                onClick={() => nav === 'cabinet' ? changeNav('hold') : changeNav('cabinet')}
                 className={`${s.profile} ${nav === 'cabinet' ? s.ontab : null}`}>
                 <p style={{ fontSize: '0.8rem' }}>
                     Cabinet

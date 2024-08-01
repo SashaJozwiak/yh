@@ -1,24 +1,15 @@
-import { /* useEffect, */ useState } from 'react'
-import WebApp from '@twa-dev/sdk'
-import WebAppChat from '@twa-dev/sdk'
+import { useState } from 'react'
+//import { useUserData } from '../../store/main'
 
+import { CabData } from './CabData/CabData'
+
+//import gnom from './../../assets/cabinet/gnom_full_tr_150.png'
 import s from './cabinet.module.css'
 
-export const Cabinet = () => {
+
+export const Cabinet: React.FC = () => {
     const [nav, setNav] = useState('data');
-    //const [avatar, setAvatar] = useState('');
-
-    console.log(WebApp)
-    console.log('webAppChat: ', WebAppChat)
-
-    /*     useEffect(() => {
-            const userFromTg = WebApp.initDataUnsafe?.user;
-            console.log(userFromTg)
-            if (userFromTg.photo_url && userFromTg.photo_url) {
-                setAvatar(userFromTg.photo_url)
-            }
-        }, []) */
-
+    //const userName = useUserData(state => state.user.userName);
     return (
         <>
             <div className={s.cabnav}>
@@ -33,17 +24,7 @@ export const Cabinet = () => {
                     className={`${s.cabnavbtn} ${nav === 'help' ? s.on : null}`}>Help</button>
             </div>
 
-            {nav === 'data' &&
-                <div className={s.data}>
-                    <img width='100' height='100' src='' alt="avatar" />
-                    <div className={s.info}>
-                        <p className={s.line}>User: Sasha</p>
-                        <p className={s.line}>Pre-refs: 0</p>
-                        <p className={s.line}>Active refs: 0</p>
-                        <p className={s.line}>Team: No</p>
-                    </div>
-                </div>
-            }
+            {nav === 'data' && <CabData />}
 
             {nav === 'teams' &&
                 <div className={s.data}>
