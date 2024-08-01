@@ -10,6 +10,7 @@ import PreloadImages from './utils/hooks/usePreloadImage.tsx';
 import './index.css'
 
 WebApp.ready();
+WebApp.setHeaderColor('#000000');
 
 const manifestUrl = 'https://sashajozwiak.github.io/yh/tonconnect-manifest.json';
 
