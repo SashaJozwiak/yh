@@ -11,7 +11,7 @@ export const CabData = () => {
     const userName = useUserData(state => state.user.userName);
 
     return (
-        <div className={`${s.list} scroll`}>
+        <div className={`${s.list} scrollable`}>
             <h2 style={{/*  paddingTop: '1rem' */ }}>Rank #{(0).toLocaleString('ru')} </h2>
             <div className={s.data}>
                 <img className={s.gnom} style={{ borderRadius: '0.3rem' }}

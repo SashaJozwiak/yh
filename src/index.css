@@ -37,12 +37,25 @@
           word-wrap: normal;
 }
 
-.scroll {
-  -webkit-user-select: text; /* Safari */
-  -moz-user-select: text; /* Old versions of Firefox */
-  -ms-user-select: text; /* Internet Explorer/Edge */
-  user-select: text; /* Non-prefixed version, currently*/
+//.scroll {
+//  -webkit-user-select: text; /* Safari */
+//  -moz-user-select: text; /* Old versions of Firefox */
+//  -ms-user-select: text; /* Internet Explorer/Edge */
+//  user-select: text; /* Non-prefixed version, currently*/
+//}
+
+/* styles.css */
+.document {
+  height: auto;
+  overflow: hidden;
 }
+
+.body {
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+/* styles.css  for scroll fix*/
 
 a {
   font-weight: 500;
