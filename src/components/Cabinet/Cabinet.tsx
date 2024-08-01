@@ -1,5 +1,4 @@
-import { useState } from 'react'
-
+import { useState, /* useEffect */ } from 'react'
 import { CabData } from './CabData/CabData'
 
 import s from './cabinet.module.css'

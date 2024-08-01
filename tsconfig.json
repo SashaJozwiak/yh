@@ -22,6 +22,6 @@
     "noImplicitAny": false //any
     //"suppressImplicitAnyIndexErrors": true //any
   },
-  "include": ["src"],
+  "include": ["src", "service-worker.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

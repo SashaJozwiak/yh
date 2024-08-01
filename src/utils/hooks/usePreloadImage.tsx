@@ -1,11 +1,14 @@
-//import { useEffect } from 'react';
+import { useEffect } from 'react';
 
-const usePreloadImage = (src: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => resolve();
-        img.onerror = () => reject();
+const PreloadImages = ({ sources }) => {
+    useEffect(() => {
+        sources.forEach((src: string) => {
+            const img = new Image();
+            img.src = src;
     });
+    }, [sources]);
+
+    return null;
 };
-export default usePreloadImage;
+
+export default PreloadImages;
