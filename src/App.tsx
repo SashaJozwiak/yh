@@ -15,8 +15,8 @@ import { Tasks } from './components/Tasks/Tasks';
 import { Stages } from './components/Stages/Stages';
 import { Cabinet } from './components/Cabinet/Cabinet';
 
-import gnome from './assets/cabinet/gnom_full_tr_150.png'
-import usePreloadImage from './utils/hooks/usePreloadImage';
+/* import gnome from './assets/cabinet/gnom_full_tr_150.png' */
+/* import usePreloadImage from './utils/hooks/usePreloadImage'; */
 
 import './App.css';
 
@@ -61,14 +61,14 @@ const App: React.FC = function () {
     }
   }, [rawAddress, updateBalanceJ, updateStonFiBalance]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     usePreloadImage(gnome).then(() => {
       console.log('Image preloaded');
     }).catch((err) => {
       console.error('Error preloading image:', err);
     });
-  }, []);
+  }, []); */
 
   return (
     <>
