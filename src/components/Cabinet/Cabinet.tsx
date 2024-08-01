@@ -1,5 +1,6 @@
 import { /* useEffect, */ useState } from 'react'
 import WebApp from '@twa-dev/sdk'
+import WebAppChat from '@twa-dev/sdk'
 
 import s from './cabinet.module.css'
 
@@ -8,6 +9,7 @@ export const Cabinet = () => {
     //const [avatar, setAvatar] = useState('');
 
     console.log(WebApp)
+    console.log('webAppChat: ', WebAppChat)
 
     /*     useEffect(() => {
             const userFromTg = WebApp.initDataUnsafe?.user;
