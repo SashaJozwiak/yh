@@ -64,7 +64,7 @@ export const List: React.FC = () => {
     }, [balancePoolsSF, updateSpeedSF]);
 
     const handleScrollUp = () => {
-        const scrollElement = document.querySelector('.scroll');
+        const scrollElement = document.querySelector('.scrollable');
         if (scrollElement) {
             scrollElement.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
         }
@@ -72,16 +72,16 @@ export const List: React.FC = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollElement = document.querySelector('.scroll');
+            const scrollElement = document.querySelector('.scrollable');
             if (scrollElement) {
                 setShowButton(scrollElement.scrollTop > 20); // Показывать кнопку, если прокрутили на 100px вниз
             }
         };
 
-        const scrollElement = document.querySelector('.scroll');
+        const scrollElement = document.querySelector('.scrollable');
         if (scrollElement) {
-            scrollElement.addEventListener('scroll', handleScroll);
-            return () => scrollElement.removeEventListener('scroll', handleScroll);
+            scrollElement.addEventListener('scrollable', handleScroll);
+            return () => scrollElement.removeEventListener('scrollable', handleScroll);
         }
     }, []);
 
