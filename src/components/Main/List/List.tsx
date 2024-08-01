@@ -88,7 +88,7 @@ export const List: React.FC = () => {
     //console.log('balance: ', balance, 'balanceJ: ', balanceJ);
 
     return (
-        <div className={`${s.list} scroll`}>
+        <div className={`${s.list} scrollable`}>
             {/* {balance.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && <h3 style={{ color: 'lightgray', borderBottom: '2px dashed', width: '4rem', margin: '0 auto' }}>Holds</h3>} */}
             {balance.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                 return (
