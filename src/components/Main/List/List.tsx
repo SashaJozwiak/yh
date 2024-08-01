@@ -114,7 +114,7 @@ export const List: React.FC = () => {
             })}
 
             {
-                loadStatus ? 'LOADING...' : rawAddress ? balanceJ.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
+                loadStatus ? <span className="loader"></span> : rawAddress ? balanceJ.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                             <h4 className={s.currname}>{currency.name}</h4>

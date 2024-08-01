@@ -10,7 +10,8 @@
     //padding: 1rem;
 
     font-size: 1.3rem;
-    font-size: calc(3vw * 2);
+    font-size: calc((2vw * 2) + (0.5vh * 1.5));
+    font-size: clamp(16px, 5vw, 50px);
     text-align:left;
 }
 
@@ -30,7 +31,7 @@
 .listelementonchain {
     text-align:center;
     margin: 0 auto;
-    font-size: calc(2.5vw * 2);
+    font-size: calc((1vw * 1.5) + (1.5vh * 1.5));
 }
 
 .goTop {

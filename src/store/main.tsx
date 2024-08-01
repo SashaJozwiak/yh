@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi } from '../types/stores'
 import { devtools } from 'zustand/middleware'
-//import { UserData } from '../types/userData'
 
 export const useUserData = create<UseStore>()(devtools((set) => ({
     user:

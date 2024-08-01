@@ -33,8 +33,8 @@ export const Stages = () => {
             <ul className={s.stagelist}>
                 <li className={`${s.listelement} ${s.ok}`}>🟢 Beta launch </li>
                 <li className={s.listelement}>🟡 Launch app</li>
+                <li className={s.listelement}>⚪ Launch game</li>
                 <li className={s.listelement}>⚪ Marketing and partnership</li>
-                <li className={s.listelement}>⚪ Collecting liquidity</li>
                 <li className={s.listelement}>⚪ Product presentation</li>
                 <li className={s.listelement}>⚪ Airdrop</li>
             </ul >
