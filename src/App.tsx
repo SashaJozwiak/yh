@@ -10,12 +10,15 @@ import { useUserData, useUserBalances, useJettonsBalances, useStonFi } from './s
 import WebApp from '@twa-dev/sdk';
 import eruda from 'eruda'
 
-import './App.css';
 import { Footer } from './components/Footer/Footer';
 import { Tasks } from './components/Tasks/Tasks';
 import { Stages } from './components/Stages/Stages';
 import { Cabinet } from './components/Cabinet/Cabinet';
 
+import gnome from './assets/cabinet/gnom_full_tr_150.png'
+import usePreloadImage from './utils/hooks/usePreloadImage';
+
+import './App.css';
 
 eruda.init();//just for debug
 
@@ -24,6 +27,8 @@ eruda.init();//just for debug
 }); */
 
 const App: React.FC = function () {
+
+
 
   const nav = useNav((state) => state.nav.main)
 
@@ -55,6 +60,15 @@ const App: React.FC = function () {
       updateStonFiBalance(rawAddress)
     }
   }, [rawAddress, updateBalanceJ, updateStonFiBalance]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    usePreloadImage(gnome).then(() => {
+      console.log('Image preloaded');
+    }).catch((err) => {
+      console.error('Error preloading image:', err);
+    });
+  }, []);
 
   return (
     <>
