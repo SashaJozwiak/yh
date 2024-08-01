@@ -14,6 +14,7 @@ import './App.css';
 import { Footer } from './components/Footer/Footer';
 import { Tasks } from './components/Tasks/Tasks';
 import { Stages } from './components/Stages/Stages';
+import { Cabinet } from './components/Cabinet/Cabinet';
 
 
 eruda.init();//just for debug
@@ -62,7 +63,7 @@ const App: React.FC = function () {
       {nav === 'bonus' && <Tasks />}
       {nav === 'loan' && <h2>loan</h2>}
       {nav === 'stage' && <Stages />}
-      {nav === 'cabinet' && <h2>cabinet</h2>}
+      {nav === 'cabinet' && <Cabinet />}
       <Footer />
     </>
   );

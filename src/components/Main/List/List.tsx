@@ -95,7 +95,7 @@ export const List: React.FC = () => {
                     <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                         <h4 className={s.currname}>{currency.name}</h4>
                         <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
-                        <div><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
+                        <div style={{ color: 'rgb(25,180,21)' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
                         <div className={s.progressbar}>
                             <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
                         </div>
@@ -119,7 +119,7 @@ export const List: React.FC = () => {
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                             <h4 className={s.currname}>{currency.name}</h4>
                             <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
-                            <div><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
+                            <div style={{ color: 'rgb(25,180,21)' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
                             </div>
@@ -144,7 +144,7 @@ export const List: React.FC = () => {
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                             <h4 className={s.currname}>{currency.name}</h4>
                             <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> Lp</div>
-                            <div><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
+                            <div style={{ color: 'rgb(25,180,21)' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
                             </div>

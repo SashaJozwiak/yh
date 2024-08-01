@@ -1,0 +1,40 @@
+.cabnav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 0.5rem;
+    background-color: rgb(100 116 139);
+    background-color: rgb(71 85 105);
+    height: 3.5rem;
+    padding: 0.5rem 0.6rem 0rem;
+}
+
+.cabnavbtn{
+    flex: 1 1 0;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.on {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    background-color: rgb(42,54,73);
+}
+
+.data {
+    display:flex;
+    justify-content: space-around;
+    padding: 0.6rem;
+    font-size: 1.2rem;
+}
+
+.info {
+    display:flex;
+    flex-direction:column;
+}
+
+.line {
+    text-align: left;
+}

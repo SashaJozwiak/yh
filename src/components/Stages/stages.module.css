@@ -1,6 +1,13 @@
+.list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0.6rem 0.6rem;
+    padding-bottom: 4rem;
+}
+
 .stagelist {
     list-style-type:none;
-    padding: 1rem;
+    //padding: 1rem;
 
     font-size: 1.3rem;
     font-size: calc(3vw * 2);
@@ -11,6 +18,9 @@
     margin: 0.2rem;
     border-radius: 2rem;
     //box-shadow: inset 3px 3px 5px rgb(100 100 100 / 90%);
+
+    padding: 0.6rem 0.5rem;
+    margin: 0.5rem 0;
 }
 
 .ok {
@@ -21,4 +31,18 @@
     text-align:center;
     margin: 0 auto;
     font-size: calc(2.5vw * 2);
+}
+
+.goTop {
+    position: fixed;
+    padding: 0rem 0.8rem;
+    border: 1px solid;
+    border-radius: 0.3rem;
+    left: 90vw; 
+    bottom: 4.5rem;
+    background: rgba(100, 116, 139, 0.5);
+    z-index:200;
+
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
 }

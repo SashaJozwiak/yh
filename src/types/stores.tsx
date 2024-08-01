@@ -105,6 +105,7 @@ export interface Task {
     price: number;
     completed: boolean;
     src: string;
+    type: string;
 }
 
 export interface UseTasks {

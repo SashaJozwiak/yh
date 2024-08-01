@@ -6,10 +6,11 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
     tasks: [
         {
             id: 1,
-            title: 'Subscribe YouHold channel',
+            title: 'Subs. YouHold',
             price: 150,
             completed: false,
             src: 'https://t.me/youhold',
+            type: 'native',
         },
         {
             id: 2,
@@ -17,20 +18,31 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
             price: 150,
             completed: false,
             src: '',
+            type: 'native',
         },
         {
             id: 3,
             title: 'Invite 3 friends',
-            price: 600,
+            price: 500,
             completed: false,
             src: '',
+            type: 'native',
         },
         {
             id: 4,
             title: 'Invite 10 friends',
-            price: 2500,
+            price: 2000,
             completed: false,
             src: '',
+            type: 'native',
+        },
+        {
+            id: 5,
+            title: 'YouHold dev',
+            price: 150,
+            completed: false,
+            src: '',
+            type: 'affiliate',
         }
     ],
     completeTask: (id: number) => {

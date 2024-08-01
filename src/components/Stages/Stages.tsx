@@ -1,11 +1,35 @@
-
+import { useEffect, useState } from 'react';
 
 import s from './stages.module.css'
 
 export const Stages = () => {
+    const [showButton, setShowButton] = useState(false);
+
+    const handleScrollUp = () => {
+        const scrollElement = document.querySelector('.scroll');
+        if (scrollElement) {
+            scrollElement.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+        }
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollElement = document.querySelector('.scroll');
+            if (scrollElement) {
+                setShowButton(scrollElement.scrollTop > 20); // Показывать кнопку, если прокрутили на 100px вниз
+            }
+        };
+
+        const scrollElement = document.querySelector('.scroll');
+        if (scrollElement) {
+            scrollElement.addEventListener('scroll', handleScroll);
+            return () => scrollElement.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
+
     return (
-        <>
-            <h2 style={{ paddingTop: '0.6rem', marginTop: '0.6rem' }}>Off-Chain</h2>
+        <div className={`${s.list} scroll`}>
+            <h2 style={{ /* paddingTop: '0.6rem' *//* , marginTop: '0.6rem' */ }}>Off-Chain</h2>
             <ul className={s.stagelist}>
                 <li className={`${s.listelement} ${s.ok}`}>🟢 Beta launch </li>
                 <li className={s.listelement}>🟡 Launch app</li>
@@ -18,6 +42,10 @@ export const Stages = () => {
             <ul className={s.stagelist}>
                 <li className={s.listelementonchain}>After product presentation...</li>
             </ul>
-        </>
+            {showButton && <div
+                onClick={handleScrollUp}
+                className={s.goTop}
+            >↑</div>}
+        </div>
     )
 }

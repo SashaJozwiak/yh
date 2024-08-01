@@ -109,10 +109,10 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             src: 'https://t.me/OfficialTether',
         },
         {
-            name: 'PEPE',
-            address: '0:97cceec78682b97c342e08e344e3797cf90b2b7aae73abcf5954d8449dadb878',
+            name: 'NOT',
+            address: '0:2f956143c461769579baef2e32cc2d7bc18283f40d20bb03e432cd603ac33ffc',
             value: 0,
-            range: [300, 100000],
+            range: [1000, 50000],
             inH: 100,
             speed: 0,
             src: '',
