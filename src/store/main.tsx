@@ -6,28 +6,81 @@ export const useUserData = create<UseStore>()(devtools((set) => ({
     user:
     {
         id: null,
+        internalId: null,
         userName: '',
         languageCode: '',
         userFriendlyAddress: '',
         rawAddress: '',
+        //---//
+        /* balance: 0,
+        isHold: false,
+        period: 24,
+        speed: 0,
+        finishData: '',
+        startData: '', */
     },
-    //setUser: (user: User) => set(() => ({ user })),
-    setUser: (user: User) => set((state) => ({
-        user: {
-            ...state.user,
-            id: user.id,
-            userName: user.userName,
-            languageCode: user.languageCode
-        },
 
-    })),
-    addAddresses: (addresses) => set((state) => ({
-        user: {
-            ...state.user,
-            userFriendlyAddress: addresses.userFriendlyAddress,
-            rawAddress: addresses.rawAddress,
+
+
+    //setUser: (user: User) => set(() => ({ user })),
+    setUser: async (user: Partial<User>) => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/auth?externalId=${user.id}`, {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update user in DB');
+            }
+
+            const data = await response.json();
+            console.log('bd_data: ', data);
+            console.log('from_tg_data: ', user)
+            set((state) => ({
+                user: {
+                    ...state.user,
+                    ...user,
+                    internalId: data.user.internal_id,
+                    userFriendlyAddress: data.user.userfriendlyaddress,
+                    rawAddress: data.user.rawaddress,
+                },
+            }))
+        } catch (err) {
+            console.error('setUser error :', err);
         }
-    })),
+
+    },
+    addAddresses: async (addresses) => {
+        console.log('addresses: ', addresses);
+
+        const response = await fetch('http://localhost:3000/api/wallet', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(addresses),
+        });
+
+        console.log('response: ', response);
+
+
+        if (!response.ok) {
+            throw new Error('Failed to update addresses in DB');
+        }
+
+        const updatedUser = await response.json();
+
+        set((state) => ({
+            user: {
+                ...state.user,
+                userFriendlyAddress: updatedUser.userfriendlyaddress,
+                rawAddress: updatedUser.rawAddress,
+            }
+        }))
+    }
 })))
 
 export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => ({
@@ -62,7 +115,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             [currency]: value,
         }
     })), //dont use current
-    updateBalance: async (rawAddress) => {
+    updateBalance: async (rawAddress: string) => {
         //`https://toncenter.com/api/v3/account?address=${encodeURIComponent(rawAddress)}`
         try {
             const response = await fetch(`https://toncenter.com/api/v2/getAddressBalance?address=${encodeURIComponent(rawAddress)}`, {
@@ -183,6 +236,7 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
             range: [0.1, 100],
             inH: 100,
             speed: 0,
+            src: 'https://app.ston.fi/pools/EQD8TJ8xEWB1SpnRE4d89YO3jl0W0EiBnNS4IBaHaUmdfizE?farmTab=nfts',
         },
     ],
     loadStatus: false,

@@ -6,9 +6,15 @@ import WebApp from '@twa-dev/sdk';
 import s from './list.module.css'
 
 const formatNumber = (num: number) => {
+
+    if (num > 999999) {
+        return `${Math.floor(num / 1000000)}kk`;
+    }
+
     if (num > 999) {
         return `${Math.floor(num / 1000)}k`;
     }
+
     return num.toLocaleString('ru');
 };
 
@@ -31,7 +37,8 @@ export const List: React.FC = () => {
 
     useEffect(() => {
         balance.forEach((currency) => {
-            const calculatedSpeed = ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
+            const calculatedSpeed = currency.value < currency.range[1] ? ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH) : ((currency.range[1] - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
+
             const finishSpeed = calculatedSpeed > 0.00 ? calculatedSpeed : 0.00;
             if (currency.speed !== finishSpeed) {
                 updateSpeed(currency.name, finishSpeed);
@@ -43,7 +50,7 @@ export const List: React.FC = () => {
 
     useEffect(() => {
         balanceJ.forEach((currency) => {
-            const calculatedSpeed = ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
+            const calculatedSpeed = currency.value < currency.range[1] ? ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH) : ((currency.range[1] - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
             const finishSpeed = calculatedSpeed > 0.00 ? calculatedSpeed : 0.00;
             console.log('finish speed: ', finishSpeed)
             if (currency.speed !== finishSpeed) {
@@ -54,7 +61,7 @@ export const List: React.FC = () => {
 
     useEffect(() => {
         balancePoolsSF.forEach((currency) => {
-            const calculatedSpeed = ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
+            const calculatedSpeed = currency.value < currency.range[1] ? ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH) : ((currency.range[1] - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
             const finishSpeed = calculatedSpeed > 0.00 ? calculatedSpeed : 0.00;
             console.log('finish speed: ', finishSpeed)
             if (currency.speed !== finishSpeed) {
@@ -97,7 +104,7 @@ export const List: React.FC = () => {
                         <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
                         <div style={{ color: 'rgb(25,180,21)' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
                         <div className={s.progressbar}>
-                            <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
+                            <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100}%` }}></div>
                         </div>
                         <div className={s.range0}>{formatNumber(currency.range[0])}-{formatNumber(currency.range[1])}</div>
                         {currency.name !== 'BONUS' && <button
@@ -121,7 +128,7 @@ export const List: React.FC = () => {
                             <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
                             <div style={{ color: 'rgb(25,180,21)' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
                             <div className={s.progressbar}>
-                                <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
+                                <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100}%` }}></div>
                             </div>
                             <div className={s.range0}>{formatNumber(currency.range[0])}-{formatNumber(currency.range[1])}</div>
                             <button
@@ -134,10 +141,10 @@ export const List: React.FC = () => {
                             <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                         </div>
                     );
-                }) : <h2>Подключите кошелёк!</h2>
+                }) : <h2>Connect your wallet!</h2>
             }
 
-            {balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && <h3 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Farms</h3>}
+            {balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && rawAddress && <h3 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Farms</h3>}
             {rawAddress &&
                 balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                     return (
@@ -146,10 +153,16 @@ export const List: React.FC = () => {
                             <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> Lp</div>
                             <div style={{ color: 'rgb(25,180,21)' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
                             <div className={s.progressbar}>
-                                <div className={s.progress} style={{ width: `${((currency.value - currency.range[0]) / currency.range[1]) * 100}%` }}></div>
+                                <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100}%` }}></div>
                             </div>
                             <div className={s.range0}>{formatNumber(currency.range[0])}-{formatNumber(currency.range[1])}Lp</div>
-                            {/* <button className={s.news}>news</button> */}
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    //window.location.href = currency.src;
+                                    window.open(currency.src);
+                                }}
+                                className={s.news}>pool</button>
                             <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                         </div>
                     )

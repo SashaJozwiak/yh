@@ -1,5 +1,6 @@
 export interface User {
     id: number | null;
+    internalId: number | null;
     userName: string;
     languageCode: string;
     userFriendlyAddress: string,
@@ -8,7 +9,7 @@ export interface User {
 
 export interface UseStore {
     user: User;
-    setUser: (user: User) => void;
+    setUser: (user: Partial<User>) => void;
     addAddresses: (addresses: { userFriendlyAddress: string; rawAddress: string }) => void;
 }
 
@@ -88,6 +89,7 @@ export interface PoolsSFState {
     range: [number, number];
     inH: number;
     speed: number;
+    src: string;
 }
 
 export interface UseStonFi {

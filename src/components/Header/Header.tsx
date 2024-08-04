@@ -15,9 +15,13 @@ export const Header: React.FC = () => {
 
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
+
     const rawAddressInState = useUserData(state => state.user.rawAddress);
 
     const user = useUserData((state) => state.user);
+    const id = useUserData((state) => state.user.id);
+    const internalId = useUserData((state) => state.user.internalId);
+
     const setUser = useUserData((state) => state.setUser);
     const addAddresses = useUserData((state) => state.addAddresses);
 
@@ -29,15 +33,17 @@ export const Header: React.FC = () => {
         if (userFromTg) {
             const newUser = {
                 id: userFromTg.id,
+                //internalId: null,
                 userName: userFromTg.username || '',
                 languageCode: userFromTg.language_code || '',
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
             setUser(newUser);
-        } else if (user.id !== 757322479) {
+        } else if (id !== 757322479) {
             const newUser = {
                 id: 757322479,
+                //internalId: null,
                 userName: "Jozwiak",
                 languageCode: "en",
                 userFriendlyAddress: '',
@@ -47,22 +53,23 @@ export const Header: React.FC = () => {
             setUser(newUser);
             console.log('write jozwiak user in store finish')
         }
-    }, [setUser, user.id]);
+    }, [setUser, id]);
 
 
     useEffect(() => {
         console.log('check rawaddress from wallet')
-        if (rawAddress && rawAddress !== rawAddressInState) {
+        if (internalId && rawAddress && rawAddress !== rawAddressInState) {
             console.log('write addresses  wallet')
             const addresses = {
+                internalId,
                 userFriendlyAddress,
                 rawAddress
             }
             addAddresses(addresses)
         }
-    }, [addAddresses, rawAddress, userFriendlyAddress, rawAddressInState])
+    }, [addAddresses, rawAddress, userFriendlyAddress, rawAddressInState, internalId])
 
-    console.log(user)
+    console.log('user :', user, 'rawAddress: ', rawAddress)
 
     return (
         <div className={s.header}>

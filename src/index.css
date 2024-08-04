@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* color-scheme: dark; */
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background: linear-gradient(rgb(30 41 59), rgb(100 116 139)); /* #242424; */
 
@@ -94,7 +94,7 @@ button {
   line-height: 1.5;
   font-weight: 400;
 
-  /* color-scheme: dark; */
+  //color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
 }
 button:hover {

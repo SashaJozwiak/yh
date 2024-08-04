@@ -7,7 +7,7 @@ const currencyFormat = (num: number) => {
     return formatted;
 }
 
-export const Balance = () => {
+export const Balance: React.FC = () => {
     const { balanceData, setBalanceData } = useBalance(state => ({
         balanceData: state.balance,
         setBalanceData: state.setBalanceData
