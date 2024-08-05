@@ -9,11 +9,12 @@ export const useUserData = create<UseStore>()(devtools((set) => ({
         internalId: null,
         userName: '',
         languageCode: '',
+        //---//
         userFriendlyAddress: '',
         rawAddress: '',
         //---//
-        /* balance: 0,
-        isHold: false,
+        balance: 0,
+        /*isHold: false,
         period: 24,
         speed: 0,
         finishData: '',
@@ -36,6 +37,8 @@ export const useUserData = create<UseStore>()(devtools((set) => ({
                 throw new Error('Failed to update user in DB');
             }
 
+            console.log('response: ', response);
+
             const data = await response.json();
             console.log('bd_data: ', data);
             console.log('from_tg_data: ', user)
@@ -44,8 +47,9 @@ export const useUserData = create<UseStore>()(devtools((set) => ({
                     ...state.user,
                     ...user,
                     internalId: data.user.internal_id,
-                    userFriendlyAddress: data.user.userfriendlyaddress,
-                    rawAddress: data.user.rawaddress,
+                    balance: data.balance.balance,
+                    //userFriendlyAddress: data.user.userfriendlyaddress,
+                    //rawAddress: data.user.rawaddress,
                 },
             }))
         } catch (err) {
@@ -56,7 +60,7 @@ export const useUserData = create<UseStore>()(devtools((set) => ({
     addAddresses: async (addresses) => {
         console.log('addresses: ', addresses);
 
-        const response = await fetch('http://localhost:3000/api/wallet', {
+        /* const response = await fetch('http://localhost:3000/api/wallet', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -73,11 +77,12 @@ export const useUserData = create<UseStore>()(devtools((set) => ({
 
         const updatedUser = await response.json();
 
+        console.log('updatedUser: ', updatedUser); */
         set((state) => ({
             user: {
                 ...state.user,
-                userFriendlyAddress: updatedUser.userfriendlyaddress,
-                rawAddress: updatedUser.rawAddress,
+                userFriendlyAddress: addresses.userFriendlyAddress, //добавлять из фе, а не бе
+                rawAddress: addresses.rawAddress, //добавлять из фе, а не бе
             }
         }))
     }
