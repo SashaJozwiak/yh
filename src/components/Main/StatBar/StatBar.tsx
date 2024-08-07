@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useUserData, useJettonsBalances, useUserBalances, useStonFi } from '../../../store/main'
-import { useBalance } from '../../../store/balance';
+//import { useBalance } from '../../../store/balance';
 import { useNav } from '../../../store/nav';
 
 import { ButtonTimer } from './ButtonTimer/ButtonTimer';
@@ -23,8 +23,8 @@ export const StatBar: React.FC = () => {
     const nav = useNav(state => state.nav.list)
     const setNavList = useNav(state => state.setNavList)
 
-    const balanceData = useBalance(state => state.balance)
-    const setBalance = useBalance(state => state.setBalanceData)
+    const balanceData = useUserData(state => state.balance)
+    const setBalance = useUserData(state => state.setBalanceData)
 
     useEffect(() => {
         console.log(speedBal(), speedBalJ())
@@ -32,8 +32,6 @@ export const StatBar: React.FC = () => {
     }, [balance, balancesJ, balancesSF, speedBal, speedBalJ, speedBalSF])
 
     const pushHold = () => {
-        //onst now = new Date();
-
         setBalance({
             balance: balanceData.balance + (speed * balanceData.period),
             speed: speed,
@@ -59,7 +57,7 @@ export const StatBar: React.FC = () => {
                 disabled={balanceData.isHold || !rawAddress || !nav}
                 onClick={pushHold}
                 className={`${s.hold} ${balanceData.isHold ? s.holdOn : null}`}>
-                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span style={{ color: rawAddress && nav ? 'white' : 'grey' }}>HOLD!</span>}</h3>
+                <h3>{balanceData.isHold && nav ? <ButtonTimer /> : <span style={{ color: rawAddress && nav ? 'white' : 'grey' }}>HOLD!</span>}</h3>
             </button>
         </div>
     )

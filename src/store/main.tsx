@@ -1,28 +1,25 @@
 import { create } from 'zustand'
-import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi } from '../types/stores'
+import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, BalanceObj } from '../types/stores'
 import { devtools } from 'zustand/middleware'
 
-export const useUserData = create<UseStore>()(devtools((set) => ({
+export const useUserData = create<UseStore>()(devtools((set, get) => ({
     user:
     {
         id: null,
         internalId: null,
         userName: '',
         languageCode: '',
-        //---//
         userFriendlyAddress: '',
         rawAddress: '',
-        //---//
+    },
+    balance: {
         balance: 0,
-        /*isHold: false,
-        period: 24,
+        isHold: false,
+        period: 0.01,
         speed: 0,
         finishData: '',
-        startData: '', */
+        startData: ''
     },
-
-
-
     //setUser: (user: User) => set(() => ({ user })),
     setUser: async (user: Partial<User>) => {
         try {
@@ -42,19 +39,105 @@ export const useUserData = create<UseStore>()(devtools((set) => ({
             const data = await response.json();
             console.log('bd_data: ', data);
             console.log('from_tg_data: ', user)
+            const getBalance = Number(data.balance.balance).toFixed(3);
             set((state) => ({
                 user: {
                     ...state.user,
                     ...user,
                     internalId: data.user.internal_id,
-                    balance: data.balance.balance,
+                    //balance: data.balance.balance,
                     //userFriendlyAddress: data.user.userfriendlyaddress,
                     //rawAddress: data.user.rawaddress,
                 },
+                balance: {
+                    ...state.balance,
+                    balance: +getBalance,
+                    isHold: data.balance.is_hold,
+                    period: data.balance.period,
+                    speed: +data.balance.speed,
+                    finishData: data.balance.finishdate,
+                    startData: data.balance.startdate
+                }
             }))
         } catch (err) {
             console.error('setUser error :', err);
         }
+
+    },
+    setBalanceData: async (balance: Partial<BalanceObj>) => {
+        const newBalanceState = {
+            ...get().balance,
+            ...balance,
+        };
+
+        console.log('new balance: ', newBalanceState)
+        const internalId = get().user.internalId;
+
+        if (balance.isHold) {
+            try {
+                const response = await fetch('http://localhost:3000/api/startmining', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        balance: balance.balance,
+                        internalId: internalId,
+                        startData: balance.startData,
+                        finishData: balance.finishData,
+                        speed: balance.speed,
+                    }),
+                })
+
+                if (!response.ok) {
+                    throw new Error('Network response \'startMining\' was not ok');
+                }
+                const res = await response.json()
+                console.log(res)
+                set((state) => ({
+                    balance: {
+                        ...state.balance,
+                        ...balance,
+                    }
+                }))
+                return;
+            } catch (err) {
+                console.error('setUser error :', err);
+                return;
+            }
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/api/stopmining', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    balance: balance.balance,
+                    internalId: internalId,
+                }),
+            })
+
+            if (!response.ok) {
+                throw new Error('Network response \'stopMining\' was not ok');
+            }
+
+            const res = await response.json()
+            console.log(res)
+
+            set((state) => ({
+                balance: {
+                    ...state.balance,
+                    ...balance,
+                }
+            }))
+
+        } catch (err) {
+            console.error('setUser error :', err);
+
+        }
+
 
     },
     addAddresses: async (addresses) => {

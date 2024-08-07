@@ -9,8 +9,10 @@ export interface User {
 
 export interface UseStore {
     user: User;
+    balance: BalanceObj;
     setUser: (user: Partial<User>) => void;
     addAddresses: (addresses: { userFriendlyAddress: string; rawAddress: string }) => void;
+    setBalanceData: (balance: Partial<BalanceObj>) => void;
 }
 
 //===

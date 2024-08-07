@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { useBalance } from '../../../store/balance';
+//import { useBalance } from '../../../store/balance';
+import { useUserData } from '../../../store/main';
 import s from './balance.module.css';
 
 const currencyFormat = (num: number) => {
@@ -8,13 +9,16 @@ const currencyFormat = (num: number) => {
 }
 
 export const Balance: React.FC = () => {
-    const { balanceData, setBalanceData } = useBalance(state => ({
+    const { balanceData, setBalanceData } = useUserData(state => ({
         balanceData: state.balance,
         setBalanceData: state.setBalanceData
     }));
 
     const [currentBalance, setCurrentBalance] = useState(balanceData.balance);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    //console.log('BalanceData: ', balanceData);
+    //console.log('balance_inBalance: ', balanceData.balance);
 
     useEffect(() => {
         if (balanceData.isHold) {
@@ -27,6 +31,7 @@ export const Balance: React.FC = () => {
             const updateBalance = () => {
                 const now = Date.now();
                 const elapsedTime = now - startTime; // Прошедшее время
+                //console.log(elapsedTime, periodInMs);
 
                 if (elapsedTime >= periodInMs) {
                     // Если прошло достаточно времени, устанавливаем окончательный баланс и очищаем интервал
@@ -38,6 +43,9 @@ export const Balance: React.FC = () => {
                     }
                 } else {
                     // Если время еще не истекло, обновляем баланс на основе прошедшего времени и скорости
+                    /* if (!balanceData.isHold) {
+                        setCurrentBalance(balanceData.balance);
+                    } */
                     const newBalance = balanceData.balance - (speed * balanceData.period) + (speed * (elapsedTime / 1000 / 60 / 60));
                     setCurrentBalance(newBalance);
                 }
@@ -56,6 +64,7 @@ export const Balance: React.FC = () => {
                 }
             };
         }
+        setCurrentBalance(balanceData.balance)
     }, [balanceData, setBalanceData]);
 
 

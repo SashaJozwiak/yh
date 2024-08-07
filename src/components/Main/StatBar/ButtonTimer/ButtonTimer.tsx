@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useBalance } from '../../../../store/balance';
+//import { useBalance } from '../../../../store/balance';
+import { useUserData } from '../../../../store/main';
 
 export const ButtonTimer: React.FC = () => {
-    const { balanceData } = useBalance(state => ({
+    const { balanceData } = useUserData(state => ({
         balanceData: state.balance,
     }));
 

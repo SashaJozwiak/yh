@@ -1,7 +1,7 @@
 import { useEffect, /* useState, */ /* useCallback */ } from 'react';
 
 import { useUserData, /* useUserBalances */ } from '../../store/main';
-import { useBalance } from '../../store/balance';
+//import { useBalance } from '../../store/balance';
 import { useNav } from '../../store/nav';
 
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
@@ -18,14 +18,14 @@ export const Header: React.FC = () => {
 
     const rawAddressInState = useUserData(state => state.user.rawAddress);
 
-    const user = useUserData((state) => state.user);
+    //const user = useUserData((state) => state.user);
     const id = useUserData((state) => state.user.id);
     const internalId = useUserData((state) => state.user.internalId);
 
     const setUser = useUserData((state) => state.setUser);
     const addAddresses = useUserData((state) => state.addAddresses);
 
-    const actualSpeed = useBalance(state => state.balance.speed)
+    const actualSpeed = useUserData(state => state.balance.speed)
 
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
@@ -69,7 +69,7 @@ export const Header: React.FC = () => {
         }
     }, [addAddresses, rawAddress, userFriendlyAddress, rawAddressInState, internalId])
 
-    console.log('user :', user, 'rawAddress: ', rawAddress)
+    //console.log('user :', user, 'rawAddress: ', rawAddress)
 
     return (
         <div className={s.header}>

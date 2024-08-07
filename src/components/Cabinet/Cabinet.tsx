@@ -12,7 +12,7 @@ export const Cabinet: React.FC = () => {
             <div className={s.cabnav}>
                 <button
                     onClick={() => setNav('data')}
-                    className={`${s.cabnavbtn} ${nav === 'data' ? s.on : null}`}>Data
+                    className={`${s.cabnavbtn} ${nav === 'data' ? s.on : null}`}>Info
                 </button>
                 <button
                     onClick={() => setNav('teams')}
