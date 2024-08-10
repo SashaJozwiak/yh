@@ -58,6 +58,7 @@ export const Header: React.FC = () => {
 
     useEffect(() => {
         console.log('check rawaddress from wallet')
+        console.log('check add and some :', internalId, rawAddress, rawAddressInState)
         if (internalId && rawAddress && rawAddress !== rawAddressInState) {
             console.log('write addresses  wallet')
             const addresses = {
