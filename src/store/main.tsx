@@ -64,7 +64,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 user: {
                     ...state.user,
                     ...user,
-                    internalId: 0,
+                    internalId: 1,
                     //balance: data.balance.balance,
                     //userFriendlyAddress: data.user.userfriendlyaddress,
                     //rawAddress: data.user.rawaddress,
