@@ -6,7 +6,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     user:
     {
         id: null,
-        internalId: null,
+        internalId: 0,
         userName: '',
         languageCode: '',
         userFriendlyAddress: '',
@@ -60,6 +60,16 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 }
             }))
         } catch (err) {
+            set((state) => ({
+                user: {
+                    ...state.user,
+                    ...user,
+                    internalId: 0,
+                    //balance: data.balance.balance,
+                    //userFriendlyAddress: data.user.userfriendlyaddress,
+                    //rawAddress: data.user.rawaddress,
+                }
+            }))
             console.error('setUser error :', err);
         }
 
@@ -228,7 +238,6 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             console.error('Failed to fetch balance:', error);
         }
     },
-
     updateSpeed: (name: string, speed: number) => set((state) => ({
         bal: state.bal.map(item =>
             item.name === name ? { ...item, speed } : item
