@@ -6,7 +6,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     user:
     {
         id: null,
-        internalId: 0,
+        internalId: 1,
         userName: '',
         languageCode: '',
         userFriendlyAddress: '',
@@ -102,6 +102,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 if (!response.ok) {
                     throw new Error('Network response \'startMining\' was not ok');
                 }
+
                 const res = await response.json()
                 console.log(res)
                 set((state) => ({

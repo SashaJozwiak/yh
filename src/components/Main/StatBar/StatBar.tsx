@@ -39,7 +39,6 @@ export const StatBar: React.FC = () => {
             startData: new Date().toISOString(),
             finishData: new Date(new Date().getTime() + balanceData.period * 60 * 60 * 1000).toISOString(),
         })
-        //localStorage.setItem('balanceData', JSON.stringify(newBalanceData));
     }
 
     console.log('balancedata: ', balanceData)
