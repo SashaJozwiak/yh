@@ -7,9 +7,15 @@ export interface User {
     rawAddress: string,
 }
 
+export interface Statuses {
+    isLoading: boolean;
+    isError: boolean;
+}
+
 export interface UseStore {
     user: User;
     balance: BalanceObj;
+    statuses: Statuses;
     setUser: (user: Partial<User>) => void;
     addAddresses: (addresses: { userFriendlyAddress: string; rawAddress: string }) => void;
     setBalanceData: (balance: Partial<BalanceObj>) => void;

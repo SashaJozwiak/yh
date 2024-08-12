@@ -18,9 +18,9 @@ export const CabData = () => {
                     width='150' height='118' src={defaultAvatar} alt={``} />
                 <div className={s.info}>
                     <p className={s.line}>User: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>
-                    <p className={s.line}>Pre-refs: <span style={{ color: 'white' }}>0</span></p>
-                    <p className={s.line}>Active refs: <span style={{ color: 'white' }}>0</span></p>
-                    <p className={s.line}>Ref reward: <span style={{ color: 'white' }}>0</span></p>
+                    <p className={s.line}>Friends: <span style={{ color: 'white' }}>0</span></p>
+                    <p className={s.line}>Active fr.: <span style={{ color: 'white' }}>0</span></p>
+                    <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p>
                     <p className={s.line}>Team: <span style={{ color: 'white' }}>No</span></p>
                 </div>
             </div>

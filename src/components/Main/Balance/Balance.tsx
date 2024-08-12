@@ -17,9 +17,6 @@ export const Balance: React.FC = () => {
     const [currentBalance, setCurrentBalance] = useState(balanceData.balance);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    //console.log('BalanceData: ', balanceData);
-    //console.log('balance_inBalance: ', balanceData.balance);
-
     useEffect(() => {
         if (balanceData.isHold) {
             const startTime = new Date(balanceData.startData).getTime(); // Время начала
@@ -66,7 +63,6 @@ export const Balance: React.FC = () => {
         }
         setCurrentBalance(balanceData.balance)
     }, [balanceData, setBalanceData]);
-
 
 
     return (

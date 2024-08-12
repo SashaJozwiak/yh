@@ -20,6 +20,10 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         finishData: '',
         startData: ''
     },
+    statuses: {
+        isLoading: false,
+        isError: false,
+    },
     //setUser: (user: User) => set(() => ({ user })),
     setUser: async (user: Partial<User>) => {
         try {
@@ -34,8 +38,6 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 throw new Error('Failed to update user in DB');
             }
 
-            console.log('response: ', response);
-
             const data = await response.json();
             console.log('bd_data: ', data);
             console.log('from_tg_data: ', user)
@@ -45,9 +47,6 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     ...state.user,
                     ...user,
                     internalId: data.user.internal_id,
-                    //balance: data.balance.balance,
-                    //userFriendlyAddress: data.user.userfriendlyaddress,
-                    //rawAddress: data.user.rawaddress,
                 },
                 balance: {
                     ...state.balance,
@@ -65,9 +64,6 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     ...state.user,
                     ...user,
                     internalId: 1,
-                    //balance: data.balance.balance,
-                    //userFriendlyAddress: data.user.userfriendlyaddress,
-                    //rawAddress: data.user.rawaddress,
                 }
             }))
             console.error('setUser error :', err);
@@ -75,13 +71,9 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
 
     },
     setBalanceData: async (balance: Partial<BalanceObj>) => {
-        const newBalanceState = {
-            ...get().balance,
-            ...balance,
-        };
-
-        console.log('new balance: ', newBalanceState)
         const internalId = get().user.internalId;
+        const uf_address = get().user.userFriendlyAddress;
+        console.log('uf_address for backend: ', uf_address)
 
         if (balance.isHold) {
             try {
@@ -96,6 +88,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                         startData: balance.startData,
                         finishData: balance.finishData,
                         speed: balance.speed,
+                        uf_address: uf_address,
                     }),
                 })
 
@@ -342,6 +335,7 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
         set({ loadStatus: true });
         try {
             const response = await fetch(`https://api.ston.fi/v1/wallets/${encodeURIComponent(rawAddress)}/farms`, {
+                //mode: 'no-cors',
                 headers: {
                     'accept': 'application/json'
                 }
