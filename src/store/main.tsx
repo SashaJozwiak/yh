@@ -26,8 +26,9 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     },
     //setUser: (user: User) => set(() => ({ user })),
     setUser: async (user: Partial<User>) => {
+        console.log('user in state: ', user)
         try {
-            const response = await fetch(`http://localhost:3000/api/auth?externalId=${user.id}`, {
+            const response = await fetch(`http://localhost:3000/api/auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
                 method: 'GET',
                 headers: {
                     'accept': 'application/json'
@@ -97,7 +98,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 }
 
                 const res = await response.json()
-                console.log(res)
+                console.log('start mining: ', res)
                 set((state) => ({
                     balance: {
                         ...state.balance,

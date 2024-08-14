@@ -108,6 +108,7 @@ export interface UseStonFi {
     totalSpeedSF: () => number;
 }
 
+//=== tasks
 
 export interface Task {
     id: number;
@@ -122,3 +123,17 @@ export interface UseTasks {
     tasks: Task[];
     completeTask: (id: number) => void;
 }
+
+//=== top100
+
+export interface userFromTop100 {
+    userName: string;
+    balance: number;
+}
+
+export interface usersFromTop100 {
+    top100: userFromTop100[];
+    getTop100: () => void;
+}
+
+

@@ -9,10 +9,10 @@ const useScrollFix = () => {
         document.body.classList.add('body');
 
         document.body.style.overflowY = 'hidden';
-        //document.body.style.marginTop = `${overflow}px`;
+        document.body.style.marginTop = `${overflow}px`;
         document.body.style.height = window.innerHeight + overflow + "px";
         document.body.style.paddingBottom = `${overflow}px`;
-        window.scrollTo(0, 0); //window.scrollTo(0, overflow);
+        /* window.scrollTo(0, 0); */ window.scrollTo(0, overflow);
 
         let ts;
 

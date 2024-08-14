@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-//import { useBalance } from '../../../../store/balance';
 import { useUserData } from '../../../../store/main';
 
 export const ButtonTimer: React.FC = () => {

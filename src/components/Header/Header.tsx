@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
             const newUser = {
                 id: userFromTg.id,
                 //internalId: null,
-                userName: userFromTg.username || '',
+                userName: userFromTg.username || 'anonymous',
                 languageCode: userFromTg.language_code || '',
                 userFriendlyAddress: '',
                 rawAddress: '',
@@ -77,7 +77,7 @@ export const Header: React.FC = () => {
             <button
                 onClick={() => nav === 'cabinet' ? changeNav('hold') : changeNav('cabinet')}
                 className={`${s.profile} ${nav === 'cabinet' ? s.ontab : null}`}>
-                <p style={{ fontSize: '0.8rem' }}>
+                <p style={{ color: `${nav === 'cabinet' ? 'lightgrey' : 'white'}` }}>
                     Profile
                 </p>
             </button>
