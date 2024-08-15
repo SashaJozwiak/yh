@@ -1,7 +1,8 @@
 import { useState, /* useEffect */ } from 'react'
 import { CabData } from './CabData/CabData'
-
+import { Teams } from './Teams/Teams';
 import s from './cabinet.module.css'
+
 
 export const Cabinet: React.FC = () => {
 
@@ -25,7 +26,7 @@ export const Cabinet: React.FC = () => {
             </div>
 
             {nav === 'data' && <CabData />}
-            {nav === 'teams' && <div className={s.data}>teams</div>}
+            {nav === 'teams' && <Teams />}
             {nav === 'help' && <div className={s.data}>help</div>}
         </>
     )

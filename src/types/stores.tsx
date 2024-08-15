@@ -126,14 +126,30 @@ export interface UseTasks {
 
 //=== top100
 
-export interface userFromTop100 {
-    userName: string;
+export interface UserFromTop100 {
+    username: string;
     balance: number;
+    internal_id: number;
 }
 
-export interface usersFromTop100 {
-    top100: userFromTop100[];
+export interface UsersFromTop100 {
+    top100: UserFromTop100[];
     getTop100: () => void;
 }
 
+//=== TEAMS
+
+export interface Team {
+    team_id: number;
+    owner_id: number;
+    team_name: string;
+    src: string;
+    team_balance: number;
+}
+
+export interface UseTeams {
+    teams: Team[];
+    getTeams: () => void;
+    joinOrLeaveTeam: (id: number, isJoin: boolean) => void;
+}
 

@@ -121,7 +121,7 @@ export const List: React.FC = () => {
             })}
 
             {
-                loadStatus ? <span className="loader"></span> : rawAddress ? balanceJ.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
+                loadStatus ? <span className={s.loader}></span> : rawAddress ? balanceJ.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                             <h4 className={s.currname}>{currency.name}</h4>
@@ -141,7 +141,7 @@ export const List: React.FC = () => {
                             <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                         </div>
                     );
-                }) : <h2>Connect your wallet!</h2>
+                }) : <h2 className={s.connectwallet}>Connect your wallet!</h2>
             }
 
             {balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && rawAddress && <h3 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Farms</h3>}
