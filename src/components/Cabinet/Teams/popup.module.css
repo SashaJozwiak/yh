@@ -1,0 +1,56 @@
+.popupoverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #64748b;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    z-index:20;
+}
+  
+.popupcontent {
+    background-color: rgb(71 85 105);
+    margin: 0.5rem;
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    z-index:30;
+}
+
+.inputform {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    text-align: center;
+    margin: 1rem;
+}
+
+.input {
+    border-radius: 0.3rem;
+    border: 1px solid rgb(71 85 105); 
+    padding: 0.5rem 0.5rem; 
+    width: 60vw;
+    height: 2.5rem;
+    font-size: 0.85rem;
+    background-color: whitesmoke;
+    color: rgb(71 85 105);
+}
+
+.btns {
+    display:flex;
+    gap:1rem;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.btn {
+    background: rgb(71 85 105);
+    border-radius: 0.3rem;
+    padding: 0rem 0.5rem;
+    height: 2.3rem;
+    color:white;
+    font-size: 1rem;
+}

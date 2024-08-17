@@ -1,51 +1,94 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import s from './teams.module.css'
 import { useTeams } from '../../../store/teams'
+import { useUserData } from '../../../store/main'
+import { PopUp } from './PopUp';
 
 export const Teams: React.FC = () => {
-    const teams = useTeams((state) => state.teams)
-    const getTeams = useTeams((state) => state.getTeams)
+    const team_id = useUserData((state) => state.user.team_id)
 
+    const myTeam = useTeams((state) => state.myTeam)
+    const teams = useTeams((state) => state.teams)
+
+    const getTeams = useTeams((state) => state.getTeams)
+    const getMyTeam = useTeams((state) => state.getMyTeam)
     const joinOrLeaveTeam = useTeams((state) => state.joinOrLeaveTeam)
 
+    const [searchTeam, setSearchTeam] = useState('');
+    const [popUp, setPopUp] = useState(false)
 
+    const handleInputChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setSearchTeam(event.target.value);
+    }
+
+    const handleCreateTeam = () => {
+        setPopUp(true)
+    }
+
+    const handleSearchTeam = () => {
+
+    }
 
     useEffect(() => {
         if (!teams.length) {
             getTeams();
+        } else if (searchTeam === '') {
+            getTeams();
         }
-    }, [getTeams, teams.length])
+    }, [getTeams, teams.length, searchTeam])
+
+    useEffect(() => {
+        if (team_id) {
+            getMyTeam(team_id);
+        }
+    }, [getMyTeam, team_id])
+
+    console.log('myTeam: ', myTeam)
 
     return (
         <>
+            {popUp && <PopUp setPopUp={setPopUp} />}
             <div className={s.myteam}>
-                <div>No team</div>
-                <div>0</div>
-                <button className={s.btn_team}>Leave</button>
+                {myTeam.team_id === 0 ? <span style={{ margin: '0 auto' }}>You are not on the team yet.</span> :
+                    <>
+                        <div>{myTeam.team_name}</div>
+                        <div>{myTeam.team_balance}</div>
+                        <button
+                            onClick={() => {
+                                joinOrLeaveTeam(myTeam.team_id, false)
+                            }}
+                            className={s.btn_team}>Leave
+                        </button>
+                    </>
+                }
             </div>
+
             <div className={s.inputform}>
                 <input
-                    //value={searchTerm}
-                    //onChange={handleInputChange}
+                    value={searchTeam}
+                    onChange={handleInputChange}
                     className={s.input}
                     type="text" /* value={userId} */ placeholder='Search' />
-                <p style={{ top: '1rem', margin: '0 auto' }}>or</p>
+                {/* <p style={{ top: '1rem', margin: '0 auto' }}>or</p> */}
                 <button
-                    //onClick={handleCreateTeam}
+                    onClick={searchTeam ? handleSearchTeam : handleCreateTeam}
                     //disabled={!(filteredTeams.length === 0)}
-                    className={s.btn} style={{ /* opacity: filteredTeams.length === 0 ? 1 : 0.5 */ }}><h3>Create</h3>
+                    className={s.btn} style={{ /* opacity: filteredTeams.length === 0 ? 1 : 0.5 */ }}><h3>{searchTeam ? 'Search' : 'Create'}</h3>
                 </button>
             </div>
-            {!teams.length ? <span className={s.loader}></span> : <div className={`${s.list} scrollable`}>
-                {teams.map((team) => (
+            {!teams.length ? <span className={s.loader}></span> :
+                <div className={`${s.list} scrollable`}>
+                    {teams.sort((a, b) => b.team_balance - a.team_balance).map((team) =>
                     <div key={team.team_id} className={s.teamitem}>
                         <button
-                            onClick={() => joinOrLeaveTeam(team.team_id, true)}
-                            style={{ flex: '0.3' }} className={s.btn_team}>Join</button>
-                        <div style={{ flex: '1.3', textAlign: 'left' }}>{team.team_name}</div>
+                                onClick={() => {
+                                    team.team_id === myTeam.team_id ? joinOrLeaveTeam(team.team_id, false) : joinOrLeaveTeam(team.team_id, true)
+                                }}
+                                style={{ flex: '0.3' }} className={s.btn_team}>{team.team_id === myTeam.team_id ? 'Leave' : 'Join'}</button>
+                            <button className={s.btnspan} >{team.team_name}</button>
                         <div style={{ flex: '1' }}>{team.team_balance || 0}</div>
                     </div>
-                ))}
+                    )}
             </div>}
         </>
     )

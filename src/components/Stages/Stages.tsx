@@ -35,7 +35,7 @@ export const Stages = () => {
                 <li className={s.listelement}>🟡 Launch app</li>
                 <li className={s.listelement}>⚪ Launch game</li>
                 <li className={s.listelement}>⚪ Marketing and partnership</li>
-                <li className={s.listelement}>⚪ Product presentation</li>
+                <li className={s.listelement}>⚪ Main product presentation</li>
                 <li className={s.listelement}>⚪ Airdrop</li>
             </ul >
             <h2>On-Chain</h2>

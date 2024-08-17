@@ -11,6 +11,8 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         languageCode: '',
         userFriendlyAddress: '',
         rawAddress: '',
+        team_id: null,
+        team: ''
     },
     balance: {
         balance: 0,
@@ -48,6 +50,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     ...state.user,
                     ...user,
                     internalId: data.user.internal_id,
+                    team_id: data.balance.team_id,
                 },
                 balance: {
                     ...state.balance,

@@ -7,7 +7,7 @@ import WebApp from '@twa-dev/sdk';
 const defaultAvatar = '/yh/gnom_full_tr_150_compressed.png';
 
 export const CabData = () => {
-    const userName = useUserData(state => state.user.userName);
+    const { userName,/*  team, team_id */ } = useUserData(state => state.user);
     const balance = useUserData(state => state.balance.balance);
 
     const top100 = useTop100(state => state.top100);
@@ -18,6 +18,7 @@ export const CabData = () => {
             getTop100();
         }
     }, [getTop100, top100.length])
+
 
     console.log('top100: ', top100)
 
@@ -31,12 +32,12 @@ export const CabData = () => {
                     <p className={s.line}>Friends: <span style={{ color: 'white' }}>0</span></p>
                     <p className={s.line}>Active fr.: <span style={{ color: 'white' }}>0</span></p>
                     {/* <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p> */}
-                    <p className={s.line}>Team: <span style={{ color: 'white' }}>No</span></p>
+                    {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
                     <p className={s.line}>Balance: <span style={{ color: 'white' }}>~{Number(balance.toFixed(0)).toLocaleString('ru-Ru')}</span></p>
                 </div>
             </div>
 
-            <h2 style={{ /* paddingTop: '1rem', */ borderTop: '0.1rem solid rgb(42,54,73)', borderBottom: '0.1rem solid rgb(42,54,73)' }}>TOP 100</h2>
+            <h2 className={s.headerlist}>TOP 100</h2>
             {!top100.length ? <span className={s.loader}></span> :
                 <div className={`${s.list} scrollable`}/*  style={{ padding: '0 1rem' }} */>
                     {top100.sort((a, b) => b.balance - a.balance).map((item) => (

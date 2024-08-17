@@ -18,6 +18,7 @@
 
 .inputform {
     display: flex;
+    justify-content:space-between;
     align-items: center;
     text-align: center;
     margin: 1rem;
@@ -45,11 +46,25 @@ input[type="text"]:focus {
     height: 2.3rem;
 }
 
+.btnspan {
+    border: 1px solid rgb(42,54,73);
+    border-radius: 0.3rem;
+
+    padding: 0.2rem 0.5rem;
+    box-shadow: inset 2px 2px 5px rgb(100 100 100 / 50%);
+
+    flex: 1.3;
+    text-align: left;
+    text-decoration: underline;
+
+    background-color:transparent;
+}
+
 .btn_team {
     background: rgb(71 85 105);
     border-radius: 0.3rem;
     padding: 0rem 0.5rem;
-    height: 2rem;
+    //height: 2rem;
     width: 3rem;
     border: 1px solid gray;
 }
@@ -61,7 +76,7 @@ input[type="text"]:focus {
     gap: 0.5rem;
     flex-grow: 1;
     overflow-y: auto;
-    animation: uplist 0.5s forwards;
+    
     padding: 1rem;
 
     padding: 0.1rem 1rem 5rem 1rem;
@@ -69,11 +84,17 @@ input[type="text"]:focus {
 
 @keyframes uplist {
     0% {
+        opacity: 0;
         margin-top: 100vh;
+    }
+
+    95% {
+        opacity: 0.6;
     }
 
     100% {
         margin-top: 0;
+        opacity: 1;
     }
 }
 
@@ -87,6 +108,7 @@ input[type="text"]:focus {
     border-radius: 0.5rem;
     border: 1px solid grey;
     align-items: center;
+    animation: uplist 0.5s forwards;
 }
 
 

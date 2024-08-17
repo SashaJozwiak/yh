@@ -1,10 +1,12 @@
 export interface User {
     id: number | null;
-    internalId: number | null;
+    internalId: number;
     userName: string;
     languageCode: string;
-    userFriendlyAddress: string,
-    rawAddress: string,
+    userFriendlyAddress: string;
+    rawAddress: string;
+    team_id: number | null;
+    team: string;
 }
 
 export interface Statuses {
@@ -147,9 +149,26 @@ export interface Team {
     team_balance: number;
 }
 
-export interface UseTeams {
-    teams: Team[];
-    getTeams: () => void;
-    joinOrLeaveTeam: (id: number, isJoin: boolean) => void;
+export interface MyTeam {
+    team_id: number;
+    team_name: string;
+    src: string;
+    owner_id: number;
+    isOwner: boolean;
+    team_balance: number;
 }
 
+export interface CreateTeam {
+    teamName: string;
+    teamLink: string;
+    setError: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface UseTeams {
+    teams: Team[];
+    myTeam: MyTeam;
+    getTeams: () => void;
+    joinOrLeaveTeam: (id: number, isJoin: boolean) => void;
+    getMyTeam: (team_id: number) => void;
+    createTeam: (data: CreateTeam) => void;
+}

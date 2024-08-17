@@ -1,15 +1,21 @@
 import { useState, /* useEffect */ } from 'react'
 import { CabData } from './CabData/CabData'
 import { Teams } from './Teams/Teams';
+
+import { BackButton } from "@twa-dev/sdk/react";
+
 import s from './cabinet.module.css'
+import { useNav } from '../../store/nav';
 
 
 export const Cabinet: React.FC = () => {
 
+    const changeNav = useNav((state) => state.setMainNav)
     const [nav, setNav] = useState('data');
 
     return (
         <>
+            <BackButton onClick={() => changeNav('hold')} />
             <div className={s.cabnav}>
                 <button
                     onClick={() => setNav('data')}
