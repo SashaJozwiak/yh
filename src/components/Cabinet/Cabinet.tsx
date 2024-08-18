@@ -27,13 +27,13 @@ export const Cabinet: React.FC = () => {
                 </button>
                 <button
                     onClick={() => setNav('help')}
-                    className={`${s.cabnavbtn} ${nav === 'help' ? s.on : null}`}>Help
+                    className={`${s.cabnavbtn} ${nav === 'help' ? s.on : null}`}>Invites
                 </button>
             </div>
 
             {nav === 'data' && <CabData />}
             {nav === 'teams' && <Teams />}
-            {nav === 'help' && <div className={s.data}>help</div>}
+            {nav === 'help' && <div className={s.data}>soon</div>}
         </>
     )
 }

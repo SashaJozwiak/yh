@@ -12,7 +12,9 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         userFriendlyAddress: '',
         rawAddress: '',
         team_id: null,
-        team: ''
+        refs: 0,
+        refs_active: 0,
+        //team: ''
     },
     balance: {
         balance: 0,
@@ -51,6 +53,8 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     ...user,
                     internalId: data.user.internal_id,
                     team_id: data.balance.team_id,
+                    refs: data.referralStats.total_invited,
+                    refs_active: data.referralStats.active_invited,
                 },
                 balance: {
                     ...state.balance,

@@ -6,7 +6,9 @@ export interface User {
     userFriendlyAddress: string;
     rawAddress: string;
     team_id: number | null;
-    team: string;
+    refs: number;
+    refs_active: number;
+    //team: string;
 }
 
 export interface Statuses {
@@ -171,4 +173,5 @@ export interface UseTeams {
     joinOrLeaveTeam: (id: number, isJoin: boolean) => void;
     getMyTeam: (team_id: number) => void;
     createTeam: (data: CreateTeam) => void;
+    searchTeam: (name: string) => void;
 }

@@ -4,34 +4,18 @@ import { useTasks } from '../../store/tasks'
 import s from './tasks.module.css'
 
 export const Tasks = () => {
-    //const [showButton, setShowButton] = useState(false);
     const tasks = useTasks((state) => state.tasks)
-
-/*     const handleScrollUp = () => {
-        const scrollElement = document.querySelector('.scrollable');
-        if (scrollElement) {
-            scrollElement.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-        }
-    };
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollElement = document.querySelector('.scrollable');
-
-            if (scrollElement) {
-                setShowButton(scrollElement.scrollTop > 20); // Показывать кнопку, если прокрутили на 100px вниз
-            }
-        };
-
-        const scrollElement = document.querySelector('.scrollable');
-        if (scrollElement) {
-            scrollElement.addEventListener('scrollable', handleScroll);
-            return () => scrollElement.removeEventListener('scrollable', handleScroll);
-        }
-    }, []); */
 
     return (
         <div className={`${s.list} scrollable`}>
+            <h2>Permanent</h2>
+            <div
+                //onClick={() => (console.log(task.id))}
+                className={`${s.listitem} ${s.listitemperm}`}>
+                <div className={`${s.title} ${s.titleperm}`}>Active Friends</div>
+                <div className={s.check}>0</div>
+                <div className={s.price}>{0 * 100}/150</div>
+            </div>
             <h2>Native</h2>
             {tasks.filter(task => task.type === 'native').map(task => (
                 <div

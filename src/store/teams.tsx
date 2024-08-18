@@ -22,6 +22,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
         team_balance: 0,
     },
     getTeams: async () => {
+        console.log('getteams start')
         try {
             const response = await fetch(`http://localhost:3000/api/profile/teams`, {
                 method: 'GET',
@@ -96,6 +97,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
         }
     },
     getMyTeam: async (team_id: number) => {
+        console.log('getmyteam start')
         try {
             const response = await fetch(`http://localhost:3000/api/profile/teams/my?team_id=${team_id}`, {
                 method: 'GET',
@@ -162,5 +164,31 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
         } catch (e) {
             console.error('ошибка создания команды', e)
         }
+    },
+    searchTeam: async (teamName: string) => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/profile/teams/search?teamName=${teamName}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'accept': 'application/json'
+                    }
+                });
+
+            if (!response.ok) {
+                throw new Error('get teams');
+            }
+
+            const data = await response.json();
+            set(() => (
+                { teams: data }
+            ))
+            console.log('data for search team ', data);
+            return data;
+
+        } catch (e) {
+            console.error('ошибка поиска команды', e)
+        }
     }
-})))
+})
+))

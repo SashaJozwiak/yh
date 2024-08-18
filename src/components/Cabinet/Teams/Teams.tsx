@@ -3,6 +3,7 @@ import s from './teams.module.css'
 import { useTeams } from '../../../store/teams'
 import { useUserData } from '../../../store/main'
 import { PopUp } from './PopUp';
+import WebApp from '@twa-dev/sdk';
 
 export const Teams: React.FC = () => {
     const team_id = useUserData((state) => state.user.team_id)
@@ -13,8 +14,9 @@ export const Teams: React.FC = () => {
     const getTeams = useTeams((state) => state.getTeams)
     const getMyTeam = useTeams((state) => state.getMyTeam)
     const joinOrLeaveTeam = useTeams((state) => state.joinOrLeaveTeam)
+    const searchTeamInBd = useTeams((state) => state.searchTeam)
 
-    const [searchTeam, setSearchTeam] = useState('');
+    const [searchTeam, setSearchTeam] = useState('Search');
     const [popUp, setPopUp] = useState(false)
 
     const handleInputChange = (event: { target: { value: React.SetStateAction<string> } }) => {
@@ -26,7 +28,7 @@ export const Teams: React.FC = () => {
     }
 
     const handleSearchTeam = () => {
-
+        searchTeamInBd(searchTeam);
     }
 
     useEffect(() => {
@@ -38,12 +40,13 @@ export const Teams: React.FC = () => {
     }, [getTeams, teams.length, searchTeam])
 
     useEffect(() => {
-        if (team_id) {
+        if (team_id && myTeam.team_id === 0) {
             getMyTeam(team_id);
         }
-    }, [getMyTeam, team_id])
+    }, [getMyTeam, myTeam.team_id, team_id])
 
-    console.log('myTeam: ', myTeam)
+    //console.log('teams: ', teams)
+    //console.log('myTeam: ', myTeam)
 
     return (
         <>
@@ -51,7 +54,14 @@ export const Teams: React.FC = () => {
             <div className={s.myteam}>
                 {myTeam.team_id === 0 ? <span style={{ margin: '0 auto' }}>You are not on the team yet.</span> :
                     <>
-                        <div>{myTeam.team_name}</div>
+                        <button
+                            className={s.btnspan}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                //console.log(`https://t.me/${team.src}`)
+                                WebApp.openTelegramLink(myTeam.src);
+                            }}
+                        >{myTeam.team_name}</button>
                         <div>{myTeam.team_balance}</div>
                         <button
                             onClick={() => {
@@ -85,7 +95,13 @@ export const Teams: React.FC = () => {
                                     team.team_id === myTeam.team_id ? joinOrLeaveTeam(team.team_id, false) : joinOrLeaveTeam(team.team_id, true)
                                 }}
                                 style={{ flex: '0.3' }} className={s.btn_team}>{team.team_id === myTeam.team_id ? 'Leave' : 'Join'}</button>
-                            <button className={s.btnspan} >{team.team_name}</button>
+                            <button className={s.btnspan}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    //console.log(`https://t.me/${team.src}`)
+                                    WebApp.openTelegramLink(team.src);
+                                }}
+                            >{team.team_name}</button>
                         <div style={{ flex: '1' }}>{team.team_balance || 0}</div>
                     </div>
                     )}

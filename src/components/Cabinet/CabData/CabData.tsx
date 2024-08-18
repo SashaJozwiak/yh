@@ -7,7 +7,7 @@ import WebApp from '@twa-dev/sdk';
 const defaultAvatar = '/yh/gnom_full_tr_150_compressed.png';
 
 export const CabData = () => {
-    const { userName,/*  team, team_id */ } = useUserData(state => state.user);
+    const { userName, refs, refs_active } = useUserData(state => state.user);
     const balance = useUserData(state => state.balance.balance);
 
     const top100 = useTop100(state => state.top100);
@@ -29,8 +29,8 @@ export const CabData = () => {
                     width='150' height='118' src={defaultAvatar} alt={``} />
                 <div className={s.info}>
                     <p className={s.line}>User: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>
-                    <p className={s.line}>Friends: <span style={{ color: 'white' }}>0</span></p>
-                    <p className={s.line}>Active fr.: <span style={{ color: 'white' }}>0</span></p>
+                    <p className={s.line}>Friends: <span style={{ color: 'white' }}>{refs}</span></p>
+                    <p className={s.line}>Active fr.: <span style={{ color: 'white' }}>{refs_active}</span></p>
                     {/* <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p> */}
                     {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
                     <p className={s.line}>Balance: <span style={{ color: 'white' }}>~{Number(balance.toFixed(0)).toLocaleString('ru-Ru')}</span></p>
