@@ -53,8 +53,8 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     ...user,
                     internalId: data.user.internal_id,
                     team_id: data.balance.team_id,
-                    refs: data.referralStats.total_invited,
-                    refs_active: data.referralStats.active_invited,
+                    refs: +data.referralStats.total_invited || 0,
+                    refs_active: +data.referralStats.active_invited || 0,
                 },
                 balance: {
                     ...state.balance,
