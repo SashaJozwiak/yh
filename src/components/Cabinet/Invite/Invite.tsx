@@ -89,8 +89,8 @@ export const Invite: React.FC = () => {
 
                 <button onClick={(e) => {
                     e.preventDefault();
-                    //const message = `Hi 👋 Join the holders app ${link}`;
-                    window.open(`tg://msg_url?url=${link}&text=Hi 👋 Join the holders app`);
+                    const tolink: string = `tg://msg_url?url=${link}&text=Hi 👋 Join the holders app`;
+                    window.location.href = tolink;
                 }}
                     style={{ background: 'rgb(14, 165, 233)', /* background: 'rgb(71 85 105)', */ borderRadius: '0.25rem', padding: '0rem 0.5rem', margin: '2vh 0.35rem', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
                 ><h3 style={{ display: 'inline-block' }}>invite</h3></button>
