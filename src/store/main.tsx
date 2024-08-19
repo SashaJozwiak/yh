@@ -6,7 +6,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     user:
     {
         id: null,
-        internalId: 1,
+        internalId: 0,
         userName: '',
         languageCode: '',
         userFriendlyAddress: '',
@@ -202,6 +202,31 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             src: 'https://t.me/tonblockchain',
         }
     ],
+    getBonuses: async () => {
+        const internalId = useUserData.getState().user.internalId;
+        console.log('internalId: ', internalId);
+        try {
+            const response = await fetch(`http://localhost:3000/api/bonuses?internalId=${internalId}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'accept': 'application/json'
+                    }
+                }
+            )
+
+            const data = await response.json();
+            console.log('data bonuses: ', data)
+
+            set((state) => ({
+                bal: state.bal.map((currency) => currency.name === 'BONUS' ? { ...currency, value: data.bonuses } : currency)
+            }))
+
+        } catch (err) {
+            console.error('Failed to get bonuses:', err);
+        }
+    },
+
     totalSpeed: () => {
         const state = get();
         return state.bal.reduce((acc, currency) => {

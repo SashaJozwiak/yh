@@ -42,6 +42,7 @@ export interface UseUserBalances {
     updateBalance: (rawAddress: string) => void;
     updateSpeed: (name: string, speed: number) => void;
     totalSpeed: () => number;
+    getBonuses: () => void;
 }
 
 //===
