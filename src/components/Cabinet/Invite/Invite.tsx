@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useUserData } from '../../../store/main';
 
-//import WebApp from '@twa-dev/sdk';
+import WebApp from '@twa-dev/sdk';
 
 export const Invite: React.FC = () => {
     const { id, userName, team_id } = useUserData(state => state.user)
@@ -89,8 +89,9 @@ export const Invite: React.FC = () => {
 
                 <button onClick={(e) => {
                     e.preventDefault();
-                    const tolink: string = `tg://msg_url?url=${link}&text=Hi 👋 Join the holders app`;
-                    window.open(tolink, "_blank");
+                    const tolink: string = `https://t.me/share/url?url=${link}&text=Hi 👋 Join the holders app`;
+                    //window.open(tolink, "_blank");
+                    WebApp.openTelegramLink(tolink);
                 }}
                     style={{ background: 'rgb(14, 165, 233)', borderRadius: '0.25rem', padding: '0rem 0.5rem', margin: '2vh 0.35rem', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
                 ><h3 style={{ display: 'inline-block' }}>invite</h3></button>
