@@ -1,4 +1,4 @@
-
+import WebApp from "@twa-dev/sdk";
 
 const checkSubFetch = async (userId: number, chatId: string) => {
     const botToken = import.meta.env.VITE_SECRET_BOT_TOKEN;
@@ -37,6 +37,7 @@ export const checkSubscription = async (
     if (isMember) {
         await completeTask(taskId)
     } else {
-        window.location.href = `https://t.me/${src.slice(1)}`
+        //window.location.href = `https://t.me/${src.slice(1)}`
+        WebApp.openTelegramLink(`https://t.me/${src.slice(1)}`)
     }
 }

@@ -41,8 +41,6 @@ export const TimerButton = ({ dailyReward }) => {
       return () => clearInterval(intervalId);
     }
 
-
-
   }, [dailyReward.timer]);
 
   const handleClick = async () => {
