@@ -29,8 +29,8 @@
     border-radius: 0.3rem;
     border: 1px solid rgb(71 85 105); 
     padding: 0.5rem 0.5rem; 
-    width: 60vw;
-    height: 2.5rem;
+    //width: 60vw;
+    height: auto;
     font-size: 1rem;
     background-color: whitesmoke;
     color: rgb(71 85 105);
