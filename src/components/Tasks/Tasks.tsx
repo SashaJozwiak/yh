@@ -8,7 +8,6 @@ import { TimerButton } from './TimerButton ';
 import { checkSubscription } from '../../utils/checks/checkSubscription';
 
 import s from './tasks.module.css'
-
 import WebApp from '@twa-dev/sdk';
 
 export const Tasks = () => {
