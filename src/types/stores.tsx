@@ -1,5 +1,5 @@
 export interface User {
-    id: number | null;
+    id: number;
     internalId: number;
     userName: string;
     languageCode: string;
@@ -70,12 +70,14 @@ export interface UseUserBalancesJ {
 export interface NavObj {
     list: boolean;
     main: string;
+    cab: string;
 }
 
 export interface UseNav {
     nav: NavObj;
     setNavList: (bool: boolean) => void;
     setMainNav: (tabName: string) => void;
+    setCabNav: (tabName: string) => void;
 }
 
 //=== main balance and state
@@ -125,8 +127,11 @@ export interface Task {
 }
 
 export interface UseTasks {
+    activeFriends: Task;
+    dailyReward: Task;
     tasks: Task[];
     completeTask: (id: number) => void;
+    getAllTasks: (userId: number) => void;
 }
 
 //=== top100

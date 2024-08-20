@@ -12,7 +12,6 @@ export const Invite: React.FC = () => {
     const [checked, setCheked] = useState<boolean>(!!team_id);
 
     const changeLink = () => {
-        //console.log(e.target.value)
         setCheked(prev => {
             const newIsTeam = !prev;
             if (newIsTeam) {
@@ -22,7 +21,6 @@ export const Invite: React.FC = () => {
             }
             return newIsTeam;
         });
-
     }
 
     const handleCopyClick = () => {
@@ -38,7 +36,6 @@ export const Invite: React.FC = () => {
             setCopied(false)
             console.error('Error copying link', err);
         });
-
     }
 
     console.log(link)
@@ -95,16 +92,7 @@ export const Invite: React.FC = () => {
                 }}
                     style={{ background: 'rgb(14, 165, 233)', borderRadius: '0.25rem', padding: '0rem 0.5rem', margin: '2vh 0.35rem', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
                 ><h3 style={{ display: 'inline-block' }}>invite</h3></button>
-
-                {/* <a
-                    style={{ background: 'rgb(14, 165, 233)', borderRadius: '0.25rem', padding: '0rem 0.5rem', margin: '2vh 0.35rem', height: '2rem', fontSize: '1rem', fontWeight: 'bold', color: 'white' }}
-                    href={`tg://msg_url?url=${link}&text=Hi 👋 Join the holders app`}>
-                    <p style={{ marginTop: '1.5%' }}>Invite</p>
-                </a> */}
-
-                {/* <a href={"tg://msg_url?url=https://t.me/youhold_bot?start=946292829_5&text=Hi 👋 Join the holders app"} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>link</a> */}
             </div>
-
         </div>
     )
 }

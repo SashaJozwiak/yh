@@ -5,7 +5,7 @@ import { devtools } from 'zustand/middleware'
 export const useUserData = create<UseStore>()(devtools((set, get) => ({
     user:
     {
-        id: null,
+        id: 0,
         internalId: 0,
         userName: '',
         languageCode: '',

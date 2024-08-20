@@ -16,7 +16,7 @@ export const Teams: React.FC = () => {
     const joinOrLeaveTeam = useTeams((state) => state.joinOrLeaveTeam)
     const searchTeamInBd = useTeams((state) => state.searchTeam)
 
-    const [searchTeam, setSearchTeam] = useState('Search');
+    const [searchTeam, setSearchTeam] = useState('');
     const [popUp, setPopUp] = useState(false)
 
     const handleInputChange = (event: { target: { value: React.SetStateAction<string> } }) => {

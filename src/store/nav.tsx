@@ -7,6 +7,7 @@ export const useNav = create<UseNav>()(devtools((set) => ({
     {
         list: true,
         main: 'hold',
+        cab: 'data'
     },
     setNavList: (bool: boolean) => set((state) => ({
         nav:
@@ -15,13 +16,16 @@ export const useNav = create<UseNav>()(devtools((set) => ({
             list: bool
         }
     })),
-
     setMainNav: (tabName: string) => set((state) => ({
         nav: {
             ...state.nav,
             main: tabName
         }
     })),
-    //setUser: (user: User) => set(() => ({ user })),
-
+    setCabNav: (tabName: string) => set((state) => ({
+        nav: {
+            ...state.nav,
+            cab: tabName
+        }
+    })),
 })))
