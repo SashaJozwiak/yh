@@ -24,7 +24,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
     getTeams: async () => {
         console.log('getteams start')
         try {
-            const response = await fetch(`http://localhost:3000/api/profile/teams`, {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/teams`, {
                 method: 'GET',
                 headers: {
                     'accept': 'application/json'
@@ -51,7 +51,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
         const getMyTeam = useTeams.getState().getMyTeam;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/profile/teams/joinOrLeave`, {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/teams/joinOrLeave`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -99,7 +99,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
     getMyTeam: async (team_id: number) => {
         console.log('getmyteam start')
         try {
-            const response = await fetch(`http://localhost:3000/api/profile/teams/my?team_id=${team_id}`, {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/teams/my?team_id=${team_id}`, {
                 method: 'GET',
                 headers: {
                     'accept': 'application/json'
@@ -131,7 +131,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
 
         console.log('data for create team ', teamName, teamLink);
         try {
-            const response = await fetch(`http://localhost:3000/api/profile/teams/createTeam`, {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/teams/createTeam`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -150,8 +150,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
             if (data.message === 'Team with this name already exists') {
                 setError('Team with this name already exists');
             }
-            console.log('data for create team ', data);
-
+            console.log('data for create team ', data.team.id);
 
 
             await Promise.all([
@@ -160,14 +159,13 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
             ]);
 
 
-
         } catch (e) {
             console.error('ошибка создания команды', e)
         }
     },
     searchTeam: async (teamName: string) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/profile/teams/search?teamName=${teamName}`,
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/teams/search?teamName=${teamName}`,
                 {
                     method: 'GET',
                     headers: {

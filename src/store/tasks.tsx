@@ -31,7 +31,7 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
         console.log('taskId: ', taskId)
 
         try {
-            const response = await fetch(`http://localhost:3000/api/tasks/completeTask`, {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}tasks/completeTask`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -62,8 +62,9 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
         )); */
     },
     getAllTasks: async (userId: number) => {
+        console.log(`${import.meta.env.VITE_SECRET_HOST}tasks?userId=${userId}`)
         try {
-            const response = await fetch(`http://localhost:3000/api/tasks?userId=${userId}`,
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}tasks?userId=${userId}`,
                 {
                     method: 'GET',
                     headers: {

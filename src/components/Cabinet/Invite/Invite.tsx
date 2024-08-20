@@ -2,20 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { useUserData } from '../../../store/main';
 
 import WebApp from '@twa-dev/sdk';
+import { useTeams } from '../../../store/teams';
 
 export const Invite: React.FC = () => {
-    const { id, userName, team_id } = useUserData(state => state.user)
+    const { id, userName } = useUserData(state => state.user)
+    const teamId = useTeams(state => state.myTeam.team_id)
 
 
     const [link, setLink] = useState<string>(`https://t.me/youhold_bot?start=${id}`);
     const [copied, setCopied] = useState<boolean>(false);
-    const [checked, setCheked] = useState<boolean>(!!team_id);
+    const [checked, setCheked] = useState<boolean>(!!teamId);
 
     const changeLink = () => {
         setCheked(prev => {
             const newIsTeam = !prev;
             if (newIsTeam) {
-                setLink(`https://t.me/youhold_bot?start=${id}_${team_id}`);
+                setLink(`https://t.me/youhold_bot?start=${id}_${teamId}`);
             } else {
                 setLink(`https://t.me/youhold_bot?start=${id}`);
             }
@@ -41,10 +43,10 @@ export const Invite: React.FC = () => {
     console.log(link)
 
     useEffect(() => {
-        if (team_id) {
+        if (teamId && teamId !== 0) {
             //console.log('authData team: ', authData.ref_team_by);
             setCheked(true);
-            const linkWithTeam = `https://t.me/youhold_bot?start=${id}_${team_id}`;
+            const linkWithTeam = `https://t.me/youhold_bot?start=${id}_${teamId}`;
             setLink(linkWithTeam)
         } else {
             setCheked(false);
@@ -52,7 +54,7 @@ export const Invite: React.FC = () => {
             const link = `https://t.me/youhold_bot?start=${id}`;
             setLink(link)
         }
-    }, [id, team_id])
+    }, [id, teamId])
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', /* gap: '1rem', */ margin: '1rem' }}>
@@ -77,7 +79,7 @@ export const Invite: React.FC = () => {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto' }}>
-                    <input type="checkbox" id='withteam' readOnly={true} disabled={!team_id} checked={checked}
+                    <input type="checkbox" id='withteam' readOnly={true} disabled={!teamId || teamId === 0} checked={checked}
                         style={{ border: '1px solid rgba(14, 165, 233, 0.4)', borderRadius: '0.25rem', transform: 'scale(1.3)' }}
                         onChange={changeLink} />
                     <label htmlFor="withteam" style={{ fontSize: 'calc(1.2vh + 1.2vw)' }}>&nbsp; and invite to your team</label>

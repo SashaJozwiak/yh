@@ -31,8 +31,9 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     //setUser: (user: User) => set(() => ({ user })),
     setUser: async (user: Partial<User>) => {
         console.log('user in state: ', user)
+        console.log(import.meta.env.VITE_SECRET_HOST)
         try {
-            const response = await fetch(`http://localhost:3000/api/auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
                 method: 'GET',
                 headers: {
                     'accept': 'application/json'
@@ -85,7 +86,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
 
         if (balance.isHold) {
             try {
-                const response = await fetch('http://localhost:3000/api/startmining', {
+                const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}startmining`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -120,7 +121,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/stopmining', {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}stopmining`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -206,7 +207,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
         const internalId = useUserData.getState().user.internalId;
         console.log('internalId: ', internalId);
         try {
-            const response = await fetch(`http://localhost:3000/api/bonuses?internalId=${internalId}`,
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}bonuses?internalId=${internalId}`,
                 {
                     method: 'GET',
                     headers: {

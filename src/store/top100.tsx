@@ -7,7 +7,7 @@ export const useTop100 = create<UsersFromTop100>()(devtools((set) => ({
     ],
     getTop100: async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/profile/top100`, {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/top100`, {
                 method: 'GET',
                 headers: {
                     'accept': 'application/json'

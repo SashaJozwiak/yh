@@ -11,15 +11,21 @@ export const TimerButton = ({ dailyReward }) => {
   const [isClaimable, setIsClaimable] = useState(false);
   const [timeLeft, setTimeLeft] = useState('');
 
-  const [loading, setLoading] = useState(true); // Состояние загрузки
+  const [loading, setLoading] = useState(false); // Состояние загрузки
 
   useEffect(() => {
     const rewardTime = new Date(dailyReward.timer).getTime();
     const claimableTime = rewardTime + hours * 60 * 60 * 1000;
     const now = Date.now(); // Текущее время в миллисекундах
 
+    console.log('rewardTime: ', rewardTime);
+    console.log('claimableTime: ', claimableTime);
+    console.log('now: ', now);
+    console.log(now >= claimableTime)
+
     if (now >= claimableTime) {
       setIsClaimable(true);
+      setTimeLeft('');
     } else {
       setIsClaimable(false);
       const intervalId = setInterval(() => {
@@ -28,6 +34,7 @@ export const TimerButton = ({ dailyReward }) => {
 
         if (difference <= 0) {
           setIsClaimable(true);
+          setTimeLeft(''); 
           clearInterval(intervalId);
         } else {
           const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
@@ -36,10 +43,12 @@ export const TimerButton = ({ dailyReward }) => {
           setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
         }
       }, 1000);
-      setLoading(false)
+
+
 
       return () => clearInterval(intervalId);
     }
+    setLoading(false)
 
   }, [dailyReward.timer]);
 
@@ -52,10 +61,12 @@ export const TimerButton = ({ dailyReward }) => {
       await completeTask(dailyReward.id); // Выполнение задачи
     } catch (error) {
       console.error('Error completing task:', error);
-    } /* finally {
+    } finally {
       setLoading(false); // Разблокировка кнопки после завершения
-    } */
+    }
   };
+
+  //console.log(dailyReward)
 
   return (
     <button

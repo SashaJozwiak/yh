@@ -59,7 +59,7 @@ export const Tasks = () => {
                 className={`${s.listitem} ${s.listitemperm}`}>
                 <div style={{ border: 'none', margin: 'auto 0' }} className={s.title}>{dailyReward.title}</div>
 
-                {dailyReward.timer && <TimerButton dailyReward={dailyReward} />}
+                <TimerButton dailyReward={dailyReward} />
 
                 <div style={{ color: 'white' }} className={s.price}>{dailyReward.price}</div>
             </div>

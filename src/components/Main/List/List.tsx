@@ -102,6 +102,7 @@ export const List: React.FC = () => {
         }
     }, [getBonuses, userId])
 
+    console.log('balance:', balance)
 
     return (
         <div className={`${s.list} scrollable`}>
