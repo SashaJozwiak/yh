@@ -42,7 +42,7 @@ jobs:
         env:
           VITE_SECRET_BOT_TOKEN: ${{ secrets.VITE_SECRET_BOT_TOKEN }}
           VITE_SECRET_HOST: ${{ secrets.VITE_SECRET_HOST }}
-          VITE_SECRET_TIMECOUNT: ${{ secrets.VITE_TIMECOUNT }}
+          VITE_SECRET_TIMECOUNT: ${{ secrets.VITE_SECRET_TIMECOUNT }}
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
