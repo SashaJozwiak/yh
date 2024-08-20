@@ -21,11 +21,13 @@ const formatNumber = (num: number) => {
 export const List: React.FC = () => {
     const [showButton, setShowButton] = useState(false);
 
+    const userId = useUserData(state => state.user.internalId);
     const rawAddress = useUserData(state => state.user.rawAddress);
 
     const balance = useUserBalances(state => state.bal)
     const balanceJ = useJettonsBalances(state => state.jettons)
     const balancePoolsSF = useStonFi(state => state.pools);
+    const getBonuses = useUserBalances((state) => state.getBonuses);
 
     const updateSpeed = useUserBalances((state) => state.updateSpeed);
     const updateSpeedJ = useJettonsBalances((state) => state.updateSpeedJ);
@@ -93,6 +95,13 @@ export const List: React.FC = () => {
     }, []);
 
     //console.log('balance: ', balance, 'balanceJ: ', balanceJ);
+
+    useEffect(() => {
+        if (userId && userId !== 0) {
+            getBonuses();
+        }
+    }, [getBonuses, userId])
+
 
     return (
         <div className={`${s.list} scrollable`}>

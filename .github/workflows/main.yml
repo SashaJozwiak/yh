@@ -40,8 +40,9 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_SECRET_HOST: ${{ secrets.VITE_SECRET_HOST }}
           VITE_SECRET_BOT_TOKEN: ${{ secrets.VITE_SECRET_BOT_TOKEN }}
+          VITE_SECRET_HOST: ${{ secrets.VITE_SECRET_HOST }}
+          VITE_SECRET_TIMECOUNT: ${{ secrets.VITE_TIMECOUNT }}
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact

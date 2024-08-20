@@ -35,6 +35,8 @@ export const checkSubscription = async (
     const isMember = await checkSubFetch(userId, src);
     console.log(isMember);
     if (isMember) {
-        completeTask(taskId)
+        await completeTask(taskId)
+    } else {
+        window.location.href = `https://t.me/${src.slice(1)}`
     }
 }

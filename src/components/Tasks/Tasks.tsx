@@ -1,26 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNav } from '../../store/nav';
 import { useTasks } from '../../store/tasks'
 import { useUserData } from '../../store/main';
+
+import { TimerButton } from './TimerButton ';
 
 import { checkSubscription } from '../../utils/checks/checkSubscription';
 
 import s from './tasks.module.css'
-import { useNav } from '../../store/nav';
+
+import WebApp from '@twa-dev/sdk';
 
 export const Tasks = () => {
     const { setMainNav, setCabNav } = useNav((state) => state)
-
-
     const userData = useUserData((state) => state.user)
     const { activeFriends, dailyReward } = useTasks((state) => state)
     const tasks = useTasks((state) => state.tasks)
     const completeTask = useTasks((state) => state.completeTask)
-
-
-
     const getAllTasks = useTasks((state) => state.getAllTasks)
 
+    const [blockBtns, setBlockBtns] = useState(false);
+
     const checkTask = async (userId: number, taskId: number, src: string) => {
+
         switch (taskId) {
             case 1:
             case 2:
@@ -28,10 +30,12 @@ export const Tasks = () => {
                 break;
             case 4:
                 //await checkTeams(userId, taskId, setRoutes);
+                //await completeTask(taskId)
                 break;
             default:
                 console.log('no task id');
         }
+        await setBlockBtns(false)
     }
 
     useEffect(() => {
@@ -48,44 +52,64 @@ export const Tasks = () => {
                 }}
                 className={s.listitem}>
                 <div className={s.title}>{activeFriends.title}</div>
-                <div style={{ color: 'gray', backgroundColor: 'transparent' }} className={s.check}>{userData.refs_active}</div>
-                <div style={{ color: 'gray' }} className={s.price}>{activeFriends.price}/F</div>
+                <div style={{ color: 'whitesmoke', backgroundColor: 'transparent' }} className={s.check}>{userData.refs_active}</div>
+                <div style={{ color: 'whitesmoke' }} className={s.price}>{activeFriends.price}/F</div>
             </div>
 
             <div
-            //onClick={() => (console.log('daily reward'))}
                 className={`${s.listitem} ${s.listitemperm}`}>
-                <div className={s.title}>{dailyReward.title}</div>
+                <div style={{ border: 'none', margin: 'auto 0' }} className={s.title}>{dailyReward.title}</div>
 
-                <button className={s.check}>Claim</button>
+                {dailyReward.timer && <TimerButton dailyReward={dailyReward} />}
 
                 <div style={{ color: 'white' }} className={s.price}>{dailyReward.price}</div>
             </div>
-            <h2>Native</h2>
-            {tasks.filter(task => task.type === 'native').map(task => (
+
+            {tasks.filter(task => task.type === 'native' && task.completed === false).length > 0 && <h2>Native</h2>}
+
+            {tasks.filter(task => task.type === 'native' && task.completed === false).map(task => (
                 <div
-                    onClick={() => checkTask(userData.id, task.id, task.src)}
                     key={task.id} className={s.listitem}>
-                    <div className={s.title}>{task.title}</div>
-                    <button className={s.check}>Check</button>
+                    <button
+                        onClick={() => {
+                            WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                        }}
+                        className={s.titlebtn}>{task.title}</button>
+                    <button
+                        style={{ backgroundColor: blockBtns ? 'transparent' : 'whitesmoke', color: blockBtns ? 'gray' : 'black' }}
+                        onClick={() => {
+                            setBlockBtns(true)
+                            checkTask(userData.id, task.id, task.src)
+                        }}
+                        disabled={blockBtns}
+                        className={s.check}>Check</button>
                     <div className={s.price}>{task.price}</div>
                 </div>
             ))}
-            <h2>Affiliate</h2>
-            {tasks.filter(task => task.type === 'affiliate').map(task => (
+            {tasks.filter(task => task.type === 'affiliate' && task.completed === false).length > 0 && <h2>Affiliate</h2>}
+            {tasks.filter(task => task.type === 'affiliate' && task.completed === false).map(task => (
                 <div
-                    onClick={() => checkTask(userData.id, task.id, task.src)}
                     key={task.id} className={s.listitem}>
-                    <div className={s.title}>{task.title}</div>
-                    <button className={s.check}>Check</button>
+                    <button
+                        onClick={() => {
+                            WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                        }}
+                        className={s.titlebtn}>{task.title}</button>
+                    <button
+                        style={{ backgroundColor: blockBtns ? 'transparent' : 'whitesmoke', color: blockBtns ? 'gray' : 'black' }}
+                        onClick={() => {
+                            setBlockBtns(true)
+                            checkTask(userData.id, task.id, task.src)
+                        }}
+                        disabled={blockBtns}
+                        className={s.check}>Check</button>
                     <div className={s.price}>{task.price}</div>
                 </div>
             ))}
 
-            {tasks.filter(task => task.completed === true && task.title !== 'Active Friends') && <h2>Complete</h2>}
+            {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').length > 0 && <h2>Complete</h2>}
             {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').map(task => (
                 <div
-                    //onClick={() => (console.log(task.id))}
                     key={task.id} className={s.listitem}
                     style={{ color: 'grey' }}>
                     <div style={{ borderBottom: '1px gray solid' }}

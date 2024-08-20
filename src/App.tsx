@@ -36,9 +36,9 @@ const App: React.FC = function () {
   const rawAddress = useUserData(state => state.user.rawAddress);
 
   //const bonuses = useUserBalances((state) => state.bonuses);
-  const userId = useUserData(state => state.user.internalId);
+  //const userId = useUserData(state => state.user.internalId);
 
-  const getBonuses = useUserBalances((state) => state.getBonuses);
+  //const getBonuses = useUserBalances((state) => state.getBonuses);
   const updateBalance = useUserBalances((state) => state.updateBalance);
   const updateBalanceJ = useJettonsBalances((state) => state.updateBalanceJ);
 
@@ -67,11 +67,11 @@ const App: React.FC = function () {
     }
   }, [rawAddress, updateBalanceJ, updateStonFiBalance]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (userId ?? userId !== 0) {
       getBonuses();
     }
-  }, [getBonuses, userId])
+  }, [getBonuses, userId]) */
 
   /* useEffect(() => {
     // eslint-disable-next-line react-hooks/rules-of-hooks

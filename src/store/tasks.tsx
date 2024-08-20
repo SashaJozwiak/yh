@@ -1,8 +1,9 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { Task, UseTasks } from '../types/stores';
+import { useUserData } from './main';
 
-export const useTasks = create<UseTasks>()(devtools((set, get) => ({
+export const useTasks = create<UseTasks>()(devtools((set) => ({
     activeFriends: {
         id: 0,
         title: 'Active Friends',
@@ -10,6 +11,7 @@ export const useTasks = create<UseTasks>()(devtools((set, get) => ({
         completed: true,
         src: 'https:',
         type: 'permanent',
+        timer: null,
     },
     dailyReward: {
         id: 0,
@@ -18,12 +20,40 @@ export const useTasks = create<UseTasks>()(devtools((set, get) => ({
         price: 10,
         src: '',
         type: 'permanent',
+        timer: null,
     },
     tasks: [
     ],
-    completeTask: (id: number) => {
-        const task = get().tasks.find((task: Task) => task.id === id);
-        console.log('task: ', task)
+    completeTask: async (taskId: number) => {
+        /* const task = get().tasks.find((task: Task) => task.id === taskId); */
+        const internalId = useUserData.getState().user.internalId;
+        const getAllTasks = useTasks.getState().getAllTasks;
+        console.log('taskId: ', taskId)
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/tasks/completeTask`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    internalId: internalId, taskId: taskId
+                }),
+            })
+
+            if (!response.ok) {
+                throw new Error('complete task failed');
+            }
+
+            const data = await response.json();
+            console.log('complete task: ', data)
+
+            await getAllTasks(internalId);
+
+        } catch (e) {
+            console.error('error complete task: ', e)
+        }
 
         /* set((state) => (
             {

@@ -1,0 +1,72 @@
+import { useState, useEffect } from 'react';
+import s from './tasks.module.css';
+
+import { useTasks } from '../../store/tasks'
+
+const hours = import.meta.env.VITE_SECRET_TIMECOUNT;
+
+export const TimerButton = ({ dailyReward }) => {
+  const completeTask = useTasks((state) => state.completeTask)
+
+  const [isClaimable, setIsClaimable] = useState(false);
+  const [timeLeft, setTimeLeft] = useState('');
+
+  const [loading, setLoading] = useState(true); // Состояние загрузки
+
+  useEffect(() => {
+    const rewardTime = new Date(dailyReward.timer).getTime();
+    const claimableTime = rewardTime + hours * 60 * 60 * 1000;
+    const now = Date.now(); // Текущее время в миллисекундах
+
+    if (now >= claimableTime) {
+      setIsClaimable(true);
+    } else {
+      setIsClaimable(false);
+      const intervalId = setInterval(() => {
+        const currentTime = Date.now();
+        const difference = claimableTime - currentTime;
+
+        if (difference <= 0) {
+          setIsClaimable(true);
+          clearInterval(intervalId);
+        } else {
+          const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((difference / (1000 * 60)) % 60);
+          const seconds = Math.floor((difference / 1000) % 60);
+          setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
+        }
+      }, 1000);
+      setLoading(false)
+
+      return () => clearInterval(intervalId);
+    }
+
+
+
+  }, [dailyReward.timer]);
+
+  const handleClick = async () => {
+    if (!isClaimable || loading) return; // Предотвращаем повторные клики, если кнопка заблокирована
+
+    setLoading(true); // Блокируем кнопку
+
+    try {
+      await completeTask(dailyReward.id); // Выполнение задачи
+    } catch (error) {
+      console.error('Error completing task:', error);
+    } /* finally {
+      setLoading(false); // Разблокировка кнопки после завершения
+    } */
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      style={{ backgroundColor: isClaimable ? 'white' : 'transparent', color: isClaimable ? 'black' : 'gray' }}
+      className={s.check}
+      disabled={!isClaimable || loading} // Блокируем кнопку, если она не доступна или в процессе загрузки
+    >
+      {loading ? 'Processing...' : isClaimable ? 'Claim' : timeLeft || 'loading...'}
+    </button>
+  );
+};

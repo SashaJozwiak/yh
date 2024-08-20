@@ -35,6 +35,14 @@
     border-bottom:1px solid white;
 }
 
+.titlebtn {
+    text-align: left;
+    margin: 0 auto auto 0;
+    border-bottom:1px solid white;
+    background-color: transparent;
+    font-size: 1rem;
+}
+
 .price {
     padding:0.2rem;
     border: 1px solid;
