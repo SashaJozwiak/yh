@@ -62,7 +62,7 @@ export const Teams: React.FC = () => {
                                 WebApp.openTelegramLink(myTeam.src);
                             }}
                         >{myTeam.team_name}</button>
-                        <div>{myTeam.team_balance}</div>
+                        <div>{Number(myTeam.team_balance).toFixed()}</div>
                         <button
                             onClick={() => {
                                 joinOrLeaveTeam(myTeam.team_id, false)
@@ -102,7 +102,7 @@ export const Teams: React.FC = () => {
                                     WebApp.openTelegramLink(team.src);
                                 }}
                             >{team.team_name}</button>
-                        <div style={{ flex: '1' }}>{team.team_balance || 0}</div>
+                            <div style={{ flex: '1' }}>{Number(team.team_balance).toFixed() || 0}</div>
                     </div>
                     )}
             </div>}

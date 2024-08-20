@@ -36,6 +36,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
             }
 
             const data = await response.json();
+            console.log('teams from server: ', data);
             set(() => (
                 { teams: data }
             ))
