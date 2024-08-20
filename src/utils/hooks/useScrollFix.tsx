@@ -21,8 +21,9 @@ const useScrollFix = () => {
                 window.scrollTo(0, overflow);
             }
         };
-
+        if (!isIphone()) {
         applyStyles();
+        }
 
         const handleResize = () => {
             if (!isIphone()) {
@@ -40,11 +41,14 @@ const useScrollFix = () => {
             }
             }
         };
-
+        if (!isIphone()) {
         window.addEventListener('resize', handleResize);
+        }
 
         return () => {
+            if (!isIphone()) {
             window.removeEventListener('resize', handleResize);
+            }
         };
     }, []);
 };
