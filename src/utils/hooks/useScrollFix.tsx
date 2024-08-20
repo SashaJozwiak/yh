@@ -3,14 +3,13 @@ import { useEffect } from 'react';
 const useScrollFix = () => {
     useEffect(() => {
         const overflow = 100;
-
-        document.documentElement.classList.add('document');
-        document.body.classList.add('body');
+        // eslint-disable-next-line prefer-const
+        let originalHeight = window.innerHeight;
 
         const applyStyles = () => {
             document.body.style.overflowY = 'hidden';
             document.body.style.marginTop = `${overflow}px`;
-            document.body.style.height = window.innerHeight + overflow + "px";
+            document.body.style.height = originalHeight + overflow + "px";
             document.body.style.paddingBottom = `${overflow}px`;
             window.scrollTo(0, overflow);
         };
@@ -18,10 +17,17 @@ const useScrollFix = () => {
         applyStyles();
 
         const handleResize = () => {
-            if (document.activeElement && document.activeElement.tagName === 'INPUT') {
+            const currentHeight = window.innerHeight;
+
+            if (currentHeight < originalHeight) {
+            // Клавиатура активна, удаляем отступ
                 document.body.style.marginTop = `0px`;
+                document.body.style.height = `${currentHeight}px`;
             } else {
-                applyStyles();
+                // Клавиатура скрыта, возвращаем отступ
+                document.body.style.marginTop = `${overflow}px`;
+                document.body.style.height = `${currentHeight + overflow}px`;
+                window.scrollTo(0, overflow);
             }
         };
 
