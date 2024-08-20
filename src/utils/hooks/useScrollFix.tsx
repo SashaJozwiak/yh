@@ -25,6 +25,7 @@ const useScrollFix = () => {
         applyStyles();
 
         const handleResize = () => {
+            if (!isIphone()) {
             const currentHeight = window.innerHeight;
 
             if (currentHeight < originalHeight) {
@@ -36,6 +37,7 @@ const useScrollFix = () => {
                 document.body.style.marginTop = `${overflow}px`;
                 document.body.style.height = `${currentHeight + overflow}px`;
                 window.scrollTo(0, overflow);
+            }
             }
         };
 
