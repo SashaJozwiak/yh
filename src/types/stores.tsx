@@ -124,6 +124,7 @@ export interface Task {
     completed: boolean;
     src: string;
     type: string;
+    timer: string | null;
 }
 
 export interface UseTasks {
