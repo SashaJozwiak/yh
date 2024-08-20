@@ -20,8 +20,8 @@
 .inputform {
     display: flex;
     justify-content:space-between;
-    align-items: center;
-    text-align: center;
+    //align-items: center;
+    //text-align: center;
     //margin: 5%;
 }
 
@@ -31,7 +31,7 @@
     //padding: 0.5rem 0.5rem; 
     //width: 60vw;
     //height: auto;
-    font-size: 1.2rem;
+    //font-size: 1.2rem;
     background-color: whitesmoke;
     color: rgb(71 85 105);
 }
@@ -76,7 +76,7 @@
     flex-direction: column;
     gap: 0.5rem;
     flex-grow: 1;
-    overflow-y: auto;
+    //overflow-y: auto;
     
     padding: 1rem;
 
