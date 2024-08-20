@@ -3,16 +3,24 @@ import { useEffect } from 'react';
 const useScrollFix = () => {
     useEffect(() => {
         const overflow = 100;
+        let inputFocused = false;
 
-        // Добавляем классы к document и body
         document.documentElement.classList.add('document');
         document.body.classList.add('body');
 
-        document.body.style.overflowY = 'hidden';
-        document.body.style.marginTop = `${overflow}px`;
-        document.body.style.height = window.innerHeight + overflow + "px";
-        document.body.style.paddingBottom = `${overflow}px`;
-        /* window.scrollTo(0, 0); */ window.scrollTo(0, overflow);
+        const applyStyles = () => {
+            if (!inputFocused) {
+                document.body.style.overflowY = 'hidden';
+                document.body.style.marginTop = `${overflow}px`;
+                document.body.style.height = window.innerHeight + overflow + "px";
+                document.body.style.paddingBottom = `${overflow}px`;
+                window.scrollTo(0, overflow);
+            } else {
+                document.body.style.marginTop = `0px`;
+            }
+        };
+
+        applyStyles();
 
         let ts;
 
@@ -33,12 +41,32 @@ const useScrollFix = () => {
             }
         };
 
+        const onFocus = () => {
+            inputFocused = true;
+            applyStyles();
+        };
+
+        const onBlur = () => {
+            inputFocused = false;
+            applyStyles();
+        };
+
+        const input = document.querySelector('input');
+        if (input) {
+            input.addEventListener('focus', onFocus);
+            input.addEventListener('blur', onBlur);
+        }
+
         document.documentElement.addEventListener('touchstart', onTouchStart, { passive: false });
         document.documentElement.addEventListener('touchmove', onTouchMove, { passive: false });
 
         return () => {
             document.documentElement.removeEventListener('touchstart', onTouchStart);
             document.documentElement.removeEventListener('touchmove', onTouchMove);
+            if (input) {
+                input.removeEventListener('focus', onFocus);
+                input.removeEventListener('blur', onBlur);
+            }
         };
     }, []);
 };
