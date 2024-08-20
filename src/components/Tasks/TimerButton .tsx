@@ -44,8 +44,6 @@ export const TimerButton = ({ dailyReward }) => {
         }
       }, 1000);
 
-
-
       return () => clearInterval(intervalId);
     }
     setLoading(false)
