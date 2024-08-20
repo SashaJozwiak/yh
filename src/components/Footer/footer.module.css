@@ -2,6 +2,7 @@
     position: fixed;
     bottom: 0;
     width: 100vw;
+    //height: 4.5rem;
     display: flex;
     justify-content: space-between;
     gap: 1rem;
