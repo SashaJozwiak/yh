@@ -6,12 +6,20 @@ const useScrollFix = () => {
         // eslint-disable-next-line prefer-const
         let originalHeight = window.innerHeight;
 
+        const isIphone = () => {
+            return /iPhone/.test(navigator.userAgent);
+        };
+
+        console.log('isIphone: ', isIphone())
+
         const applyStyles = () => {
-            document.body.style.overflowY = 'hidden';
-            document.body.style.marginTop = `${overflow}px`;
-            document.body.style.height = originalHeight + overflow + "px";
-            document.body.style.paddingBottom = `${overflow}px`;
-            window.scrollTo(0, overflow);
+            if (!isIphone()) {
+                document.body.style.overflowY = 'hidden';
+                document.body.style.marginTop = `${overflow}px`;
+                document.body.style.height = originalHeight + overflow + "px";
+                document.body.style.paddingBottom = `${overflow}px`;
+                window.scrollTo(0, overflow);
+            }
         };
 
         applyStyles();
