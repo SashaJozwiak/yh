@@ -78,7 +78,7 @@ export const Teams: React.FC = () => {
                     value={searchTeam}
                     onChange={handleInputChange}
                     className={s.input}
-                    type="text" /* value={userId} */ placeholder='Search' />
+                    type="text" /* value={userId} */ /* placeholder='Search' */ />
                 {/* <p style={{ top: '1rem', margin: '0 auto' }}>or</p> */}
                 <button
                     onClick={searchTeam ? handleSearchTeam : handleCreateTeam}
