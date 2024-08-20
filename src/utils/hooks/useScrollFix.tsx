@@ -17,7 +17,7 @@ const useScrollFix = () => {
         applyStyles();
 
         const handleResize = () => {
-            const currentHeight = overflow;// window.innerHeight!!!
+            const currentHeight = window.innerHeight;
 
             if (currentHeight < originalHeight) {
             // Клавиатура активна, удаляем отступ
