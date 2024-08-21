@@ -16,6 +16,12 @@
   --tg-theme-button-color: #63d0f9;
   --tg-theme-button-text-color: black;
   //display: flex;
+
+
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 * {
