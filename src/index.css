@@ -17,7 +17,7 @@
   --tg-theme-button-text-color: black;
   display: flex;
 
-  -ms-overflow-style: none;
+  
 }
 
 * {
@@ -52,6 +52,7 @@ input, input:before, input:after {
 //  -moz-user-select: text; /* Old versions of Firefox */
 //  -ms-user-select: text; /* Internet Explorer/Edge */
 //  user-select: text; /* Non-prefixed version, currently*/
+// 
 //}
 
 /* styles.css */
@@ -82,6 +83,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 h1 {
