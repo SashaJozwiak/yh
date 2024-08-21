@@ -62,6 +62,7 @@ input, input:before, input:after {
 /* styles.css */
 .document {
   height: auto;
+  height: 100vh;
   overflow: hidden;
 }
 
