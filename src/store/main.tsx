@@ -31,7 +31,6 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     //setUser: (user: User) => set(() => ({ user })),
     setUser: async (user: Partial<User>) => {
         console.log('user in state: ', user)
-        console.log(import.meta.env.VITE_SECRET_HOST)
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
                 method: 'GET',

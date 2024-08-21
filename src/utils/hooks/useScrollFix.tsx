@@ -21,6 +21,7 @@ const useScrollFix = () => {
                 window.scrollTo(0, overflow);
             }
         };
+
         if (!isIphone()) {
         applyStyles();
         }

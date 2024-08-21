@@ -82,9 +82,9 @@ export const Header: React.FC = () => {
                 </p>
             </button>
 
-            <div className={s.speed}>
+            <button className={s.speed}>
                 <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/h</p>
-            </div>
+            </button>
 
             <div className={s.settings}>
                 <TonConnectButton className={s.tonbutton} />

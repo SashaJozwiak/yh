@@ -19,7 +19,7 @@ import { Cabinet } from './components/Cabinet/Cabinet';
 /* import usePreloadImage from './utils/hooks/usePreloadImage'; */
 
 import './App.css';
-import useScrollFix from './utils/hooks/useScrollFix';
+//import useScrollFix from './utils/hooks/useScrollFix';
 
 eruda.init();//just for debug
 
@@ -29,7 +29,7 @@ eruda.init();//just for debug
 
 const App: React.FC = function () {
 
-  useScrollFix();
+  //useScrollFix();
 
   const nav = useNav((state) => state.nav.main)
 
