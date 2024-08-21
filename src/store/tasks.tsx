@@ -22,13 +22,10 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
         type: 'permanent',
         timer: null,
     },
-    tasks: [
-    ],
+    tasks: [],
     completeTask: async (taskId: number) => {
-        /* const task = get().tasks.find((task: Task) => task.id === taskId); */
         const internalId = useUserData.getState().user.internalId;
         const getAllTasks = useTasks.getState().getAllTasks;
-        console.log('taskId: ', taskId)
 
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}tasks/completeTask`, {
@@ -40,38 +37,26 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
                 body: JSON.stringify({
                     internalId: internalId, taskId: taskId
                 }),
-            })
+            });
 
             if (!response.ok) {
                 throw new Error('complete task failed');
             }
 
-            const data = await response.json();
-            console.log('complete task: ', data)
-
             await getAllTasks(internalId);
 
         } catch (e) {
-            console.error('error complete task: ', e)
+            console.error('error complete task: ', e);
         }
-
-        /* set((state) => (
-            {
-                tasks: state.tasks.map((task: Task) => task.id === id ? { ...task, completed: true } : task),
-            }
-        )); */
     },
     getAllTasks: async (userId: number) => {
-        console.log(`${import.meta.env.VITE_SECRET_HOST}tasks?userId=${userId}`)
         try {
-            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}tasks?userId=${userId}`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            )
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}tasks?userId=${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
             if (!response.ok) {
                 throw new Error('get all tasks failed');
@@ -85,33 +70,17 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
                 return task;
             });
 
-            console.log('all tasks: ', updatedTasks);
-
             const activeFriendsTask = updatedTasks.find((task: Task) => task.title === 'Active Friends');
             const dailyRewardTask = updatedTasks.find((task: Task) => task.title === 'Daily Reward');
 
             set(() => ({
-                activeFriends: activeFriendsTask /* || {
-                    id: 0,
-                    title: 'Active Friends',
-                    price: 150,
-                    completed: true,
-                    src: 'https:',
-                    type: 'permanent',
-                } */,
-                dailyReward: dailyRewardTask /* || {
-                    id: 0,
-                    title: 'Daily Reward',
-                    completed: false,
-                    price: 10,
-                    src: '',
-                    type: 'permanent',
-                } */,
+                activeFriends: activeFriendsTask,
+                dailyReward: dailyRewardTask,
                 tasks: updatedTasks.filter((task: Task) => task.title !== 'Active Friends' && task.title !== 'Daily Reward'),
             }));
 
         } catch (e) {
-            console.error('error get all tasks: ', e)
+            console.error('error get all tasks: ', e);
         }
     }
-})))
+})));
