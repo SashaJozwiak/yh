@@ -8,7 +8,7 @@ import { useNav } from './store/nav';
 import { useUserData, useUserBalances, useJettonsBalances, useStonFi } from './store/main'
 
 import WebApp from '@twa-dev/sdk';
-import eruda from 'eruda'
+//import eruda from 'eruda'
 
 import { Footer } from './components/Footer/Footer';
 import { Tasks } from './components/Tasks/Tasks';
@@ -21,7 +21,7 @@ import { Cabinet } from './components/Cabinet/Cabinet';
 import './App.css';
 //import useScrollFix from './utils/hooks/useScrollFix';
 
-eruda.init();//just for debug
+//eruda.init();//just for debug
 
 /* document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
