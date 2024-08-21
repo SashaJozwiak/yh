@@ -3,7 +3,7 @@
   line-height: normal;//1.5;
   font-weight: 400;
 
-  color-scheme: dark;
+  //color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background: linear-gradient(rgb(30 41 59), rgb(100 116 139)); /* #242424; */
 
@@ -15,9 +15,7 @@
   --tg-theme-bg-color: #1c1f24;
   --tg-theme-button-color: #63d0f9;
   --tg-theme-button-text-color: black;
-  display: flex;
-
-  
+  //display: flex;
 }
 
 * {
