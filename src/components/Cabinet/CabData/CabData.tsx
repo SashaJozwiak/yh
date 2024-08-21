@@ -33,7 +33,7 @@ export const CabData = () => {
                     <p className={s.line}>Active fr.: <span style={{ color: 'white' }}>{refs_active}</span></p>
                     {/* <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p> */}
                     {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
-                    <p className={s.line}>Balance: <span style={{ color: 'white' }}>~{Number(balance.toFixed(0)).toLocaleString('ru-Ru')}</span></p>
+                    <p className={s.line}>Balance: <span style={{ color: 'white' }}>{Number(balance.toFixed(0)).toLocaleString('ru-Ru')}</span></p>
                 </div>
             </div>
 
