@@ -16,6 +16,8 @@
   --tg-theme-button-color: #63d0f9;
   --tg-theme-button-text-color: black;
   display: flex;
+
+  -ms-overflow-style: none;
 }
 
 * {
