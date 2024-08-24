@@ -76,7 +76,6 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             }))
             console.error('setUser error :', err);
         }
-
     },
     setBalanceData: async (balance: Partial<BalanceObj>) => {
         const internalId = get().user.internalId;
@@ -105,7 +104,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 }
 
                 const res = await response.json()
-                //console.log('start mining: ', res)
+                console.log('start mining: ', res)
                 set((state) => ({
                     balance: {
                         ...state.balance,
@@ -136,7 +135,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             }
 
             const res = await response.json()
-            //console.log(res)
+            console.log(res)
 
             set((state) => ({
                 balance: {

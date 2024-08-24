@@ -68,7 +68,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
             }
 
             const updatedTeams = await response.json();
-            //console.log('updatedTeams: ', updatedTeams);
+            console.log('updatedTeams: ', updatedTeams);
 
             // Обновляем состояние команд на клиенте
             /*  set(() => ({
