@@ -19,6 +19,7 @@ import { Cabinet } from './components/Cabinet/Cabinet';
 /* import usePreloadImage from './utils/hooks/usePreloadImage'; */
 
 import './App.css';
+import { Game } from './components/Game/Game';
 //import useScrollFix from './utils/hooks/useScrollFix';
 
 //eruda.init();//just for debug
@@ -84,13 +85,13 @@ const App: React.FC = function () {
 
   return (
     <>
-      {nav !== 'cabinet' && <Header />}
+      {nav !== 'cabinet' && nav !== 'game' && <Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
-      {nav === 'loan' && <h2>loan</h2>}
+      {nav === 'game' && <Game />}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
-      <Footer />
+      {nav !== 'game' && <Footer />}
     </>
   );
 }
