@@ -20,7 +20,7 @@ export const CabData = () => {
     }, [getTop100, top100.length])
 
 
-    console.log('top100: ', top100)
+    //console.log('top100: ', top100)
 
     return (
         <>

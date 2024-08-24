@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
 
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
-        console.log('init user render')
+        //console.log('init user render')
         if (userFromTg) {
             const newUser = {
                 id: userFromTg.id,
@@ -49,18 +49,18 @@ export const Header: React.FC = () => {
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
-            console.log('write jozwiak user in store')
+            //console.log('write jozwiak user in store')
             setUser(newUser);
-            console.log('write jozwiak user in store finish')
+            //console.log('write jozwiak user in store finish')
         }
     }, [setUser, id]);
 
 
     useEffect(() => {
-        console.log('check rawaddress from wallet')
-        console.log('check add and some :', internalId, rawAddress, rawAddressInState)
+        //console.log('check rawaddress from wallet')
+        //console.log('check add and some :', internalId, rawAddress, rawAddressInState)
         if (internalId && rawAddress && rawAddress !== rawAddressInState) {
-            console.log('write addresses  wallet')
+            //console.log('write addresses  wallet')
             const addresses = {
                 internalId,
                 userFriendlyAddress,

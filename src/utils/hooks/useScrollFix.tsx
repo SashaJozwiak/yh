@@ -10,7 +10,7 @@ const useScrollFix = () => {
             return /iPhone/.test(navigator.userAgent);
         };
 
-        console.log('isIphone: ', isIphone())
+        //console.log('isIphone: ', isIphone())
 
         const applyStyles = () => {
             if (!isIphone()) {

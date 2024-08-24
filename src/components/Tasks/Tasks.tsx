@@ -32,7 +32,7 @@ export const Tasks = () => {
                 //await completeTask(taskId)
                 break;
             default:
-                console.log('no task id');
+            //console.log('no task id');
         }
         await setBlockBtns(false)
     }

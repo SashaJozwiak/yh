@@ -22,7 +22,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
         team_balance: 0,
     },
     getTeams: async () => {
-        console.log('getteams start')
+        //console.log('getteams start')
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/teams`, {
                 method: 'GET',
@@ -36,7 +36,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
             }
 
             const data = await response.json();
-            console.log('teams from server: ', data);
+            //console.log('teams from server: ', data);
             set(() => (
                 { teams: data }
             ))
@@ -47,7 +47,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
     },
     joinOrLeaveTeam: async (team_id: number, isJoin: boolean) => {
         const { internalId } = useUserData.getState().user;
-        console.log('team_id for fetch', team_id, internalId, isJoin)
+        //console.log('team_id for fetch', team_id, internalId, isJoin)
         const getTeams = useTeams.getState().getTeams;
         const getMyTeam = useTeams.getState().getMyTeam;
 
@@ -68,7 +68,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
             }
 
             const updatedTeams = await response.json();
-            console.log('updatedTeams: ', updatedTeams);
+            //console.log('updatedTeams: ', updatedTeams);
 
             // Обновляем состояние команд на клиенте
             /*  set(() => ({
@@ -98,7 +98,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
         }
     },
     getMyTeam: async (team_id: number) => {
-        console.log('getmyteam start')
+        //console.log('getmyteam start')
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/teams/my?team_id=${team_id}`, {
                 method: 'GET',
@@ -113,7 +113,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
 
             const data = await response.json();
 
-            console.log('myteam from server: ', data);
+            //console.log('myteam from server: ', data);
             set(() => (
                 {
                     myTeam: data
@@ -130,7 +130,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
         const getTeams = useTeams.getState().getTeams;
         const getMyTeam = useTeams.getState().getMyTeam;
 
-        console.log('data for create team ', teamName, teamLink);
+        //console.log('data for create team ', teamName, teamLink);
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}profile/teams/createTeam`, {
                 method: 'POST',
@@ -151,7 +151,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
             if (data.message === 'Team with this name already exists') {
                 setError('Team with this name already exists');
             }
-            console.log('data for create team ', data.team.id);
+            //console.log('data for create team ', data.team.id);
 
 
             await Promise.all([
@@ -182,7 +182,7 @@ export const useTeams = create<UseTeams>()(devtools((set) => ({
             set(() => (
                 { teams: data }
             ))
-            console.log('data for search team ', data);
+            //console.log('data for search team ', data);
             return data;
 
         } catch (e) {

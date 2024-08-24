@@ -18,10 +18,10 @@ export const TimerButton = ({ dailyReward }) => {
     const claimableTime = rewardTime + hours * 60 * 60 * 1000;
     const now = Date.now(); // Текущее время в миллисекундах
 
-    console.log('rewardTime: ', rewardTime);
-    console.log('claimableTime: ', claimableTime);
-    console.log('now: ', now);
-    console.log(now >= claimableTime)
+    //console.log('rewardTime: ', rewardTime);
+    //console.log('claimableTime: ', claimableTime);
+    //console.log('now: ', now);
+    //console.log(now >= claimableTime)
 
     if (now >= claimableTime) {
       setIsClaimable(true);

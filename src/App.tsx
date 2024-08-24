@@ -45,7 +45,7 @@ const App: React.FC = function () {
 
   const updateStonFiBalance = useStonFi((state) => state.updateBalanceSF)
 
-  console.log('Main render')
+  //console.log('Main render')
 
   useEffect(() => {
     if (!WebApp.isExpanded) {
@@ -54,14 +54,14 @@ const App: React.FC = function () {
   }, []);
 
   useEffect(() => {
-    console.log('render change rawaddres in LIST')
+    //console.log('render change rawaddres in LIST')
     if (rawAddress) {
       updateBalance(rawAddress);
     }
   }, [rawAddress, updateBalance]);
 
   useEffect(() => {
-    console.log('render change rawaddres in LIST jettons')
+    //console.log('render change rawaddres in LIST jettons')
     if (rawAddress) {
       updateBalanceJ(rawAddress);
       updateStonFiBalance(rawAddress)

@@ -36,11 +36,11 @@ export const StatBar: React.FC = () => {
     }
 
     useEffect(() => {
-        console.log(speedBal(), speedBalJ())
+        //console.log(speedBal(), speedBalJ())
         setSpeed(speedBal() + speedBalJ() + speedBalSF());
     }, [balance, balancesJ, balancesSF, speedBal, speedBalJ, speedBalSF])
 
-    console.log('balancedata: ', balanceData)
+    //console.log('balancedata: ', balanceData)
 
     return (
         <div className={s.statbar}>

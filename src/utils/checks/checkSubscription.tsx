@@ -2,7 +2,7 @@ import WebApp from "@twa-dev/sdk";
 
 const checkSubFetch = async (userId: number, chatId: string) => {
     const botToken = import.meta.env.VITE_SECRET_BOT_TOKEN;
-    console.log(userId, chatId)
+    //console.log(userId, chatId)
     try {
         const url = new URL(`https://api.telegram.org/bot${botToken}/getChatMember`);
         url.searchParams.append('chat_id', chatId);
@@ -33,7 +33,7 @@ export const checkSubscription = async (
     src: string,
     completeTask: (taskId: number) => void) => {
     const isMember = await checkSubFetch(userId, src);
-    console.log(isMember);
+    //console.log(isMember);
     if (isMember) {
         await completeTask(taskId)
     } else {

@@ -26,7 +26,7 @@ export const Invite: React.FC = () => {
     }
 
     const handleCopyClick = () => {
-        console.log('handleCopyClick')
+        //console.log('handleCopyClick')
         navigator.clipboard.writeText(link).then(() => {
             setCopied(true)
             const timerId = setTimeout(() => {
@@ -40,7 +40,7 @@ export const Invite: React.FC = () => {
         });
     }
 
-    console.log(link)
+    //console.log(link)
 
     useEffect(() => {
         if (teamId && teamId !== 0) {

@@ -26,7 +26,7 @@ export const PopUp: React.FC<PopUpProps> = ({ setPopUp }) => {
         }
     };
 
-    console.log('team: ', teamName, teamLink)
+    //console.log('team: ', teamName, teamLink)
 
     return (
         <div className={s.popupoverlay}>

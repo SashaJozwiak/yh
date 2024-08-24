@@ -30,7 +30,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     },
     //setUser: (user: User) => set(() => ({ user })),
     setUser: async (user: Partial<User>) => {
-        console.log('user in state: ', user)
+        //console.log('user in state: ', user)
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
                 method: 'GET',
@@ -44,8 +44,8 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             }
 
             const data = await response.json();
-            console.log('bd_data: ', data);
-            console.log('from_tg_data: ', user)
+            //console.log('bd_data: ', data);
+            //console.log('from_tg_data: ', user)
             const getBalance = Number(data.balance.balance).toFixed(3);
             set((state) => ({
                 user: {
@@ -81,7 +81,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     setBalanceData: async (balance: Partial<BalanceObj>) => {
         const internalId = get().user.internalId;
         const uf_address = get().user.userFriendlyAddress;
-        console.log('uf_address for backend: ', uf_address)
+        //console.log('uf_address for backend: ', uf_address)
 
         if (balance.isHold) {
             try {
@@ -105,7 +105,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 }
 
                 const res = await response.json()
-                console.log('start mining: ', res)
+                //console.log('start mining: ', res)
                 set((state) => ({
                     balance: {
                         ...state.balance,
@@ -136,7 +136,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             }
 
             const res = await response.json()
-            console.log(res)
+            //console.log(res)
 
             set((state) => ({
                 balance: {
@@ -153,7 +153,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
 
     },
     addAddresses: async (addresses) => {
-        console.log('addresses: ', addresses);
+        //console.log('addresses: ', addresses);
 
         /* const response = await fetch('http://localhost:3000/api/wallet', {
             method: 'POST',
@@ -204,7 +204,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
     ],
     getBonuses: async () => {
         const internalId = useUserData.getState().user.internalId;
-        console.log('internalId: ', internalId);
+        //console.log('internalId: ', internalId);
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}bonuses?internalId=${internalId}`,
                 {
@@ -216,7 +216,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
             )
 
             const data = await response.json();
-            console.log('data bonuses: ', data)
+            //console.log('data bonuses: ', data)
 
             set((state) => ({
                 bal: state.bal.map((currency) => currency.name === 'BONUS' ? { ...currency, value: data.bonuses } : currency)
@@ -257,7 +257,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
 
             const data = await response.json();
             const tonBalance = (data.result / 10 ** 9).toFixed(2);
-            console.log('balance: ', tonBalance);
+            //console.log('balance: ', tonBalance);
             set((state) => ({
                 bal: state.bal.map((currency) => currency.name === 'TON' ? { ...currency, value: +tonBalance } : currency)
             }));
@@ -317,7 +317,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             }
 
             const data = await response.json();
-            console.log('jbalance: ', data);
+            //console.log('jbalance: ', data);
 
             set((state) => {
                 const updatedJettons = state.jettons.map(jetton => {
@@ -384,12 +384,12 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
 
             get().pools.map(pool => {
                 const isPool = data.farm_list.find(poolIn => poolIn.pool_address === pool.address);
-                console.log('ispool: ', isPool);
+                //console.log('ispool: ', isPool);
                 if (isPool && isPool.status === 'operational' && Array.isArray(isPool.nft_infos) && isPool.nft_infos.length > 0) {
                     const totalStakedTokens = isPool.nft_infos
                         .filter(nft => nft.status === 'active')
                         .reduce((acc, nft) => acc + parseInt(nft.staked_tokens, 10), 0);
-                    console.log('Total staked tokens for active NFTs: ', totalStakedTokens);
+                    //console.log('Total staked tokens for active NFTs: ', totalStakedTokens);
                     set(state => {
                         const updatedPools = state.pools.map(p => {
                             if (p.address === isPool.pool_address) {
@@ -406,7 +406,7 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
                 }
             })
 
-            console.log('stonfi_tonusdt_balance: ', data);
+            //console.log('stonfi_tonusdt_balance: ', data);
         } catch (error) {
             console.error('Failed to fetch balance jettons:', error);
         } finally {

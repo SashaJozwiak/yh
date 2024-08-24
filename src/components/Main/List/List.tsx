@@ -54,7 +54,7 @@ export const List: React.FC = () => {
         balanceJ.forEach((currency) => {
             const calculatedSpeed = currency.value < currency.range[1] ? ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH) : ((currency.range[1] - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
             const finishSpeed = calculatedSpeed > 0.00 ? calculatedSpeed : 0.00;
-            console.log('finish speed: ', finishSpeed)
+            //console.log('finish speed: ', finishSpeed)
             if (currency.speed !== finishSpeed) {
                 updateSpeedJ(currency.name, finishSpeed);
             }
@@ -65,7 +65,7 @@ export const List: React.FC = () => {
         balancePoolsSF.forEach((currency) => {
             const calculatedSpeed = currency.value < currency.range[1] ? ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH) : ((currency.range[1] - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
             const finishSpeed = calculatedSpeed > 0.00 ? calculatedSpeed : 0.00;
-            console.log('finish speed: ', finishSpeed)
+            //console.log('finish speed: ', finishSpeed)
             if (currency.speed !== finishSpeed) {
                 updateSpeedSF(currency.name, finishSpeed);
             }
@@ -102,7 +102,7 @@ export const List: React.FC = () => {
         }
     }, [getBonuses, userId])
 
-    console.log('balance:', balance)
+    //console.log('balance:', balance)
 
     return (
         <div className={`${s.list} scrollable`}>
