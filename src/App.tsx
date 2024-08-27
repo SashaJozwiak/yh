@@ -68,8 +68,9 @@ const App: React.FC = function () {
   }, [rawAddress, updateBalanceJ]);
 
   useEffect(() => {
-    //console.log('render change rawaddres in LIST jettons')
+    console.log('render change rawaddres in LIST jettons')
     if (rawAddress) {
+      console.log('get new poll for new wallet: ', rawAddress)
       updateStonFiBalance(rawAddress)
     }
   }, [rawAddress, updateStonFiBalance]);

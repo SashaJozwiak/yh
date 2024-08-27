@@ -330,6 +330,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
 
     updateBalanceJ: async (rawAddress: string) => {
         set({ loadStatus: true });
+
         try {
             const response = await fetch(`https://tonapi.io/v2/accounts/${encodeURIComponent(rawAddress)}/jettons`, {
                 headers: {
@@ -343,6 +344,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
 
             const data = await response.json();
             //console.log('jbalance: ', data);
+
 
             set((state) => {
                 const updatedJettons = state.jettons.map(jetton => {
@@ -391,6 +393,7 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
     loadStatus: false,
     updateBalanceSF: async (rawAddress: string) => {
         set({ loadStatus: true });
+        console.log('fetch new poool for: ', rawAddress)
         try {
             const response = await fetch(`https://api.ston.fi/v1/wallets/${encodeURIComponent(rawAddress)}/farms`, {
                 //mode: 'no-cors',
@@ -404,32 +407,34 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
             }
 
             const data = await response.json();
+            console.log('pool: ', data)
             //const filteredPools = data.farm_list.filter(farm => farm.pool_address === 'TON/USDT');
             //console.log('get: ', get().pools)
 
-            get().pools.map(pool => {
-                const isPool = data.farm_list.find(poolIn => poolIn.pool_address === pool.address);
-                //console.log('ispool: ', isPool);
-                if (isPool && isPool.status === 'operational' && Array.isArray(isPool.nft_infos) && isPool.nft_infos.length > 0) {
-                    const totalStakedTokens = isPool.nft_infos
-                        .filter(nft => nft.status === 'active')
-                        .reduce((acc, nft) => acc + parseInt(nft.staked_tokens, 10), 0);
-                    //console.log('Total staked tokens for active NFTs: ', totalStakedTokens);
-                    set(state => {
-                        const updatedPools = state.pools.map(p => {
-                            if (p.address === isPool.pool_address) {
-                                return {
-                                    ...p,
-                                    value: totalStakedTokens / 1000000
-                                };
-                            }
-                            return p;
-                        });
+            set(state => {
+                const updatedPools = state.pools.map(pool => {
+                    const isPool = data.farm_list.find(poolIn => poolIn.pool_address === pool.address);
 
-                        return { pools: updatedPools };
-                    });
-                }
-            })
+                    if (isPool && isPool.status === 'operational' && Array.isArray(isPool.nft_infos) && isPool.nft_infos.length > 0) {
+                        const totalStakedTokens = isPool.nft_infos
+                            .filter(nft => nft.status === 'active')
+                            .reduce((acc, nft) => acc + parseInt(nft.staked_tokens, 10), 0);
+
+                        return {
+                            ...pool,
+                            value: totalStakedTokens / 1000000
+                        };
+                    } else {
+                        // Если пул не найден или не активен, устанавливаем value: 0
+                        return {
+                            ...pool,
+                            value: 0
+                        };
+                    }
+                });
+                console.log('updatedPools: ', updatedPools);
+                return { pools: updatedPools };
+            });
 
             //console.log('stonfi_tonusdt_balance: ', data);
         } catch (error) {

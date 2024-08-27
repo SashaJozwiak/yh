@@ -34,6 +34,7 @@ export const List: React.FC = () => {
     const updateSpeedSF = useStonFi(state => state.updateSpeedSF);
 
     const loadStatus = useJettonsBalances(state => state.loadStatus);
+    const loadStatusPools = useStonFi(state => state.loadStatus)
 
     const nav = useNav(state => state.nav.list)
 
@@ -177,6 +178,7 @@ export const List: React.FC = () => {
                         </div>
                     )
                 })}
+            {loadStatusPools && <p className={s.loading}>...</p>}
 
             {showButton && <div
                 onClick={handleScrollUp}
