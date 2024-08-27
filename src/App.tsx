@@ -64,9 +64,17 @@ const App: React.FC = function () {
     //console.log('render change rawaddres in LIST jettons')
     if (rawAddress) {
       updateBalanceJ(rawAddress);
+    }
+  }, [rawAddress, updateBalanceJ]);
+
+  useEffect(() => {
+    //console.log('render change rawaddres in LIST jettons')
+    if (rawAddress) {
       updateStonFiBalance(rawAddress)
     }
-  }, [rawAddress, updateBalanceJ, updateStonFiBalance]);
+  }, [rawAddress, updateStonFiBalance]);
+
+
 
   /* useEffect(() => {
     if (userId ?? userId !== 0) {
