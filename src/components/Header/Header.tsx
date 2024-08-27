@@ -29,7 +29,9 @@ export const Header: React.FC = () => {
 
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
+
         //console.log('init user render')
+        console.log(WebApp.initDataUnsafe)
 
         const params = new URLSearchParams(window.location.search);
         const startAppId = params.get('startapp');
