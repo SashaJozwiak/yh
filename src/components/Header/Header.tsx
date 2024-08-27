@@ -30,6 +30,15 @@ export const Header: React.FC = () => {
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
         //console.log('init user render')
+
+        const params = new URLSearchParams(window.location.search);
+        const startAppId = params.get('startapp');
+        if (startAppId) {
+            console.log('Start app:', startAppId);
+        } else {
+            console.log('no Start app:', startAppId);
+        }
+
         if (userFromTg) {
             const newUser = {
                 id: userFromTg.id,
