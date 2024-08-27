@@ -20,6 +20,7 @@ export interface UseStore {
     user: User;
     balance: BalanceObj;
     statuses: Statuses;
+    handleReferral: (userId: number, startParam: string) => Promise<void>;
     setUser: (user: Partial<User>) => void;
     addAddresses: (addresses: { userFriendlyAddress: string; rawAddress: string }) => void;
     setBalanceData: (balance: Partial<BalanceObj>) => void;

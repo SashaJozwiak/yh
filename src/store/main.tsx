@@ -29,6 +29,32 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         isError: false,
     },
     //setUser: (user: User) => set(() => ({ user })),
+    handleReferral: async (userId, startParam) => {
+        const [refId, refTeamId] = startParam.split("_");
+        const refTeamNum = refTeamId ? Number(refTeamId) : null;
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}preRegAdd`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: Number(userId),
+                    refId: Number(refId),
+                    refTeamId: refTeamNum,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add referral data to DB');
+            }
+
+            console.log('Referral data added successfully');
+        } catch (error) {
+            console.error('handleReferral error:', error);
+        }
+    },
     setUser: async (user: Partial<User>) => {
         //console.log('user in state: ', user)
         try {

@@ -22,6 +22,7 @@ export const Header: React.FC = () => {
     const id = useUserData((state) => state.user.id);
     const internalId = useUserData((state) => state.user.internalId);
 
+    const handleReferral = useUserData((state) => state.handleReferral);
     const setUser = useUserData((state) => state.setUser);
     const addAddresses = useUserData((state) => state.addAddresses);
 
@@ -30,14 +31,11 @@ export const Header: React.FC = () => {
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
         const startParam = WebApp.initDataUnsafe.start_param;
-        //console.log('init user render')
 
-        //const params = new URLSearchParams(window.location.search);
-        //const startAppId = params.get('startapp');
         if (startParam) {
             console.log('Start app:', startParam);
         } else {
-            console.log('no Start app:', startParam);
+            console.log('no start app:', startParam);
         }
 
         if (userFromTg) {
@@ -49,6 +47,18 @@ export const Header: React.FC = () => {
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
+
+            if (startParam) {
+                handleReferral(newUser.id, startParam).then(() => {
+                    setUser(newUser); // Устанавливаем пользователя после обработки рефералов
+                }).catch((error: Error) => {
+                    console.error('Error handling referral:', error);
+                    setUser(newUser); // В случае ошибки все равно устанавливаем пользователя
+                });
+            } else {
+                setUser(newUser); // Если нет startParam, просто устанавливаем пользователя
+            }
+
             setUser(newUser);
         } else if (id !== 757322479) {
             const newUser = {
@@ -63,7 +73,7 @@ export const Header: React.FC = () => {
             setUser(newUser);
             //console.log('write jozwiak user in store finish')
         }
-    }, [setUser, id]);
+    }, [setUser, handleReferral, id]);
 
 
     useEffect(() => {
