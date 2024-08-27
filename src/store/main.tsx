@@ -28,6 +28,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         isLoading: false,
         isError: false,
     },
+    miningError: '',
     //setUser: (user: User) => set(() => ({ user })),
     handleReferral: async (userId, startParam) => {
         const [refId, refTeamId] = startParam.split("_");
@@ -126,7 +127,14 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 })
 
                 if (!response.ok) {
-                    throw new Error('Network response \'startMining\' was not ok');
+
+                    const messageError = await response.json();
+                    console.log('Error message:', messageError);
+
+                    set(() => ({
+                        miningError: messageError.error
+                    }));
+                    throw new Error(`Network response 'startMining' was not ok: ${messageError.error}`);
                 }
 
                 const res = await response.json()
