@@ -51,7 +51,7 @@ export const StatBar: React.FC = () => {
                 className={`${s.tabs} ${nav ? s.ontab : null}`}>🟢</button>
             <button
                 onClick={() => setNavList(false)}
-                className={`${s.tabs} ${!nav ? s.ontab : null}`}> … </button>
+                className={`${s.tabs} ${!nav ? s.ontab : null}`}> 🟡 </button>
             <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/h</p>
             <button
                 disabled={balanceData.isHold || !rawAddress || !nav}
