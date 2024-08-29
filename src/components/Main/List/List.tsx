@@ -218,7 +218,11 @@ export const List: React.FC = () => {
                     )
                 })}
 
-            {(loadStatusSFPools || loadStatusDDPools) && <div className={s.loading}>...</div>}
+            {(loadStatusSFPools || loadStatusDDPools) && (
+                <div>
+                    <p className={s.loading}>...</p>
+                </div>
+            )}
 
             {showButton && <div
                 onClick={handleScrollUp}
