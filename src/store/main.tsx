@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, BalanceObj } from '../types/stores'
+import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, UseDedust, BalanceObj } from '../types/stores'
 import { devtools } from 'zustand/middleware'
 
 export const useUserData = create<UseStore>()(devtools((set, get) => ({
@@ -450,7 +450,6 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
         } finally {
             set({ loadStatus: false })
         }
-
     },
     updateSpeedSF: (name: string, speed: number) => set((state) => ({
         pools: state.pools.map(item =>
@@ -465,4 +464,82 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
         }, 0);
     },
 
+}))
+
+
+export const useDedust = create<UseDedust>((set, get) => ({
+    pools: [
+        {
+            name: 'TON/USDT',
+            address: 'EQA-X_yo3fzzbDbJ_0bzFWKqtRuZFIRa1sJsveZJ1YpViO3r',
+            value: 0,
+            range: [0.1, 100],
+            inH: 100,
+            speed: 0,
+            src: 'https://dedust.io/pools/EQA-X_yo3fzzbDbJ_0bzFWKqtRuZFIRa1sJsveZJ1YpViO3r',
+        },
+    ],
+    loadStatus: false,
+    updateBalanceDedust: async (rawAddress: string) => {
+        set({ loadStatus: true });
+        //const testRawAddress = 'UQAfojORTA27dsoKsPrxmDo5zQ_UK0hwK4MgxH-Ny9YiUYz5'
+        console.log('fetch new poool for: ', rawAddress)
+        try {
+            const response = await fetch(`https://api.dedust.io/v2/accounts/${encodeURIComponent(rawAddress)}/assets`, {
+                //mode: 'no-cors',
+                headers: {
+                    'accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('dedust pool: ', data)
+
+            set(state => {
+                const updatedPools = state.pools.map(pool => {
+                    const matchingAssets = data.filter(poolIn => poolIn.asset.address === pool.address);
+
+                    if (matchingAssets.length > 0) {
+                        const totalBalance = matchingAssets.reduce((acc, asset) => acc + parseInt(asset.balance, 10), 0);
+
+                        return {
+                            ...pool,
+                            value: totalBalance / 1000000000 // Если баланс в более мелкой единице (например, в токенах)
+                        };
+                    } else {
+                        // Если соответствующие активы не найдены, устанавливаем value: 0
+                        return {
+                            ...pool,
+                            value: 0
+                        };
+                    }
+                });
+
+                console.log('updatedPools Dedust: ', updatedPools);
+                return { pools: updatedPools };
+            });
+
+
+        } catch (error) {
+            console.error('Failed to fetch balance jettons dedust:', error);
+        } finally {
+            set({ loadStatus: false })
+        }
+    },
+    updateSpeedDD: (name: string, speed: number) => set((state) => ({
+        pools: state.pools.map(item =>
+            item.name === name ? { ...item, speed } : item
+        )
+    })),
+    totalSpeedDD: () => {
+        const state = get();
+        return state.pools.reduce((acc, currency) => {
+            //const speed = ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
+            return acc + currency.speed;
+        }, 0);
+    },
 }))

@@ -5,7 +5,7 @@ import { Header } from './components/Header/Header';
 import { Main } from './components/Main/Main';
 
 import { useNav } from './store/nav';
-import { useUserData, useUserBalances, useJettonsBalances, useStonFi } from './store/main'
+import { useUserData, useUserBalances, useJettonsBalances, useStonFi, useDedust } from './store/main'
 
 import WebApp from '@twa-dev/sdk';
 //import eruda from 'eruda'
@@ -44,6 +44,7 @@ const App: React.FC = function () {
   const updateBalanceJ = useJettonsBalances((state) => state.updateBalanceJ);
 
   const updateStonFiBalance = useStonFi((state) => state.updateBalanceSF)
+  const updateBalanceDedust = useDedust((state) => state.updateBalanceDedust);
 
   //console.log('Main render')
 
@@ -72,8 +73,9 @@ const App: React.FC = function () {
     if (rawAddress) {
       console.log('get new poll for new wallet: ', rawAddress)
       updateStonFiBalance(rawAddress)
+      updateBalanceDedust(rawAddress)
     }
-  }, [rawAddress, updateStonFiBalance]);
+  }, [rawAddress, updateStonFiBalance, updateBalanceDedust]);
 
 
 

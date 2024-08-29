@@ -117,6 +117,14 @@ export interface UseStonFi {
     totalSpeedSF: () => number;
 }
 
+export interface UseDedust {
+    pools: PoolsSFState[];
+    loadStatus: boolean;
+    updateBalanceDedust: (rawAddress: string) => void;
+    updateSpeedDD: (name: string, speed: number) => void;
+    totalSpeedDD: () => number;
+}
+
 //=== tasks
 
 export interface Task {

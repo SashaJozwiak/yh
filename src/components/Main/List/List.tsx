@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useStonFi, useJettonsBalances, useUserBalances, useUserData } from '../../../store/main'
+import { useStonFi, useJettonsBalances, useUserBalances, useUserData, useDedust } from '../../../store/main'
 import { useNav } from '../../../store/nav';
 
 import WebApp from '@twa-dev/sdk';
@@ -27,14 +27,18 @@ export const List: React.FC = () => {
     const balance = useUserBalances(state => state.bal)
     const balanceJ = useJettonsBalances(state => state.jettons)
     const balancePoolsSF = useStonFi(state => state.pools);
+    const balancePoolsDD = useDedust(state => state.pools);
+
     const getBonuses = useUserBalances((state) => state.getBonuses);
 
     const updateSpeed = useUserBalances((state) => state.updateSpeed);
     const updateSpeedJ = useJettonsBalances((state) => state.updateSpeedJ);
     const updateSpeedSF = useStonFi(state => state.updateSpeedSF);
+    const updateSpeedDD = useDedust(state => state.updateSpeedDD);
 
     const loadStatus = useJettonsBalances(state => state.loadStatus);
-    const loadStatusPools = useStonFi(state => state.loadStatus)
+    const loadStatusSFPools = useStonFi(state => state.loadStatus)
+    const loadStatusDDPools = useDedust(state => state.loadStatus)
 
     const nav = useNav(state => state.nav.list)
 
@@ -72,6 +76,17 @@ export const List: React.FC = () => {
             }
         });
     }, [balancePoolsSF, updateSpeedSF]);
+
+    useEffect(() => {
+        balancePoolsDD.forEach((currency) => {
+            const calculatedSpeed = currency.value < currency.range[1] ? ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH) : ((currency.range[1] - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
+            const finishSpeed = calculatedSpeed > 0.00 ? calculatedSpeed : 0.00;
+            //console.log('finish speed: ', finishSpeed)
+            if (currency.speed !== finishSpeed) {
+                updateSpeedDD(currency.name, finishSpeed);
+            }
+        });
+    }, [balancePoolsDD, updateSpeedDD]);
 
     const handleScrollUp = () => {
         const scrollElement = document.querySelector('.scrollable');
@@ -155,7 +170,7 @@ export const List: React.FC = () => {
                 }) : <h2 className={s.connectwallet}>Connect your wallet!</h2>
             }
 
-            {balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && rawAddress && <h3 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Farms</h3>}
+            {balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && rawAddress && <h3 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Pools</h3>}
             {rawAddress &&
                 balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                     return (
@@ -178,7 +193,36 @@ export const List: React.FC = () => {
                         </div>
                     )
                 })}
-            {loadStatusPools && <p className={s.loading}>...</p>}
+
+            {balancePoolsDD.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).length > 0 && rawAddress && <h3 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>DeDust Pools</h3>}
+            {rawAddress &&
+                balancePoolsDD.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
+                    return (
+                        <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
+                            <h4 className={s.currname}>{currency.name}</h4>
+                            <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> Lp</div>
+                            <div style={{ color: 'rgb(25,180,21)' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
+                            <div className={s.progressbar}>
+                                <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100}%` }}></div>
+                            </div>
+                            <div className={s.range0}>{formatNumber(currency.range[0])}-{formatNumber(currency.range[1])}Lp</div>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    //window.location.href = currency.src;
+                                    window.open(currency.src);
+                                }}
+                                className={s.news}>pool</button>
+                            <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
+                        </div>
+                    )
+                })}
+
+
+
+
+
+            {loadStatusSFPools || loadStatusDDPools && <p className={s.loading}>...</p>}
 
             {showButton && <div
                 onClick={handleScrollUp}

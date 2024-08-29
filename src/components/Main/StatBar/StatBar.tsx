@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useUserData, useJettonsBalances, useUserBalances, useStonFi } from '../../../store/main'
+import { useUserData, useJettonsBalances, useUserBalances, useStonFi, useDedust } from '../../../store/main'
 //import { useBalance } from '../../../store/balance';
 import { useNav } from '../../../store/nav';
 
@@ -14,10 +14,12 @@ export const StatBar: React.FC = () => {
     const balance = useUserBalances(state => state.bal)
     const balancesJ = useJettonsBalances(state => state.jettons)
     const balancesSF = useStonFi(state => state.pools)
+    const balancesDD = useDedust(state => state.pools)
 
     const speedBal = useUserBalances(state => state.totalSpeed)
     const speedBalJ = useJettonsBalances(state => state.totalSpeedJ)
     const speedBalSF = useStonFi(state => state.totalSpeedSF)
+    const speedBalDD = useDedust(state => state.totalSpeedDD)
 
     const nav = useNav(state => state.nav.list)
     const setNavList = useNav(state => state.setNavList)
@@ -37,8 +39,8 @@ export const StatBar: React.FC = () => {
 
     useEffect(() => {
         //console.log(speedBal(), speedBalJ())
-        setSpeed(speedBal() + speedBalJ() + speedBalSF());
-    }, [balance, balancesJ, balancesSF, speedBal, speedBalJ, speedBalSF])
+        setSpeed(speedBal() + speedBalJ() + speedBalSF() + speedBalDD());
+    }, [balance, balancesJ, balancesSF, balancesDD, speedBal, speedBalJ, speedBalSF, speedBalDD])
 
     //console.log('balancedata: ', balanceData)
 
