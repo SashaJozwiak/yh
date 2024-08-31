@@ -24,7 +24,7 @@ export const Stages = () => {
         if (scrollElement) {
             scrollElement.addEventListener('scrollable', handleScroll);
             return () => scrollElement.removeEventListener('scrollable', handleScroll);
-        }
+        }🟡
     }, []); */
 
     return (
@@ -32,8 +32,8 @@ export const Stages = () => {
             <h2 style={{ /* paddingTop: '0.6rem' *//* , marginTop: '0.6rem' */ }}>Off-Chain</h2>
             <ul className={s.stagelist}>
                 <li className={`${s.listelement} ${s.ok}`}>🟢 Beta launch </li>
-                <li className={s.listelement}>🟡 Launch app</li>
-                <li className={s.listelement}>⚪ Launch game</li>
+                <li className={`${s.listelement} ${s.ok}`}>🟢 Launch app</li>
+                <li className={s.listelement}>🟡 Launch game</li>
                 <li className={s.listelement}>⚪ Marketing and partnership</li>
                 <li className={s.listelement}>⚪ Main product presentation</li>
                 <li className={s.listelement}>⚪ Airdrop</li>

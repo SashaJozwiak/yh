@@ -228,7 +228,7 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
         },
         {
             name: 'TON',
-            value: 0,
+            value: 358,
             range: [0.01, 100],
             inH: 100,
             speed: 0,

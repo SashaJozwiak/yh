@@ -4,9 +4,17 @@ import { useUserData } from '../../../store/main';
 import WebApp from '@twa-dev/sdk';
 import { useTeams } from '../../../store/teams';
 
+import s from './invite.module.css'
+import { useInvites10 } from '../../../store/invites';
+//import { Top10Inv } from './top10/Top10Inv';
+
 export const Invite: React.FC = () => {
     const { id, userName } = useUserData(state => state.user)
     const teamId = useTeams(state => state.myTeam.team_id)
+
+    const top10 = useInvites10(state => state.top10);
+    const getTop10 = useInvites10(state => state.getTop10);
+    const total = useInvites10(state => state.total);
 
 
     const [link, setLink] = useState<string>(`https://t.me/youhold_bot?start=${id}`);
@@ -56,9 +64,16 @@ export const Invite: React.FC = () => {
         }
     }, [id, teamId])
 
-    return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', /* gap: '1rem', */ margin: '1rem' }}>
+    useEffect(() => {
+        if (!top10.length) {
+            getTop10();
+        }
+    }, [getTop10, top10])
 
+
+
+    return (
+        <>
             <h2>Hi 👋 {userName}!</h2>
             <h3 >Invite your friends</h3>
 
@@ -92,9 +107,44 @@ export const Invite: React.FC = () => {
                     //window.open(tolink, "_blank");
                     WebApp.openTelegramLink(tolink);
                 }}
-                    style={{ background: 'rgb(14, 165, 233)', borderRadius: '0.25rem', padding: '0rem 0.5rem', margin: '2vh 0.35rem', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
+                    style={{ background: 'rgb(14, 165, 233)', borderRadius: '0.25rem', padding: '0rem 0.5rem', margin: '2vh 4rem', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
                 ><h3 style={{ display: 'inline-block' }}>invite</h3></button>
             </div>
-        </div>
+
+            <h2 className={s.headerlist}>$1000 Contest</h2>
+
+            <div className={s.progressbar}>
+                <div className={s.progress} style={{ width: `${(total / 10000) * 100}%` }}></div>
+            </div>
+            <div style={{ color: 'gray' }}>Total active friends: {total}/10000</div>
+
+            {/* <Top10Inv top10={top10} /> */}
+            <div className={s.listtitle}>
+                <p>Name</p>
+                <p >Active friends</p>
+                <p style={{ fontWeight: 'bold' }}>Reward</p>
+            </div>
+            {!top10.length ? (
+                <span className={s.loader}></span>
+            ) : (
+                <div className={`${s.list} scrollable`}>
+                    {top10.map((item, indx) => (
+                        <div className={s.listitem} key={item.ref_by | indx}>
+                            <div
+                                className={s.btn}
+                            >
+                                <span className={s.btnspan}>
+                                    {(item.username || 'anonymous').substring(0, 25)}
+                                </span>
+                            </div>
+                            <div>{item.active_friends_count}</div>
+                            <div style={{ fontWeight: 'bold' }} className="div">
+                                {indx === 0 ? '500 USDT' : indx === 1 ? '250 USDT' : indx === 2 ? '125 USDT' : indx === 3 ? '65 USDT' : indx === 4 ? '30 USDT' : indx === 5 ? '20 USDT' : indx === 6 ? '10 USDT' : indx === 7 ? '10 000 B' : indx === 8 ? '5 000 B' : indx === 9 ? '3 000 B' : null}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </>
     )
 }

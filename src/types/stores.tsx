@@ -192,3 +192,17 @@ export interface UseTeams {
     createTeam: (data: CreateTeam) => void;
     searchTeam: (name: string) => void;
 }
+
+// ==== INVITES
+
+export interface UserInvites {
+    username: string;
+    ref_by: number;
+    active_friends_count: number;
+}
+
+export interface UseInvites10 {
+    top10: UserInvites[];
+    total: number;
+    getTop10: () => void;
+}

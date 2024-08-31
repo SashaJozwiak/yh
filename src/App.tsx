@@ -20,6 +20,7 @@ import { Cabinet } from './components/Cabinet/Cabinet';
 
 import './App.css';
 import { Game } from './components/Game/Game';
+import { Invite } from './components/Cabinet/Invite/Invite';
 //import useScrollFix from './utils/hooks/useScrollFix';
 
 //eruda.init();//just for debug
@@ -102,6 +103,8 @@ const App: React.FC = function () {
       {nav === 'game' && <Game />}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
+
+      {nav === 'invite' && <Invite />}
       {nav !== 'game' && <Footer />}
     </>
   );
