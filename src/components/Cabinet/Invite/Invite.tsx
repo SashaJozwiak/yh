@@ -124,7 +124,7 @@ export const Invite: React.FC = () => {
                 <p >Active friends</p>
                 <p style={{ fontWeight: 'bold' }}>Reward</p>
             </div>
-            {!top10.length ? (
+            {top10.length < 1 ? (
                 <span className={s.loader}></span>
             ) : (
                 <div className={`${s.list} scrollable`}>
