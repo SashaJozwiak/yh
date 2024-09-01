@@ -141,6 +141,7 @@ export interface UseTasks {
     activeFriends: Task;
     dailyReward: Task;
     tasks: Task[];
+    loadStatus: boolean;
     completeTask: (id: number) => void;
     getAllTasks: (userId: number) => void;
 }
@@ -204,5 +205,6 @@ export interface UserInvites {
 export interface UseInvites10 {
     top10: UserInvites[];
     total: number;
+    loadStatus: boolean;
     getTop10: () => void;
 }

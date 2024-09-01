@@ -23,6 +23,7 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
         timer: null,
     },
     tasks: [],
+    loadStatus: false,
     completeTask: async (taskId: number) => {
         const internalId = useUserData.getState().user.internalId;
         const getAllTasks = useTasks.getState().getAllTasks;
@@ -50,6 +51,7 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
         }
     },
     getAllTasks: async (userId: number) => {
+        set({ loadStatus: true });
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}tasks?userId=${userId}`, {
                 method: 'GET',
@@ -81,6 +83,8 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
 
         } catch (e) {
             console.error('error get all tasks: ', e);
+        } finally {
+            set({ loadStatus: false });
         }
     }
 })));

@@ -6,7 +6,9 @@ export const useInvites10 = create<UseInvites10>()(devtools((set) => ({
     top10: [
     ],
     total: 0,
+    loadStatus: false,
     getTop10: async () => {
+        set({ loadStatus: true });
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}invites/get10`, {
                 method: 'GET',
@@ -35,6 +37,8 @@ export const useInvites10 = create<UseInvites10>()(devtools((set) => ({
             ))
         } catch (e) {
             console.error('ошибка выдачи топ 100', e)
+        } finally {
+            set({ loadStatus: false });
         }
     }
 })))

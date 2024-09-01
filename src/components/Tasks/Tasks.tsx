@@ -14,9 +14,11 @@ export const Tasks = () => {
     const { setMainNav, setCabNav } = useNav((state) => state)
     const userData = useUserData((state) => state.user)
     const { activeFriends, dailyReward } = useTasks((state) => state)
+
     const tasks = useTasks((state) => state.tasks)
     const completeTask = useTasks((state) => state.completeTask)
     const getAllTasks = useTasks((state) => state.getAllTasks)
+    const loadStatus = useTasks((state) => state.loadStatus)
 
     const [blockBtns, setBlockBtns] = useState(false);
 
@@ -63,6 +65,8 @@ export const Tasks = () => {
 
                 <div style={{ color: 'white' }} className={s.price}>{dailyReward.price}</div>
             </div>
+
+            {loadStatus && <span className={s.loader}></span>}
 
             {tasks.filter(task => task.type === 'native' && task.completed === false).length > 0 && <h2>Native</h2>}
 

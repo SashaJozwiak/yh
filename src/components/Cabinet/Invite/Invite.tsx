@@ -16,6 +16,7 @@ export const Invite: React.FC = () => {
     const getTop10 = useInvites10(state => state.getTop10);
     const total = useInvites10(state => state.total);
 
+    const loadStatus = useInvites10(state => state.loadStatus);
 
     const [link, setLink] = useState<string>(`https://t.me/youhold_bot?start=${id}`);
     const [copied, setCopied] = useState<boolean>(false);
@@ -111,19 +112,20 @@ export const Invite: React.FC = () => {
                 ><h3 style={{ display: 'inline-block' }}>invite</h3></button>
             </div>
 
-            <h2 className={s.headerlist}>$1000 Contest</h2>
+            <h2 className={s.headerlist}>$500 Contest</h2>
 
             <div className={s.progressbar}>
-                <div className={s.progress} style={{ width: `${(total / 10000) * 100}%` }}></div>
+                <div className={s.progress} style={{ width: `${(total / 5000) * 100}%` }}></div>
             </div>
-            <div style={{ color: 'gray' }}>Total active friends: {total}/10000</div>
+            <div style={{ color: 'gray' }}>Total active friends: {total}/5000</div>
 
             {/* <Top10Inv top10={top10} /> */}
             <div className={s.listtitle}>
                 <p>Name</p>
-                <p >Active friends</p>
+                <p >A. friends</p>
                 <p style={{ fontWeight: 'bold' }}>Reward</p>
             </div>
+            {loadStatus && <span className={s.loader}></span>}
             {top10.length < 1 ? (
                 <span className={s.loader}></span>
             ) : (
@@ -139,7 +141,7 @@ export const Invite: React.FC = () => {
                             </div>
                             <div>{item.active_friends_count}</div>
                             <div style={{ fontWeight: 'bold' }} className="div">
-                                {indx === 0 ? '500 USDT' : indx === 1 ? '250 USDT' : indx === 2 ? '125 USDT' : indx === 3 ? '65 USDT' : indx === 4 ? '30 USDT' : indx === 5 ? '20 USDT' : indx === 6 ? '10 USDT' : indx === 7 ? '10 000 B' : indx === 8 ? '5 000 B' : indx === 9 ? '3 000 B' : null}
+                                {indx === 0 ? '250 USDT' : indx === 1 ? '125 USDT' : indx === 2 ? '65 USDT' : indx === 3 ? '30 USDT' : indx === 4 ? '20 USDT' : indx === 5 ? '10 USDT' : indx === 6 ? '10 000 B' : indx === 7 ? '5 000 B' : indx === 8 ? '3 000 B' : indx === 9 ? '1 000 B' : null}
                             </div>
                         </div>
                     ))}
