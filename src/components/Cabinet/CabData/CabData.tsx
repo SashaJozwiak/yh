@@ -8,7 +8,7 @@ const defaultAvatar = '/yh/gnom_full_tr_150_compressed.png';
 
 export const CabData = () => {
     const { userName, refs, refs_active } = useUserData(state => state.user);
-    //const balance = useUserData(state => state.balance.balance);
+    const balance = useUserData(state => state.balance.balance);
 
     const top100 = useTop100(state => state.top100);
     const getTop100 = useTop100(state => state.getTop100);
@@ -33,11 +33,11 @@ export const CabData = () => {
                     <p className={s.line}>Active Fr.: <span style={{ color: 'white' }}>{refs_active}</span></p>
                     {/* <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p> */}
                     {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
-                    {/* <p className={s.line}>Balance: <span style={{ color: 'white' }}>{Number(balance.toFixed(1)).toLocaleString('ru-Ru')}</span></p> */}
+                    <p className={s.line}>Balance: <span style={{ color: 'white' }}>{Number(balance.toFixed(1)).toLocaleString('ru-Ru')}</span></p>
                 </div>
             </div>
 
-            <h2 className={s.headerlist}>TOP 100</h2>
+            <h2 className={s.headerlist}>TOP 100 balances</h2>
 
             {!top100.length ? <span className={s.loader}></span> :
                 <div className={`${s.list} scrollable`}/*  style={{ padding: '0 1rem' }} */>

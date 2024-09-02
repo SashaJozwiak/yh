@@ -327,7 +327,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             src: 'https://t.me/notcoin',
         }
     ],
-    loadStatus: false,
+    loadStatus: true,
     totalSpeedJ: () => {
         const state = get();
         return state.jettons.reduce((acc, currency) => {
@@ -465,7 +465,6 @@ export const useStonFi = create<UseStonFi>((set, get) => ({
     },
 
 }))
-
 
 export const useDedust = create<UseDedust>((set, get) => ({
     pools: [

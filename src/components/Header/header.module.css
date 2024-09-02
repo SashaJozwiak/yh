@@ -23,6 +23,11 @@
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
+.profile {
+    padding: 0.2rem;
+    //width: 5rem;
+    width: 3.8rem;
+}
 .settings{
     padding:0;
     background-color:transparent;

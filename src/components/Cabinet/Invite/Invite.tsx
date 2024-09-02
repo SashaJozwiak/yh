@@ -75,7 +75,7 @@ export const Invite: React.FC = () => {
 
     return (
         <>
-            <h2>Hi 👋 {userName}!</h2>
+            <h2 style={{ marginTop: '0.6rem' }}>Hi 👋 {userName}!</h2>
             <h3 >Invite your friends</h3>
 
             <div style={{ marginTop: '1em', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
@@ -115,9 +115,9 @@ export const Invite: React.FC = () => {
             <h2 className={s.headerlist}>$500 Contest</h2>
 
             <div className={s.progressbar}>
-                <div className={s.progress} style={{ width: `${(total / 5000) * 100}%` }}></div>
+                <div className={s.progress} style={{ width: `${(total / 6000) * 100}%` }}></div>
             </div>
-            <div style={{ color: 'gray' }}>Total active friends: {total}/5000</div>
+            <div style={{ color: 'gray' }}>Total active friends: {total}/6000</div>
 
             {/* <Top10Inv top10={top10} /> */}
             <div className={s.listtitle}>

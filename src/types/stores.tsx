@@ -208,3 +208,23 @@ export interface UseInvites10 {
     loadStatus: boolean;
     getTop10: () => void;
 }
+
+// ==== useStartups
+
+export interface Startup {
+    name: string;
+    address: string;
+    value: number;
+    range: [number, number];
+    inH: number;
+    speed: number;
+    src: string;
+}
+
+export interface UseStartups {
+    bal: Startup[];
+    loadStatus: boolean;
+    getStartupBal: () => void;
+    updateSpeed: (name: string, speed: number) => void;
+    totalSpeed: () => number;
+}

@@ -31,7 +31,7 @@ export const Stages = () => {
         <div className={`${s.list} scrollable`}>
             <h2 style={{ /* paddingTop: '0.6rem' *//* , marginTop: '0.6rem' */ }}>Off-Chain</h2>
             <ul className={s.stagelist}>
-                <li className={`${s.listelement} ${s.ok}`}>🟢 Beta launch </li>
+                <li className={s.listelement}>🟢 Beta launch </li>
                 <li className={`${s.listelement} ${s.ok}`}>🟢 Launch app</li>
                 <li className={s.listelement}>🟡 Launch game</li>
                 <li className={s.listelement}>⚪ Marketing and partnership</li>
