@@ -216,7 +216,7 @@ export const ListCurrency = () => {
                 })}
 
                 {
-                    loadStatus ? <span className={s.loader}></span> : balanceJ.filter(currency => currency.speed < 0.00099).map((currency) => {
+                    /* loadStatus ? <span className={s.loader}></span> : */ balanceJ.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (
                             <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'gray' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
