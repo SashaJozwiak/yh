@@ -89,7 +89,7 @@ export const ListCurrency = () => {
     }, [getBonuses, userId])
     return (
         <>
-            <div className={s.onBalances}>
+            {/* <div className={s.onBalances}> */}
                 {balance.filter(currency => currency.speed > 0.00099).map((currency) => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'white' }}>
@@ -184,10 +184,11 @@ export const ListCurrency = () => {
                             </div>
                         )
                     })}
-            </div>
+            {/* </div> */}
 
             {/*  */}
-            {(!loadStatusSFPools && !loadStatusDDPools && !loadStatus) && <div className={s.offBalances}>
+            {/* {(!loadStatusSFPools && !loadStatusDDPools && !loadStatus) && <div className={s.offBalances}> */}
+
                 {rawAddress && <h3 className={s.donthave} style={{ color: 'gray', marginBottom: '0.5rem' }}>Don't have</h3>}
 
                 {balance.filter(currency => currency.speed < 0.00099).map((currency) => {
@@ -286,7 +287,7 @@ export const ListCurrency = () => {
                             </div>
                         )
                     })}
-            </div>}
+            {/* </div> */}
 
             {(loadStatusSFPools || loadStatusDDPools) && (
                 <div>
