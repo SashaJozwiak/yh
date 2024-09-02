@@ -188,6 +188,11 @@ export const ListCurrency = () => {
 
             {/*  */}
             {/* {(!loadStatusSFPools && !loadStatusDDPools && !loadStatus) && <div className={s.offBalances}> */}
+            {(loadStatusSFPools || loadStatusDDPools) && (
+                <div>
+                    <p className={s.loading}>...</p>
+                </div>
+            )}
 
                 {rawAddress && <h3 className={s.donthave} style={{ color: 'gray', marginBottom: '0.5rem' }}>Don't have</h3>}
 
@@ -289,11 +294,7 @@ export const ListCurrency = () => {
                     })}
             {/* </div> */}
 
-            {(loadStatusSFPools || loadStatusDDPools) && (
-                <div>
-                    <p className={s.loading}>...</p>
-                </div>
-            )}
+
         </>
     )
 }
