@@ -114,7 +114,7 @@ export const ListCurrency = () => {
                 })}
 
                 {
-                    loadStatus ? <span className={s.loader}></span> : rawAddress ? balanceJ.filter(currency => currency.speed > 0.00099).map((currency) => {
+                !rawAddress ? <h2 className={s.connectwallet}>Connect your wallet!</h2> : loadStatus ? <span className={s.loader}></span> : balanceJ.filter(currency => currency.speed > 0.00099).map((currency) => {
                         return (
                             <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
@@ -134,7 +134,7 @@ export const ListCurrency = () => {
                                 <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                             </div>
                         );
-                    }) : <h2 className={s.connectwallet}>Connect your wallet!</h2>
+                }) 
                 }
 
                 {balancePoolsSF.filter(currency => currency.speed > 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Pools</h4>}
@@ -194,9 +194,9 @@ export const ListCurrency = () => {
                 </div>
             )}
 
-                {rawAddress && <h3 className={s.donthave} style={{ color: 'gray', marginBottom: '0.5rem' }}>Don't have</h3>}
+            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h3 className={s.donthave} style={{ color: 'gray', marginBottom: '0.5rem' }}>Don't have</h3>}
 
-                {balance.filter(currency => currency.speed < 0.00099).map((currency) => {
+            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && balance.filter(currency => currency.speed < 0.00099).map((currency) => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'grey' }}>
                             <h4 className={s.currname}>{currency.name}</h4>
@@ -221,7 +221,7 @@ export const ListCurrency = () => {
                 })}
 
                 {
-                    /* loadStatus ? <span className={s.loader}></span> : */ balanceJ.filter(currency => currency.speed < 0.00099).map((currency) => {
+                    /* loadStatus ? <span className={s.loader}></span> : */ rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && balanceJ.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (
                             <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'gray' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
@@ -244,8 +244,8 @@ export const ListCurrency = () => {
                     })
                 }
 
-                {balancePoolsSF.filter(currency => currency.speed < 0.000099).length > 0 && rawAddress && <h4 style={{ color: 'gray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Pools</h4>}
-                {rawAddress &&
+            {balancePoolsSF.filter(currency => currency.speed < 0.000099).length > 0 && rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h4 style={{ color: 'gray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Pools</h4>}
+            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) &&
                     balancePoolsSF.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (
                             <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'grey' }}>
@@ -268,8 +268,8 @@ export const ListCurrency = () => {
                         )
                     })}
 
-                {balancePoolsDD.filter(currency => currency.speed < 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'gray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>DeDust Pools</h4>}
-                {rawAddress &&
+            {balancePoolsDD.filter(currency => currency.speed < 0.00099).length > 0 && rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h4 style={{ color: 'gray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>DeDust Pools</h4>}
+            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) &&
                     balancePoolsDD.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (
                             <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'grey' }}>

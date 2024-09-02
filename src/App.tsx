@@ -17,12 +17,13 @@ import { Cabinet } from './components/Cabinet/Cabinet';
 
 /* import gnome from './assets/cabinet/gnom_full_tr_150.png' */
 /* import usePreloadImage from './utils/hooks/usePreloadImage'; */
-import { postEvent } from '@telegram-apps/sdk';
+
 
 import './App.css';
 import { Game } from './components/Game/Game';
 import { Invite } from './components/Cabinet/Invite/Invite';
 //import useScrollFix from './utils/hooks/useScrollFix';
+import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
 
@@ -58,7 +59,6 @@ const App: React.FC = function () {
       WebApp.expand();
     }
     postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false })
-    /* console.log(webApp) */
   }, []);
 
   useEffect(() => {
