@@ -19,7 +19,6 @@ const preloadSources = [
   // Добавьте другие пути к изображениям, которые хотите предзагрузить
 ];
 
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   //<React.StrictMode>
     <TonConnectUIProvider manifestUrl={manifestUrl}>

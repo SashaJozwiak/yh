@@ -17,6 +17,7 @@ import { Cabinet } from './components/Cabinet/Cabinet';
 
 /* import gnome from './assets/cabinet/gnom_full_tr_150.png' */
 /* import usePreloadImage from './utils/hooks/usePreloadImage'; */
+import { postEvent } from '@telegram-apps/sdk';
 
 import './App.css';
 import { Game } from './components/Game/Game';
@@ -28,6 +29,9 @@ import { Invite } from './components/Cabinet/Invite/Invite';
 /* document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
 }); */
+/* 
+const [swipeBehavior] = initSwipeBehavior();
+swipeBehavior.disableVerticalSwipe(); */
 
 const App: React.FC = function () {
 
@@ -53,6 +57,8 @@ const App: React.FC = function () {
     if (!WebApp.isExpanded) {
       WebApp.expand();
     }
+    postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false })
+    /* console.log(webApp) */
   }, []);
 
   useEffect(() => {
@@ -77,8 +83,6 @@ const App: React.FC = function () {
       updateBalanceDedust(rawAddress)
     }
   }, [rawAddress, updateStonFiBalance, updateBalanceDedust]);
-
-
 
   /* useEffect(() => {
     if (userId ?? userId !== 0) {
