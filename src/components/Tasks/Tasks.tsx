@@ -59,14 +59,14 @@ export const Tasks = () => {
 
             <div
                 className={`${s.listitem} ${s.listitemperm}`}>
-                <div style={{ border: 'none', margin: 'auto 0' }} className={s.title}>{dailyReward.title}</div>
+                <div style={{ border: 'none', margin: 'auto auto auto 0' }} className={s.title}>{dailyReward.title}</div>
 
                 <TimerButton dailyReward={dailyReward} />
 
                 <div style={{ color: 'white' }} className={s.price}>{dailyReward.price}</div>
             </div>
 
-            {loadStatus && <span className={s.loader}></span>}
+
 
             {tasks.filter(task => task.type === 'native' && task.completed === false).length > 0 && <h2>Native</h2>}
 
@@ -121,6 +121,7 @@ export const Tasks = () => {
                     <div className={s.price}>{task.price}</div>
                 </div>
             ))}
+            {loadStatus && <span className={s.loader}></span>}
         </div>
     )
 }

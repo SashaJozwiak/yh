@@ -69,7 +69,7 @@ export const TimerButton = ({ dailyReward }) => {
   return (
     <button
       onClick={handleClick}
-      style={{ backgroundColor: isClaimable ? 'white' : 'transparent', color: isClaimable ? 'black' : 'gray' }}
+      style={{ backgroundColor: isClaimable ? 'white' : 'transparent', color: isClaimable ? 'black' : 'gray', marginRight: '0.5rem' }}
       className={s.check}
       disabled={!isClaimable || loading} // Блокируем кнопку, если она не доступна или в процессе загрузки
     >
