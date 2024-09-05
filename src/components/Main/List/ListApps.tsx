@@ -47,7 +47,14 @@ export const ListApps = () => {
                                 e.preventDefault();
                                 WebApp.openTelegramLink(startup.src);
                             }}
-                            className={s.news}>news</button>}
+                            className={s.news}>app</button>}
+                        <button
+                            style={{ margin: '0.56rem 1rem' }}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                WebApp.openTelegramLink(startup.src);
+                            }}
+                            className={s.news}>about</button>
                         <div className={s.range1}>till {formatNumber(startup.inH)}/h</div>
                     </div>
                 )

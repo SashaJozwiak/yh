@@ -361,7 +361,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
                     if (serverJetton) {
                         return {
                             ...jetton,
-                            value: +(parseFloat(serverJetton.balance) / (10 ** serverJetton.jetton.decimals)).toFixed(2)
+                            value: +(parseFloat(serverJetton.balance) / (10 ** serverJetton.jetton.decimals)).toFixed(2) 
                         };
                     }
                     return jetton;

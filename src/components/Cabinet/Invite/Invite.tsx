@@ -112,12 +112,12 @@ export const Invite: React.FC = () => {
                 ><h3 style={{ display: 'inline-block' }}>invite</h3></button>
             </div>
 
-            <h2 className={s.headerlist}>$500 Contest</h2>
+            <h2 className={s.headerlist}>20,000B Contest</h2>
 
             <div className={s.progressbar}>
-                <div className={s.progress} style={{ width: `${(total / 6000) * 100}%` }}></div>
+                <div className={s.progress} style={{ width: `${(total / 1000) * 100}%` }}></div>
             </div>
-            <div style={{ color: 'gray' }}>Total active friends: {total}/6000</div>
+            <div style={{ color: 'gray' }}>Total active friends: {total}/1000</div>
 
             {/* <Top10Inv top10={top10} /> */}
             <div className={s.listtitle}>
@@ -141,7 +141,7 @@ export const Invite: React.FC = () => {
                             </div>
                             <div>{item.active_friends_count}</div>
                             <div style={{ fontWeight: 'bold' }} className="div">
-                                {indx === 0 ? '250 USDT' : indx === 1 ? '125 USDT' : indx === 2 ? '65 USDT' : indx === 3 ? '30 USDT' : indx === 4 ? '20 USDT' : indx === 5 ? '10 USDT' : indx === 6 ? '10 000 B' : indx === 7 ? '5 000 B' : indx === 8 ? '3 000 B' : indx === 9 ? '1 000 B' : null}
+                                {indx === 0 ? '10,000 B' : indx === 1 ? '5,000 B' : indx === 2 ? '2,500 B' : indx === 3 ? '1,000 B' : indx === 4 ? '500 B' : indx === 5 ? '400 B' : indx === 6 ? '300 B' : indx === 7 ? '200 B' : indx === 8 ? '100 B' : indx === 9 ? '50 B' : null}
                             </div>
                         </div>
                     ))}

@@ -23,9 +23,10 @@ import './App.css';
 import { Game } from './components/Game/Game';
 import { Invite } from './components/Cabinet/Invite/Invite';
 //import useScrollFix from './utils/hooks/useScrollFix';
-import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
+
+import { postEvent } from '@telegram-apps/sdk';
 
 /* document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
