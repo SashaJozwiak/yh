@@ -63,12 +63,11 @@ export const Balance: React.FC = () => {
         }
         setCurrentBalance(balanceData.balance)
     }, [balanceData, setBalanceData]);
-
-
     return (
         <div className={s.balance}>
             <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                 width="50.000000pt" height="50.000000pt" viewBox="0 0 250.000000 250.000000">
+
                 <g transform="translate(0.000000, 210.000000) scale(0.100000,-0.100000)"
                     fill="white" stroke="none">
                     <path d="M350 1550 c-65 -22 -130 -86 -148 -147 -9 -29 -12 -179 -12 -529 0
@@ -86,6 +85,7 @@ export const Balance: React.FC = () => {
                         100 99 1 36 -4 47 -32 72 -34 31 -89 39 -125 18z m77 -62 c28 -21 12 -59 -22
                         -55 -30 3 -41 30 -22 53 15 18 21 19 44 2z"/>
                 </g>
+                {/* <text x="35" y="110" fill='lightgray' font-weight="bold" font-size='50'>YH</text> */}
             </svg>
             <p>{currencyFormat(currentBalance)}</p>
         </div>

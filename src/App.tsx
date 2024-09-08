@@ -23,10 +23,9 @@ import './App.css';
 import { Game } from './components/Game/Game';
 import { Invite } from './components/Cabinet/Invite/Invite';
 //import useScrollFix from './utils/hooks/useScrollFix';
+import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
-
-import { postEvent } from '@telegram-apps/sdk';
 
 /* document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
@@ -77,13 +76,22 @@ const App: React.FC = function () {
   }, [rawAddress, updateBalanceJ]);
 
   useEffect(() => {
-    console.log('render change rawaddres in LIST jettons')
+    console.log('render change rawaddres in LIST stonfi')
     if (rawAddress) {
       console.log('get new poll for new wallet: ', rawAddress)
       updateStonFiBalance(rawAddress)
+      //updateBalanceDedust(rawAddress)
+    }
+  }, [rawAddress, updateStonFiBalance, /* updateBalanceDedust */]);
+
+  useEffect(() => {
+    console.log('render change rawaddres in LIST dedust')
+    if (rawAddress) {
+      console.log('get new poll for new wallet: ', rawAddress)
+  //updateStonFiBalance(rawAddress)
       updateBalanceDedust(rawAddress)
     }
-  }, [rawAddress, updateStonFiBalance, updateBalanceDedust]);
+  }, [rawAddress, updateBalanceDedust]);
 
   /* useEffect(() => {
     if (userId ?? userId !== 0) {
