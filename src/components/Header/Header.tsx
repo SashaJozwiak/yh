@@ -59,7 +59,7 @@ export const Header: React.FC = () => {
                 setUser(newUser); // Если нет startParam, просто устанавливаем пользователя
             }
 
-            setUser(newUser);
+            //setUser(newUser);
         } else if (id !== 757322479) {
             const newUser = {
                 id: 757322479,

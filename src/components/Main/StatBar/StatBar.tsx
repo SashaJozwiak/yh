@@ -69,7 +69,7 @@ export const StatBar: React.FC = () => {
                 disabled={balanceData.isHold || !rawAddress || !nav}
                 onClick={pushHold}
                 className={`${s.hold} ${balanceData.isHold ? s.holdOn : null}`}>
-                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢</span>} <span className={s.holdtext}></span><span style={{ color: rawAddress ? 'white' : 'grey' }}>HOLD!</span></h3>
+                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢<span style={{ color: rawAddress ? 'white' : 'grey' }}>HOLD!</span></span>}</h3>
             </button>
         </div>
     )
