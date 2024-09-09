@@ -32,7 +32,7 @@ export const useInvites10 = create<UseInvites10>()(devtools((set) => ({
             set(() => (
                 {
                     top10: filledTop10,
-                    totalActiveFriends: +data.totalActiveFriends
+                    total: +data.totalActiveFriends
                 }
             ))
         } catch (e) {
