@@ -21,7 +21,9 @@ const preloadSources = [
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   //<React.StrictMode>
-    <TonConnectUIProvider manifestUrl={manifestUrl}>
+  <TonConnectUIProvider manifestUrl={manifestUrl} actionsConfiguration={{
+    twaReturnUrl: 'https://t.me/youhold_bot/youhold_app'
+  }}>
     <PreloadImages sources={preloadSources} />
       <App />
     </TonConnectUIProvider>

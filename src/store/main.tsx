@@ -2,6 +2,8 @@ import { create } from 'zustand'
 import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, UseDedust, BalanceObj } from '../types/stores'
 import { devtools } from 'zustand/middleware'
 
+import WebApp from '@twa-dev/sdk';
+
 export const useUserData = create<UseStore>()(devtools((set, get) => ({
     user:
     {
@@ -110,6 +112,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         //console.log('uf_address for backend: ', uf_address)
 
         if (balance.isHold) {
+            const userData = WebApp.initData;
             try {
                 const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}startmining`, {
                     method: 'POST',
@@ -123,6 +126,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                         finishData: balance.finishData,
                         speed: balance.speed,
                         uf_address: uf_address,
+                        telegramInitData: userData
                     }),
                 })
 
