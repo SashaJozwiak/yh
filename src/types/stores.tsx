@@ -21,6 +21,7 @@ export interface UseStore {
     balance: BalanceObj;
     statuses: Statuses;
     miningError: string;
+    miningLoader: boolean;
     handleReferral: (userId: number, startParam: string) => Promise<void>;
     setUser: (user: Partial<User>) => void;
     addAddresses: (addresses: { userFriendlyAddress: string; rawAddress: string }) => void;

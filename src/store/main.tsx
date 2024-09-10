@@ -31,6 +31,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         isError: false,
     },
     miningError: '',
+    miningLoader: false,
     //setUser: (user: User) => set(() => ({ user })),
     handleReferral: async (userId, startParam) => {
         const [refId, refTeamId] = startParam.split("_");
@@ -93,7 +94,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     speed: +data.balance.speed,
                     finishData: data.balance.finishdate,
                     startData: data.balance.startdate
-                }
+                },
             }))
         } catch (err) {
             set((state) => ({
@@ -107,6 +108,9 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         }
     },
     setBalanceData: async (balance: Partial<BalanceObj>) => {
+        set(() => ({
+            miningLoader: true
+        }));
         const internalId = get().user.internalId;
         const uf_address = get().user.userFriendlyAddress;
         //console.log('uf_address for backend: ', uf_address)
@@ -153,6 +157,10 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             } catch (err) {
                 console.error('setUser error :', err);
                 return;
+            } finally {
+                set(() => ({
+                    miningLoader: false
+                }));
             }
         }
 

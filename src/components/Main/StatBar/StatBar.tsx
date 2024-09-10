@@ -29,6 +29,8 @@ export const StatBar: React.FC = () => {
     const balanceData = useUserData(state => state.balance)
     const setBalance = useUserData(state => state.setBalanceData)
 
+    const miningLoader = useUserData(state => state.miningLoader)
+
     const pushHold = () => {
         setBalance({
             balance: balanceData.balance + (speed * balanceData.period),
@@ -66,7 +68,7 @@ export const StatBar: React.FC = () => {
             </button>
             <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/h</p>
             <button
-                disabled={balanceData.isHold || !rawAddress || !nav}
+                disabled={balanceData.isHold || !rawAddress || miningLoader}
                 onClick={pushHold}
                 className={`${s.hold} ${balanceData.isHold ? s.holdOn : null}`}>
                 <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢<span style={{ color: rawAddress ? 'white' : 'grey' }}>HOLD!</span></span>}</h3>
