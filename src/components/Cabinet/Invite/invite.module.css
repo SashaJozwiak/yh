@@ -73,8 +73,9 @@
     color: white;
   }
 
- 
-
+  .btn {
+    max-width:5rem;
+  }
 
   .listitem {
     /* display: flex;

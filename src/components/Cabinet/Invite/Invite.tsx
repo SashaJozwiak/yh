@@ -136,7 +136,7 @@ export const Invite: React.FC = () => {
                                 className={s.btn}
                             >
                                 <span className={s.btnspan}>
-                                    {(item.username || 'anonymous').substring(0, 25)}
+                                    {(item.username || 'anonymous').substring(0, 12)}
                                 </span>
                             </div>
                             <div>{item.active_friends_count}</div>
