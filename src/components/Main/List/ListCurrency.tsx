@@ -87,6 +87,7 @@ export const ListCurrency = () => {
             getBonuses();
         }
     }, [getBonuses, userId])
+
     return (
         <>
             {/* <div className={s.onBalances}> */}

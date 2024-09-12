@@ -16,6 +16,7 @@ export const StatBar: React.FC = () => {
     const balancesJ = useJettonsBalances(state => state.jettons)
     const balancesSF = useStonFi(state => state.pools)
     const balancesDD = useDedust(state => state.pools)
+    const balanceSU = useStartups(state => state.bal)
 
     const speedBal = useUserBalances(state => state.totalSpeed)
     const speedBalJ = useJettonsBalances(state => state.totalSpeedJ)
@@ -44,7 +45,7 @@ export const StatBar: React.FC = () => {
     useEffect(() => {
         //console.log(speedBal(), speedBalJ())
         setSpeed(speedBal() + speedBalJ() + speedBalSF() + speedBalDD() + speedBalApps());
-    }, [balance, balancesJ, balancesSF, balancesDD, speedBal, speedBalJ, speedBalSF, speedBalDD, speedBalApps])
+    }, [balance, balancesJ, balancesSF, balancesDD, balanceSU, speedBal, speedBalJ, speedBalSF, speedBalDD, speedBalApps])
 
     //console.log('balancedata: ', balanceData)
 

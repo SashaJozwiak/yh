@@ -7,6 +7,7 @@ import { ListApps } from './ListApps';
 
 export const List: React.FC = () => {
     const nav = useNav(state => state.nav.list);
+
     return (
         <div className={`${s.list} scrollable`}>
             {nav && <ListCurrency />}

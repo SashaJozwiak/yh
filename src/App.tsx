@@ -26,9 +26,9 @@ import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
 
-/* document.addEventListener('contextmenu', function (e) {
+document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
-}); */
+});
 /* 
 const [swipeBehavior] = initSwipeBehavior();
 swipeBehavior.disableVerticalSwipe(); */

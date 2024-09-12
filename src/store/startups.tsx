@@ -7,7 +7,7 @@ export const useStartups = create<UseStartups>()(devtools((set, get) => ({
         {
             name: 'APPName',
             address: 'some',
-            value: 510000,
+            value: 0,
             range: [10000, 2000000],
             inH: 10,
             speed: 0,
