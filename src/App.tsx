@@ -29,6 +29,12 @@ import { postEvent } from '@telegram-apps/sdk';
 document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
 });
+
+/* window.oncontextmenu = function (event) {
+  event.preventDefault();
+  event.stopPropagation();
+  return false;
+}; */
 /* 
 const [swipeBehavior] = initSwipeBehavior();
 swipeBehavior.disableVerticalSwipe(); */

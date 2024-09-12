@@ -43,6 +43,13 @@
           word-wrap: normal;
 }
 
+img {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+  touch-callout: none;
+}
+
 input, input:before, input:after {
   -webkit-user-select: initial;
   -khtml-user-select: initial;

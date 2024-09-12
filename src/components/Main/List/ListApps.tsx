@@ -15,7 +15,7 @@ const formatNumber = (num: number) => {
 
 export const ListApps = () => {
     const bal = useStartups(state => state.bal)
-    const updateSpeed = useStartups(state => state.updateSpeed)
+    const updateSpeedStartups = useStartups(state => state.updateSpeed)
 
     useEffect(() => {
         bal.forEach((currency) => {
@@ -23,10 +23,10 @@ export const ListApps = () => {
 
             const finishSpeed = calculatedSpeed > 0.00 ? calculatedSpeed : 0.00;
             if (currency.speed !== finishSpeed) {
-                updateSpeed(currency.name, finishSpeed);
+                updateSpeedStartups(currency.name, finishSpeed);
             }
         });
-    }, [bal, updateSpeed]);
+    }, [bal, updateSpeedStartups]);
 
     return (
         <>
