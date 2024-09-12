@@ -24,6 +24,7 @@ export const CabData = () => {
 
     const preventContextMenu = (e) => {
         e.preventDefault();
+        e.stopPropagation();
     };
 
     return (

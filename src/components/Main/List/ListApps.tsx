@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import WebApp from '@twa-dev/sdk';
-import s from './listapps.module.css';
+//import WebApp from '@twa-dev/sdk';
+//import s from './listapps.module.css';
 import { useStartups } from '../../../store/startups';
 
-const formatNumber = (num: number) => {
+/* const formatNumber = (num: number) => {
     if (num > 999999) {
         return `${Math.floor(num / 1000000)}kk`;
     }
@@ -11,7 +11,7 @@ const formatNumber = (num: number) => {
         return `${Math.floor(num / 1000)}k`;
     }
     return num.toLocaleString('ru');
-};
+}; */
 
 export const ListApps = () => {
     const bal = useStartups(state => state.bal)
@@ -30,7 +30,7 @@ export const ListApps = () => {
 
     return (
         <>
-            {bal.map(startup => {
+            {/* {bal.map(startup => {
                 return (
                     <div key={startup.name} className={s.listitem}>
                         <h4 className={s.currname}>{startup.name}</h4>
@@ -58,7 +58,7 @@ export const ListApps = () => {
                         <div className={s.range1}>till {formatNumber(startup.inH)}/h</div>
                     </div>
                 )
-            })}
+            })} */}
             <h2 style={{ color: 'lightgrey', marginTop: '1rem' }}>SOON</h2>
         </>
     )
