@@ -36,7 +36,9 @@ export const ListCurrency = () => {
     const loadStatusSFPools = useStonFi(state => state.loadStatus)
     const loadStatusDDPools = useDedust(state => state.loadStatus)
 
+    const navMain = useNav(state => state.setMainNav)
     const nav = useNav(state => state.nav.list)
+
 
     useEffect(() => {
         balance.forEach((currency) => {
@@ -95,7 +97,7 @@ export const ListCurrency = () => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'white' }}>
                             <h4 className={s.currname}>{currency.name}</h4>
-                            <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
+                            <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toUpperCase()}</div>
                             <div style={{ color: currency.speed > 0.00 ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
@@ -109,17 +111,29 @@ export const ListCurrency = () => {
 
                                 }}
                                 className={s.news}>news</button>}
+                            {currency.name === 'BONUS' && <button
+                                onClick={() => navMain('bonus')}
+                                className={s.news}
+                                style={{ color: 'rgb(25, 180, 21)' }}
+                            >get more</button>}
                             <div className={s.range1}>till {formatNumber(currency.inH)}/h</div>
                         </div>
                     );
                 })}
 
+            {balanceJ.filter(currency => currency.speed > 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Jettons</h4>}
                 {
-                !rawAddress ? <h2 className={s.connectwallet}>Connect your wallet!</h2> : loadStatus ? <span className={s.loader}></span> : balanceJ.filter(currency => currency.speed > 0.00099).map((currency) => {
+                !rawAddress ?
+                    <div>
+                        <h2 className={s.connectwallet}>Connect your wallet</h2>
+                        <h4 className={s.connectwallettosee}>to see available assets</h4>
+                        <h4 className={s.connectwallettomine}>and 🟢start mine</h4>
+                    </div>
+                    : loadStatus ? <span className={s.loader}></span> : balanceJ.filter(currency => currency.speed > 0.00099).map((currency) => {
                         return (
                             <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
-                                <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
+                                <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toUpperCase()}</div>
                                 <div style={{ color: currency.speed ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/h</div>
                                 <div className={s.progressbar}>
                                     <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
@@ -195,7 +209,7 @@ export const ListCurrency = () => {
                 </div>
             )}
 
-            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h3 className={s.donthave} style={{ color: 'gray', marginBottom: '0.5rem' }}>Don't have</h3>}
+            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h3 className={s.donthave} style={{ color: 'gray', marginBottom: '0.5rem' }}>You don't have</h3>}
 
             {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && balance.filter(currency => currency.speed < 0.00099).map((currency) => {
                     return (

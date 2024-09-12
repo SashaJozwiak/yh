@@ -112,10 +112,10 @@ export const Invite: React.FC = () => {
                 ><h3 style={{ display: 'inline-block' }}>invite</h3></button>
             </div>
 
-            <h2 className={s.headerlist}>20,000B Contest</h2>
+            <h2 className={s.headerlist}><span style={{ color: 'rgb(25, 180, 21)' }}>20,000B</span> Contest</h2>
 
             <div className={s.progressbar}>
-                <div className={s.progress} style={{ width: `${(total / 1000) * 100}%` }}></div>
+                <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 1 ? 2 : ((total / 1000) * 100)}%` }}></div>
             </div>
             <div style={{ color: 'gray' }}>Total active friends: {total}/1000</div>
 

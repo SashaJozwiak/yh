@@ -67,12 +67,17 @@ export const StatBar: React.FC = () => {
                 </svg>
 
             </button>
+            <div style={{ margin: 'auto' }}>
+                <p style={{ color: 'lightgray', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>Sum speed</p>
             <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/h</p>
+
+            </div>
+
             <button
                 disabled={balanceData.isHold || !rawAddress || miningLoader}
                 onClick={pushHold}
                 className={`${s.hold} ${balanceData.isHold ? s.holdOn : null}`}>
-                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢<span style={{ color: rawAddress ? 'white' : 'grey' }}>HOLD!</span></span>}</h3>
+                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢 <span style={{ color: rawAddress ? 'white' : 'grey' }}>START!</span></span>}</h3>
             </button>
         </div>
     )

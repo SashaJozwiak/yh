@@ -38,6 +38,21 @@
   opacity: 0;
   animation: connw 1.5s forwards;
   animation-delay: 2s;
+  color:lightgrey;
+}
+
+.connectwallettosee {
+  opacity: 0;
+  animation: connw 1.5s forwards;
+  animation-delay: 3s;
+  color:gray;
+}
+
+.connectwallettomine {
+  opacity: 0;
+  animation: connw 1.5s forwards;
+  animation-delay: 4s;
+  color:gray;
 }
 
 @keyframes connw {

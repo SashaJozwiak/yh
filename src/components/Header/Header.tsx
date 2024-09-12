@@ -105,6 +105,7 @@ export const Header: React.FC = () => {
             </button>
 
             <button className={s.speed}>
+                <p style={{ marginTop: '-0.2rem' }}>Current speed</p>
                 <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/h</p>
             </button>
 

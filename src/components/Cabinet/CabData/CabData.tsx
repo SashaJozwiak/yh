@@ -48,14 +48,14 @@ export const CabData = () => {
 
             {!top100.length ? <span className={s.loader}></span> :
                 <div className={`${s.list} scrollable`}/*  style={{ padding: '0 1rem' }} */>
-                    {top100.sort((a, b) => b.balance - a.balance).map((item) => (
+                    {top100.sort((a, b) => b.balance - a.balance).map((item, index) => (
                         <div className={s.listitem} key={item.internal_id}>
-                            <button
+                            <div
                                 /* onClick={(e) => {
                                     e.preventDefault();
                                     WebApp.openTelegramLink(`https://t.me/${item.username}`);
                                 }} */
-                                className={s.btn}>{/* {index + 1}. */}<span className={s.btnspan}>{(item.username).substring(0, 25)}</span></button>
+                                className={s.btn}>{/* {index + 1}. */}<span className={s.btnspan}>{index + 1}. {(item.username).substring(0, 25)}</span></div>
                             {/* https://t.me/ */}
                             <div>{item.balance}</div>
                         </div>
