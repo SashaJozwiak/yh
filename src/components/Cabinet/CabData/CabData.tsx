@@ -22,11 +22,17 @@ export const CabData = () => {
 
     //console.log('top100: ', top100)
 
+    const preventContextMenu = (e) => {
+        e.preventDefault();
+    };
+
     return (
         <>
             <div className={s.data}>
+                <div onContextMenu={preventContextMenu} onTouchStart={preventContextMenu}>
                 <img className={s.gnom} style={{ borderRadius: '0.3rem' }}
                     width='150' height='118' src={defaultAvatar} alt={``} />
+                </div>
                 <div className={s.info}>
                     <p className={s.line}>User: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>
                     <p className={s.line}>Friends: <span style={{ color: 'white' }}>{refs}</span></p>
