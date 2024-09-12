@@ -1,11 +1,11 @@
-//import { useUserData } from '../../store/main';
+import { useUserData } from '../../store/main';
 import { useNav } from '../../store/nav';
 import s from './footer.module.css'
 
 export const Footer: React.FC = () => {
     const nav = useNav((state) => state.nav.main)
     const changeNav = useNav((state) => state.setMainNav)
-    //const userId = useUserData(state => state.user.internalId)
+    const userId = useUserData(state => state.user.internalId)
 
     return (
         <div className={s.footer}>
@@ -16,8 +16,6 @@ export const Footer: React.FC = () => {
                 <p>HOLD</p>
             </button>
 
-
-
             <button onClick={() => changeNav('bonus')} className={`${s.btn} ${nav === 'bonus' ? s.btnOn : null}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} width={'2rem'} stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
@@ -27,12 +25,12 @@ export const Footer: React.FC = () => {
 
             {/* <button disabled={true} onClick={() => changeNav('loan')} className={`${s.btn} ${nav === 'loan' ? s.btnOn : null}`} style={{ color: 'gray' }}><p>TOP</p>SECRET</button> */}
 
-            {/* {userId === 1 && */} <button disabled={false} onClick={() => changeNav('game')} className={`${s.btn} ${nav === 'game' ? s.btnOn : null}`} >
+            {userId === 1 && <button disabled={false} onClick={() => changeNav('game')} className={`${s.btn} ${nav === 'game' ? s.btnOn : null}`} >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={'2rem'} className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
                 </svg>
                 <p>GAME</p>
-            </button>{/* } */}
+            </button>}
 
             <button onClick={() => changeNav('invite')} className={`${s.btn} ${nav === 'invite' ? s.btnOn : null}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={'2rem'} className="size-6">
