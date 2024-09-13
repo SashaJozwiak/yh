@@ -21,6 +21,7 @@ export const lang = {
         completed: 'Completed',
         claim: 'Claim',
         check: 'Check',
+        soon: 'SOON',
         //invites
         hi: 'Hi',
         invite: 'invite your friends',
@@ -72,6 +73,7 @@ export const lang = {
         completed: 'Завершено',
         claim: 'Получить',
         check: 'Проверить',
+        soon: 'Скоро',
         //invites
         hi: 'Привет',
         invite: 'пригласи своих друзей',
@@ -98,7 +100,6 @@ export const lang = {
         title_create_team: 'Создать команду',
         team_name: 'Имя команды',
         team_link: 'Ссылка',
-
         cancel: 'Выйти',
         not_team: 'Вы пока не в команде'
     }

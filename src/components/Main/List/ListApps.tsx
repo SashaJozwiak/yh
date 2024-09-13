@@ -3,6 +3,9 @@ import { useEffect } from 'react'
 //import s from './listapps.module.css';
 import { useStartups } from '../../../store/startups';
 
+import { useUserData } from '../../../store/main';
+import { swichLang } from '../../../lang/lang.js'
+
 /* const formatNumber = (num: number) => {
     if (num > 999999) {
         return `${Math.floor(num / 1000000)}kk`;
@@ -16,6 +19,8 @@ import { useStartups } from '../../../store/startups';
 export const ListApps = () => {
     const bal = useStartups(state => state.bal)
     const updateSpeedStartups = useStartups(state => state.updateSpeed)
+
+    const userLang = useUserData((state) => state.user.languageCode);
 
     useEffect(() => {
         bal.forEach((currency) => {
@@ -59,7 +64,7 @@ export const ListApps = () => {
                     </div>
                 )
             })} */}
-            <h2 style={{ color: 'lightgrey', marginTop: '1rem' }}>SOON</h2>
+            <h2 style={{ color: 'lightgrey', marginTop: '1rem' }}>{swichLang(userLang, 'soon')}</h2>
         </>
     )
 }
