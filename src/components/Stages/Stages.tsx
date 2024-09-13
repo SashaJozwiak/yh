@@ -1,4 +1,6 @@
 //import { useEffect, useState } from 'react';
+import { swichLang } from '../../lang/lang.js';
+import { useUserData } from '../../store/main';
 
 import s from './stages.module.css'
 
@@ -27,20 +29,22 @@ export const Stages = () => {
         }🟡
     }, []); */
 
+    const userLang = useUserData(state => state.user.languageCode)
+
     return (
         <div className={`${s.list} scrollable`}>
-            <h2 style={{ /* paddingTop: '0.6rem' *//* , marginTop: '0.6rem' */ }}>Off-Chain</h2>
+            <h2 style={{ /* paddingTop: '0.6rem' *//* , marginTop: '0.6rem' */ }}>{swichLang(userLang, 'off_chain')}</h2>
             <ul className={s.stagelist}>
-                <li className={s.listelement}>🟢 Beta launch </li>
-                <li className={`${s.listelement} ${s.ok}`}>🟢 Launch app</li>
-                <li className={s.listelement}>🟡 Launch game</li>
-                <li className={s.listelement}>⚪ Marketing and partnership</li>
-                <li className={s.listelement}>⚪ Main product presentation</li>
-                <li className={s.listelement}>⚪ Airdrop</li>
+                <li className={s.listelement}>🟢 {swichLang(userLang, 'beta_launch')} </li>
+                <li className={`${s.listelement} ${s.ok}`}>🟢 {swichLang(userLang, 'launch_app')}</li>
+                <li className={s.listelement}>🟡 {swichLang(userLang, 'launch_game')}</li>
+                <li className={s.listelement}>⚪ {swichLang(userLang, 'marketing')}</li>
+                <li className={s.listelement}>⚪ {swichLang(userLang, 'presa')}</li>
+                <li className={s.listelement}>⚪ {swichLang(userLang, 'airdrop')}</li>
             </ul >
-            <h2>On-Chain</h2>
+            <h2>{swichLang(userLang, 'on_chain')}</h2>
             <ul className={s.stagelist}>
-                <li className={s.listelementonchain}>After product presentation...</li>
+                <li className={s.listelementonchain}>{swichLang(userLang, 'after')}</li>
             </ul>
             {/* {showButton && <div
                 onClick={handleScrollUp}

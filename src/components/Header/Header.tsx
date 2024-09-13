@@ -3,6 +3,7 @@ import { useEffect, /* useState, */ /* useCallback */ } from 'react';
 import { useUserData, /* useUserBalances */ } from '../../store/main';
 //import { useBalance } from '../../store/balance';
 import { useNav } from '../../store/nav';
+import { swichLang } from '../../lang/lang.js';
 
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
@@ -13,14 +14,14 @@ export const Header: React.FC = () => {
     const changeNav = useNav((state) => state.setMainNav)
     const nav = useNav((state) => state.nav.main);
 
+    const id = useUserData((state) => state.user.id);
+    const internalId = useUserData((state) => state.user.internalId);
+    const userLang = useUserData((state) => state.user.languageCode);
+
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
 
     const rawAddressInState = useUserData(state => state.user.rawAddress);
-
-    //const user = useUserData((state) => state.user);
-    const id = useUserData((state) => state.user.id);
-    const internalId = useUserData((state) => state.user.internalId);
 
     const handleReferral = useUserData((state) => state.handleReferral);
     const setUser = useUserData((state) => state.setUser);
@@ -65,7 +66,7 @@ export const Header: React.FC = () => {
                 id: 757322479,
                 //internalId: null,
                 userName: "Jozwiak",
-                languageCode: "en",
+                languageCode: "ru",
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
@@ -74,7 +75,6 @@ export const Header: React.FC = () => {
             //console.log('write jozwiak user in store finish')
         }
     }, [setUser, handleReferral, id]);
-
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')
@@ -106,7 +106,7 @@ export const Header: React.FC = () => {
 
             <button className={s.speed}>
                 <p style={{ marginBlockStart: '-0.2em' }}>Current speed</p>
-                <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/h</p>
+                <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/{swichLang(userLang, 'hours')}</p>
             </button>
 
             <div className={s.settings}>

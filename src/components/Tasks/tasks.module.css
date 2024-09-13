@@ -35,6 +35,26 @@
     border-bottom:1px solid white;
 }
 
+.line {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: gray;
+  //color: 'grey';
+  margin: 8px 0px;
+  }
+  
+  .line:before,
+  .line:after {
+  content: "";
+  flex-grow: 1;
+  background: gray;
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 8px;
+  }
+
 .titlebtn {
     text-align: left;
     margin: 0 auto auto 0;

@@ -3,9 +3,13 @@ import s from './teams.module.css'
 import { useTeams } from '../../../store/teams'
 import { useUserData } from '../../../store/main'
 import { PopUp } from './PopUp';
+
+import { swichLang } from '../../../lang/lang.js'
+
 import WebApp from '@twa-dev/sdk';
 
 export const Teams: React.FC = () => {
+    const userLang = useUserData((state) => state.user.languageCode)
     const team_id = useUserData((state) => state.user.team_id)
 
     const myTeam = useTeams((state) => state.myTeam)
@@ -52,7 +56,7 @@ export const Teams: React.FC = () => {
         <>
             {popUp && <PopUp setPopUp={setPopUp} />}
             <div className={s.myteam}>
-                {myTeam.team_id === 0 ? <span style={{ margin: '0 auto' }}>You are not on the team yet.</span> :
+                {myTeam.team_id === 0 ? <span style={{ margin: '0 auto' }}>{swichLang(userLang, 'not_team')}</span> :
                     <>
                         <button
                             className={s.btnspan}
@@ -67,7 +71,7 @@ export const Teams: React.FC = () => {
                             onClick={() => {
                                 joinOrLeaveTeam(myTeam.team_id, false)
                             }}
-                            className={s.btn_team}>Leave
+                            className={s.btn_team}>{swichLang(userLang, 'leave')}
                         </button>
                     </>
                 }
@@ -83,7 +87,7 @@ export const Teams: React.FC = () => {
                 <button
                     onClick={searchTeam ? handleSearchTeam : handleCreateTeam}
                     //disabled={!(filteredTeams.length === 0)}
-                    className={s.btn} style={{ /* opacity: filteredTeams.length === 0 ? 1 : 0.5 */ }}><h3>{searchTeam ? 'Search' : 'Create'}</h3>
+                    className={s.btn} style={{ /* opacity: filteredTeams.length === 0 ? 1 : 0.5 */ }}><h3>{searchTeam ? swichLang(userLang, 'search') : swichLang(userLang, 'create')}</h3>
                 </button>
             </div>
             {!teams.length ? <span className={s.loader}></span> :
@@ -94,7 +98,7 @@ export const Teams: React.FC = () => {
                                 onClick={() => {
                                     team.team_id === myTeam.team_id ? joinOrLeaveTeam(team.team_id, false) : joinOrLeaveTeam(team.team_id, true)
                                 }}
-                                style={{ flex: '0.3' }} className={s.btn_team}>{team.team_id === myTeam.team_id ? 'Leave' : 'Join'}</button>
+                                style={{ flex: '0.4' }} className={s.btn_team}>{team.team_id === myTeam.team_id ? swichLang(userLang, 'leave') : swichLang(userLang, 'join')}</button>
                             <button className={s.btnspan}
                                 onClick={(e) => {
                                     e.preventDefault();

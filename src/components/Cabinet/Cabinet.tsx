@@ -2,13 +2,19 @@
 import { CabData } from './CabData/CabData'
 import { Teams } from './Teams/Teams';
 
+import { useUserData } from '../../store/main';
+import { useNav } from '../../store/nav';
+
+import { swichLang } from '../../lang/lang.js';
+
 import { BackButton } from "@twa-dev/sdk/react";
 
 import s from './cabinet.module.css'
-import { useNav } from '../../store/nav';
+
 //import { Invite } from './Invite/Invite';
 
 export const Cabinet: React.FC = () => {
+    const userLang = useUserData((state) => state.user.languageCode);
     const changeNav = useNav((state) => state.setMainNav)
     const changeCabNav = useNav((state) => state.setCabNav)
     const cabNav = useNav((state) => state.nav.cab)
@@ -20,11 +26,11 @@ export const Cabinet: React.FC = () => {
                 <button
                     onClick={() => changeCabNav('data')}
                     className={`${s.cabnavbtn} ${cabNav === 'data' ? s.on : null}`}
-                >Info
+                >{swichLang(userLang, 'info')}
                 </button>
                 <button
                     onClick={() => changeCabNav('teams')}
-                    className={`${s.cabnavbtn} ${cabNav === 'teams' ? s.on : null}`}>Teams
+                    className={`${s.cabnavbtn} ${cabNav === 'teams' ? s.on : null}`}>{swichLang(userLang, 'teams')}
                 </button>
                 {/*  <button
                     onClick={() => changeCabNav('invite')}

@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import s from './popup.module.css';
+
+import { swichLang } from '../../../lang/lang.js'
+import { useUserData } from '../../../store/main'
+
 import { useTeams } from '../../../store/teams';
 
 interface PopUpProps {
@@ -7,6 +11,8 @@ interface PopUpProps {
 }
 
 export const PopUp: React.FC<PopUpProps> = ({ setPopUp }) => {
+    const userLang = useUserData((state) => state.user.languageCode)
+
     const [teamName, setTeamName] = useState('');
     const [teamLink, setTeamLink] = useState('');
 
@@ -30,13 +36,13 @@ export const PopUp: React.FC<PopUpProps> = ({ setPopUp }) => {
 
     return (
         <div className={s.popupoverlay}>
-            <h2>Create Team</h2>
+            <h2>{swichLang(userLang, 'title_create_team')}</h2>
             <form onSubmit={handleCreate}>
                 <div className={s.inputform}>
                     <label htmlFor="teamName"></label>
                     <input
                         className={s.input}
-                        placeholder='Team Name'
+                        placeholder={swichLang(userLang, 'team_name')}
                         type="text"
                         id="teamName"
                         value={teamName}
@@ -53,7 +59,7 @@ export const PopUp: React.FC<PopUpProps> = ({ setPopUp }) => {
                     <label htmlFor="teamLink"></label>
                     <input
                         className={s.input}
-                        placeholder='Team Link - https://t.me/example'
+                        placeholder={swichLang(userLang, 'team_link') + '- https://t.me/example'}
                         type="text"
                         id="teamLink"
                         value={teamLink}
@@ -68,8 +74,8 @@ export const PopUp: React.FC<PopUpProps> = ({ setPopUp }) => {
                 </div>
                 {error && <p>{error}</p>}
                 <div className={s.btns}>
-                    <button className={s.btn} type="submit">Create</button>
-                    <button className={s.btn} type="button" onClick={() => setPopUp(false)}>Cancel</button>
+                    <button className={s.btn} type="submit">{swichLang(userLang, 'create')}</button>
+                    <button className={s.btn} type="button" onClick={() => setPopUp(false)}>{swichLang(userLang, 'cancel')}</button>
                 </div>
             </form>
         </div>

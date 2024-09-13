@@ -3,6 +3,8 @@ import { useUserData, useJettonsBalances, useUserBalances, useStonFi, useDedust 
 //import { useBalance } from '../../../store/balance';
 import { useNav } from '../../../store/nav';
 
+import { swichLang } from '../../../lang/lang';
+
 import { ButtonTimer } from './ButtonTimer/ButtonTimer';
 
 import s from './statbar.module.css'
@@ -10,6 +12,8 @@ import { useStartups } from '../../../store/startups';
 
 export const StatBar: React.FC = () => {
     const [speed, setSpeed] = useState(0)
+
+    const userLang = useUserData((state) => state.user.languageCode);
 
     const rawAddress = useUserData(state => state.user.rawAddress)
     const balance = useUserBalances(state => state.bal)
@@ -69,7 +73,7 @@ export const StatBar: React.FC = () => {
             </button>
             <div style={{ margin: 'auto' }}>
                 <p style={{ color: 'lightgray', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>Sum speed</p>
-            <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/h</p>
+                <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/{swichLang(userLang, 'hours')}</p>
 
             </div>
 

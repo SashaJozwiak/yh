@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import s from './tasks.module.css';
 
+import { swichLang } from '../../lang/lang.js';
 import { useTasks } from '../../store/tasks'
+import { useUserData } from '../../store/main';
 
 const hours = import.meta.env.VITE_SECRET_TIMECOUNT;
 
 export const TimerButton = ({ dailyReward }) => {
+  const userLang = useUserData(state => state.user.languageCode)
   const completeTask = useTasks((state) => state.completeTask)
 
   const [isClaimable, setIsClaimable] = useState(false);
@@ -73,7 +76,7 @@ export const TimerButton = ({ dailyReward }) => {
       className={s.check}
       disabled={!isClaimable || loading} // Блокируем кнопку, если она не доступна или в процессе загрузки
     >
-      {loading ? 'Processing...' : isClaimable ? 'Claim' : timeLeft || 'loading...'}
+      {loading ? 'Processing...' : isClaimable ? swichLang(userLang, 'claim') : timeLeft || 'loading...'}
     </button>
   );
 };

@@ -3,6 +3,8 @@ import { useNav } from '../../store/nav';
 import { useTasks } from '../../store/tasks'
 import { useUserData } from '../../store/main';
 
+import { swichLang } from '../../lang/lang.js';
+
 import { TimerButton } from './TimerButton ';
 
 import { checkSubscription } from '../../utils/checks/checkSubscription';
@@ -46,7 +48,7 @@ export const Tasks = () => {
 
     return (
         <div className={`${s.list} scrollable`}>
-            <h2>Permanent</h2>
+            <h2 className={s.line}>{swichLang(userData.languageCode, 'permanent')}</h2>
             <div
                 onClick={() => {
                     setMainNav('cabinet')
@@ -67,9 +69,7 @@ export const Tasks = () => {
                 <div style={{ color: 'white' }} className={s.price}>{dailyReward.price}</div>
             </div>
 
-
-
-            {tasks.filter(task => task.type === 'native' && task.completed === false).length > 0 && <h2>Native</h2>}
+            {tasks.filter(task => task.type === 'native' && task.completed === false).length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'our')}</h2>}
 
             {tasks.filter(task => task.type === 'native' && task.completed === false).map(task => (
                 <div
@@ -86,11 +86,11 @@ export const Tasks = () => {
                             checkTask(userData.id, task.id, task.src)
                         }}
                         disabled={blockBtns}
-                        className={s.check}>Check</button>
+                        className={s.check}>{swichLang(userData.languageCode, 'check')}</button>
                     <div className={s.price}>{task.price}</div>
                 </div>
             ))}
-            {tasks.filter(task => task.type === 'affiliate' && task.completed === false).length > 0 && <h2>Affiliate</h2>}
+            {tasks.filter(task => task.type === 'affiliate' && task.completed === false).length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'partnership')}</h2>}
             {tasks.filter(task => task.type === 'affiliate' && task.completed === false).map(task => (
                 <div
                     key={task.id} className={s.listitem}>
@@ -106,12 +106,12 @@ export const Tasks = () => {
                             checkTask(userData.id, task.id, task.src)
                         }}
                         disabled={blockBtns}
-                        className={s.check}>Check</button>
+                        className={s.check}>{swichLang(userData.languageCode, 'check')}</button>
                     <div className={s.price}>{task.price}</div>
                 </div>
             ))}
 
-            {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').length > 0 && <h2>Complete</h2>}
+            {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'completed')}</h2>}
             {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').map(task => (
                 <div
                     key={task.id} className={s.listitem}

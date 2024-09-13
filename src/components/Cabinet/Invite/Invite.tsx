@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useUserData } from '../../../store/main';
+import { swichLang } from '../../../lang/lang.js';
 
 import WebApp from '@twa-dev/sdk';
 import { useTeams } from '../../../store/teams';
@@ -9,7 +10,7 @@ import { useInvites10 } from '../../../store/invites';
 //import { Top10Inv } from './top10/Top10Inv';
 
 export const Invite: React.FC = () => {
-    const { id, userName } = useUserData(state => state.user)
+    const { id, userName, languageCode } = useUserData(state => state.user)
     const teamId = useTeams(state => state.myTeam.team_id)
 
     const top10 = useInvites10(state => state.top10);
@@ -75,11 +76,10 @@ export const Invite: React.FC = () => {
 
     return (
         <>
-            <h2 style={{ marginTop: '0.6rem' }}>Hi 👋 {userName}!</h2>
-            <h3 >Invite your friends</h3>
+            <h2 style={{ marginTop: '0.6rem' }}>{swichLang(languageCode, 'hi')} 👋 {userName}!</h2>
+            <h3 >{swichLang(languageCode, 'invite')}</h3>
 
             <div style={{ marginTop: '1em', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-
                 <div>
                     <input
                         type="text"
@@ -98,7 +98,7 @@ export const Invite: React.FC = () => {
                     <input type="checkbox" id='withteam' readOnly={true} disabled={!teamId || teamId === 0} checked={checked}
                         style={{ border: '1px solid rgba(14, 165, 233, 0.4)', borderRadius: '0.25rem', transform: 'scale(1.3)' }}
                         onChange={changeLink} />
-                    <label htmlFor="withteam" style={{ fontSize: 'calc(1.2vh + 1.2vw)' }}>&nbsp; and invite to your team</label>
+                    <label htmlFor="withteam" style={{ fontSize: 'calc(1.2vh + 1.2vw)' }}>&nbsp; {swichLang(languageCode, 'inviteand')}</label>
 
                 </div>
 
@@ -109,21 +109,21 @@ export const Invite: React.FC = () => {
                     WebApp.openTelegramLink(tolink);
                 }}
                     style={{ background: 'rgb(14, 165, 233)', borderRadius: '0.25rem', padding: '0rem 0.5rem', margin: '2vh 4rem', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
-                ><h3 style={{ display: 'inline-block' }}>invite</h3></button>
+                ><h3 style={{ display: 'inline-block' }}>{swichLang(languageCode, 'invitebtn')}</h3></button>
             </div>
 
-            <h2 className={s.headerlist}><span style={{ color: 'rgb(25, 180, 21)' }}>20,000B</span> Contest</h2>
+            <h2 className={s.headerlist}><span style={{ color: 'rgb(25, 180, 21)' }}>20,000B</span> {swichLang(languageCode, 'contest')}</h2>
 
             <div className={s.progressbar}>
-                <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 1 ? 2 : ((total / 1000) * 100)}%` }}></div>
+                <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 2 ? 2 : ((total / 1000) * 100)}%` }}></div>
             </div>
-            <div style={{ color: 'gray' }}>Total active friends: {total}/1000</div>
+            <div style={{ color: 'gray' }}>{swichLang(languageCode, 'contest_desc')} {total}/1000</div>
 
             {/* <Top10Inv top10={top10} /> */}
             <div className={s.listtitle}>
-                <p>Name</p>
-                <p >A. friends</p>
-                <p style={{ fontWeight: 'bold' }}>Reward</p>
+                <p>{swichLang(languageCode, 'user')}</p>
+                <p >{swichLang(languageCode, 'afriends')}</p>
+                <p style={{ fontWeight: 'bold' }}>{swichLang(languageCode, 'reward')}</p>
             </div>
             {loadStatus && <span className={s.loader}></span>}
             {top10.length < 1 ? (

@@ -1,8 +1,13 @@
-//import { useStore } from './store/main';
 import { useEffect } from 'react';
 
 import { Header } from './components/Header/Header';
 import { Main } from './components/Main/Main';
+import { Footer } from './components/Footer/Footer';
+import { Tasks } from './components/Tasks/Tasks';
+import { Stages } from './components/Stages/Stages';
+import { Cabinet } from './components/Cabinet/Cabinet';
+import { Game } from './components/Game/Game';
+import { Invite } from './components/Cabinet/Invite/Invite';
 
 import { useNav } from './store/nav';
 import { useUserData, useUserBalances, useJettonsBalances, useStonFi, useDedust } from './store/main'
@@ -10,17 +15,11 @@ import { useUserData, useUserBalances, useJettonsBalances, useStonFi, useDedust 
 import WebApp from '@twa-dev/sdk';
 //import eruda from 'eruda'
 
-import { Footer } from './components/Footer/Footer';
-import { Tasks } from './components/Tasks/Tasks';
-import { Stages } from './components/Stages/Stages';
-import { Cabinet } from './components/Cabinet/Cabinet';
-
 /* import gnome from './assets/cabinet/gnom_full_tr_150.png' */
 /* import usePreloadImage from './utils/hooks/usePreloadImage'; */
 
 import './App.css';
-import { Game } from './components/Game/Game';
-import { Invite } from './components/Cabinet/Invite/Invite';
+
 //import useScrollFix from './utils/hooks/useScrollFix';
 import { postEvent } from '@telegram-apps/sdk';
 
@@ -30,19 +29,7 @@ document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
 });
 
-/* window.oncontextmenu = function (event) {
-  event.preventDefault();
-  event.stopPropagation();
-  return false;
-}; */
-/* 
-const [swipeBehavior] = initSwipeBehavior();
-swipeBehavior.disableVerticalSwipe(); */
-
 const App: React.FC = function () {
-
-  //useScrollFix();
-
   const nav = useNav((state) => state.nav.main)
 
   const rawAddress = useUserData(state => state.user.rawAddress);
@@ -56,8 +43,6 @@ const App: React.FC = function () {
 
   const updateStonFiBalance = useStonFi((state) => state.updateBalanceSF)
   const updateBalanceDedust = useDedust((state) => state.updateBalanceDedust);
-
-  //console.log('Main render')
 
   useEffect(() => {
     if (!WebApp.isExpanded) {
@@ -81,32 +66,61 @@ const App: React.FC = function () {
   }, [rawAddress, updateBalanceJ]);
 
   useEffect(() => {
-    console.log('render change rawaddres in LIST stonfi')
+    //console.log('render change rawaddres in LIST stonfi')
     if (rawAddress) {
-      console.log('get new poll for new wallet: ', rawAddress)
       updateStonFiBalance(rawAddress)
-      //updateBalanceDedust(rawAddress)
     }
-  }, [rawAddress, updateStonFiBalance, /* updateBalanceDedust */]);
+  }, [rawAddress, updateStonFiBalance,]);
 
   useEffect(() => {
-    console.log('render change rawaddres in LIST dedust')
+    //console.log('render change rawaddres in LIST dedust')
     if (rawAddress) {
-      console.log('get new poll for new wallet: ', rawAddress)
-  //updateStonFiBalance(rawAddress)
       updateBalanceDedust(rawAddress)
     }
   }, [rawAddress, updateBalanceDedust]);
 
+
+
+  /* useEffect(() => {
+    const fetchBalances = async () => {
+      if (rawAddress) {
+        try {
+          await updateBalance(rawAddress);
+        } catch (error) {
+          console.error('Error updating balance:', error);
+        }
+
+        try {
+          await updateBalanceJ(rawAddress);
+        } catch (error) {
+          console.error('Error updating balance J:', error);
+        }
+
+        try {
+          await updateStonFiBalance(rawAddress);
+        } catch (error) {
+          console.error('Error updating StonFi balance:', error);
+        }
+
+        try {
+          await updateBalanceDedust(rawAddress);
+        } catch (error) {
+          console.error('Error updating Dedust balance:', error);
+        }
+      }
+    };
+
+    fetchBalances();
+  }, [rawAddress, updateBalance, updateBalanceJ, updateStonFiBalance, updateBalanceDedust]); */
+
   return (
     <>
-      {/* nav !== 'cabinet' &&  */nav !== 'game' && <Header />}
+      {nav !== 'game' && <Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
       {nav === 'game' && <Game />}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
-
       {nav === 'invite' && <Invite />}
       {nav !== 'game' && <Footer />}
     </>
