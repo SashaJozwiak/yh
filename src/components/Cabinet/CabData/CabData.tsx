@@ -44,7 +44,7 @@ export const CabData = () => {
                 </div>
             </div>
 
-            <h2 className={s.headerlist}>TOP 100 balances</h2>
+            <h2 className={s.headerlist}>TOP 100 users</h2>
 
             {!top100.length ? <span className={s.loader}></span> :
                 <div className={`${s.list} scrollable`}/*  style={{ padding: '0 1rem' }} */>
