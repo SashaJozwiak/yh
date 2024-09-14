@@ -22,9 +22,7 @@ export const Tooltip = ({ speed, swichLang, userLang }) => {
                     </svg>
                 </p>
 
-
-
-                <p style={{ textWrap: 'nowrap', marginTop: '0', fontSize: '1.2rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/{swichLang(userLang, 'hours')}</p>
+                <p style={{ textWrap: 'nowrap', marginTop: '0.02rem', fontSize: '1.2rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/{swichLang(userLang, 'hours')}</p>
             </div>
 
             {
@@ -50,6 +48,7 @@ const tooltipStyle: CSSProperties = {
     whiteSpace: "nowrap",
     border: "1px solid white",
     zIndex: 1000,
+    fontSize: "0.8rem",
 };
 
 //export default Tooltip;
