@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserData } from '../../../store/main';
 import { useTop100 } from '../../../store/top100';
 
@@ -10,33 +10,56 @@ import s from './cabdata.module.css'
 const defaultAvatar = '/yh/gnom_full_tr_150_compressed.png';
 
 export const CabData = () => {
-    const { userName, refs, refs_active, languageCode } = useUserData(state => state.user);
+    const { internalId, userName, refs, refs_active, anonim, languageCode } = useUserData(state => state.user);
+
     const balance = useUserData(state => state.balance.balance);
+    const setAnonim = useUserData(state => state.setAnonim);
+
+    const [isChecked, setIsChecked] = useState(anonim);
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [refetchTop100, setRefetchTop100] = useState(false);
 
     const top100 = useTop100(state => state.top100);
     const getTop100 = useTop100(state => state.getTop100);
 
     useEffect(() => {
-        if (!top100.length) {
+        if (!top100.length || refetchTop100) {
+            setRefetchTop100(false)
             getTop100();
         }
-    }, [getTop100, top100.length])
+    }, [getTop100, refetchTop100, top100.length])
 
+    useEffect(() => {
+        setIsChecked(anonim);
+    }, [anonim]);
 
-    //console.log('top100: ', top100)
+    const handleCheckboxChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = event.target.checked;
+        setIsDisabled(true);
 
-    const preventContextMenu = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-    };
+        try {
+            await setAnonim(internalId, newValue);
+            setIsChecked(newValue);
+            setRefetchTop100(true);
+        } catch (error) {
+            console.error('Ошибка обновления анонимности:', error);
+            setIsChecked(anonim);
+        } finally {
+            setTimeout(() => {
+                setIsDisabled(false);
+            }, 2000);
+        }
+
+        setTimeout(() => {
+            setIsDisabled(false);
+        }, 2000);
+    }
 
     return (
         <>
             <div className={s.data}>
-                <div onContextMenu={preventContextMenu} onTouchStart={preventContextMenu}>
                 <img className={s.gnom} style={{ borderRadius: '0.3rem' }}
                     width='150' height='118' src={defaultAvatar} alt={``} />
-                </div>
                 <div className={s.info}>
                     <p className={s.line}>{swichLang(languageCode, 'user')}: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>
                     <p className={s.line}>{swichLang(languageCode, 'friends')}: <span style={{ color: 'white' }}>{refs}</span></p>
@@ -44,10 +67,20 @@ export const CabData = () => {
                     {/* <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p> */}
                     {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
                     <p className={s.line}>{swichLang(languageCode, 'balance')}: <span style={{ color: 'white' }}>{Number(balance.toFixed(1)).toLocaleString('ru-Ru')}</span></p>
+                    {/* <p className={s.line}>аноним: <span style={{ color: 'white' }}>{anonim}</span></p> */}
+                    <div style={{ textAlign: 'left', display: 'flex', gap: '0.2rem' }}>
+                        <input type="checkbox"
+                            checked={isChecked}
+                            disabled={isDisabled}
+                            onChange={handleCheckboxChange}
+                            id="anonim-checkbox"
+                            name="anonim" />
+                        <label htmlFor="anonim-checkbox"> {swichLang(languageCode, 'anonim')}</label>
+                    </div>
                 </div>
             </div>
 
-            <h2 className={s.headerlist}>TOP 100</h2>
+            <h2 className={s.headerlist}>{swichLang(languageCode, 'top100')}</h2>
 
             {!top100.length ? <span className={s.loader}></span> :
                 <div className={`${s.list} scrollable`}/*  style={{ padding: '0 1rem' }} */>

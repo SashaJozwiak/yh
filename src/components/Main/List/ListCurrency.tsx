@@ -100,9 +100,11 @@ export const ListCurrency = () => {
                 {balance.filter(currency => currency.speed > 0.00099).map((currency) => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'white' }}>
+                            {/* <div className={s.firstline}> */}
                             <h4 className={s.currname}>{currency.name}</h4>
-                            <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toUpperCase()}</div>
+                            <div ><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toUpperCase()}</div>
                             <div style={{ color: currency.speed > 0.00 ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                            {/* </div> */}
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${(((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100) < 2 ? 2 : (((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100)}%` }}></div>
                             </div>
@@ -125,7 +127,7 @@ export const ListCurrency = () => {
                     );
                 })}
 
-            {balanceJ.filter(currency => currency.speed > 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Jettons</h4>}
+            {balanceJ.filter(currency => currency.speed > 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>{swichLang(userLang, 'jettons')}</h4>}
                 {
                 !rawAddress ?
                     <div>
@@ -156,7 +158,7 @@ export const ListCurrency = () => {
                 }) 
                 }
 
-                {balancePoolsSF.filter(currency => currency.speed > 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Pools</h4>}
+            {balancePoolsSF.filter(currency => currency.speed > 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi {swichLang(userLang, 'pools')}</h4>}
                 {rawAddress &&
                     balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                         return (
@@ -180,7 +182,7 @@ export const ListCurrency = () => {
                         )
                     })}
 
-                {balancePoolsDD.filter(currency => currency.speed > 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>DeDust Pools</h4>}
+            {balancePoolsDD.filter(currency => currency.speed > 0.00099).length > 0 && rawAddress && <h4 style={{ color: 'lightgray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>DeDust {swichLang(userLang, 'pools')}</h4>}
                 {rawAddress &&
                     balancePoolsDD.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                         return (
@@ -264,7 +266,7 @@ export const ListCurrency = () => {
                     })
                 }
 
-            {balancePoolsSF.filter(currency => currency.speed < 0.000099).length > 0 && rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h4 style={{ color: 'gray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi Pools</h4>}
+            {balancePoolsSF.filter(currency => currency.speed < 0.000099).length > 0 && rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h4 style={{ color: 'gray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>Stonfi {swichLang(userLang, 'pools')}</h4>}
             {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) &&
                     balancePoolsSF.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (
@@ -288,7 +290,7 @@ export const ListCurrency = () => {
                         )
                     })}
 
-            {balancePoolsDD.filter(currency => currency.speed < 0.00099).length > 0 && rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h4 style={{ color: 'gray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>DeDust Pools</h4>}
+            {balancePoolsDD.filter(currency => currency.speed < 0.00099).length > 0 && rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h4 style={{ color: 'gray', borderBottom: '2px solid', width: '8rem', margin: '0 auto' }}>DeDust {swichLang(userLang, 'pools')}</h4>}
             {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) &&
                     balancePoolsDD.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (

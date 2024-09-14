@@ -9,6 +9,7 @@ import { ButtonTimer } from './ButtonTimer/ButtonTimer';
 
 import s from './statbar.module.css'
 import { useStartups } from '../../../store/startups';
+import { Tooltip } from '../../Some/Tooltip/TooltipStatBar';
 
 export const StatBar: React.FC = () => {
     const [speed, setSpeed] = useState(0)
@@ -71,17 +72,21 @@ export const StatBar: React.FC = () => {
                 </svg>
 
             </button>
-            <div style={{ margin: 'auto' }}>
+
+            {/* <div style={{ margin: 'auto' }}>
                 <p style={{ color: 'lightgray', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>Sum speed</p>
                 <p style={{ margin: 'auto', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)' }}> {speed.toFixed(2)}/{swichLang(userLang, 'hours')}</p>
+            </div> */}
 
-            </div>
+            <Tooltip speed={speed} swichLang={swichLang} userLang={userLang} />
+
+
 
             <button
                 disabled={balanceData.isHold || !rawAddress || miningLoader}
                 onClick={pushHold}
                 className={`${s.hold} ${balanceData.isHold ? s.holdOn : null}`}>
-                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢 <span style={{ color: rawAddress ? 'white' : 'grey' }}>START!</span></span>}</h3>
+                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢 <span style={{ color: rawAddress ? 'white' : 'grey' }}>{swichLang(userLang, 'start')}</span></span>}</h3>
             </button>
         </div>
     )

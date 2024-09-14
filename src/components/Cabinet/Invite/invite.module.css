@@ -120,7 +120,7 @@
 
 .progress {
   background-color: rgb(14, 165, 233);
-  background: linear-gradient(white, rgb(14, 165, 233));
+  background: linear-gradient(white, rgb(25, 180, 21));
   height: 1rem;
   width:0;
   border-top-left-radius:0.3rem;

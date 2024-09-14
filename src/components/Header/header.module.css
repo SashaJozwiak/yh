@@ -37,7 +37,8 @@
 
 .speed {
     background-color: rgb(71 85 105);
-    font-size: 0.9rem;
+    font-size: 1rem;
+    text-wrap: nowrap;
     box-shadow: none;
-    margin-top: -0.2rem;
+    //margin-top: -0.2rem;
 }

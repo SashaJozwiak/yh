@@ -8,6 +8,7 @@ export interface User {
     team_id: number | null;
     refs: number;
     refs_active: number;
+    anonim: boolean;
     //team: string;
 }
 
@@ -26,6 +27,7 @@ export interface UseStore {
     setUser: (user: Partial<User>) => void;
     addAddresses: (addresses: { userFriendlyAddress: string; rawAddress: string }) => void;
     setBalanceData: (balance: Partial<BalanceObj>) => void;
+    setAnonim: (userId: number, anonim: boolean) => void;
 }
 
 //===

@@ -16,6 +16,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         team_id: null,
         refs: 0,
         refs_active: 0,
+        anonim: false,
         //team: ''
     },
     balance: {
@@ -74,7 +75,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             }
 
             const data = await response.json();
-            //console.log('bd_data: ', data);
+            console.log('bd_user_data: ', data);
             //console.log('from_tg_data: ', user)
             const getBalance = Number(data.balance.balance).toFixed(3);
             set((state) => ({
@@ -85,6 +86,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     team_id: data.balance.team_id,
                     refs: +data.referralStats.total_invited || 0,
                     refs_active: +data.referralStats.active_invited || 0,
+                    anonim: data.user.anonim || false,
                 },
                 balance: {
                     ...state.balance,
@@ -225,7 +227,43 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 rawAddress: addresses.rawAddress, //добавлять из фе, а не бе
             }
         }))
+    },
+    setAnonim: async (userId, anonim) => {
+
+        console.log('set anon start:', userId, anonim)
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}setanonim`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    anonim: anonim,
+                }),
+            })
+
+            if (!response.ok) {
+                throw new Error('Network response \'setAnonim\' was not ok');
+            }
+
+            const res = await response.json()
+            console.log(res)
+
+            set((state) => ({
+                user: {
+                    ...state.user,
+                    anonim: anonim,  // Обновляем поле anonim
+                }
+            }));
+
+        } catch (err) {
+            console.error('setAnonim error :', err);
+        }
+
     }
+
 })))
 
 export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => ({

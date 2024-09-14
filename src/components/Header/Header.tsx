@@ -66,7 +66,7 @@ export const Header: React.FC = () => {
                 id: 757322479,
                 //internalId: null,
                 userName: "Jozwiak",
-                languageCode: "ru",
+                languageCode: "en",
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
@@ -105,7 +105,7 @@ export const Header: React.FC = () => {
             </button>
 
             <button className={s.speed}>
-                <p style={{ marginBlockStart: '-0.2em' }}>Current speed</p>
+                {/* <p style={{ marginBlockStart: '-0.2em' }}>Current speed</p> */}
                 <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/{swichLang(userLang, 'hours')}</p>
             </button>
 

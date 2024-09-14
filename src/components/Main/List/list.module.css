@@ -34,6 +34,11 @@
   }
 }
 
+.firstline {
+  display: flex;
+  flex: 1;
+}
+
 .connectwallet {
   opacity: 0;
   animation: connw 1.5s forwards;
@@ -106,7 +111,8 @@ margin: 0px 8px;
 }
 
 .currname {
-  flex-basis: 4rem;
+  /* flex: 1; */
+  flex-basis: 4.5rem;
   text-align:left;
 }
 

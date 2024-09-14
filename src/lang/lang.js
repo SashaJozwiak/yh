@@ -1,5 +1,13 @@
 export const lang = {
     en: {
+        //categories
+        hold: 'HOLD',
+        bonus: 'BONUS',
+        game: 'GAME',
+        friends_cat: 'FRENS',
+        roadmap: 'R-MAP',
+        start: 'START!',
+        //main
         connect: 'Connect your wallet',
         connect2: 'to see available assets',
         connect3: 'and 🟢start mine',
@@ -9,12 +17,16 @@ export const lang = {
         news: 'news',
         pool: 'pool',
         donthave: 'You don\'t have',
+        speed_tooltip: 'The speed at which you can start mining',
         info: 'Info',
         teams: 'Teams',
         user: 'Name',
         friends: 'Friends',
         afriends: 'A.Friends',
         balance: 'Balance',
+        top100: 'TOP 100',
+        anonim: 'I am anonym',
+        //tasks
         permanent: 'Permanent',
         our: 'Our tasks',
         partnership: 'Partner tasks',
@@ -22,13 +34,15 @@ export const lang = {
         claim: 'Claim',
         check: 'Check',
         soon: 'SOON',
+        jettons: 'Jettons',
+        pools: 'Pools',
         //invites
         hi: 'Hi',
         invite: 'invite your friends',
         inviteand: 'and invite to my team',
         invitebtn: 'Invite',
-        contest: 'Contest',
-        contest_desc: 'The competition will end:',
+        contest: 'Contest for',
+        contest_desc: 'Total active friends:',
         reward: 'Reward',
         //r-map
         off_chain: 'Off-chain',
@@ -52,6 +66,14 @@ export const lang = {
         cancel: 'Cancel',
     },
     ru: {
+        //categories
+        hold: 'ХОЛД',
+        bonus: 'БОНУС',
+        game: 'ИГРА',
+        friends_cat: 'ДРУЗЬЯ',
+        roadmap: 'КАРТА',
+        //main
+        start: 'СТАРТ!',
         connect: 'Подключите кошелек',
         connect2: 'чтобы увидеть доступные активы',
         connect3: 'и 🟢запустить майнинг',
@@ -61,12 +83,16 @@ export const lang = {
         news: 'новости',
         pool: 'пул',
         donthave: 'У Вас нет',
+        speed_tooltip: 'Скорость, с которой вы можете начать майнить',
         info: 'Инфо',
         teams: 'Команды',
         user: 'Имя',
         friends: 'Друзья',
         afriends: 'А.Друзья',
         balance: 'Баланс',
+        top100: 'ТОП 100',
+        anonim: 'Я аноним',
+        //tasks
         permanent: 'Постоянные задания',
         our: 'Наши здания',
         partnership: 'Партнерские задания',
@@ -74,13 +100,16 @@ export const lang = {
         claim: 'Получить',
         check: 'Проверить',
         soon: 'Скоро',
+        jettons: 'Токены',
+        pools: 'Пулы',
+
         //invites
         hi: 'Привет',
         invite: 'пригласи своих друзей',
         inviteand: 'и пригласить в мою команду',
         invitebtn: 'Пригласить',
-        contest: 'Конкурс',
-        contest_desc: 'До завершения конкурса:',
+        contest: 'Конкурс на',
+        contest_desc: 'Активных друзей у всех:',
         reward: 'Награда',
         //r-map
         off_chain: 'Офф-чейн',
