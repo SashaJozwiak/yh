@@ -109,7 +109,7 @@ export const lang = {
         inviteand: 'и пригласить в мою команду',
         invitebtn: 'Пригласить',
         contest: 'Конкурс на',
-        contest_desc: 'Активных друзей у всех:',
+        contest_desc: 'Всего активных друзей:',
         reward: 'Награда',
         //r-map
         off_chain: 'Офф-чейн',
