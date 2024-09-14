@@ -98,8 +98,6 @@ export const CabData = () => {
                     ))}
                 </div>
             }
-
-
         </>
     )
 }
