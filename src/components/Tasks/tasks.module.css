@@ -28,7 +28,7 @@
     margin: 0.5rem 0; 
     border-radius: 0.5rem;
     //background-color: #00000012;
-    backdrop-color: rgba(42, 54, 73, 0.2);
+    background-color: rgba(42, 54, 73, 0.2);
 }
 
 .title {

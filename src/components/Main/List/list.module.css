@@ -15,7 +15,7 @@
   flex-wrap: wrap;
   flex: 1 0 30%; 
   //background-color: #00000012;
-  backdrop-color: rgba(42, 54, 73, 0.2);
+  background-color: rgba(42, 54, 73, 0.2);
   //border: 1px solid; 
   padding: 0.6rem 0.5rem; 
   margin: 0.5rem 0; 
