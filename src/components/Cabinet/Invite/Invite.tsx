@@ -98,7 +98,7 @@ export const Invite: React.FC = () => {
                     <input type="checkbox" id='withteam' readOnly={true} disabled={!teamId || teamId === 0} checked={checked}
                         style={{ border: '1px solid rgba(14, 165, 233, 0.4)', borderRadius: '0.25rem', transform: 'scale(1.3)' }}
                         onChange={changeLink} />
-                    <label htmlFor="withteam" /* style={{ fontSize: 'calc(1.2vh + 1.2vw)' }} */>&nbsp; {swichLang(languageCode, 'inviteand')}</label>
+                    <label htmlFor="withteam" style={{ fontSize: 'calc(1.2vh + 1.2vw)' }}>&nbsp; {swichLang(languageCode, 'inviteand')}</label>
 
                 </div>
 

@@ -8,6 +8,7 @@ import { swichLang } from '../../lang/lang.js';
 import { TimerButton } from './TimerButton ';
 
 import { checkSubscription } from '../../utils/checks/checkSubscription';
+import { checkWithTimer } from '../../utils/checks/checkWithTimer';
 
 import s from './tasks.module.css'
 import WebApp from '@twa-dev/sdk';
@@ -23,6 +24,7 @@ export const Tasks = () => {
     const loadStatus = useTasks((state) => state.loadStatus)
 
     const [blockBtns, setBlockBtns] = useState(false);
+    const [loadBtn, setLoadBtn] = useState(false);
 
     const checkTask = async (userId: number, taskId: number, src: string) => {
 
@@ -31,6 +33,10 @@ export const Tasks = () => {
             case 2:
             case 5:
                 await checkSubscription(userId, taskId, src, completeTask);
+                break;
+            case 6:
+            case 7:
+                checkWithTimer(/* userId, */ taskId, src, completeTask, setLoadBtn);
                 break;
             case 4:
                 //await checkTeams(userId, taskId, setRoutes);
@@ -106,7 +112,7 @@ export const Tasks = () => {
                             checkTask(userData.id, task.id, task.src)
                         }}
                         disabled={blockBtns}
-                        className={s.check}>{swichLang(userData.languageCode, 'check')}</button>
+                        className={s.check}>{loadBtn ? 'load' : swichLang(userData.languageCode, 'check')}</button>
                     <div className={s.price}>{task.price}</div>
                 </div>
             ))}

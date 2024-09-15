@@ -22,7 +22,8 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
         type: 'permanent',
         timer: null,
     },
-    tasks: [],
+    tasks: [
+    ],
     loadStatus: false,
     completeTask: async (taskId: number) => {
         const internalId = useUserData.getState().user.internalId;
@@ -76,9 +77,11 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
             const dailyRewardTask = updatedTasks.find((task: Task) => task.title === 'Daily Reward');
 
             set(() => ({
+
                 activeFriends: activeFriendsTask,
                 dailyReward: dailyRewardTask,
-                tasks: updatedTasks.filter((task: Task) => task.title !== 'Active Friends' && task.title !== 'Daily Reward'),
+                tasks:
+                    updatedTasks.filter((task: Task) => task.title !== 'Active Friends' && task.title !== 'Daily Reward'),
             }));
 
         } catch (e) {
