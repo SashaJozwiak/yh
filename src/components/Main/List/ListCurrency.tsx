@@ -99,11 +99,11 @@ export const ListCurrency = () => {
             {/* <div className={s.onBalances}> */}
                 {balance.filter(currency => currency.speed > 0.00099).map((currency) => {
                     return (
-                        <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'white' }}>
+                        <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : 'white' }}>
                             {/* <div className={s.firstline}> */}
                             <h4 className={s.currname}>{currency.name}</h4>
                             <div ><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toUpperCase()}</div>
-                            <div style={{ color: currency.speed > 0.00 ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                            <div style={{ color: currency.speed > 0.00 ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
                             {/* </div> */}
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${(((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100) < 2 ? 2 : (((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100)}%` }}></div>
@@ -120,7 +120,7 @@ export const ListCurrency = () => {
                             {currency.name === 'BONUS' && <button
                                 onClick={() => navMain('bonus')}
                                 className={s.news}
-                                style={{ color: 'rgb(25, 180, 21)' }}
+                                style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }}
                             >{swichLang(userLang, 'get_more')}</button>}
                             <div className={s.range1}>{swichLang(userLang, 'till')} {formatNumber(currency.inH)}/{swichLang(userLang, 'hours')}</div>
                         </div>
@@ -137,10 +137,10 @@ export const ListCurrency = () => {
                     </div>
                     : loadStatus ? <span className={s.loader}></span> : balanceJ.filter(currency => currency.speed > 0.00099).map((currency) => {
                         return (
-                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
+                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : nav ? 'white' : 'lightgrey' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
                                 <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toUpperCase()}</div>
-                                <div style={{ color: currency.speed ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                                <div style={{ color: currency.speed ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
                                 <div className={s.progressbar}>
                                     <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100 < 2 ? 2 : ((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
                                 </div>
@@ -162,10 +162,10 @@ export const ListCurrency = () => {
                 {rawAddress &&
                     balancePoolsSF.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                         return (
-                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
+                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : nav ? 'white' : 'lightgrey' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
                                 <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> Lp</div>
-                                <div style={{ color: currency.speed ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                                <div style={{ color: currency.speed ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
                                 <div className={s.progressbar}>
                                     <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100 < 2 ? 2 : ((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
                                 </div>
@@ -186,11 +186,11 @@ export const ListCurrency = () => {
                 {rawAddress &&
                     balancePoolsDD.filter(currency => nav ? currency.speed > 0.00099 : currency.speed < 0.00099).map((currency) => {
                         return (
-                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : nav ? 'white' : 'lightgrey' }}>
+                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : nav ? 'white' : 'lightgrey' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
                                 <div>
                                     <span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span>Lp</div>
-                                <div style={{ color: currency.speed ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                                <div style={{ color: currency.speed ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
                                 <div className={s.progressbar}>
                                     <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100 < 2 ? 2 : ((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
                                 </div>
@@ -216,14 +216,14 @@ export const ListCurrency = () => {
                 </div>
             )}
 
-            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h3 className={s.donthave} style={{ color: 'gray', marginBottom: '0.5rem' }}>{swichLang(userLang, 'donthave')}</h3>}
+            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h3 className={s.donthave} style={{ color: 'gray', marginBottom: '0.5rem', marginTop: '2rem' }}>{swichLang(userLang, 'donthave')}</h3>}
 
             {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && balance.filter(currency => currency.speed < 0.00099).map((currency) => {
                     return (
-                        <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'grey' }}>
+                        <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : 'grey' }}>
                             <h4 className={s.currname}>{currency.name}</h4>
                             <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
-                            <div style={{ color: currency.speed > 0.00 ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                            <div style={{ color: currency.speed > 0.00 ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
                             <div className={s.progressbar}>
                                 <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
                             </div>
@@ -245,10 +245,10 @@ export const ListCurrency = () => {
                 {
                     /* loadStatus ? <span className={s.loader}></span> : */ rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && balanceJ.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (
-                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'gray' }}>
+                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : 'gray' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
                                 <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toLowerCase()}</div>
-                                <div style={{ color: currency.speed ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                                <div style={{ color: currency.speed ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
                                 <div className={s.progressbar}>
                                     <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
                                 </div>
@@ -270,10 +270,10 @@ export const ListCurrency = () => {
             {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) &&
                     balancePoolsSF.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (
-                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'grey' }}>
+                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : 'grey' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
                                 <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> Lp</div>
-                                <div style={{ color: currency.speed ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                                <div style={{ color: currency.speed ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
                                 <div className={s.progressbar}>
                                     <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
                                 </div>
@@ -294,10 +294,10 @@ export const ListCurrency = () => {
             {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) &&
                     balancePoolsDD.filter(currency => currency.speed < 0.00099).map((currency) => {
                         return (
-                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(25,180,21)' : 'grey' }}>
+                            <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : 'grey' }}>
                                 <h4 className={s.currname}>{currency.name}</h4>
                                 <div><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> Lp</div>
-                                <div style={{ color: currency.speed ? 'rgb(25,180,21)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                                <div style={{ color: currency.speed ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
                                 <div className={s.progressbar}>
                                     <div className={s.progress} style={{ width: `${((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100}%` }}></div>
                                 </div>

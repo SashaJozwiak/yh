@@ -13,7 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --tg-theme-bg-color: #1c1f24;
-  --tg-theme-button-color: #63d0f9;
+  --tg-theme-button-color: rgb(22, 163, 74);
   --tg-theme-button-text-color: black;
   //display: flex;
 
@@ -57,6 +57,8 @@ input, input:before, input:after {
   -ms-user-select: initial;
   user-select: initial;
  }
+
+
 
 //.scroll {
 //  -webkit-user-select: text; /* Safari */

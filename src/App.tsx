@@ -79,8 +79,6 @@ const App: React.FC = function () {
     }
   }, [rawAddress, updateBalanceDedust]);
 
-
-
   /* useEffect(() => {
     const fetchBalances = async () => {
       if (rawAddress) {

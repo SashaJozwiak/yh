@@ -16,7 +16,7 @@ export const Tooltip = ({ speed, swichLang, userLang }) => {
 
 
             <div onClick={handleToggleTooltip} style={{ margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                <p style={{ textWrap: 'nowrap', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(25, 180, 21)', borderBottom: '1px solid rgb(25, 180, 21)' }}>{speed.toFixed(2)}/{swichLang(userLang, 'hours')}</p>
+                <p style={{ textWrap: 'nowrap', fontSize: '1rem', fontWeight: 'bold', color: 'rgb(22 163 74)', borderBottom: '1px solid rgb(22 163 74)' }}>{speed.toFixed(2)}/{swichLang(userLang, 'hours')}<span style={{ position: 'relative', fontSize: '0.6rem', marginBottom: '0.5rem', bottom: '0.6rem', color: 'gray' }}>&#63;</span></p>
             </div>
 
             {

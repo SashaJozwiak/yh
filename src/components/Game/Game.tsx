@@ -8,8 +8,9 @@ export const Game = () => {
     //const changeNav = useNav(state => state.setMainNav)
     return (
         <div className={s.gamewrapper}>
+
             <div className={s.headgame}>
-                footer
+                header
             </div>
 
             <div className={s.mainarea}>
@@ -19,7 +20,6 @@ export const Game = () => {
             <div className={s.playerarea}>
                 playerarea
             </div>
-
 
 
             {/* <button

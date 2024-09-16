@@ -47,12 +47,12 @@ export const CabData = () => {
         } finally {
             setTimeout(() => {
                 setIsDisabled(false);
-            }, 2000);
+            }, 1200);
         }
 
         setTimeout(() => {
             setIsDisabled(false);
-        }, 2000);
+        }, 1200);
     }
 
     return (
@@ -74,8 +74,29 @@ export const CabData = () => {
                             disabled={isDisabled}
                             onChange={handleCheckboxChange}
                             id="anonim-checkbox"
-                            name="anonim" />
-                        <label htmlFor="anonim-checkbox"> {swichLang(languageCode, 'anonim')}</label>
+                            name="anonim"
+                            style={{ display: 'none' }}
+                        />
+                        <label htmlFor="anonim-checkbox">
+                            {swichLang(languageCode, 'anonim')}&nbsp;
+                            <span
+                                style={{
+                                    padding: '0 0.25rem',
+                                    color: isDisabled ? 'gray' : isChecked ? 'rgb(22, 163, 74)' : 'transparent',
+                                    border: isDisabled ? '1px solid lightgray' : isChecked ? '1px solid rgb(22, 163, 74)' : '1px solid rgb(255, 255, 255)',
+                                    borderRadius: '0.25rem',
+                                    display: 'inline-block',
+                                    marginRight: '0.5rem',
+                                    backgroundColor: isDisabled ? 'lightgray' : isChecked ? 'lightgray' : 'transparent',
+                                    transition: 'background-color 0.3s, border 0.3s',
+                                    fontWeight: 'bold',
+                                    margin: '0 auto',
+                                    fontSize: '0.8rem',
+
+                                }}
+                            >✓</span>
+                            &nbsp;
+                        </label>
                     </div>
                 </div>
             </div>

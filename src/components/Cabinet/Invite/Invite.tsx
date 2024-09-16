@@ -94,13 +94,56 @@ export const Invite: React.FC = () => {
                     >{copied ? '✅' : '📋'}</button>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto' }}>
+                {/* <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto' }}>
                     <input type="checkbox" id='withteam' readOnly={true} disabled={!teamId || teamId === 0} checked={checked}
-                        style={{ border: '1px solid rgba(14, 165, 233, 0.4)', borderRadius: '0.25rem', transform: 'scale(1.3)' }}
+                        style={{
+                            border: '1px solid rgba(14, 165, 233, 0.4)',
+                            borderRadius: '0.25rem',
+                            transform: 'scale(1.3)',
+                            backgroundColor: checked ? 'rgb(22, 163, 74)' : 'transparent',
+                        }}
                         onChange={changeLink} />
                     <label htmlFor="withteam" style={{ fontSize: 'calc(1.2vh + 1.2vw)' }}>&nbsp; {swichLang(languageCode, 'inviteand')}</label>
+                </div> */}
 
+                <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto' }}>
+                    <input
+                        type="checkbox"
+                        id="withteam"
+                        readOnly={true}
+                        disabled={!teamId || teamId === 0}
+                        checked={checked}
+                        onChange={changeLink}
+                        style={{ display: 'none' }}
+                    />
+                    <label
+                        htmlFor="withteam"
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            cursor: 'pointer',
+                            fontSize: 'calc(1.2vh + 1.2vw)',
+                        }}
+                    >
+                        <span
+                            style={{
+                                padding: '0 0.25rem',
+                                color: checked ? 'rgb(22, 163, 74)' : 'transparent',
+                                border: checked ? '1px solid rgb(22, 163, 74)' : '1px solid rgb(255, 255, 255)',
+                                borderRadius: '0.25rem',
+                                display: 'inline-block',
+                                marginRight: '0.5rem',
+                                backgroundColor: checked ? 'lightgray' : 'transparent',
+                                transition: 'background-color 0.3s, border 0.3s',
+                                fontWeight: 'bold',
+                                margin: '0 auto'
+
+                            }}
+                        >✓</span>
+                        &nbsp; {swichLang(languageCode, 'inviteand')}
+                    </label>
                 </div>
+
 
                 <button onClick={(e) => {
                     e.preventDefault();
@@ -112,7 +155,7 @@ export const Invite: React.FC = () => {
                 ><h3 style={{ display: 'inline-block' }}>{swichLang(languageCode, 'invitebtn')}</h3></button>
             </div>
 
-            <h2 className={s.headerlist}> {swichLang(languageCode, 'contest')} <span style={{ color: 'rgb(25, 180, 21)' }}>20,000B</span></h2>
+            <h2 className={s.headerlist}> {swichLang(languageCode, 'contest')} <span style={{ color: 'rgb(22 163 74)' }}>20,000B</span></h2>
 
             <div className={s.progressbar}>
                 <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 2 ? 2 : ((total / 1000) * 100)}%` }}></div>
