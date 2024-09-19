@@ -140,12 +140,25 @@ export interface Task {
     timer: string | null;
 }
 
+export interface TaskAd {
+    id: number;
+    title: string;
+    price: number;
+    completed: boolean;
+    src: string;
+    type: string;
+    timer: string | null;
+    counter: number;
+}
+
 export interface UseTasks {
     activeFriends: Task;
     dailyReward: Task;
+    adReward: TaskAd;
     tasks: Task[];
     loadStatus: boolean;
     completeTask: (id: number) => void;
+    completeAdTask: (userId: number) => void;
     getAllTasks: (userId: number) => void;
 }
 

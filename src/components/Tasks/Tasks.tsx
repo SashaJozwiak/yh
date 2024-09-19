@@ -6,6 +6,7 @@ import { useUserData } from '../../store/main';
 import { swichLang } from '../../lang/lang.js';
 
 import { TimerButton } from './TimerButton ';
+import { TimerButtonAd } from './TimerButtonAd';
 
 import { checkSubscription } from '../../utils/checks/checkSubscription';
 import { checkWithTimer } from '../../utils/checks/checkWithTimer';
@@ -13,10 +14,11 @@ import { checkWithTimer } from '../../utils/checks/checkWithTimer';
 import s from './tasks.module.css'
 import WebApp from '@twa-dev/sdk';
 
+
 export const Tasks = () => {
     const { setMainNav, setCabNav } = useNav((state) => state)
     const userData = useUserData((state) => state.user)
-    const { activeFriends, dailyReward } = useTasks((state) => state)
+    const { activeFriends, dailyReward, adReward } = useTasks((state) => state)
 
     const tasks = useTasks((state) => state.tasks)
     const completeTask = useTasks((state) => state.completeTask)
@@ -52,6 +54,10 @@ export const Tasks = () => {
         getAllTasks(userData.internalId)
     }, [getAllTasks, userData.internalId])
 
+    //console.log('tasks: ', tasks);
+    //console.log('dailyReward: ', dailyReward);
+    //console.log('adReward: ', adReward);
+
     return (
         <div className={`${s.list} scrollable`}>
             <h2 className={s.line}>{swichLang(userData.languageCode, 'permanent')}</h2>
@@ -73,6 +79,15 @@ export const Tasks = () => {
                 <TimerButton dailyReward={dailyReward} />
 
                 <div style={{ color: 'white' }} className={s.price}>{dailyReward.price}</div>
+            </div>
+
+            <div
+                className={`${s.listitem} ${s.listitemperm}`}>
+                <div style={{ border: 'none', margin: 'auto auto auto 0' }} className={s.title}>{adReward.title}</div>
+
+                <TimerButtonAd dailyReward={adReward} />
+
+                <div style={{ color: 'white' }} className={s.price}>{adReward.price}</div>
             </div>
 
             {tasks.filter(task => task.type === 'native' && task.completed === false).length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'our')}</h2>}
