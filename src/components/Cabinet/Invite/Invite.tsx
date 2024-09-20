@@ -155,7 +155,7 @@ export const Invite: React.FC = () => {
                 ><h3 style={{ display: 'inline-block' }}>{swichLang(languageCode, 'invitebtn')}</h3></button>
             </div>
 
-            <h2 className={s.headerlist}> {swichLang(languageCode, 'contest')} <span style={{ color: 'rgb(22 163 74)' }}>50,000B</span></h2>
+            <h2 className={s.headerlist}> {swichLang(languageCode, 'contest')} <span style={{ color: 'rgb(22 163 74)' }}>38,000B</span></h2>
 
             <div className={s.progressbar}>
                 <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 2 ? 2 : ((total / 1000) * 100)}%` }}></div>
