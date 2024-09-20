@@ -160,7 +160,7 @@ export const Invite: React.FC = () => {
             <div className={s.progressbar}>
                 <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 2 ? 2 : ((total / 1000) * 100)}%` }}></div>
             </div>
-            <div style={{ color: 'gray' }}>{swichLang(languageCode, 'contest_desc')} {total}/1000</div>
+            <div style={{ color: total > 999 ? 'rgb(22 163 74)' : 'gray' }}> {total > 999 ? 'Completed: ' : swichLang(languageCode, 'contest_desc')} {total > 999 ? 1000 : total}/1000</div >
 
             {/* <Top10Inv top10={top10} /> */}
             <div className={s.listtitle}>
@@ -184,7 +184,7 @@ export const Invite: React.FC = () => {
                             </div>
                             <div>{item.active_friends_count}</div>
                             <div style={{ fontWeight: 'bold' }} className="div">
-                                {indx === 0 ? '10,000 B' : indx === 1 ? '5,000 B' : indx === 2 ? '2,500 B' : indx === 3 ? '1,000 B' : indx === 4 ? '500 B' : indx === 5 ? '400 B' : indx === 6 ? '300 B' : indx === 7 ? '200 B' : indx === 8 ? '100 B' : indx === 9 ? '50 B' : null}
+                                {indx === 0 ? '12,000 B' : indx === 1 ? '8,000 B' : indx === 2 ? '6,000 B' : indx === 3 ? '4,000 B' : indx === 4 ? '3000 B' : indx === 5 ? '2000 B' : indx === 6 ? '1000 B' : indx === 7 ? '800 B' : indx === 8 ? '600 B' : indx === 9 ? '400 B' : null}
                             </div>
                         </div>
                     ))}
