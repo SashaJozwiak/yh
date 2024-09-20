@@ -3,7 +3,7 @@ import WebApp from '@twa-dev/sdk'
 
 
 
-//import { swichLang } from '../../lang/lang.js';
+import { swichLang } from '../../lang/lang.js';
 import { useTasks } from '../../store/tasks.js'
 import { useUserData } from '../../store/main.js';
 
@@ -18,7 +18,7 @@ export const TimerButtonAd = ({ dailyReward }) => {
   //const userExternalId = useUserData(state => state.user.id)
   const userInternalId = useUserData(state => state.user.internalId)
   const getAllTasks = useTasks((state) => state.getAllTasks);
-  //const userLang = useUserData(state => state.user.languageCode)
+  const userLang = useUserData(state => state.user.languageCode)
 
 
   const completeTask = useTasks((state) => state.completeTask)
@@ -96,11 +96,13 @@ export const TimerButtonAd = ({ dailyReward }) => {
   const handleClick = async () => {
     console.log('handleclick1')
     if (!isClaimable || loading) return; // Предотвращаем повторные клики, если кнопка заблокирована
+    // Блокируем кнопку
+    setLoading(true);
+    console.log('loading: ', loading);
+
     console.log('handleclick2 ', dailyReward)
-    setLoading(true); // Блокируем кнопку
 
     try {
-
       if (dailyReward.id === 4) {
         console.log('handleclick3 -4')
         await completeTask(dailyReward.id); // Выполнение задачи
@@ -109,10 +111,14 @@ export const TimerButtonAd = ({ dailyReward }) => {
       if (dailyReward.id === 8) {
         console.log('handleclick3 -8')
 
-        showAd();
-
+        try {
+          await showAd();
+        } catch (adError) {
+          console.error('Error with Adsgram:', adError);
+        }
         //await completeAdTask(userExternalId);
       }
+
     } catch (error) {
       console.error('Error completing task:', error);
     } finally {
@@ -120,7 +126,9 @@ export const TimerButtonAd = ({ dailyReward }) => {
     }
   };
 
-  //console.log('timer reward: ', dailyReward);
+  useEffect(() => {
+    console.log('loading changed: ', loading);
+  }, [loading]);
 
   return (
     <button
@@ -129,7 +137,7 @@ export const TimerButtonAd = ({ dailyReward }) => {
       className={s.check}
       disabled={!isClaimable || loading /* true */} // Блокируем кнопку, если она не доступна или в процессе загрузки
     >
-      {loading ? 'Processing...' : isClaimable ? /* swichLang(userLang, 'claim') */'Soon' : timeLeft || 'loading...'}
+      {loading ? 'Processing...' : isClaimable ? swichLang(userLang, 'claim') : timeLeft || 'loading...'}
     </button>
   );
 };
