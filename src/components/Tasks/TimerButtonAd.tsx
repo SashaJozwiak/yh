@@ -1,18 +1,25 @@
 import { useState, useEffect, useCallback } from 'react';
-import s from './tasks.module.css';
+import WebApp from '@twa-dev/sdk'
+
+
 
 //import { swichLang } from '../../lang/lang.js';
 import { useTasks } from '../../store/tasks.js'
-//import { useUserData } from '../../store/main.js';
+import { useUserData } from '../../store/main.js';
 
 import { useAdsgram } from './../../utils/adsgram/useAdsgram';
+
+import s from './tasks.module.css';
 
 const hours = import.meta.env.VITE_SECRET_TIMECOUNT;
 const minutes = 5;
 
 export const TimerButtonAd = ({ dailyReward }) => {
   //const userExternalId = useUserData(state => state.user.id)
+  const userInternalId = useUserData(state => state.user.internalId)
+  const getAllTasks = useTasks((state) => state.getAllTasks);
   //const userLang = useUserData(state => state.user.languageCode)
+
 
   const completeTask = useTasks((state) => state.completeTask)
   //const completeAdTask = useTasks((state) => state.completeAdTask)
@@ -21,14 +28,26 @@ export const TimerButtonAd = ({ dailyReward }) => {
   const [timeLeft, setTimeLeft] = useState('');
 
   const [loading, setLoading] = useState(false);// Состояние загрузки
+  //const [renderPage, setRenderPAge] = useState(false);
 
   //console.log('adReward/dailyreward: ', dailyReward)
   const onReward = useCallback(() => {
-    alert('Reward');
-  }, []);
+
+    WebApp.showConfirm('Bonuses successfully received!', () => {
+      // Запускаем getAllTasks после закрытия диалога
+      getAllTasks(userInternalId);
+    });
+
+  }, [getAllTasks, userInternalId]);
+
   const onError = useCallback((result) => {
-    alert(JSON.stringify(result, null, 4));
-  }, []);
+    //alert(JSON.stringify(result, null, 4));
+    WebApp.showConfirm((JSON.stringify(result, null, 4)), () => {
+      // Запускаем getAllTasks после закрытия диалога
+      getAllTasks(userInternalId);
+    });
+
+  }, [getAllTasks, userInternalId]);
 
   const showAd = useAdsgram({ blockId: "3255", onReward, onError });
 
