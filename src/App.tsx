@@ -22,7 +22,7 @@ import WebApp from '@twa-dev/sdk';
 import './App.css';
 
 //import useScrollFix from './utils/hooks/useScrollFix';
-import { postEvent } from '@telegram-apps/sdk';
+//import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
 
@@ -49,7 +49,7 @@ const App: React.FC = function () {
     if (!WebApp.isExpanded) {
       WebApp.expand();
     }
-    postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
+    //postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
   }, []);
 
   useEffect(() => {
@@ -79,6 +79,8 @@ const App: React.FC = function () {
       updateBalanceDedust(rawAddress)
     }
   }, [rawAddress, updateBalanceDedust]);
+
+  // Try promise race later
 
   /* useEffect(() => {
     const fetchBalances = async () => {
