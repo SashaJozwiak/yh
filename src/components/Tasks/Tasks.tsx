@@ -34,6 +34,7 @@ export const Tasks = () => {
             case 1:
             case 2:
             case 5:
+            case 9:
                 await checkSubscription(userId, taskId, src, completeTask);
                 break;
             case 6:

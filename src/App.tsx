@@ -6,7 +6,7 @@ import { Footer } from './components/Footer/Footer';
 import { Tasks } from './components/Tasks/Tasks';
 import { Stages } from './components/Stages/Stages';
 import { Cabinet } from './components/Cabinet/Cabinet';
-//import { Game } from './Game/Game';
+import { Game } from './Game/Game';
 
 import { Invite } from './components/Cabinet/Invite/Invite';
 
@@ -119,7 +119,7 @@ const App: React.FC = function () {
       {nav !== 'game' && <Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
-      {/* {nav === 'game' && <Game />} */}
+      {nav === 'game' && <Game />}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}
