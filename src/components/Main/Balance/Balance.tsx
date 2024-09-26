@@ -85,7 +85,7 @@ export const Balance: React.FC = () => {
                         100 99 1 36 -4 47 -32 72 -34 31 -89 39 -125 18z m77 -62 c28 -21 12 -59 -22
                         -55 -30 3 -41 30 -22 53 15 18 21 19 44 2z"/>
                 </g>
-                <text x="35" y="110" fill='white' font-weight="bold" font-size='50'>UH</text>
+                <text x="35" y="110" fill='white' fontWeight="bold" fontSize='50'>UH</text>
             </svg>
             <p>{currencyFormat(currentBalance)}</p>
         </div>

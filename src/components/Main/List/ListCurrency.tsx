@@ -6,6 +6,7 @@ import { swichLang } from '../../../lang/lang.js';
 
 import WebApp from '@twa-dev/sdk';
 import s from './list.module.css'
+import { TooltipYWA } from './../../Some/Tooltip/TooltipYWA';
 
 
 const formatNumber = (num: number) => {
@@ -97,7 +98,40 @@ export const ListCurrency = () => {
     return (
         <>
             {/* <div className={s.onBalances}> */}
-                {balance.filter(currency => currency.speed > 0.00099).map((currency) => {
+            {balance.filter(currency => currency.speed > 0.00099 && currency.name === 'BONUS').map((currency) => {
+                return (
+                    <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : 'white' }}>
+                        {/* <div className={s.firstline}> */}
+                        <h4 className={s.currname}>{currency.name}</h4>
+                        <div ><span style={{ fontWeight: 'bold' }}>{(currency.value).toLocaleString('ru')}</span> {(currency.name).toUpperCase()}</div>
+                        <div style={{ color: currency.speed > 0.00 ? 'rgb(22 163 74)' : 'gray' }}><span style={{ fontWeight: 'bold' }}>+{(currency.speed).toFixed(2)}</span>/{swichLang(userLang, 'hours')}</div>
+                        {/* </div> */}
+                        <div className={s.progressbar}>
+                            <div className={s.progress} style={{ width: `${(((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100) < 2 ? 2 : (((currency.speed) / currency.inH) * 100 > 100 ? 100 : ((currency.speed) / currency.inH) * 100)}%` }}></div>
+                        </div>
+                        <div className={s.range0}>{formatNumber(currency.range[0])}-{formatNumber(currency.range[1])}</div>
+                        {currency.name !== 'BONUS' && <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                //window.location.href = currency.src;
+                                WebApp.openTelegramLink(currency.src);
+
+                            }}
+                            className={s.news}>{swichLang(userLang, 'news')}</button>}
+                        {currency.name === 'BONUS' && <button
+                            onClick={() => navMain('bonus')}
+                            className={s.news}
+                            style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }}
+                        >{swichLang(userLang, 'get_more')}</button>}
+                        <div className={s.range1}>{swichLang(userLang, 'till')} {formatNumber(currency.inH)}/{swichLang(userLang, 'hours')}</div>
+                    </div>
+                );
+            })}
+
+            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h3 className={s.donthave} style={{ color: 'lightgray', marginBottom: '0.5rem', marginTop: '2rem' }}>< TooltipYWA /></h3>}
+
+
+            {balance.filter(currency => currency.speed > 0.00099 && currency.name === 'TON').map((currency) => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : 'white' }}>
                             {/* <div className={s.firstline}> */}
