@@ -122,7 +122,7 @@ const App: React.FC = function () {
       {nav !== 'game' && <Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
-      {/* {nav === 'game' && <Game />} */}
+      {/*  {nav === 'game' && <Game />} */}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}
