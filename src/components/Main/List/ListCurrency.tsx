@@ -128,7 +128,7 @@ export const ListCurrency = () => {
                 );
             })}
 
-            {rawAddress && (!loadStatusSFPools && !loadStatusDDPools) && <h3 className={s.donthave} style={{ color: 'lightgray', marginBottom: '0.5rem', marginTop: '2rem' }}>< TooltipYWA /></h3>}
+            {rawAddress && /* (!loadStatusSFPools && !loadStatusDDPools) && */ <h3 className={s.donthave} style={{ color: 'lightgray', marginBottom: '0.5rem', marginTop: '2rem' }}>< TooltipYWA /></h3>}
 
 
             {balance.filter(currency => currency.speed > 0.00099 && currency.name === 'TON').map((currency) => {
