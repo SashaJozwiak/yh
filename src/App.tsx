@@ -6,7 +6,7 @@ import { Footer } from './components/Footer/Footer';
 import { Tasks } from './components/Tasks/Tasks';
 import { Stages } from './components/Stages/Stages';
 import { Cabinet } from './components/Cabinet/Cabinet';
-//import { Game } from './Game/Game';
+
 
 import { Invite } from './components/Cabinet/Invite/Invite';
 
@@ -22,6 +22,9 @@ import WebApp from '@twa-dev/sdk';
 import './App.css';
 
 //import useScrollFix from './utils/hooks/useScrollFix';
+
+
+//import { Game } from './Game/Game';
 import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug

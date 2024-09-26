@@ -192,12 +192,16 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 }
             }))
 
+
+
         } catch (err) {
-            console.error('setUser error :', err);
+            console.error('setBalance stop mining :', err);
 
+        } finally {
+            set(() => ({
+                miningLoader: false
+            }));
         }
-
-
     },
     addAddresses: async (addresses) => {
         //console.log('addresses: ', addresses);
