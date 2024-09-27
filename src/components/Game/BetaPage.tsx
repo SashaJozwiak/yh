@@ -79,7 +79,7 @@ export const BetaPage = () => {
     }, [getInList, userId])
 
     return (
-        <div>
+        <>
             <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2>
             <div className={s.playercard}>
                 <div className={s.pcimg}>
@@ -136,6 +136,6 @@ export const BetaPage = () => {
 
 
 
-        </div >
+        </>
     )
 }
