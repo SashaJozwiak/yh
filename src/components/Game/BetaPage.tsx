@@ -22,6 +22,8 @@ interface TimeLeft {
 
 export const BetaPage = () => {
 
+    const [imageLoaded, setImageLoaded] = useState(false);
+
     const userLang = useUserData(state => state.user.languageCode);
 
     const inList = useListData((state) => state.state.inList);
@@ -63,6 +65,21 @@ export const BetaPage = () => {
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     useEffect(() => {
+        const preloadImage = new Image();
+        preloadImage.src = investor;
+
+        // Когда изображение загружено, изменяем состояние
+        preloadImage.onload = () => {
+            setImageLoaded(true);
+        };
+
+        // Очистка при размонтировании компонента
+        return () => {
+            preloadImage.onload = null;
+        };
+    }, []);
+
+    useEffect(() => {
         const timer = setTimeout(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
@@ -72,14 +89,14 @@ export const BetaPage = () => {
 
     const { days, hours, minutes, seconds } = timeLeft;
 
-    //console.log('inList ', inList, 'isLoading: ', isLoading, 'userId: ', userId);
-
     useEffect(() => {
         getInList(userId);
     }, [getInList, userId])
 
     return (
         <>
+            {imageLoaded &&
+                <div>
             <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2>
             <div className={s.playercard}>
                 <div className={s.pcimg}>
@@ -136,6 +153,8 @@ export const BetaPage = () => {
 
 
 
+                </div>}
+            {!imageLoaded && <span className={s.loader}></span>}
         </>
     )
 }
