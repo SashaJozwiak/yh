@@ -11,7 +11,7 @@
 
     background-color: rgb(51 65 85);
   
-    max-width: 85vw;
+    width: 85vw;
     max-height: 80vh;
     aspect-ratio: 10 / 17;
     margin: 0.5rem auto;
@@ -56,6 +56,7 @@
       border-bottom: 2px solid gray;
       //transition: 0.3s;
       //opacity: 0.5;
+      opacity: 0;
       animation: move_eye 4s ease-in forwards;
     }
   }
@@ -188,8 +189,8 @@
     margin-top: 0.5rem;
 
     width: 95%;
-    //font-size: 3.6vw;
-    //aspect-ratio: 16/10;
+    font-size: 3.6vw;
+    aspect-ratio: 16/10;
 
 
     //bottom:3vh;
@@ -198,7 +199,7 @@
     //text-shadow: white 1px 1px 0.5rem;
     animation: heartbeat 3s forwards;
     animation-delay: 7s;
-    opacity:0.1;
+    opacity:0;
   }
 
   @keyframes heartbeat {
@@ -206,7 +207,7 @@
         //transform: translateX(-50%) scale(1);
          /* Начальный и конечный размер */
          //text-shadow: none;
-         opacity:0.1;
+         opacity:0;
     }
     100% {
         //transform: translateX(-50%) scale(1.005); /* Увеличение размера на 20% */
@@ -221,12 +222,12 @@
     width:100%;
     height:7%;
     left:0;
-    bottom:0;
+    bottom:-8%;
     
     //border-top-right-radius: 0.5rem;
-    //animation: back 1s forwards;
-    //animation-delay: 6s;
-    //opacity:0;
+    animation: back 1s forwards;
+    animation-delay: 6s;
+    opacity:0;
   }
 
 
