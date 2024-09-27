@@ -25,6 +25,9 @@ import './App.css';
 
 
 //import { Game } from './Game/Game';
+
+import { BetaPage } from './components/Game/BetaPage';
+
 import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
@@ -122,7 +125,7 @@ const App: React.FC = function () {
       {nav !== 'game' && <Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
-      {/*  {nav === 'game' && <Game />} */}
+      {nav === 'game' && <BetaPage />}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}

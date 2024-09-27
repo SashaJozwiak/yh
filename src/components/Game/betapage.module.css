@@ -1,0 +1,239 @@
+.playercard {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    //transform: translateX(-50%) translateY(-50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-color: rgb(51 65 85);
+  
+    max-width: 80vw;
+    max-height: 80vh;
+    aspect-ratio: 10 / 17;
+    margin: 0.5rem auto;
+    //border: 1px solid white;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
+    //z-index: 200;
+    //transform: skewY(-25deg) translateX(-50%) translateY(-50%) scale(0.02);
+    animation: welcome 2s forwards;
+    transform: skewY(0deg) translateX(-50%) translateY(-50%) scale(1);
+    opacity: 0.2;
+  }
+
+  @keyframes welcome {
+    from {
+        transform: skewY(-25deg) translateX(-50%) translateY(-50%) scale(0.02);
+        opacity: 0.2;
+    }
+    to {
+        transform: skewY(0deg) translateX(-50%) translateY(-50%) scale(1);
+        opacity: 0.9;
+    }
+  }
+
+  .title{
+    margin-top: 3%;
+  }
+
+  .pcimg {
+    display: flex;
+    position: relative;
+    height: 52%;
+    & .cardimg {
+      //width: 100%;
+      height: 113.7%;
+      object-fit: cover;
+      border-top-right-radius: 1rem;
+      border-top-left-radius: 1rem;
+      border-raius: 0.3rem;
+      border-bottom: 2px solid gray;
+      //transition: 0.3s;
+      //opacity: 0.5;
+      animation: move_eye 4s ease-in forwards;
+    }
+  }
+
+
+  @keyframes move_eye {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.9;
+    }
+  }
+
+  .early {
+    position: absolute;
+    width: max-content;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-shadow: white 1px 1px 0.5rem;
+    opacity: 0;
+    animation: early 4s forwards;
+    
+  }
+
+  @keyframes early {
+    0% {
+        opacity: 0;
+    }
+    80% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
+
+
+  .content {
+    //scale: 0.1;
+    position:relative;
+    height: 39%; 
+    //aspect-ratio: 9 / 16;
+    font-size: 2vh;
+    
+
+    //border: 1px solid gray;
+    //top:0;
+    margin-top:1rem;
+    transform: scale(0);
+    animation: wow 0.6s forwards;
+    animation-delay: 4.5s;
+  }
+
+  .titleaccess {
+    font-size: 3vh;
+    width: 80%;
+    aspect-ratio: 16 / 2;
+    margin: 0 auto;
+    //font-weight: bold;
+    text-wrap: nowrap;
+  }
+
+  .textaccess{
+
+  }
+
+  @keyframes wow {
+    0% {
+        transform: scale(0);
+        //opacity: 0;
+      }
+      40% {
+          transform: scale(1.05);
+      }
+      65% {
+          transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+        //opacity: 1;
+      }
+  }
+
+
+  .buttons {
+    //border: 1px solid gray;
+  }
+
+  .btnaddlist{
+    background-color: rgb(31 39 49);
+    color:white;
+    font-weight:bold;
+    border: 2px solid rgb(22, 163, 74);
+    border-radius:1rem;
+    text-shadow: white 0px 0px 2rem;
+    box-shadow: 0px 0px 25px 5px rgb(0 0 0);
+  }
+
+
+  .btnaddlist:active {
+    transform: scale(0.9); /* Увеличивает кнопку при клике */
+    box-shadow: none;
+  }
+
+  .btnaddlist:disabled {
+    cursor: not-allowed; /* Изменяет курсор */
+    transform: none; /* Убирает трансформацию для disabled */
+    box-shadow: none;
+}
+
+  .info {
+
+    background-color: rgb(31 39 49);
+    margin-left: 2%;
+    color:white;
+    font-weight:bold;
+    border: 1px solid gray;
+    border-radius: 0.3rem;
+    //text-shadow: white 0px 0px 2rem;
+    //box-shadow: 0px 0px 25px 5px rgb(0 0 0);
+
+    padding: 0.5rem 0.6rem;
+    opacity: 0.5;
+  }
+
+  .timer {
+    position: fixed;
+    margin-top: 0.5rem;
+
+    width: 95%;
+    font-size: 3.6vw;
+    aspect-ratio: 16/10;
+
+
+    //bottom:3vh;
+    left:50%;
+    transform:translateX(-50%);
+    //text-shadow: white 1px 1px 0.5rem;
+    animation: heartbeat 3s forwards;
+    animation-delay: 7s;
+    opacity:0;
+  }
+
+  @keyframes heartbeat {
+    0%,  {
+        //transform: translateX(-50%) scale(1);
+         /* Начальный и конечный размер */
+         //text-shadow: none;
+         opacity:0;
+    }
+    100% {
+        //transform: translateX(-50%) scale(1.005); /* Увеличение размера на 20% */
+        //text-shadow: lightgray 0px 0px 0.1rem;
+        opacity:1;
+    }
+}
+
+  .back {
+    position:absolute;
+    background-color:rgb(51 65 85);
+    width:100%;
+    height:7%;
+    left:0;
+    bottom:-8%;
+    
+    //border-top-right-radius: 0.5rem;
+    animation: back 1s forwards;
+    animation-delay: 6s;
+    opacity:0;
+  }
+
+
+  @keyframes back {
+    from {
+        opacity: 0;
+        bottom:-8%;
+    }
+    to {
+        opacity: 0.9;
+        bottom:0;
+    }
+  }

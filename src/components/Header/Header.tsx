@@ -5,7 +5,7 @@ import { useUserData, /* useUserBalances */ } from '../../store/main';
 import { useNav } from '../../store/nav';
 import { swichLang } from '../../lang/lang.js';
 
-import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonAddress /*  useTonConnectUI, useTonWallet */ } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
 
@@ -21,6 +21,9 @@ export const Header: React.FC = () => {
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
 
+    /* const [tonConnectUI] = useTonConnectUI();
+    const wallet = useTonWallet(); */
+
     const rawAddressInState = useUserData(state => state.user.rawAddress);
 
     const handleReferral = useUserData((state) => state.handleReferral);
@@ -28,6 +31,15 @@ export const Header: React.FC = () => {
     const addAddresses = useUserData((state) => state.addAddresses);
 
     const actualSpeed = useUserData(state => state.balance.speed)
+
+    /* const handleWallet = () => {
+        if (wallet) {
+            tonConnectUI.disconnect();
+        }
+        if (!wallet) {
+            tonConnectUI.openModal();
+        }
+    } */
 
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
@@ -66,7 +78,7 @@ export const Header: React.FC = () => {
                 id: 757322479,
                 //internalId: null,
                 userName: "Jozwiak",
-                languageCode: "en",
+                languageCode: "ru",
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
@@ -111,6 +123,21 @@ export const Header: React.FC = () => {
 
             <div className={s.settings}>
                 <TonConnectButton className={s.tonbutton} />
+                {/* <div
+                    onClick={handleWallet}
+                    className={s.tonbutton}>
+
+                    <p>
+                        {wallet ?
+                            <>
+                                {`${userFriendlyAddress.slice(0, 5)}...${userFriendlyAddress.slice(-3)}`}
+                                <span style={{ fontSize: '0.7rem', display: 'block' }}>disconnect</span>
+                            </>
+                            : 'Connect Wallet'
+                        }
+                    </p>
+                    <p>Wallet</p>
+                </div>  */}
             </div>
         </div>
     )

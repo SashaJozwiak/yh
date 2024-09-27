@@ -66,6 +66,20 @@ export const lang = {
         team_name: 'Team name',
         team_link: 'Team link',
         cancel: 'Cancel',
+        //game
+        beta_title: 'The YouHold Game',
+        beta_subtitle: 'Early access',
+        beta_jointitle: 'Join Early Acces',
+        beta_check1: 'You are already here',
+        beta_check2: 'Your balance',
+        beta_goinlist: 'Add to the list',
+        beta_inlist: 'You in list',
+        beta_timer: 'Will be open',
+        d: 'd',
+        h: 'h',
+        m: 'm',
+        s: 's',
+        beta_tooltip: 'This is not a payment, this is an activity check. You can sign up for early access if you mine. All early access participants will receive rewards in BONUSES and valuable in-game items.',
     },
     ru: {
         //categories
@@ -134,7 +148,21 @@ export const lang = {
         team_name: 'Имя команды',
         team_link: 'Ссылка',
         cancel: 'Выйти',
-        not_team: 'Вы пока не в команде'
+        not_team: 'Вы пока не в команде',
+        //game
+        beta_title: 'Игра YouHold',
+        beta_subtitle: 'Ранний доступ',
+        beta_jointitle: 'Присоединиться',
+        beta_check1: 'Ты уже здесь',
+        beta_check2: 'Твой баланс',
+        beta_goinlist: 'Участвовать',
+        beta_inlist: 'Ты в списке!',
+        beta_timer: 'Откроется через',
+        d: 'д',
+        h: 'ч',
+        m: 'м',
+        s: 'с',
+        beta_tooltip: 'Это не оплата, это проверка активности. Вы можете записаться на ранний доступ, если вы майните. Все участники раннего доступа получат награды в виде BONUS и ценных внутриигровых предметов.'
     }
 }
 

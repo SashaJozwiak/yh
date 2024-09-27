@@ -40,5 +40,17 @@
     font-size: 1rem;
     text-wrap: nowrap;
     box-shadow: none;
+    cursor: default;
     //margin-top: -0.2rem;
 }
+
+/* .tonbutton {
+    height: 100%;
+    background-color: rgb(51 65 85);
+    font-size: 1rem;
+    align-content: center;
+    //text-wrap: wrap;
+    box-shadow: none;
+    border-radius: 0.3rem;
+    border: 1px solid gray;
+} */

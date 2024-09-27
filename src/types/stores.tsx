@@ -244,3 +244,16 @@ export interface UseStartups {
     updateSpeed: (name: string, speed: number) => void;
     totalSpeed: () => number;
 }
+
+/// EAlist
+
+export interface EAlistState {
+    inList: boolean;
+    isLoading: boolean;
+}
+
+export interface UseEAlist {
+    state: EAlistState;
+    getInList: (userId: number) => Promise<void>;
+    addInList: (userId: number, userName: string, balance: number) => Promise<void>;
+}
