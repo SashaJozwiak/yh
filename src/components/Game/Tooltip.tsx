@@ -47,10 +47,10 @@ export const Tooltip = () => {
 
 const tooltipStyle: CSSProperties = {
     position: "absolute",
-    top: "-5%",
+    top: "-30%",
     left: "50%",
     width: "80vw",
-    transform: "translateX(-72.5%)",
+    transform: "translateX(-75%)",
     backgroundColor: "rgb(51 65 85)",
     color: "#fff",
     padding: "8px",

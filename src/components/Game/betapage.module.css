@@ -103,7 +103,7 @@
   .early {
     position: absolute;
     width: max-content;
-    bottom: -30px;
+    bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
     text-shadow: white 1px 1px 0.5rem;
@@ -247,7 +247,7 @@
   .back {
     position:absolute;
     background-color:rgb(51 65 85);
-    width:10vw;
+    width:15vw;
     height:7%;
     left:0;
     bottom:0;
