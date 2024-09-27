@@ -16,6 +16,7 @@ const manifestUrl = 'https://sashajozwiak.github.io/yh/tonconnect-manifest.json'
 
 const preloadSources = [
   '/yh/gnom_full_tr_150_compressed.png',
+  '/yh//yh/assets/inv3_11zon_1-C4eonqi2.webp'
   // Добавьте другие пути к изображениям, которые хотите предзагрузить
 ];
 
