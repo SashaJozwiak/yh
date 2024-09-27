@@ -3,7 +3,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    //transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
 
     display: flex;
     flex-direction: column;
@@ -20,9 +20,9 @@
     box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
     //z-index: 200;
     //transform: skewY(-25deg) translateX(-50%) translateY(-50%) scale(0.02);
-    animation: welcome 2s forwards;
-    transform: skewY(0deg) translateX(-50%) translateY(-50%) scale(1);
-    opacity: 0.2;
+    //animation: welcome 2s forwards;
+    //transform: skewY(0deg) translateX(-50%) translateY(-50%) scale(1);
+    //opacity: 0.2;
   }
 
   @keyframes welcome {
@@ -37,7 +37,7 @@
   }
 
   .title{
-    margin-top: 3%;
+    margin-top: 2vh;
     //width:100vw;
     //text-wrap:wrap;
   }
@@ -48,7 +48,7 @@
     height: 52%;
     & .cardimg {
       //width: 100%;
-      height: 113.7%;
+      height: 113.8%;
       object-fit: cover;
       border-top-right-radius: 1rem;
       border-top-left-radius: 1rem;
@@ -56,8 +56,8 @@
       border-bottom: 2px solid gray;
       //transition: 0.3s;
       //opacity: 0.5;
-      opacity: 0;
-      animation: move_eye 4s ease-in forwards;
+      //opacity: 0;
+      //animation: move_eye 4s ease-in forwards;
     }
   }
 
@@ -78,8 +78,8 @@
     left: 50%;
     transform: translateX(-50%);
     text-shadow: white 1px 1px 0.5rem;
-    opacity: 0;
-    animation: early 4s forwards;
+    //opacity: 0;
+    //animation: early 4s forwards;
     
   }
 
@@ -108,9 +108,9 @@
     //top:0;
     margin-top:1rem;
     //transform: scale(0);
-    opacity:0;
-    animation: wow 0.6s forwards;
-    animation-delay: 4.5s;
+    //opacity:0;
+    //animation: wow 0.6s forwards;
+    //animation-delay: 4.5s;
   }
 
   .titleaccess {
@@ -191,8 +191,8 @@
     position: fixed;
     margin-top: 0.5rem;
 
-    width: 95%;
-    font-size: 3.6vw;
+    width: 100%;
+    //font-size: 3.6vw;
     aspect-ratio: 16/10;
 
 
@@ -218,15 +218,15 @@
   .back {
     position:absolute;
     background-color:rgb(51 65 85);
-    width:100%;
+    width:10vw;
     height:7%;
     left:0;
     bottom:0;
     
-    //border-top-right-radius: 0.5rem;
-    animation: back 1s forwards;
-    animation-delay: 6s;
-    opacity:0;
+    border-top-right-radius: 0.5rem;
+    //animation: back 1s forwards;
+    //animation-delay: 6s;
+    //opacity:0;
   }
 
 
