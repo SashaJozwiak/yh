@@ -28,6 +28,27 @@
   //margin: auto auto;
   
   aspect-ratio: 10 / 17;
+  background-color: rgb(51 65 85);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+
+  animation: test 1s forwards;
+  will-change: transform, opacity;
+
+}
+
+
+@keyframes test {
+  from {
+      transform: skewY(-25deg) translateX(-50%) translateY(-50%) scale(0.02) translateZ(0);
+      opacity: 0.2;
+    }
+    to {
+
+      transform: skewY(0deg) translateX(-50%) translateY(-50%) scale(1) translateZ(0);
+      opacity: 0.9;
+
+    }
 }
 
 .pcimg {
@@ -56,10 +77,12 @@
 }
 
 .content {
-
+  display: flex;
+  flex-direction: column;
 }
 
 .titleaccess {
+  font-size:1.1rem;
   font-weight:bold;
   margin-bottom: 1vh;
 }
