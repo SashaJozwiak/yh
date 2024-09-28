@@ -183,7 +183,7 @@ export const Invite: React.FC = () => {
                                 </span>
                             </div>
                             <div>{item.active_friends_count}</div>
-                            <div style={{ fontWeight: 'bold' }} className="div">
+                            <div style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }} className="div">
                                 {indx === 0 ? '12,000 B' : indx === 1 ? '8,000 B' : indx === 2 ? '6,000 B' : indx === 3 ? '4,000 B' : indx === 4 ? '3000 B' : indx === 5 ? '2000 B' : indx === 6 ? '1000 B' : indx === 7 ? '800 B' : indx === 8 ? '600 B' : indx === 9 ? '400 B' : null}
                             </div>
                         </div>

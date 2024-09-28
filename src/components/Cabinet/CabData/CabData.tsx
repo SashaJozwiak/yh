@@ -114,7 +114,7 @@ export const CabData = () => {
                                 }} */
                                 className={s.btn}>{/* {index + 1}. */}<span className={s.btnspan}>{index + 1}. {(item.username).substring(0, 25)}</span></div>
                             {/* https://t.me/ */}
-                            <div>{item.balance} UH</div>
+                            <div>{item.balance} <b>UH</b></div>
                         </div>
                     ))}
                 </div>
