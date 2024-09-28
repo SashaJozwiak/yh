@@ -14,8 +14,8 @@
 
     background-color: rgb(51 65 85);
   
-    max-width: 85%;
-    max-height: 80%;
+    max-width: 85vw;
+    max-height: 80vh;
     aspect-ratio: 10 / 17;
     margin: 0.5rem auto;
     //border: 1px solid white;
@@ -82,7 +82,7 @@
 
   .pcimg {
     display: flex;
-    //position: relative;
+    position: relative;
     height: 52%;
     & .cardimg {
       //width: 100%;
