@@ -21,7 +21,7 @@ interface TimeLeft {
 }
 
 export const BetaPage1 = () => {
-    //const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
     const userLang = useUserData(state => state.user.languageCode);
 
@@ -63,6 +63,21 @@ export const BetaPage1 = () => {
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     useEffect(() => {
+        const preloadImage = new Image();
+        preloadImage.src = investor;
+
+        // Когда изображение загружено, изменяем состояние
+        preloadImage.onload = () => {
+            setImageLoaded(true);
+        };
+
+        // Очистка при размонтировании компонента
+        return () => {
+            preloadImage.onload = null;
+        };
+    }, []);
+
+    useEffect(() => {
         const timer = setTimeout(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
@@ -73,8 +88,7 @@ export const BetaPage1 = () => {
     const { days, hours, minutes, seconds } = timeLeft;
 
     return (
-        <>
-
+        <> {imageLoaded && 
             <div className={s.container}>
                 <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2>
 
@@ -126,7 +140,8 @@ export const BetaPage1 = () => {
                 </button>
 
             </div>
-
+        }
+            {!imageLoaded && <span className={s.loader}></span>}
         </>
     )
 }

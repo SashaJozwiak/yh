@@ -14,13 +14,12 @@
 }
 
 .playercard {
-  border: 1px solid gray;
+  //border: 1px solid gray;
 
   position: absolute;
   left:50%;
   top:50%;
-  transform: translateY(-50%) translateX(-50%);
-
+  //transform: translateY(-50%) translateX(-50%);
 
   min-width: 70vw;
   max-height: 80vh;
@@ -29,14 +28,11 @@
   
   aspect-ratio: 10 / 17;
   background-color: rgb(51 65 85);
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  border-radius: 1rem;
 
   animation: test 1s forwards;
   will-change: transform, opacity;
-
 }
-
 
 @keyframes test {
   from {
@@ -44,15 +40,14 @@
       opacity: 0.2;
     }
     to {
-
       transform: skewY(0deg) translateX(-50%) translateY(-50%) scale(1) translateZ(0);
       opacity: 0.9;
-
     }
 }
 
 .pcimg {
   display: flex;
+  background-color: transparent;
   //position: relative;
   height: 52%;
 }
@@ -120,4 +115,44 @@
   bottom:0;
 
   border-top-right-radius: 0.5rem;
+}
+
+
+.loader {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+  align-items:center;
+  margin: auto auto;
+}
+
+.loader::after,
+.loader::before {
+  content: '';  
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(0);
+  animation: animloader 2s linear infinite;
+  
+}
+.loader::after {
+  animation-delay: 1s;
+}
+
+@keyframes animloader {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
 }
