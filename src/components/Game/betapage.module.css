@@ -1,3 +1,6 @@
+/* .container {
+  border: 1px solid gray;
+} */
 
 .playercard {
     position: absolute;
@@ -11,8 +14,8 @@
 
     background-color: rgb(51 65 85);
   
-    max-width: 85vw;
-    max-height: 80vh;
+    max-width: 85%;
+    max-height: 80%;
     aspect-ratio: 10 / 17;
     margin: 0.5rem auto;
     //border: 1px solid white;
@@ -79,7 +82,7 @@
 
   .pcimg {
     display: flex;
-    position: relative;
+    //position: relative;
     height: 52%;
     & .cardimg {
       //width: 100%;
@@ -109,13 +112,12 @@
   .early {
     position: absolute;
     width: max-content;
-    bottom: -25px;
+    //bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
     text-shadow: white 1px 1px 0.5rem;
     //opacity: 0;
     //animation: early 4s forwards;
-    
   }
 
   @keyframes early {
@@ -157,9 +159,6 @@
     text-wrap: nowrap;
   }
 
-  .textaccess{
-
-  }
 
   @keyframes wow {
     0% {

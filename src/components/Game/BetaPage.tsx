@@ -96,48 +96,48 @@ export const BetaPage = () => {
     return (
         <>
             {imageLoaded &&
-                <div>
-            <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2>
-            <div className={s.playercard}>
-                <div className={s.pcimg}>
-                    <img
-                        /* onClick={() => setOpacity((prev) => !prev)} */
-                        className={s.cardimg} src={investor}
-                        /* style={{ opacity: opacity ? '0.5' : '1' }} */
-                        alt="investor pic" />
-                    <h2 className={s.early}>{swichLang(userLang, 'beta_subtitle')}</h2>
-                </div>
+                <div /* className={s.container} */>
+                    <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2>
+                    <div className={s.playercard}>
+                        <div className={s.pcimg}>
+                            <img
+                                /* onClick={() => setOpacity((prev) => !prev)} */
+                                className={s.cardimg} src={investor}
+                                /* style={{ opacity: opacity ? '0.5' : '1' }} */
+                                alt="investor pic" />
+                            <h2 className={s.early}>{swichLang(userLang, 'beta_subtitle')}</h2>
+                        </div>
 
-                <div className={s.content}>
-                    <div className={s.titleaccess}>{swichLang(userLang, 'beta_jointitle')}</div>
-                    <div style={{ marginBottom: '5%' }}>
-                        <p className={s.textaccess}>{swichLang(userLang, 'beta_check1')} 🟢</p>
-                        <p className={s.textaccess}>{swichLang(userLang, 'beta_check2')}: <b>{balance} UH</b> {balance > 250 ? '🟢' : '🟡'}</p>
+                        <div className={s.content}>
+                            <div className={s.titleaccess}>{swichLang(userLang, 'beta_jointitle')}</div>
+                            <div style={{ marginBottom: '5%' }}>
+                                <p className={s.textaccess}>{swichLang(userLang, 'beta_check1')} 🟢</p>
+                                <p className={s.textaccess}>{swichLang(userLang, 'beta_check2')}: <b>{balance} UH</b> {balance > 250 ? '🟢' : '🟡'}</p>
+                            </div>
+
+                            <div className={s.buttons}>
+                                <button
+                                    onClick={() => addInList(userId, userName, balance)}
+                                    disabled={inList || isLoading || balance < 250}
+                                    className={s.btnaddlist} style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'gray' : balance > 250 ? 'white' : 'gray' }}>
+                                    {isLoading ? 'loading...' : inList ? `${swichLang(userLang, 'beta_inlist')}` : balance > 250 ? `${swichLang(userLang, 'beta_goinlist')}` : `${swichLang(userLang, 'balance')} < 250 UH`}
+                                </button>
+                                <Tooltip />
+                            </div>
+
+
+                            {days !== undefined ? (
+                                <p className={s.timer}>
+                                    {swichLang(userLang, 'beta_timer')}
+                                    <span style={{ fontWeight: 'bold' }}> {days}{swichLang(userLang, 'd')} {hours}{swichLang(userLang, 'h')} {minutes}{swichLang(userLang, 'm')} {seconds}{swichLang(userLang, 's')}
+                                    </span>
+                                </p>
+                            ) : (
+                                <p>Time's up!</p>
+                            )}
+                        </div>
+
                     </div>
-
-                    <div className={s.buttons}>
-                        <button
-                            onClick={() => addInList(userId, userName, balance)}
-                            disabled={inList || isLoading || balance < 250}
-                            className={s.btnaddlist} style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'gray' : balance > 250 ? 'white' : 'gray' }}>
-                            {isLoading ? 'loading...' : inList ? `${swichLang(userLang, 'beta_inlist')}` : balance > 250 ? `${swichLang(userLang, 'beta_goinlist')}` : `${swichLang(userLang, 'balance')} < 250 UH`}
-                        </button>
-                        <Tooltip />
-                    </div>
-
-
-                    {days !== undefined ? (
-                        <p className={s.timer}>
-                            {swichLang(userLang, 'beta_timer')}
-                            <span style={{ fontWeight: 'bold' }}> {days}{swichLang(userLang, 'd')} {hours}{swichLang(userLang, 'h')} {minutes}{swichLang(userLang, 'm')} {seconds}{swichLang(userLang, 's')}
-                            </span>
-                        </p>
-                    ) : (
-                        <p>Time's up!</p>
-                    )}
-                </div>
-
-            </div>
 
             <button
                 className={s.back}
