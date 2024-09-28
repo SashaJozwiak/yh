@@ -70,7 +70,7 @@ export const Tasks = () => {
                 className={s.listitem}>
                 <div className={s.title}>{activeFriends.title}</div>
                 <div style={{ color: 'whitesmoke', backgroundColor: 'transparent' }} className={s.check}>{userData.refs_active}</div>
-                <div style={{ color: 'whitesmoke' }} className={s.price}>{activeFriends.price}/F</div>
+                <div style={{ color: 'whitesmoke' }} className={s.price}>{activeFriends.price}<span style={{ color: 'rgb(22, 163, 74)' }}>B</span>/F</div>
             </div>
 
             <div
@@ -79,7 +79,7 @@ export const Tasks = () => {
 
                 <TimerButton dailyReward={dailyReward} />
 
-                <div style={{ color: 'white' }} className={s.price}>{dailyReward.price}</div>
+                <div style={{ color: 'white' }} className={s.price}>{dailyReward.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
             </div>
 
             <div
@@ -88,7 +88,7 @@ export const Tasks = () => {
 
                 <TimerButtonAd dailyReward={adReward} />
 
-                <div style={{ color: 'white' }} className={s.price}>{adReward.price}</div>
+                <div style={{ color: 'white' }} className={s.price}>{adReward.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
             </div>
 
             {tasks.filter(task => task.type === 'native' && task.completed === false).length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'our')}</h2>}
@@ -109,7 +109,7 @@ export const Tasks = () => {
                         }}
                         disabled={blockBtns}
                         className={s.check}>{swichLang(userData.languageCode, 'check')}</button>
-                    <div className={s.price}>{task.price}</div>
+                    <div className={s.price}>{task.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
                 </div>
             ))}
             {tasks.filter(task => task.type === 'affiliate' && task.completed === false).length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'partnership')}</h2>}
@@ -129,7 +129,7 @@ export const Tasks = () => {
                         }}
                         disabled={blockBtns}
                         className={s.check}>{loadBtn ? 'load' : swichLang(userData.languageCode, 'check')}</button>
-                    <div className={s.price}>{task.price}</div>
+                    <div className={s.price}>{task.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
                 </div>
             ))}
 
@@ -141,7 +141,7 @@ export const Tasks = () => {
                     <div style={{ borderBottom: '1px gray solid' }}
                         className={s.title}>{task.title}</div>
                     <div style={{ color: 'gray', backgroundColor: 'transparent' }} className={s.check}>🟢</div>
-                    <div className={s.price}>{task.price}</div>
+                    <div className={s.price}>{task.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
                 </div>
             ))}
             {loadStatus && <span className={s.loader}></span>}

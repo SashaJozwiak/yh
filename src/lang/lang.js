@@ -27,7 +27,7 @@ export const lang = {
         afriends: 'A.Friends',
         balance: 'Balance',
         top100: 'TOP 100',
-        anonim: 'I am anonym',
+        anonim: 'I anonym',
         //tasks
         permanent: 'Permanent',
         our: 'Our tasks',

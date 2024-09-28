@@ -42,7 +42,7 @@
     }
     to {
       transform: skewY(0deg) translateX(-50%) translateY(-50%) scale(1) translateZ(0);
-      opacity: 0.9;
+      opacity: 1;
     }
 }
 
