@@ -1,28 +1,76 @@
 //import React from 'react'
 
-//import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNav } from "../../store/nav"
 import { useUserData } from '../../store/main';
 
-//import { useListData } from '../../store/EAlist'
+import { useListData } from '../../store/EAlist'
 import { swichLang } from '../../lang/lang';
 
 import investor from '../../assets/game/img/inv3_11zon_1.webp'
 
 import s from './betapage1.module.css'
-//import { Tooltip } from './Tooltip';
+import { Tooltip } from './Tooltip';
 
-/* interface TimeLeft {
+interface TimeLeft {
     days: number;
     hours: number;
     minutes: number;
     seconds: number;
-} */
+}
 
 export const BetaPage1 = () => {
+    //const [imageLoaded, setImageLoaded] = useState(false);
+
     const userLang = useUserData(state => state.user.languageCode);
+
+    const inList = useListData((state) => state.state.inList);
+    const isLoading = useListData((state) => state.state.isLoading);
+
+    //const getInList = useListData((state) => state.getInList);
+    const addInList = useListData((state) => state.addInList);
+
     const changeNav = useNav(state => state.setMainNav)
+    const userId = useUserData(state => state.user.internalId);
+    const userName = useUserData(state => state.user.userName);
+    const balance = useUserData(state => state.balance.balance);
+
+    const calculateTimeLeft = (): TimeLeft => {
+        const targetDate = new Date('2024-11-11T00:00:00').getTime();
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        let timeLeft: TimeLeft = {
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+        };
+
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60)
+            };
+        }
+
+        return timeLeft;
+    };
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, [timeLeft]);
+
+    const { days, hours, minutes, seconds } = timeLeft;
 
     return (
         <>
@@ -38,7 +86,35 @@ export const BetaPage1 = () => {
                             alt="investor pic" />
 
                     </div>
-                    <div>some text</div>
+                    <div className={s.content}>
+                        <div className={s.titleaccess}>{swichLang(userLang, 'beta_jointitle')}</div>
+                        <div style={{ marginBottom: '5%' }}>
+                            <p className={s.textaccess}>{swichLang(userLang, 'beta_check1')} 🟢</p>
+                            <p className={s.textaccess}>{swichLang(userLang, 'beta_check2')}: <b>{balance} UH</b> {balance > 250 ? '🟢' : '🟡'}</p>
+                        </div>
+
+                        <div className={s.buttons}>
+                            <button
+                                onClick={() => addInList(userId, userName, balance)}
+                                disabled={inList || isLoading || balance < 250}
+                                className={s.btnaddlist} style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'gray' : balance > 250 ? 'white' : 'gray' }}>
+                                {isLoading ? 'loading...' : inList ? `${swichLang(userLang, 'beta_inlist')}` : balance > 250 ? `${swichLang(userLang, 'beta_goinlist')}` : `${swichLang(userLang, 'balance')} < 250 UH`}
+                            </button>
+                            <Tooltip />
+                        </div>
+                    </div>
+
+                    {days !== undefined ? (
+                        <p className={s.timer}>
+                            {swichLang(userLang, 'beta_timer')}
+                            <span style={{ fontWeight: 'bold' }}> {days}{swichLang(userLang, 'd')} {hours}{swichLang(userLang, 'h')} {minutes}{swichLang(userLang, 'm')} {seconds}{swichLang(userLang, 's')}
+                            </span>
+                        </p>
+                    ) : (
+                        <p>Time's up!</p>
+                    )}
+
+
                 </div>
 
                 <button

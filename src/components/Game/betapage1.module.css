@@ -55,6 +55,39 @@
   text-shadow: white 1px 1px 0.5rem;
 }
 
+.content {
+
+}
+
+.titleaccess {
+  font-weight:bold;
+  margin-bottom: 1vh;
+}
+
+
+.btnaddlist{
+  background-color: rgb(31 39 49);
+  color:white;
+  font-weight:bold;
+  border: 2px solid rgb(22, 163, 74);
+  border-radius:1rem;
+  text-shadow: white 0px 0px 2rem;
+  box-shadow: 0px 0px 25px 5px rgb(0 0 0);
+}
+
+.btnaddlist:active {
+  transform: scale(0.9); /* Увеличивает кнопку при клике */
+  box-shadow: none;
+}
+
+.btnaddlist:disabled {
+  cursor: not-allowed; /* Изменяет курсор */
+  transform: none; /* Убирает трансформацию для disabled */
+  box-shadow: none;
+}
+
+
+
 
 .back {
   //position:fixed;
