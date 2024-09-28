@@ -2,7 +2,7 @@
 
 //import { useEffect, useState } from 'react';
 
-//import { useNav } from "../../store/nav"
+import { useNav } from "../../store/nav"
 import { useUserData } from '../../store/main';
 
 //import { useListData } from '../../store/EAlist'
@@ -22,6 +22,7 @@ import s from './betapage1.module.css'
 
 export const BetaPage1 = () => {
     const userLang = useUserData(state => state.user.languageCode);
+    const changeNav = useNav(state => state.setMainNav)
 
     return (
         <>
