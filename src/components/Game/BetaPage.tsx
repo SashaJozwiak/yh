@@ -8,7 +8,7 @@ import { useUserData } from '../../store/main';
 import { useListData } from '../../store/EAlist'
 import { swichLang } from '../../lang/lang';
 
-import investor from '../../assets/game/img/inv3_11zon_1.webp'
+import investor from '../../assets/game/img/inv3.jpg'
 
 import s from './betapage.module.css'
 import { Tooltip } from './Tooltip';
