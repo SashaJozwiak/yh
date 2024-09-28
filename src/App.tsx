@@ -25,7 +25,7 @@ import './App.css';
 
 
 //import { Game } from './Game/Game';
-import { BetaPage } from './components/Game/BetaPage';
+import { BetaPage1 } from './components/Game/BetaPage1';
 
 import { postEvent } from '@telegram-apps/sdk';
 
@@ -124,7 +124,7 @@ const App: React.FC = function () {
       {<Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
-      {nav === 'game' && <BetaPage />}
+      {nav === 'game' && <BetaPage1 />}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}
