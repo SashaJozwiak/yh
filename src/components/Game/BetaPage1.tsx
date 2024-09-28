@@ -132,9 +132,6 @@ export const BetaPage1 = () => {
                         )}
                     </div>
 
-
-
-
                 </div>
 
                 <button

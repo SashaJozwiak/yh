@@ -157,7 +157,7 @@ export const lang = {
         beta_check2: 'Твой баланс',
         beta_goinlist: 'Участвовать',
         beta_inlist: 'Ты в списке!',
-        beta_timer: 'Откроется через',
+        beta_timer: 'Через:',
         d: 'д',
         h: 'ч',
         m: 'м',
