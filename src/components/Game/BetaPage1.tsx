@@ -38,6 +38,7 @@ export const BetaPage1 = () => {
                             alt="investor pic" />
 
                     </div>
+                    <div>some text</div>
                 </div>
 
                 <button
