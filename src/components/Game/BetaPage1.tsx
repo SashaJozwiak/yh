@@ -28,7 +28,7 @@ export const BetaPage1 = () => {
     const inList = useListData((state) => state.state.inList);
     const isLoading = useListData((state) => state.state.isLoading);
 
-    //const getInList = useListData((state) => state.getInList);
+    const getInList = useListData((state) => state.getInList);
     const addInList = useListData((state) => state.addInList);
 
     const changeNav = useNav(state => state.setMainNav)
@@ -87,6 +87,10 @@ export const BetaPage1 = () => {
 
     const { days, hours, minutes, seconds } = timeLeft;
 
+    useEffect(() => {
+        getInList(userId);
+    }, [getInList, userId])
+
     return (
         <> {imageLoaded && 
             <div className={s.container}>
@@ -98,8 +102,8 @@ export const BetaPage1 = () => {
                         <img
                             className={s.cardimg} src={investor}
                             alt="investor pic" />
-
                     </div>
+
                     <div className={s.content}>
                         <div className={s.titleaccess}>{swichLang(userLang, 'beta_jointitle')}</div>
                         <div style={{ marginBottom: '5%' }}>
@@ -116,17 +120,19 @@ export const BetaPage1 = () => {
                             </button>
                             <Tooltip />
                         </div>
-                    </div>
 
-                    {days !== undefined ? (
+                        {days !== undefined ? (
                         <p className={s.timer}>
                             {swichLang(userLang, 'beta_timer')}
                             <span style={{ fontWeight: 'bold' }}> {days}{swichLang(userLang, 'd')} {hours}{swichLang(userLang, 'h')} {minutes}{swichLang(userLang, 'm')} {seconds}{swichLang(userLang, 's')}
                             </span>
                         </p>
-                    ) : (
-                        <p>Time's up!</p>
-                    )}
+                        ) : (
+                            <p>Time's up!</p>
+                        )}
+                    </div>
+
+
 
 
                 </div>
