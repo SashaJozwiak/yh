@@ -82,7 +82,7 @@
 
   .pcimg {
     display: flex;
-    position: relative;
+    
     height: 52%;
     & .cardimg {
       //width: 100%;
@@ -227,7 +227,7 @@
 
     width: 100%;
     //font-size: 3.6vw;
-    aspect-ratio: 16/10;
+    //aspect-ratio: 16/10;
 
 
     //bottom:3vh;

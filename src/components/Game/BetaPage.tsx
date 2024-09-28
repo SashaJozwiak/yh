@@ -97,7 +97,7 @@ export const BetaPage = () => {
         <>
             {imageLoaded &&
                 <div /* className={s.container} */>
-                    <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2>
+                    {/* <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2> */}
                     <div className={s.playercard}>
                         <div className={s.pcimg}>
                             <img

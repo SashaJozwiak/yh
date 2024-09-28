@@ -105,7 +105,7 @@ export const Header: React.FC = () => {
     //console.log('user :', user, 'rawAddress: ', rawAddress)
 
     return (
-        <div className={s.header} style={{ opacity: nav === 'game' ? 0 : 1 }}>
+        <div className={s.header} style={{ position: nav === 'game' ? 'absolute' : 'static', opacity: nav === 'game' ? 0 : 1 }}>
             <button
                 onClick={() => nav === 'cabinet' ? changeNav('hold') : changeNav('cabinet')}
                 className={`${s.profile} ${nav === 'cabinet' ? s.ontab : null}`}>
