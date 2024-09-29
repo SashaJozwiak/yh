@@ -101,8 +101,8 @@
 }
 
 .btnaddlist:disabled {
-  cursor: not-allowed; /* Изменяет курсор */
-  transform: none; /* Убирает трансформацию для disabled */
+  cursor: not-allowed; 
+  transform: none; 
   box-shadow: none;
 }
 
@@ -117,6 +117,11 @@
   bottom:0;
   border-top-right-radius: 0.5rem;
   box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
+}
+
+.back:active {
+  transform: scale(0.9); 
+  box-shadow: none;
 }
 
 
