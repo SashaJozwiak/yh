@@ -108,7 +108,7 @@ export const BetaPage1 = () => {
                         <div className={s.titleaccess}>{swichLang(userLang, 'beta_jointitle')}</div>
                         <div style={{ marginBottom: '5%' }}>
                             <p className={s.textaccess}>{swichLang(userLang, 'beta_check1')} 🟢</p>
-                            <p className={s.textaccess}>{swichLang(userLang, 'beta_check2')}: <b>{balance} UH</b> {balance > 250 ? '🟢' : '🟡'}</p>
+                            <p className={s.textaccess}>{swichLang(userLang, 'beta_check2')}: <b>{balance.toFixed()} UH</b> {balance > 250 ? '🟢' : '🟡'}</p>
                         </div>
 
                         <div className={s.buttons}>
