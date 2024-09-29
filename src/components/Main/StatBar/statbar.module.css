@@ -45,11 +45,12 @@
 
 .hold, .refresh{
     color:white;
+    border: 1px solid lightgray;
     border-radius: 0.3rem;
     background-color:rgb(51 65 85);
     //box-shadow: -2px -2px 5px #000, 2px 2px 5px #000000;
 
-    box-shadow:-1px 0px 8px 0px rgb(185 202 214 / 30%);
+    //box-shadow:-1px 0px 8px 0px rgb(185 202 214 / 30%);
     
 }
 
@@ -60,6 +61,7 @@
 
 .holdOn {
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border: 1px solid gray;
 }
 
 .holdtext {

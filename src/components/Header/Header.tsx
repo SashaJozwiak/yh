@@ -5,10 +5,9 @@ import { useUserData, /* useUserBalances */ } from '../../store/main';
 import { useNav } from '../../store/nav';
 import { swichLang } from '../../lang/lang.js';
 
-import { TonConnectButton, useTonAddress /*  useTonConnectUI, useTonWallet */ } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
-
 
 export const Header: React.FC = () => {
     const changeNav = useNav((state) => state.setMainNav)
@@ -21,9 +20,6 @@ export const Header: React.FC = () => {
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
 
-    /* const [tonConnectUI] = useTonConnectUI();
-    const wallet = useTonWallet(); */
-
     const rawAddressInState = useUserData(state => state.user.rawAddress);
 
     const handleReferral = useUserData((state) => state.handleReferral);
@@ -31,15 +27,6 @@ export const Header: React.FC = () => {
     const addAddresses = useUserData((state) => state.addAddresses);
 
     const actualSpeed = useUserData(state => state.balance.speed)
-
-    /* const handleWallet = () => {
-        if (wallet) {
-            tonConnectUI.disconnect();
-        }
-        if (!wallet) {
-            tonConnectUI.openModal();
-        }
-    } */
 
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
@@ -102,10 +89,9 @@ export const Header: React.FC = () => {
         }
     }, [addAddresses, rawAddress, userFriendlyAddress, rawAddressInState, internalId])
 
-    //console.log('user :', user, 'rawAddress: ', rawAddress)
-
     return (
         <div className={s.header} style={{ position: nav === 'game' ? 'absolute' : 'static', opacity: nav === 'game' ? 0 : 1 }}>
+
             <button
                 onClick={() => nav === 'cabinet' ? changeNav('hold') : changeNav('cabinet')}
                 className={`${s.profile} ${nav === 'cabinet' ? s.ontab : null}`}>
@@ -123,22 +109,8 @@ export const Header: React.FC = () => {
 
             <div className={s.settings}>
                 <TonConnectButton className={s.tonbutton} />
-                {/* <div
-                    onClick={handleWallet}
-                    className={s.tonbutton}>
-
-                    <p>
-                        {wallet ?
-                            <>
-                                {`${userFriendlyAddress.slice(0, 5)}...${userFriendlyAddress.slice(-3)}`}
-                                <span style={{ fontSize: '0.7rem', display: 'block' }}>disconnect</span>
-                            </>
-                            : 'Connect Wallet'
-                        }
-                    </p>
-                    <p>Wallet</p>
-                </div>  */}
             </div>
+
         </div>
     )
 }
