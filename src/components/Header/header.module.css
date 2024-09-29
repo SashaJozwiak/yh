@@ -5,7 +5,6 @@
     justify-content: space-between;
     gap:0.8rem;
     border-radius: 0.3rem;
-    
     flex-shrink: 0;
     align-items:center;
 }
@@ -21,22 +20,13 @@
 
 .ontab {
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.4);
-    transition: box-shadow 0.3s;
-    will-change: box-shadow;
 }
 
 .profile {
     padding: 0.2rem;
     //width: 5rem;
     width: 3.8rem;
-    transition: box-shadow 0.3s;
-    will-change: box-shadow;
 }
-
-.profile:active {
-    transform: scale(0.95); 
-    will-change: transform;
-  }
 
 .settings{
     padding:0;
@@ -51,16 +41,4 @@
     text-wrap: nowrap;
     box-shadow: none;
     cursor: default;
-    //margin-top: -0.2rem;
 }
-
-/* .tonbutton {
-    height: 100%;
-    background-color: rgb(51 65 85);
-    font-size: 1rem;
-    align-content: center;
-    //text-wrap: wrap;
-    box-shadow: none;
-    border-radius: 0.3rem;
-    border: 1px solid gray;
-} */

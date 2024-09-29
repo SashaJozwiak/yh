@@ -96,7 +96,7 @@
 }
 
 .btnaddlist:active {
-  transform: scale(0.9); /* Увеличивает кнопку при клике */
+  transform: scale(0.9); 
   box-shadow: none;
 }
 
@@ -106,9 +106,6 @@
   box-shadow: none;
 }
 
-
-
-
 .back {
   position:fixed;
   background-color:rgb(51 65 85);
@@ -117,11 +114,6 @@
   bottom:0;
   border-top-right-radius: 0.5rem;
   box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
-}
-
-.back:active {
-  transform: scale(0.9); 
-  box-shadow: none;
 }
 
 
