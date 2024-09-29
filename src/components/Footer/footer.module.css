@@ -7,12 +7,12 @@
     justify-content: space-between;
     gap: 1rem;
   
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-  
-
+    //border-top-left-radius: 0.5rem;
+    //border-top-right-radius: 0.5rem;
     //background-color: rgba(71, 85, 105, 0.85);
-    background-color: rgb(71, 85, 105);
+
+    //background-color: rgb(71, 85, 105);
+    background-color: rgb(58 70 88);
 
     padding: 0 0.5rem;
   

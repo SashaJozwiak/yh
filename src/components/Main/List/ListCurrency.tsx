@@ -3,21 +3,11 @@ import { useStonFi, useJettonsBalances, useUserBalances, useUserData, useDedust 
 import { useNav } from '../../../store/nav';
 
 import { swichLang } from '../../../lang/lang.js';
+import { TooltipYWA } from './../../Some/Tooltip/TooltipYWA';
 
 import WebApp from '@twa-dev/sdk';
 import s from './list.module.css'
-import { TooltipYWA } from './../../Some/Tooltip/TooltipYWA';
-
-
-const formatNumber = (num: number) => {
-    if (num > 999999) {
-        return `${Math.floor(num / 1000000)}kk`;
-    }
-    if (num > 999) {
-        return `${Math.floor(num / 1000)}k`;
-    }
-    return num.toLocaleString('ru');
-};
+import { formatNumber } from './../../../utils/formats/bigNumbers';
 
 export const ListCurrency = () => {
 
@@ -244,6 +234,7 @@ export const ListCurrency = () => {
 
             {/*  */}
             {/* {(!loadStatusSFPools && !loadStatusDDPools && !loadStatus) && <div className={s.offBalances}> */}
+
             {(loadStatusSFPools || loadStatusDDPools) && (
                 <div>
                     <p className={s.loading}>...</p>
@@ -346,9 +337,12 @@ export const ListCurrency = () => {
                                     className={s.news}>{swichLang(userLang, 'pool')}</button>
                                 <div className={s.range1}>{swichLang(userLang, 'till')} {formatNumber(currency.inH)}/{swichLang(userLang, 'hours')}</div>
                             </div>
+
                         )
                     })}
             {/* </div> */}
+
+
         </>
     )
 }

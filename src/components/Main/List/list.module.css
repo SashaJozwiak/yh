@@ -208,6 +208,7 @@ margin: 0px 8px;
 .loading {
   font-weight: bold;
   display:inline-block;
+  margin: 0 auto 1.2rem auto;
   //display:block;
   font-family: monospace;
   clip-path: inset(0 3ch 0 0);

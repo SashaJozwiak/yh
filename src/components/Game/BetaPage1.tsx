@@ -10,8 +10,11 @@ import { swichLang } from '../../lang/lang';
 
 import investor from '../../assets/game/img/inv3_11zon_1.webp'
 
+import { formatNumber } from './../../utils/formats/bigNumbers';
+
 import s from './betapage1.module.css'
 import { Tooltip } from './Tooltip';
+
 
 interface TimeLeft {
     days: number;
@@ -108,7 +111,7 @@ export const BetaPage1 = () => {
                         <div className={s.titleaccess}>{swichLang(userLang, 'beta_jointitle')}</div>
                         <div style={{ marginBottom: '5%' }}>
                             <p className={s.textaccess}>{swichLang(userLang, 'beta_check1')} 🟢</p>
-                            <p className={s.textaccess}>{swichLang(userLang, 'beta_check2')}: <b>{balance.toFixed()} UH</b> {balance > 250 ? '🟢' : '🟡'}</p>
+                            <p className={s.textaccess}>{swichLang(userLang, 'beta_check2')}: <b>{formatNumber(balance)} UH</b> {balance > 250 ? '🟢' : '🟡'}</p>
                         </div>
 
                         <div className={s.buttons}>
