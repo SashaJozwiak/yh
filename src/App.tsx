@@ -42,8 +42,8 @@ const App: React.FC = function () {
 
   //const bonuses = useUserBalances((state) => state.bonuses);
   //const userId = useUserData(state => state.user.internalId);
-
   //const getBonuses = useUserBalances((state) => state.getBonuses);
+
   const updateBalance = useUserBalances((state) => state.updateBalance);
   const updateBalanceJ = useJettonsBalances((state) => state.updateBalanceJ);
 

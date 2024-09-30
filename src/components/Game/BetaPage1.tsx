@@ -65,6 +65,8 @@ export const BetaPage1 = () => {
 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
+
+    //RESOURCE LOADER
     useEffect(() => {
         const preloadImage = new Image();
         preloadImage.src = investor;
@@ -74,7 +76,6 @@ export const BetaPage1 = () => {
             setImageLoaded(true);
         };
 
-        // Очистка при размонтировании компонента
         return () => {
             preloadImage.onload = null;
         };
@@ -126,7 +127,7 @@ export const BetaPage1 = () => {
 
                         {days !== undefined ? (
                         <p className={s.timer}>
-                            {swichLang(userLang, 'beta_timer')}
+                                {/* {swichLang(userLang, 'beta_timer')} */}
                             <span style={{ fontWeight: 'bold' }}> {days}{swichLang(userLang, 'd')} {hours}{swichLang(userLang, 'h')} {minutes}{swichLang(userLang, 'm')} {seconds}{swichLang(userLang, 's')}
                             </span>
                         </p>

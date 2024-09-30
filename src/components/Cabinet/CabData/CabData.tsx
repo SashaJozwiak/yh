@@ -4,7 +4,7 @@ import { useTop100 } from '../../../store/top100';
 
 import { swichLang } from '../../../lang/lang.js';
 
-import { formatNumber } from './../../../utils/formats/bigNumbers';
+import { formatNumberBal, formatNumberToo } from './../../../utils/formats/bigNumbers';
 
 import s from './cabdata.module.css'
 //import WebApp from '@twa-dev/sdk';
@@ -68,7 +68,7 @@ export const CabData = () => {
                     <p className={s.line}>{swichLang(languageCode, 'afriends')}: <span style={{ color: 'white' }}>{refs_active}</span></p>
                     {/* <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p> */}
                     {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
-                    <p className={s.line}>{swichLang(languageCode, 'balance')}: <span style={{ color: 'white' }}>{formatNumber(balance)}</span></p>
+                    <p className={s.line}>{swichLang(languageCode, 'balance')}: <span style={{ color: 'white' }}>{formatNumberBal(balance)}</span></p>
                     {/* <p className={s.line}>аноним: <span style={{ color: 'white' }}>{anonim}</span></p> */}
                     <div style={{ textAlign: 'left', display: 'flex', gap: '0.2rem' }}>
                         <input type="checkbox"
@@ -116,7 +116,7 @@ export const CabData = () => {
                                 }} */
                                 className={s.btn}>{/* {index + 1}. */}<span className={s.btnspan}>{index + 1}. {(item.username).substring(0, 25)}</span></div>
                             {/* https://t.me/ */}
-                            <div>{formatNumber(item.balance)} <b>UH</b></div>
+                            <div>{formatNumberToo(item.balance)} <b>UH</b></div>
                         </div>
                     ))}
                 </div>

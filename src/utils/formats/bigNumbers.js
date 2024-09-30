@@ -9,3 +9,24 @@ export const formatNumber = (num) => {
     }
     return num.toLocaleString('ru');
 };
+
+export const formatNumberBal = (num) => {
+    if (num > 999999) {
+        num = num / 1000000
+        num = (+num).toFixed(2);
+        return `${num}kk`;
+    }
+
+    if (num > 999) {
+        num = num / 1000
+        num = (+num).toFixed(1);
+        return `${num}k`;
+    }
+
+    return num.toFixed(1).toLocaleString('ru');
+};
+
+export const formatNumberToo = (num) => {
+    num = (+num).toFixed();
+    return num.toLocaleString('ru');
+};
