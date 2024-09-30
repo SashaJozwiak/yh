@@ -9,12 +9,15 @@ import { List } from './List/List'
 export const Main: React.FC = () => {
 
     const useError = useUserData(state => state.miningError)
+    const setMiningError = useUserData(state => state.setMiningError)
 
     useEffect(() => {
         if (useError) {
             WebApp.showAlert(useError)
         }
-    }, [useError]);
+
+        return setMiningError;
+    }, [setMiningError, useError]);
 
     return (
         <>

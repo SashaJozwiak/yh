@@ -3,8 +3,8 @@ export interface User {
     internalId: number;
     userName: string;
     languageCode: string;
-    userFriendlyAddress: string;
-    rawAddress: string;
+    userFriendlyAddress: string | null;
+    rawAddress: string | null;
     team_id: number | null;
     refs: number;
     refs_active: number;
@@ -25,9 +25,10 @@ export interface UseStore {
     miningLoader: boolean;
     handleReferral: (userId: number, startParam: string) => Promise<void>;
     setUser: (user: Partial<User>) => void;
-    addAddresses: (addresses: { userFriendlyAddress: string; rawAddress: string }) => void;
+    addAddresses: (addresses: { userFriendlyAddress: string | null; rawAddress: string | null }) => void;
     setBalanceData: (balance: Partial<BalanceObj>) => void;
     setAnonim: (userId: number, anonim: boolean) => void;
+    setMiningError: () => void;
 }
 
 //===

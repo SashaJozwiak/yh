@@ -37,6 +37,10 @@ export const StatBar: React.FC = () => {
 
     const miningLoader = useUserData(state => state.miningLoader)
 
+    const loadStatus = useJettonsBalances(state => state.loadStatus);
+    const loadStatusSFPools = useStonFi(state => state.loadStatus)
+    const loadStatusDDPools = useDedust(state => state.loadStatus)
+
     const pushHold = () => {
         setBalance({
             balance: balanceData.balance + (speed * balanceData.period),
@@ -87,10 +91,10 @@ export const StatBar: React.FC = () => {
 
 
             <button
-                disabled={balanceData.isHold || !rawAddress || miningLoader}
+                disabled={balanceData.isHold || !rawAddress || miningLoader || loadStatusDDPools || loadStatusSFPools || loadStatus}
                 onClick={pushHold}
                 className={`${s.hold} ${balanceData.isHold ? s.holdOn : null}`}>
-                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢 <span style={{ color: rawAddress ? 'white' : 'grey' }}>{swichLang(userLang, 'start')}</span></span>}</h3>
+                <h3>{balanceData.isHold /* && nav */ ? <ButtonTimer /> : <span className={rawAddress ? s.holdtexton : s.holdtext}>🟢 <span style={{ color: rawAddress ? 'white' : 'grey' }}>{(loadStatus || loadStatusSFPools || loadStatusDDPools) ? 'load...' : swichLang(userLang, 'start')}</span></span>}</h3>
             </button>
         </div>
     )

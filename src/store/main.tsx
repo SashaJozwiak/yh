@@ -266,6 +266,11 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             console.error('setAnonim error :', err);
         }
 
+    },
+    setMiningError: async () => {
+        set(() => ({
+            miningError: ''
+        }));
     }
 
 })))
@@ -329,6 +334,10 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
     })), //dont use current
     updateBalance: async (rawAddress: string) => {
         //`https://toncenter.com/api/v3/account?address=${encodeURIComponent(rawAddress)}`
+        if (rawAddress === null) {
+            return;
+        }
+
         try {
             const response = await fetch(`https://toncenter.com/api/v2/getAddressBalance?address=${encodeURIComponent(rawAddress)}`, {
                 //mode: 'no-cors',

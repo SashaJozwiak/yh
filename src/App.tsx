@@ -20,10 +20,7 @@ import WebApp from '@twa-dev/sdk';
 /* import usePreloadImage from './utils/hooks/usePreloadImage'; */
 
 import './App.css';
-
 //mport useScrollFix from './utils/hooks/useScrollFix';
-
-
 //import { Game } from './Game/Game';
 import { BetaPage1 } from './components/Game/BetaPage1';
 

@@ -121,7 +121,7 @@ export const ListCurrency = () => {
             {rawAddress && /* (!loadStatusSFPools && !loadStatusDDPools) && */ <h3 className={s.donthave} style={{ color: 'lightgray', marginBottom: '0.5rem', marginTop: '1rem', cursor: 'pointer' }}>< TooltipYWA /></h3>}
 
 
-            {balance.filter(currency => currency.speed > 0.00099 && currency.name === 'TON').map((currency) => {
+            {rawAddress && balance.filter(currency => currency.speed > 0.00099 && currency.name === 'TON').map((currency) => {
                     return (
                         <div key={currency.name} className={s.listitem} style={{ color: currency.name === 'BONUS' ? 'rgb(22 163 74)' : 'white' }}>
                             {/* <div className={s.firstline}> */}

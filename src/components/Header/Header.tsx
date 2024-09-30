@@ -6,6 +6,8 @@ import { useNav } from '../../store/nav';
 import { swichLang } from '../../lang/lang.js';
 
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
+//import { useTonConnect } from '@tonconnect/ui-react';
+
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
 
@@ -26,7 +28,9 @@ export const Header: React.FC = () => {
     const setUser = useUserData((state) => state.setUser);
     const addAddresses = useUserData((state) => state.addAddresses);
 
-    const actualSpeed = useUserData(state => state.balance.speed)
+    const actualSpeed = useUserData(state => state.balance.speed);
+
+    //const { connected } = useTonConnect();
 
     useEffect(() => {
         const userFromTg = WebApp.initDataUnsafe.user;
@@ -60,9 +64,9 @@ export const Header: React.FC = () => {
             }
 
             //setUser(newUser);
-        } else if (id !== 757322479) {
+        } else if (id !== 757322479 /* 757322479 */) {
             const newUser = {
-                id: 757322479,
+                id: 757322479 /* 757322479 */,
                 //internalId: null,
                 userName: "Jozwiak",
                 languageCode: "ru",
@@ -88,6 +92,21 @@ export const Header: React.FC = () => {
             addAddresses(addresses)
         }
     }, [addAddresses, rawAddress, userFriendlyAddress, rawAddressInState, internalId])
+
+    useEffect(() => {
+        if (!userFriendlyAddress) {
+            console.log('wallet disconnect')
+            const addresses = {
+                internalId,
+                userFriendlyAddress: null,
+                rawAddress: null,
+            }
+            addAddresses(addresses);
+        } else {
+            console.log('wallet connected')
+        }
+
+    }, [addAddresses, internalId, userFriendlyAddress])
 
     return (
         <div className={s.header} style={{ position: nav === 'game' ? 'absolute' : 'static', opacity: nav === 'game' ? 0 : 1 }}>

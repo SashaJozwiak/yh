@@ -49,13 +49,13 @@
 
 .ontab {
     background-color: rgb(51 65 85);
-    border: 1px solid #a1a1a1;
+    border: 1px solid #bbbbbb;
     border-radius: 0.3rem;
 }
 
 .hold, .refresh{
     color:white;
-    border: 1px solid lightgray;
+    border: 2px solid #bbbbbb;
     border-radius: 0.3rem;
     background-color:rgb(51 65 85);
     //box-shadow: -2px -2px 5px #000, 2px 2px 5px #000000;
@@ -65,7 +65,18 @@
 .hold {
     padding: 0 0.3rem;
     width: 7rem;
+    //transform: scale(0.9);
+    will-change: transform;
 }
+
+.hold:active {
+    transform: scale(0.9);
+    will-change: transform;
+}
+
+.hold:disabled {
+    transform: none; 
+  }
 
 .holdOn {
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
