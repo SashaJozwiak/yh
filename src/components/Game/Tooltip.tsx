@@ -3,7 +3,7 @@ import { CSSProperties, useState } from "react";
 import { swichLang } from '../../lang/lang';
 import { useUserData } from "../../store/main";
 
-import s from './betapage.module.css'
+import s from './betapage1.module.css'
 
 export const Tooltip = () => {
     const userLang = useUserData((state) => state.user.languageCode);
