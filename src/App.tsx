@@ -24,7 +24,7 @@ import './App.css';
 //import { Game } from './Game/Game';
 import { BetaPage1 } from './components/Game/BetaPage1';
 
-//import { postEvent } from '@telegram-apps/sdk';
+import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
 
@@ -51,7 +51,7 @@ const App: React.FC = function () {
     if (!WebApp.isExpanded) {
       WebApp.expand();
     }
-    //postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
+    postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
   }, []);
 
   useEffect(() => {
