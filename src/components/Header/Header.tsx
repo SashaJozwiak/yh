@@ -82,7 +82,9 @@ export const Header: React.FC = () => {
             setUser(newUser);
             //console.log('write jozwiak user in store finish')
         }
-    }, [setUser, handleReferral, id]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setUser, handleReferral]);//id
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')
