@@ -64,9 +64,9 @@ export const Header: React.FC = () => {
             }
 
             //setUser(newUser);
-        } else if (id !== 5531877002 /* 757322479 */) {
+        } else if (id !== 757322479 /* 757322479 */) {
             const newUser = {
-                id: 5531877002 /* 757322479 */,
+                id: 757322479 /* 757322479 */,
                 //internalId: null,
                 userName: "Jozwiak",
                 languageCode: "ru",

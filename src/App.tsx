@@ -20,7 +20,7 @@ import WebApp from '@twa-dev/sdk';
 /* import usePreloadImage from './utils/hooks/usePreloadImage'; */
 
 import './App.css';
-//mport useScrollFix from './utils/hooks/useScrollFix';
+//import useScrollFix from './utils/hooks/useScrollFix';
 //import { Game } from './Game/Game';
 import { BetaPage1 } from './components/Game/BetaPage1';
 
@@ -28,9 +28,9 @@ import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
 
-document.addEventListener('contextmenu', function (e) {
+/* document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
-});
+}); */
 
 const App: React.FC = function () {
   const nav = useNav((state) => state.nav.main)
