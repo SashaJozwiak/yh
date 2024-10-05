@@ -10,6 +10,7 @@ import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
+//import eruda from 'eruda';
 
 export const Header: React.FC = () => {
     const changeNav = useNav((state) => state.setMainNav)
@@ -41,6 +42,10 @@ export const Header: React.FC = () => {
         } else {
             console.log('no start app:', startParam);
         }
+
+        /* if (userFromTg?.id === 1618452191 || userFromTg?.id === 757322479) {
+            eruda.init()
+        } */
 
         if (userFromTg) {
             const newUser = {

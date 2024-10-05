@@ -14,7 +14,7 @@ import { useNav } from './store/nav';
 import { useUserData, useUserBalances, useJettonsBalances, useStonFi, useDedust } from './store/main'
 
 import WebApp from '@twa-dev/sdk';
-//import eruda from 'eruda'
+import eruda from 'eruda'
 
 /* import gnome from './assets/cabinet/gnom_full_tr_150.png' */
 /* import usePreloadImage from './utils/hooks/usePreloadImage'; */
@@ -24,9 +24,10 @@ import './App.css';
 //import { Game } from './Game/Game';
 import { BetaPage1 } from './components/Game/BetaPage1';
 
-import { postEvent } from '@telegram-apps/sdk';
+//import { postEvent } from '@telegram-apps/sdk';
 
-//eruda.init();//just for debug
+
+eruda.init();//just for debug
 
 /* document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
@@ -51,7 +52,7 @@ const App: React.FC = function () {
     if (!WebApp.isExpanded) {
       WebApp.expand();
     }
-    postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
+    //postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
   }, []);
 
   useEffect(() => {
