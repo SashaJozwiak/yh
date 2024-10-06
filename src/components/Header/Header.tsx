@@ -10,7 +10,7 @@ import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
-//import eruda from 'eruda';
+
 
 export const Header: React.FC = () => {
     const changeNav = useNav((state) => state.setMainNav)
@@ -32,20 +32,18 @@ export const Header: React.FC = () => {
     const actualSpeed = useUserData(state => state.balance.speed);
 
     //const { connected } = useTonConnect();
+    const userFromTg = WebApp.initDataUnsafe.user;
+    const startParam = WebApp.initDataUnsafe.start_param;
 
     useEffect(() => {
-        const userFromTg = WebApp.initDataUnsafe.user;
-        const startParam = WebApp.initDataUnsafe.start_param;
+    //const userFromTg = WebApp.initDataUnsafe.user;
+    //const startParam = WebApp.initDataUnsafe.start_param;
 
         if (startParam) {
             console.log('Start app:', startParam);
         } else {
             console.log('no start app:', startParam);
         }
-
-        /* if (userFromTg?.id === 1618452191 || userFromTg?.id === 757322479) {
-            eruda.init()
-        } */
 
         if (userFromTg) {
             const newUser = {
@@ -69,11 +67,11 @@ export const Header: React.FC = () => {
             }
 
             //setUser(newUser);
-        } else if (id !== 757322479 /* 757322479 */) {
+        } else /*if (id !== 757322479  757322479 757322479 )*/ {
             const newUser = {
-                id: 757322479 /* 757322479 */,
+                id: 0 /* 757322479 757322479 */,
                 //internalId: null,
-                userName: "Jozwiak",
+                userName: "example",
                 languageCode: "ru",
                 userFriendlyAddress: '',
                 rawAddress: '',
@@ -82,9 +80,7 @@ export const Header: React.FC = () => {
             setUser(newUser);
             //console.log('write jozwiak user in store finish')
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [setUser, handleReferral]);//id
+    }, [setUser, handleReferral, id, startParam, userFromTg]);//id
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')
