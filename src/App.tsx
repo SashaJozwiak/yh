@@ -26,7 +26,6 @@ import { BetaPage1 } from './components/Game/BetaPage1';
 
 import { postEvent } from '@telegram-apps/sdk';
 
-
 //eruda.init();//just for debug
 
 /* document.addEventListener('contextmenu', function (e) {

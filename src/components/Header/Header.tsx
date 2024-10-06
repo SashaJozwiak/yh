@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
     const changeNav = useNav((state) => state.setMainNav)
     const nav = useNav((state) => state.nav.main);
 
-    const id = useUserData((state) => state.user.id);
+    //const id = useUserData((state) => state.user.id);
     const internalId = useUserData((state) => state.user.internalId);
     const userLang = useUserData((state) => state.user.languageCode);
 
@@ -72,7 +72,7 @@ export const Header: React.FC = () => {
                 id: 0 /* 757322479 757322479 */,
                 //internalId: null,
                 userName: "example",
-                languageCode: "ru",
+                languageCode: "en",
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
@@ -80,7 +80,7 @@ export const Header: React.FC = () => {
             setUser(newUser);
             //console.log('write jozwiak user in store finish')
         }
-    }, [setUser, handleReferral, id, startParam, userFromTg]);//id
+    }, [setUser, handleReferral, startParam, userFromTg]);//id
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')
