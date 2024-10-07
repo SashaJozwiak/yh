@@ -67,13 +67,17 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
 
         const fetchWithRetry = async (url: string, options = {}, retries = 3, timeout = 5000) => {
             const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), timeout);
+            const id = setTimeout(() => {
+                console.log(`Request timed out for URL: ${url}`);
+                controller.abort();
+            }, timeout);
 
             try {
                 const response = await fetch(url, { ...options, signal: controller.signal });
                 clearTimeout(id);
 
                 if (!response.ok) {
+                    console.log(`Response not ok: ${response.statusText}`);
                     if (retries > 0) {
                         console.log(`Retrying... (${3 - retries + 1})`);
                         return fetchWithRetry(url, options, retries - 1, timeout);
@@ -85,19 +89,15 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 return await response.json();
             } catch (error: unknown) {
                 clearTimeout(id); // Очищаем таймер в случае ошибки
-
-                if (retries > 0 && error instanceof Error && error.name === 'AbortError') {
-                    console.log(`Request timed out. Retrying... (${3 - retries + 1})`);
-                    return fetchWithRetry(url, options, retries - 1, timeout);
-                }
-
-                // Логируем неизвестную ошибку
                 if (error instanceof Error) {
-                    console.error('Fetch error:', error.message);
+                    console.error(`Fetch error for URL ${url}:`, error.message);
+                    if (retries > 0 && error.name === 'AbortError') {
+                        console.log(`Request timed out. Retrying... (${3 - retries + 1})`);
+                        return fetchWithRetry(url, options, retries - 1, timeout);
+                    }
                 } else {
                     console.error('Unknown error:', error);
                 }
-
                 throw error; // Пробрасываем ошибку дальше
             }
         };
