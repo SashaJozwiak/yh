@@ -63,23 +63,58 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         }
     },
     setUser: async (user: Partial<User>) => {
-        console.log('user in state: ', user)
-        try {
-            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json'
+        console.log('user in state: ', user);
+
+        const fetchWithRetry = async (url: string, options = {}, retries = 3, timeout = 5000) => {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+
+            try {
+                const response = await fetch(url, { ...options, signal: controller.signal });
+                clearTimeout(id);
+
+                if (!response.ok) {
+                    if (retries > 0) {
+                        console.log(`Retrying... (${3 - retries + 1})`);
+                        return fetchWithRetry(url, options, retries - 1, timeout);
+                    } else {
+                        throw new Error('Max retries reached');
+                    }
                 }
+
+                return await response.json();
+            } catch (error: unknown) {
+                clearTimeout(id); // Очищаем таймер в случае ошибки
+
+                if (retries > 0 && error instanceof Error && error.name === 'AbortError') {
+                    console.log(`Request timed out. Retrying... (${3 - retries + 1})`);
+                    return fetchWithRetry(url, options, retries - 1, timeout);
+                }
+
+                // Логируем неизвестную ошибку
+                if (error instanceof Error) {
+                    console.error('Fetch error:', error.message);
+                } else {
+                    console.error('Unknown error:', error);
+                }
+
+                throw error; // Пробрасываем ошибку дальше
+            }
+        };
+
+        try {
+            const url = `${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`;
+            console.log('Sending request to:', url);
+
+            const data = await fetchWithRetry(url, {
+                method: 'GET',
+                headers: { 'accept': 'application/json' }
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to update user in DB');
-            }
-
-            const data = await response.json();
             console.log('bd_user_data: ', data);
-            //console.log('from_tg_data: ', user)
-            const getBalance = Number(data.balance.balance).toFixed(3);
+
+            const getBalance = +Number(data.balance.balance).toFixed(3); // Преобразование в число
+
             set((state) => ({
                 user: {
                     ...state.user,
@@ -93,14 +128,14 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 },
                 balance: {
                     ...state.balance,
-                    balance: +getBalance,
+                    balance: getBalance,
                     isHold: data.balance.is_hold,
                     period: data.balance.period,
                     speed: +data.balance.speed,
                     finishData: data.balance.finishdate,
                     startData: data.balance.startdate
                 },
-            }))
+            }));
         } catch (err) {
             set((state) => ({
                 user: {
@@ -108,10 +143,11 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     ...user,
                     internalId: 1,
                 }
-            }))
-            console.error('setUser error :', err);
+            }));
+            console.error('setUser error:', err);
         }
     },
+
     setBalanceData: async (balance: Partial<BalanceObj>) => {
         set(() => ({
             miningLoader: true
