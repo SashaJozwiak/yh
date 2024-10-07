@@ -8,6 +8,7 @@ export interface User {
     team_id: number | null;
     refs: number;
     refs_active: number;
+    active_usernames: string[];
     anonim: boolean;
     //team: string;
 }

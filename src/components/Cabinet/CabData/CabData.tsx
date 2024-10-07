@@ -12,7 +12,7 @@ import s from './cabdata.module.css'
 const defaultAvatar = '/yh/gnom_full_tr_150_compressed.png';
 
 export const CabData = () => {
-    const { internalId, userName, refs, refs_active, anonim, languageCode } = useUserData(state => state.user);
+    const { internalId, userName, refs, refs_active, active_usernames, anonim, languageCode } = useUserData(state => state.user);
 
     const balance = useUserData(state => state.balance.balance);
     const setAnonim = useUserData(state => state.setAnonim);
@@ -20,6 +20,8 @@ export const CabData = () => {
     const [isChecked, setIsChecked] = useState(anonim);
     const [isDisabled, setIsDisabled] = useState(false);
     const [refetchTop100, setRefetchTop100] = useState(false);
+
+    const [reflist, setReflist] = useState(false);
 
     const top100 = useTop100(state => state.top100);
     const getTop100 = useTop100(state => state.getTop100);
@@ -57,15 +59,31 @@ export const CabData = () => {
         }, 1200);
     }
 
+    console.log('active_usernames: ', active_usernames);
+
     return (
         <>
+            {reflist ? <div className={`${s.list} scrollable`}>
+                <div
+                    onClick={() => setReflist(false)}
+                    style={{ padding: '0.2rem', }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} width={30} style={{ position: 'fixed', right: '0.6rem' }} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </div>
+                {active_usernames.map((ref) => (
+                    <div>{ref}</div>
+                ))}
+            </div> : <>
             <div className={s.data}>
                 <img className={s.gnom} style={{ borderRadius: '0.3rem' }}
                     width='150' height='118' src={defaultAvatar} alt={``} />
                 <div className={s.info}>
                     <p className={s.line}>{swichLang(languageCode, 'user')}: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>
                     <p className={s.line}>{swichLang(languageCode, 'friends')}: <span style={{ color: 'white' }}>{refs}</span></p>
-                    <p className={s.line}>{swichLang(languageCode, 'afriends')}: <span style={{ color: 'white' }}>{refs_active}</span></p>
+                            <p className={s.line}>{swichLang(languageCode, 'afriends')}: <span
+                                onClick={() => refs_active > 0 ? setReflist(true) : null}
+                                style={{ color: 'white', fontWeight: 'bold', borderBottom: '1px solid lightgray' }}>{refs_active}</span></p>
                     {/* <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p> */}
                     {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
                     <p className={s.line}>{swichLang(languageCode, 'balance')}: <span style={{ color: 'white' }}>{formatNumberBal(balance)}</span></p>
@@ -121,6 +139,8 @@ export const CabData = () => {
                     ))}
                 </div>
             }
+            </>}
+
         </>
     )
 }

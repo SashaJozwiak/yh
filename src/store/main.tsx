@@ -16,7 +16,9 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         team_id: null,
         refs: 0,
         refs_active: 0,
+        active_usernames: [],
         anonim: false,
+
         //team: ''
     },
     balance: {
@@ -87,6 +89,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     refs: +data.referralStats.total_invited || 0,
                     refs_active: +data.referralStats.active_invited || 0,
                     anonim: data.user.anonim || false,
+                    active_usernames: data.referralStats.active_usernames || [],
                 },
                 balance: {
                     ...state.balance,

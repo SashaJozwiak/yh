@@ -11,7 +11,6 @@ import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
 
-
 export const Header: React.FC = () => {
     const changeNav = useNav((state) => state.setMainNav)
     const nav = useNav((state) => state.nav.main);
