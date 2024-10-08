@@ -220,11 +220,20 @@ export interface UserInvites {
     active_friends_count: number;
 }
 
+export interface Winners {
+    id: string;
+    reward: number;
+    is_claim: boolean;
+}
+
 export interface UseInvites10 {
     top10: UserInvites[];
+    winners: Winners[],
     total: number;
     loadStatus: boolean;
-    getTop10: () => void;
+    getTop10: () => Promise<void>;
+    getWinners: () => Promise<void>;
+    addReward: (externalId: number, internalId: number, reward: number) => Promise<void>;
 }
 
 // ==== useStartups

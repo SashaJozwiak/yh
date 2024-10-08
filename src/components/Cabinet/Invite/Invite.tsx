@@ -7,15 +7,25 @@ import { useTeams } from '../../../store/teams';
 
 import s from './invite.module.css'
 import { useInvites10 } from '../../../store/invites';
+//import { ClaimInv } from './ClaimInv.tsx';
+
 //import { Top10Inv } from './top10/Top10Inv';
 //import { Claim } from './Claim.tsx'
 
 export const Invite: React.FC = () => {
-    const { id, userName, languageCode } = useUserData(state => state.user)
+    const [userClaimStatus, setUserClaimStatus] = useState<boolean | null>(null);
+
+    const { id, userName, languageCode, internalId } = useUserData(state => state.user)
     const teamId = useTeams(state => state.myTeam.team_id)
 
     const top10 = useInvites10(state => state.top10);
     const getTop10 = useInvites10(state => state.getTop10);
+
+    const winners = useInvites10(state => state.winners);
+    const getWinners = useInvites10(state => state.getWinners);
+    const claim = useInvites10(state => state.addReward)
+
+
     const total = useInvites10(state => state.total);
 
     const loadStatus = useInvites10(state => state.loadStatus);
@@ -54,6 +64,12 @@ export const Invite: React.FC = () => {
     //console.log(link)
 
     useEffect(() => {
+        // Здесь обновляем статус после получения данных
+        const userInWinners = winners.find(winner => +(winner.id) === id);
+        setUserClaimStatus(userInWinners ? userInWinners.is_claim : null);
+    }, [winners, id]);
+
+    useEffect(() => {
         if (teamId && teamId !== 0) {
             //console.log('authData team: ', authData.ref_team_by);
             setCheked(true);
@@ -73,7 +89,25 @@ export const Invite: React.FC = () => {
         }
     }, [getTop10, top10])
 
+    useEffect(() => {
+        if (total > 992) {
+            getWinners();
+        }
+    }, [getWinners, total])
 
+    const userInWinners = winners.find(winner => +(winner.id) === id);
+    //const userClaimStatus = userInWinners ? userInWinners.is_claim : null;
+
+    console.log('winner!!: ', userInWinners?.reward)
+
+    const handleClaim = async () => {
+        if (userInWinners?.reward !== undefined) {
+            await claim(id, internalId, userInWinners?.reward);// reward всегда будет числом
+            getWinners();
+        } else {
+            console.error("Reward is undefined");
+        }
+    }
 
     return (
         <>
@@ -161,11 +195,26 @@ export const Invite: React.FC = () => {
             <div className={s.progressbar}>
                 <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 2 ? 2 : ((total / 1000) * 100)}%` }}></div>
             </div>
-            <div style={{ color: total > 999 ? 'rgb(22 163 74)' : 'gray' }}> {total > 999 ? 'Completed: ' : swichLang(languageCode, 'contest_desc')} {total > 999 ? 1000 : total}/1000</div >
+            <div style={{ color: total > 999 ? 'rgb(22 163 74)' : 'gray' }}> {total > 999 ? 'Completed!' : swichLang(languageCode, 'contest_desc')} {total > 999 ? null : total}{total > 999 ? null : '/1000'}</div >
 
             {/* <Top10Inv top10={top10} /> */}
             {/* {id === 0 && <Claim />} */}
-            {total > 999 ? <div>{swichLang(languageCode, 'claimInv')}</div> :
+            {total > 999 ?
+                <div>
+                    {userClaimStatus === null ? (
+                        <p style={{ margin: '1rem 1rem' }}>{swichLang(languageCode, 'not_part')}</p>
+                    ) : userClaimStatus ? (
+                        <p style={{ margin: '1rem 1rem' }}>{swichLang(languageCode, 'after_claim')}</p>
+                    ) : (
+                        <>
+                            <button
+                                style={{ border: '1px solid lightgray', background: 'rgb(103 119 142)', borderRadius: '0.25rem', padding: '0.3rem 0.5rem', margin: '1rem auto', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
+                                onClick={handleClaim}
+                            // eslint-disable-next-line no-unsafe-optional-chaining
+                            >{swichLang(languageCode, 'claim_btn')} {(userInWinners?.reward)?.toLocaleString('ru')} <span style={{ color: 'rgb(22 163 74)' }}>B</span></button>
+                        </>
+                    )}
+                </div> :
                 <>
             <div className={s.listtitle}>
                 <p>{swichLang(languageCode, 'user')}</p>
