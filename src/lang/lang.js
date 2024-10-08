@@ -46,6 +46,7 @@ export const lang = {
         contest: 'Contest for',
         contest_desc: 'Total active friends:',
         reward: 'Reward',
+        claimInv: 'The contest has been successfully completed, expect a post on the @YouHold channel and the "Claim" button here',
         //r-map
         off_chain: 'Off-chain',
         on_chain: 'On-chain',
@@ -129,6 +130,7 @@ export const lang = {
         contest: 'Конкурс на',
         contest_desc: 'Всего активных друзей:',
         reward: 'Награда',
+        claimInv: 'Конкурс успешно завершен, ждите пост на канале @youhold и кнопку "Claim" здесь',
         //r-map
         off_chain: 'Офф-чейн',
         on_chain: 'Он-чейн',

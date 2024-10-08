@@ -8,6 +8,7 @@ import { useTeams } from '../../../store/teams';
 import s from './invite.module.css'
 import { useInvites10 } from '../../../store/invites';
 //import { Top10Inv } from './top10/Top10Inv';
+//import { Claim } from './Claim.tsx'
 
 export const Invite: React.FC = () => {
     const { id, userName, languageCode } = useUserData(state => state.user)
@@ -163,6 +164,9 @@ export const Invite: React.FC = () => {
             <div style={{ color: total > 999 ? 'rgb(22 163 74)' : 'gray' }}> {total > 999 ? 'Completed: ' : swichLang(languageCode, 'contest_desc')} {total > 999 ? 1000 : total}/1000</div >
 
             {/* <Top10Inv top10={top10} /> */}
+            {/* {id === 0 && <Claim />} */}
+            {total > 999 ? <div>{swichLang(languageCode, 'claimInv')}</div> :
+                <>
             <div className={s.listtitle}>
                 <p>{swichLang(languageCode, 'user')}</p>
                 <p >{swichLang(languageCode, 'afriends')}</p>
@@ -190,6 +194,9 @@ export const Invite: React.FC = () => {
                     ))}
                 </div>
             )}
+                </>
+            }
+
         </>
     )
 }
