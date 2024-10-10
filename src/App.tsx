@@ -23,6 +23,7 @@ import './App.css';
 //import useScrollFix from './utils/hooks/useScrollFix';
 //import { Game } from './Game/Game';
 import { BetaPage1 } from './components/Game/BetaPage1';
+import { Game } from './Game/Game';
 
 import { postEvent } from '@telegram-apps/sdk';
 
@@ -118,14 +119,15 @@ const App: React.FC = function () {
 
   return (
     <>
-      {<Header />}
+      {nav !== 'game1' && <Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
       {nav === 'game' && <BetaPage1 />}
+      {nav === 'game1' && <Game />}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}
-      {nav !== 'game' && <Footer />}
+      {nav !== 'game' && nav !== 'game1' && <Footer />}
     </>
   );
 }

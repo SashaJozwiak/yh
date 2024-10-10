@@ -66,6 +66,7 @@
     padding: 0 0.3rem;
     width: 7rem;
     //transform: scale(0.9);
+    box-shadow: inset 0px 0px 8px 0px #000, 2px 2px 5px #000000;
     will-change: transform;
 }
 

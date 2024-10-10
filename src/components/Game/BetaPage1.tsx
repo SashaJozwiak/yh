@@ -99,6 +99,9 @@ export const BetaPage1 = () => {
         <> {imageLoaded && 
             <div className={s.container}>
                 <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2>
+                {(userId === 3441 || userId === 9 /* || userId === 10 */) && <button
+                    onClick={() => changeNav('game1')}
+                    style={{ padding: '0.85rem' }}>PLAY</button>}
 
                 <div className={s.playercard}>
                     <div className={s.pcimg}>
