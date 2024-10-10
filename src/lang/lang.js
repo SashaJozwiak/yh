@@ -46,7 +46,7 @@ export const lang = {
         contest: 'Contest for',
         contest_desc: 'Total active friends:',
         reward: 'Reward',
-        not_part: `You haven't participated in this contest, keep inviting your friends and get 150B for each active one.`,
+        not_part: `Keep inviting your friends and get 150 B for each active one`,
         after_claim: 'Congratulations, you have collected your reward!',
         claim_btn: 'Claim: ',
         //r-map
@@ -132,7 +132,7 @@ export const lang = {
         contest: 'Конкурс на',
         contest_desc: 'Всего активных друзей:',
         reward: 'Награда',
-        not_part: 'Вы не участвовали в этом конкурсе, продолжайте приглашать друзей и получайте по 150B за каждого активного.',
+        not_part: 'Продолжайте приглашать друзей и получайте по 150B за каждого активного.',
         after_claim: 'Поздравляем, вы получили свою награду!',
         claim_btn: 'Получить: ',
         //r-map
