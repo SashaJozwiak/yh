@@ -14,6 +14,8 @@ export const Balance: React.FC = () => {
         setBalanceData: state.setBalanceData
     }));
 
+    const loadBalance = useUserData(state => state.balanceLoader)
+
     const [currentBalance, setCurrentBalance] = useState(balanceData.balance);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -87,7 +89,7 @@ export const Balance: React.FC = () => {
                 </g>
                 <text x="35" y="110" fill='white' fontWeight="bold" fontSize='50'>UH</text>
             </svg>
-            <p>{currencyFormat(currentBalance)}</p>
+            <p>{loadBalance ? <span className={s.loader}></span> : currencyFormat(currentBalance)}</p>
         </div>
     )
 }

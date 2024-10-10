@@ -23,7 +23,7 @@ import './App.css';
 //import useScrollFix from './utils/hooks/useScrollFix';
 //import { Game } from './Game/Game';
 import { BetaPage1 } from './components/Game/BetaPage1';
-//import { Game } from './Game/Game';
+/* import { Game } from './Game/Game'; */
 
 import { postEvent } from '@telegram-apps/sdk';
 

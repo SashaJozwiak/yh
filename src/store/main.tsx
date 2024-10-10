@@ -33,6 +33,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         isLoading: false,
         isError: false,
     },
+    balanceLoader: true,
     miningError: '',
     miningLoader: false,
     //setUser: (user: User) => set(() => ({ user })),
@@ -64,6 +65,11 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     },
     setUser: async (user: Partial<User>) => {
         console.log('user in state: ', user)
+        //set({ balanceLoader: true });
+        /* set((state) => ({
+            ...state,
+            balanceLoader: true,
+        })) */
         try {
 
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
@@ -82,6 +88,8 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             //console.log('from_tg_data: ', user)
             const getBalance = Number(data.balance.balance).toFixed(3);
             set((state) => ({
+                /* ...state,
+                balanceLoader: false, */
                 user: {
                     ...state.user,
                     ...user,
@@ -102,6 +110,15 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     startData: data.balance.startdate
                 },
             }))
+
+            console.log('balance load: false: ', get().balanceLoader)
+            /* set((state) => ({
+                ...state,
+                balanceLoader: false,
+            })) */
+            set({ balanceLoader: false });
+            console.log('balance load: false: ', get().balanceLoader)
+
         } catch (err) {
             set((state) => ({
                 user: {
