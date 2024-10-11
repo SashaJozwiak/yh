@@ -11,6 +11,16 @@ import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
 
+//test use initData if no initDataUnsafe
+const parsedInitData = WebApp.initData ? (() => {
+    try {
+        return JSON.parse(WebApp.initData);
+    } catch (e) {
+        console.error('Failed to parse initData:', e);
+        return {};
+    }
+})() : {};
+
 export const Header: React.FC = () => {
     const changeNav = useNav((state) => state.setMainNav)
     const nav = useNav((state) => state.nav.main);
@@ -31,8 +41,12 @@ export const Header: React.FC = () => {
     const actualSpeed = useUserData(state => state.balance.speed);
 
     //const { connected } = useTonConnect();
-    const userFromTg = WebApp.initDataUnsafe.user;
-    const startParam = WebApp.initDataUnsafe.start_param;
+
+    //test use initData if no initDataUnsafe
+    const userFromTg = WebApp.initDataUnsafe.user || parsedInitData.user;
+    const startParam = WebApp.initDataUnsafe.start_param || parsedInitData.start_param;
+
+    console.log('userFromTg: ', userFromTg, 'startParam: ', startParam)
 
     useEffect(() => {
     //const userFromTg = WebApp.initDataUnsafe.user;
