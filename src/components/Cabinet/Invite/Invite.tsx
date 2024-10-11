@@ -192,9 +192,10 @@ export const Invite: React.FC = () => {
 
             <h2 className={s.headerlist}> {swichLang(languageCode, 'contest')} <span style={{ color: 'rgb(22 163 74)' }}>38,000B</span></h2>
 
-            <div className={s.progressbar}>
+            {/* <div className={s.progressbar}>
                 <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 2 ? 2 : ((total / 1000) * 100)}%` }}></div>
-            </div>
+            </div> */}
+
             <div style={{ color: total > 999 ? 'rgb(22 163 74)' : 'gray' }}> {total > 999 ? 'Completed!' : swichLang(languageCode, 'contest_desc')} {total > 999 ? null : total}{total > 999 ? null : '/1000'}</div >
 
             {/* <Top10Inv top10={top10} /> */}
