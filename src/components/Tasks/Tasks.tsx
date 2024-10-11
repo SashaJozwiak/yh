@@ -16,7 +16,7 @@ import WebApp from '@twa-dev/sdk';
 
 
 export const Tasks = () => {
-    const { setMainNav, setCabNav } = useNav((state) => state)
+    const { setMainNav } = useNav((state) => state)
     const userData = useUserData((state) => state.user)
     const { activeFriends, dailyReward, adReward } = useTasks((state) => state)
 
@@ -64,8 +64,7 @@ export const Tasks = () => {
             <h2 className={s.line}>{swichLang(userData.languageCode, 'permanent')}</h2>
             <div
                 onClick={() => {
-                    setMainNav('cabinet')
-                    setCabNav('invite')
+                    setMainNav('invite')
                 }}
                 className={s.listitem}>
                 <div className={s.title}>{activeFriends.title}</div>
