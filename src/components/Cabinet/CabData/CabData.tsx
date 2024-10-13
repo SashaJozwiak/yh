@@ -132,8 +132,7 @@ export const CabData = () => {
                                     e.preventDefault();
                                     WebApp.openTelegramLink(`https://t.me/${item.username}`);
                                 }} */
-                                className={s.btn}>{/* {index + 1}. */}<span className={s.btnspan}>{index + 1}. {(item.username).substring(0, 25)}</span></div>
-                            {/* https://t.me/ */}
+                                className={s.btn}>{/* {index + 1}. */}<span className={s.btnspan}>{index + 1}. {(item.username).substring(0, 20)}</span></div>
                             <div>{formatNumberToo(item.balance)} <b>UH</b></div>
                         </div>
                     ))}
