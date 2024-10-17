@@ -39,6 +39,7 @@ export const Header: React.FC = () => {
     const addAddresses = useUserData((state) => state.addAddresses);
 
     const actualSpeed = useUserData(state => state.balance.speed);
+    const isAuth = useUserData(state => state.isAuth)
 
     //const { connected } = useTonConnect();
 
@@ -51,7 +52,7 @@ export const Header: React.FC = () => {
     useEffect(() => {
     //const userFromTg = WebApp.initDataUnsafe.user;
     //const startParam = WebApp.initDataUnsafe.start_param;
-
+        if (!isAuth) {
         if (startParam) {
             console.log('Start app:', startParam);
         } else {
@@ -93,7 +94,8 @@ export const Header: React.FC = () => {
             setUser(newUser);
             //console.log('write jozwiak user in store finish')
         }
-    }, [setUser, handleReferral, startParam, userFromTg]);//id
+        }
+    }, [setUser, handleReferral, startParam, userFromTg, isAuth]);//id
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')

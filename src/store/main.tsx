@@ -18,7 +18,6 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         refs_active: 0,
         active_usernames: [],
         anonim: false,
-
         //team: ''
     },
     balance: {
@@ -33,6 +32,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         isLoading: false,
         isError: false,
     },
+    isAuth: false,
     balanceLoader: true,
     miningError: '',
     miningLoader: false,
@@ -117,6 +117,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 balanceLoader: false,
             })) */
             set({ balanceLoader: false });
+            set({ isAuth: true });
             console.log('balance load: false: ', get().balanceLoader)
 
         } catch (err) {

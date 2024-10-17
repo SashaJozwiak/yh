@@ -123,7 +123,7 @@ const App: React.FC = function () {
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
       {nav === 'game' && <BetaPage1 />}
-      {/* {nav === 'game1' && <Game />} */}
+      {/*  {nav === 'game1' && <Game />} */}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}
