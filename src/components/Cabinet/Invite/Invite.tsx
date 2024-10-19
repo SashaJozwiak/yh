@@ -5,7 +5,7 @@ import { swichLang } from '../../../lang/lang.js';
 import WebApp from '@twa-dev/sdk';
 import { useTeams } from '../../../store/teams';
 
-import s from './invite.module.css'
+//import s from './invite.module.css'
 import { useInvites10 } from '../../../store/invites';
 //import { ClaimInv } from './ClaimInv.tsx';
 
@@ -13,9 +13,9 @@ import { useInvites10 } from '../../../store/invites';
 //import { Claim } from './Claim.tsx'
 
 export const Invite: React.FC = () => {
-    const [userClaimStatus, setUserClaimStatus] = useState<boolean | null>(null);
+    //const [userClaimStatus, setUserClaimStatus] = useState<boolean | null>(null);
 
-    const { id, userName, languageCode, internalId } = useUserData(state => state.user)
+    const { id, userName, languageCode/* , internalId */ } = useUserData(state => state.user)
     const teamId = useTeams(state => state.myTeam.team_id)
 
     const top10 = useInvites10(state => state.top10);
@@ -23,12 +23,11 @@ export const Invite: React.FC = () => {
 
     const winners = useInvites10(state => state.winners);
     const getWinners = useInvites10(state => state.getWinners);
-    const claim = useInvites10(state => state.addReward)
-
+    //const claim = useInvites10(state => state.addReward)
 
     const total = useInvites10(state => state.total);
 
-    const loadStatus = useInvites10(state => state.loadStatus);
+    //const loadStatus = useInvites10(state => state.loadStatus);
 
     const [link, setLink] = useState<string>(`https://t.me/youhold_bot?start=${id}`);
     const [copied, setCopied] = useState<boolean>(false);
@@ -63,11 +62,11 @@ export const Invite: React.FC = () => {
 
     //console.log(link)
 
-    useEffect(() => {
+    /* useEffect(() => {
         // Здесь обновляем статус после получения данных
         const userInWinners = winners.find(winner => +(winner.id) === id);
         setUserClaimStatus(userInWinners ? userInWinners.is_claim : null);
-    }, [winners, id]);
+    }, [winners, id]); */
 
     useEffect(() => {
         if (teamId && teamId !== 0) {
@@ -100,14 +99,14 @@ export const Invite: React.FC = () => {
 
     console.log('winner!!: ', userInWinners?.reward)
 
-    const handleClaim = async () => {
+    /* const handleClaim = async () => {
         if (userInWinners?.reward !== undefined) {
             await claim(id, internalId, userInWinners?.reward);// reward всегда будет числом
             getWinners();
         } else {
             console.error("Reward is undefined");
         }
-    }
+    } */
 
     return (
         <>
@@ -190,17 +189,19 @@ export const Invite: React.FC = () => {
                 ><h3 style={{ display: 'inline-block' }}>{swichLang(languageCode, 'invitebtn')}</h3></button>
             </div>
 
-            <h2 className={s.headerlist}> {swichLang(languageCode, 'contest')} <span style={{ color: 'rgb(22 163 74)' }}>38,000B</span></h2>
+            {/* <p style={{ margin: '1rem 1rem' }}>{swichLang(languageCode, 'not_part')}</p> */}
+
+            {/* <h2 className={s.headerlist}> {swichLang(languageCode, 'contest')} <span style={{ color: 'rgb(22 163 74)' }}>38,000B</span></h2> */}
 
             {/* <div className={s.progressbar}>
                 <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 2 ? 2 : ((total / 1000) * 100)}%` }}></div>
             </div> */}
 
-            <div style={{ color: total > 999 ? 'rgb(22 163 74)' : 'gray' }}> {total > 999 ? 'Completed!' : swichLang(languageCode, 'contest_desc')} {total > 999 ? null : total}{total > 999 ? null : '/1000'}</div >
+            {/* <div style={{ color: total > 999 ? 'rgb(22 163 74)' : 'gray' }}> {total > 999 ? 'Completed!' : swichLang(languageCode, 'contest_desc')} {total > 999 ? null : total}{total > 999 ? null : '/1000'}</div > */}
 
             {/* <Top10Inv top10={top10} /> */}
             {/* {id === 0 && <Claim />} */}
-            {total > 999 ?
+            {/* {total > 999 ?
                 <div>
                     {userClaimStatus === null ? (
                         <p style={{ margin: '1rem 1rem' }}>{swichLang(languageCode, 'not_part')}</p>
@@ -245,7 +246,7 @@ export const Invite: React.FC = () => {
                 </div>
             )}
                 </>
-            }
+            } */}
 
         </>
     )
