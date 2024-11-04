@@ -11,10 +11,12 @@
 
     transition: left 0.5s;
     animation: open 0.5s forwards;
+    will-change: left;
 }
 
 .containerclosing {
   animation: close 0.5s forwards;
+  will-change: left;
 }
 
 @keyframes open {
