@@ -1,0 +1,226 @@
+import React, { useEffect, useState } from 'react';
+import { useArena } from '../../state/mainArena';
+import { usePlayCard } from '../../state/playCard';
+
+import { ArenaCard } from '../../types/Arena';
+import { useCardRowAnimation } from '../../utils/forArena/NewRow';
+import { generateCard } from '../../exmpl/arenaObjects';
+
+import enemies from '../../assets/Game/icons/enemies_36.png'
+import { Potion } from '../Some/PotionSvg';
+import { Rewards } from '../Some/Rewards';
+
+import imgs from './../Deck/charimg'
+import s from './arena.module.css';
+
+const imageArray = Object.values(imgs);
+
+export const Arena: React.FC = () => {
+    const { house, floor, row1, row2, row3, setRow1, setRow2, setRow3, addFloor } = useArena(state => state);
+    const { battleState, inBattle, selectedSkill, playCard, nextFloor, selectSkill, addItem, startBattle, goNextFloor, endBattle, addForSave } = usePlayCard();
+    const { animateRows, removingBottom, slidingDown, newRowVisible } = useCardRowAnimation({
+        row1,
+        row2,
+        floor,
+        setRow1,
+        setRow2,
+        setRow3,
+    });
+    const [blockClick, setBlockClick] = useState(false);
+    const [battleIndex, setBattleIndex] = useState<number | null>(null);
+    //const [getDamageAnim, setGetDamageAnim] = useState<boolean>(false);
+    //const [getDamage, setGetDamage] = useState<string>('');
+    const { getDamage } = usePlayCard(state => state.battleState);
+
+
+
+    const [randomBoss] = useState(Math.floor(Math.random() * imageArray.length));
+
+    const handleClick = (card: ArenaCard, indx: number) => {
+
+        if (blockClick) return;
+        if (inBattle && 'id' in battleState.enemy && card.id !== battleState.enemy.id) return;
+        if (card.type === 'empty') return;
+
+        setBlockClick(true);
+
+        if (card.type === 'items') {
+            addItem(card.id);
+        }
+
+        if (card.type === 'rewards') {
+            addForSave(card.id);
+        }
+
+        if (card.type === 'enemies' || card.type === 'boss') {
+            if (selectedSkill === null) {
+                selectSkill(playCard.skills[0]);
+            }
+            console.log('need start battle: ', card)
+            setBattleIndex(indx);
+            startBattle(card);
+            //setGetDamageAnim(true);
+            //setTimeout(() => setGetDamageAnim(false), 2000);
+            setTimeout(() => setBlockClick(false), 2000);
+            return;
+        }
+
+        // генерация и вывод новых карт:
+
+        if (!inBattle) {
+            animateRows();
+            addFloor();
+            setTimeout(() => setBlockClick(false), 1000);
+        }
+    };
+
+    //console.log('inBattle: ', battleState);
+
+    useEffect(() => {
+        console.log('render 1')
+        if (nextFloor) {
+            endBattle();
+            animateRows();
+            addFloor();
+            setTimeout(() => setBlockClick(false), 1000);
+            goNextFloor(false);
+        }
+
+    }, [addFloor, animateRows, endBattle, goNextFloor, nextFloor])
+
+    useEffect(() => {
+        console.log('render 1')
+        //if (true) {
+        const newRow1: ArenaCard[] = [
+            { ...generateCard(floor), multiplier: 3 } as ArenaCard,
+            { ...generateCard(floor), multiplier: 3 } as ArenaCard,
+            { ...generateCard(floor), multiplier: 3 } as ArenaCard,
+        ];
+        const newRow2: ArenaCard[] = [
+            { ...generateCard(floor), multiplier: 2 } as ArenaCard,
+            { ...generateCard(floor), multiplier: 2 } as ArenaCard,
+            { ...generateCard(floor), multiplier: 2 } as ArenaCard,
+        ];
+        const newRow3: ArenaCard[] = [
+            { ...generateCard(floor), multiplier: 1 } as ArenaCard,
+            { ...generateCard(floor), multiplier: 1 } as ArenaCard,
+            { ...generateCard(floor), multiplier: 1 } as ArenaCard,
+        ];
+        setRow1(newRow1);
+        setRow2(newRow2);
+        setRow3(newRow3);
+        //}
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    /*  console.log('row1: ', row1)
+     console.log('row2: ', row2)
+     console.log('row3: ', row3)
+     console.log('blockClick: ', blockClick)
+     console.log('Arena state: ', [...row1, ...row2, ...row3]); */
+
+    return (
+        <div className={s.arena}>
+
+            {[...row1, ...row2, ...row3].map((card, index) => (
+                <div onClick={index > 5 && !blockClick ? () => handleClick(card, index) : () => { console.log('no click') }}
+                    key={index}
+                    className={`${s.pixel} ${!(card.name) ? s.hidden : ''}
+                        ${removingBottom && index >= 6 ? s.fadeout : ''}
+                        ${slidingDown && index < 6 ? s.slidedown : s.slideback}
+                        ${newRowVisible && index < 3 ? s.newcard : ''}
+                        ${newRowVisible && index < 3 ? s.newcardvisible : ''}
+                        ${inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id && battleIndex === index && getDamage === 'enemy' ? s.shaking : ''}
+                        `}
+                    style={{ opacity: inBattle && 'id' in battleState.enemy && card.id !== battleState.enemy.id && index !== battleIndex ? '0.6' : inBattle ? '1' : index <= 5 ? '0.6' : removingBottom ? '0' : '1' }}
+                >
+                    {/* {card.name} */}
+                    <div style={{ borderRadius: '5%', width: '100%' }}>
+
+                        <div style={{
+                            width: '100%',
+                            height: '9.5vh',
+                            backgroundPosition: `${card.bp[0]}% ${card.bp[1]}%`,
+                            backgroundSize: '71vh auto',
+                            backgroundImage: `url(${card.type === 'enemies' && enemies})`,
+                            aspectRatio: '1/1',
+                            borderRadius: '5%',
+                            borderBottomLeftRadius: '0%',
+                            borderBottomRightRadius: '0%',
+                            color: 'white',
+                            fontSize: '1.5vh',
+                            fontWeight: 'bold',
+                            textShadow: 'rgb(0, 0, 0) 1px 0px 10px',
+                        }}> <p style={{ marginBottom: '1vh' }}>{card.name}</p>
+
+
+                            <h2 style={{ zIndex: '500' }} className={inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id && battleIndex === index && (getDamage === 'enemy' || getDamage === 'boss') ? s.damage : s.hide}>
+                                -{Number(playCard.stats[playCard.key_power] * (selectedSkill?.multiplier || 1)).toFixed()}
+                            </h2>
+
+                            {card.type === 'items' ? <Potion color={card.name === 'Balance' ? 'rgb(204, 153, 0)' : card.name === 'Energy' ? 'rgb(22 163 74)' : card.name === 'Experience' ? 'silver' : 'gray'} /> : card.type === 'rewards' ? <Rewards id={card.id} /> : card.type === 'boss' ?
+
+                                <img width={'99%'} src={imageArray[randomBoss]} alt="boss pic" style={{ position: 'absolute', left: '0', top: '0', maxHeight: '58%', borderRadius: '5%' }} />
+
+                                : null}
+                        </div>
+
+                        <div style={{ /* border: '1px solid gray' */ }}>
+                            {card.type === 'enemies' &&
+                                <>
+                                    <p style={{ color: 'rgb(204, 153, 0)', fontWeight: 'bold', fontSize: '1.8vh' }}>
+                                        {inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id && battleIndex === index ?
+                                            battleState.enemy.balance.toFixed()
+                                            : card.multiplier === 1 ? ((card.balance * (floor / 100 + 1)) * (house / 100 + 1)).toFixed() : '***'
+                                        }
+
+                                        {/* {card.multiplier === 1 ? (card.balance * ((floor / 100 + 1))).toFixed() : '***'} */}
+                                    </p>
+                                    <p style={{ color: 'rgb(154 52 18)', fontWeight: 'bold', fontSize: '1.8vh' }}>
+                                        {inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id ?
+                                            battleState.enemy.attack.toFixed()
+                                            : card.multiplier === 1 ? ((card.attack * (floor / 100 + 1)) * (house / 100 + 1)).toFixed() : '***'
+                                        }
+                                        {/* {card.multiplier === 1 ? (card.attack * (floor / 100 + 1)).toFixed() : '***'} */}
+                                    </p>
+                                    <p style={{ fontSize: '1.5vh', color: 'gray' }}>Get card: {
+                                        ((floor + card.multiplier) / 10).toFixed()}%</p>
+                                </>
+                            }
+                            {card.type === 'items' &&
+                                <>
+                                    <p style={{ color: 'rgb(204, 153, 0)', fontWeight: 'bold', fontSize: '1.8vh' }}>{card.balance || null}</p>
+                                    <p style={{ color: card.id === 36 ? 'gray' : 'rgb(22, 163, 74)', fontWeight: 'bold', fontSize: '1.8vh' }}>{card.attack || null}</p>
+                                </>}
+
+                            {card.type === 'boss' &&
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+
+                                    <p style={{ color: 'rgb(204, 153, 0)', fontWeight: 'bold', fontSize: '1.8vh' }}>
+                                        {inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id && battleIndex === index ?
+                                            battleState.enemy.balance.toFixed()
+                                            : card.multiplier === 1 ? ((card.balance * (floor / 10 + 1)) * (house / 100 + 1)).toFixed() : '***'
+                                        }
+
+                                        {/* {card.multiplier === 1 ? (card.balance * ((floor / 100 + 1))).toFixed() : '***'} */}
+                                    </p>
+                                    <p style={{ color: 'rgb(154 52 18)', fontWeight: 'bold', fontSize: '1.8vh' }}>
+                                        {inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id ?
+                                            battleState.enemy.attack.toFixed()
+                                            : card.multiplier === 1 ? ((card.attack * (floor / 10 + 1)) * (house / 100 + 1)).toFixed() : '***'
+                                        }
+                                        {/* {card.multiplier === 1 ? (card.attack * (floor / 100 + 1)).toFixed() : '***'} */}
+                                    </p>
+
+                                    <p style={{ position: 'absolute', bottom: '0', fontSize: '1.5vh', color: 'gray', textAlign: 'center' }}>Get card: 10%</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            ))
+            }
+        </div >
+    );
+};

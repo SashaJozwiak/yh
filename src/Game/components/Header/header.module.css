@@ -1,0 +1,43 @@
+.headgame {
+    display: flex;
+    justify-content: space-between;
+
+    height: 4.8vh;
+    //width: 100vw;
+    max-width: 760px;
+    display: flex;
+    //border: 1px solid white;
+}
+
+.back, .top {
+    background-color: rgb(100 116 139);
+    zIndex: 100;
+    bottom: 0;
+    left: 0;
+    width: 5rem;
+    box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
+    
+}
+
+.top {
+    border-bottom-left-radius: 0.5rem;
+}
+
+.back {
+    border-bottom-right-radius: 0.5rem;
+}
+
+.stagetitle{
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: calc(1vh * 2);
+}
+
+.stage {
+    //border: 1px solid white;
+    font-family: Verdana, Geneva, sans-serif;
+    font-weight: bold;
+    text-shadow: #ffffff 1px 1px 0.5rem;
+    width: 7rem;
+    align-content: center;
+}
+

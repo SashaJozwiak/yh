@@ -6,10 +6,20 @@ import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk'
 
 import PreloadImages from './utils/hooks/usePreloadImage.tsx';
-
 import './index.css'
 
-WebApp.ready();
+
+//device check!!!
+/* console.log('platform: ', WebApp.platform)
+const platform = WebApp.platform;
+
+if (platform === "tdesktop" || platform === "unknown") {
+  document.body.innerHTML = "<h1>Use Phone :)</h1>";
+  document.body.style.textAlign = "center";
+} else {
+  WebApp.ready();
+} */
+
 WebApp.setHeaderColor('#1d283a');
 
 const manifestUrl = 'https://sashajozwiak.github.io/yh/tonconnect-manifest.json';

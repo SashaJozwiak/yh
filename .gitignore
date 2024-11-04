@@ -26,4 +26,4 @@ dist-ssr
 *.sw?
 
 /src/components/Go/
-/src/Game
+#/src/Game

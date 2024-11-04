@@ -1,0 +1,20 @@
+.playerarea {
+    //border: 1px solid black;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    height: 40vh;
+    //align-content: center;
+    //align-items: center;
+    max-width: 760px;
+}
+  
+.left, .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    //border: 1px solid gray;
+    width:100%;
+    height: 100%;
+}
