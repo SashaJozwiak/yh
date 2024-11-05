@@ -152,7 +152,7 @@ export const Card: React.FC = () => {
                         <div style={{ fontWeight: 'bold', marginBottom: '2vh', color: 'silver' }}>Defense: {playCard.stats.mind}</div>
 
 
-                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'balance' ? 'bold' : 'normal' }}>
+                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'balance' ? 'bold' : 'normal', marginBottom: '0.8vh' }}>
                             Balance: {playCard.stats.balance}
                             <div>
                                 <span /* className={`${playCard.exp_points > 0 ? s.blur : null}`} */>[{playCard.exp_points}]</span>
@@ -165,7 +165,7 @@ export const Card: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'mind' ? 'bold' : 'normal' }}>
+                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'mind' ? 'bold' : 'normal', marginBottom: '0.8vh' }}>
                             Mind: {playCard.stats.mind}
                             <div>
                                 <span /* className={`${playCard.exp_points > 0 ? s.blur : null}`} */>[{playCard.exp_points}]</span>

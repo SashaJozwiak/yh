@@ -170,7 +170,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 3,
@@ -232,7 +277,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 4,
@@ -294,7 +384,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 5,
@@ -356,7 +491,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 6,
@@ -418,7 +598,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 7,
@@ -480,7 +705,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 8,
@@ -542,7 +812,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 9,
@@ -604,7 +919,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 10,
@@ -666,7 +1026,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 11,
@@ -728,7 +1133,52 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
     {
         id: 12,
@@ -790,6 +1240,51 @@ export const charDeck: PlayCard[] = [
             }
         ],
         inventory: [],
-        items: [],
+        items: [
+            {
+                id: 1001,
+                name: "Balance Potion(HP)",
+                description: "Balance Potion",
+                color: "rgb(204, 153, 0)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1002,
+                name: "Energy Potion(MP)",
+                description: "Energy Potion",
+                color: "rgb(22 163 74)",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1003,
+                name: "Experience  Potion",
+                description: "Exp Potion",
+                color: "silver",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            },
+            {
+                id: 1004,
+                name: "Bal+Enrg",
+                description: "Bal+Enrg Potion",
+                color: "gray",
+                amount: 0,
+                cost: 0,
+                multiplier: 1,
+                target: 'self',
+                bp: [0, 0]
+            }
+        ],
     },
 ];
