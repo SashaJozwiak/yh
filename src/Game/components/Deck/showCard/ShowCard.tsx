@@ -23,9 +23,9 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
             <div onClick={e => e.stopPropagation()}
                 className={s.playercard}>
                 <div className={ss.pcimg}>
-                    <h3 className={s.name}>{card.profession} {name}</h3>
+                    <h3 className={s.name}>{card?.profession} {name}</h3>
 
-                    {<img className={ss.cardimg} src={imgs[card.image]} alt="character pic" />}
+                    {<img className={ss.cardimg} src={imgs[card?.image || 'empty']} alt="character pic" />}
 
                     <button
                         onClick={() => setStat((prev) => !prev)}
