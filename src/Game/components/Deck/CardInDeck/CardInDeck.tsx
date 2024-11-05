@@ -2,16 +2,33 @@
 //import investor from '../../../assets/Game/inv3.jpg'
 
 import { useGameNav } from '../../../state/gameNav'
+import { useArena } from '../../../state/mainArena'
+import { usePlayCard } from '../../../state/playCard'
 
 
 import s from './cardindeck.module.css'
 
-export const CardInDeck = ({ grades, name, img }) => {
+export const CardInDeck = ({ grades, name, img, handleClose }) => {
     const Grade = useGameNav(state => state.deckGrade)
+    const floor = useArena(state => state.floor);
+
+    const choose = usePlayCard(state => state.chooseHero)
+
+    console.log('handleclose: ', handleClose)
+
     return (
         <>
             <div className={s.pcimg}>
                 {img && <img className={s.cardimg} src={img} alt="character pic" />}
+                {floor === 0 && name && <button className={s.choose}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        console.log(img)
+                        choose(name)
+                        handleClose();
+                        //fn for choosing hero card
+                    }}>
+                    Choose</button>}
             </div>
             <div style={{ fontWeight: 'bold', fontSize: 'calc(1.5vw + 1.5vh)' }}>
                 {name}

@@ -5,12 +5,15 @@
 
     background-color: rgb(51 65 85);
   
-    max-width: 70%;
-    max-height: 98%;
+    //max-width: 70%;
+    //max-height: 98%; 
+
+    //min-width: 51vw;
+    //max-height: 80vh;
+
     aspect-ratio: 10 / 17;
     margin: 0 auto;
-    //border: 1px solid white;
-    //border-radius: 1rem;
+
     box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
     //z-index: 200;
     
@@ -88,6 +91,19 @@
     //border-bottom: 1px solid gray;
     //border-right: 1px solid gray;
     border: 1px solid gray;
+  }
+
+  .change {
+    //font-family: Impact;
+    padding: 0.4rem 0.7rem;
+    border-top-right-radius: 0.5rem;
+    
+    //border-top-left-radius: 1rem;
+    text-shadow: #ffffff 1px 1px 0.2rem;
+    background-color: rgb(100 116 139 / 85%);
+    border: 1px solid gray;
+    position: absolute;
+    bottom:0;
   }
 
   .stat {

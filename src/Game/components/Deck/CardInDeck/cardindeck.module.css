@@ -1,11 +1,13 @@
 .pcimg {
     display: flex;
     position: relative;
-    height: 52%;
+    //height: 52%;
     & .cardimg {
-      //width: 100%;
-      height: 113%;
-      object-fit: cover;
+      width: 100%;
+      aspect-ratio: 1/1;
+      height:10vh;
+      //height: 113%;
+      //object-fit: cover;
       border-top-right-radius: 1rem;
       border-top-left-radius: 1rem;
     }
@@ -40,4 +42,17 @@
 
 .gold {
   color:gold;
+}
+
+.choose {
+  padding: 0.3rem 0.5rem;
+  border-top-right-radius: 0.5rem;
+  
+  text-shadow: #ffffff 1px 1px 0.2rem;
+  background-color: rgb(100 116 139 / 85%);
+  border: 1px solid gray;
+  position: absolute;
+  bottom:0;
+
+  font-size: calc(1vh + 1vw);
 }

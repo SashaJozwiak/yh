@@ -14,6 +14,7 @@ export interface Arena {
     row3: ArenaCard[];
     house: number;
     floor: number;
+    addHouse: () => void;
     reset: () => void;
     setRow1: (row1: ArenaCard[]) => void;
     setRow2: (row1: ArenaCard[]) => void;

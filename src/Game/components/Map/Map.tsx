@@ -77,10 +77,10 @@ export const Map: React.FC = () => {
                     initialPositionX={0}
                     initialPositionY={0}
                     maxPositionX={1000}
-                /*  minPositionX={-700} // Установите минимальное значение для X
-                 maxPositionX={100} // Установите максимальное значение для X
-                 minPositionY={-100} // Установите минимальное значение для Y
-                 maxPositionY={100} // Установите максимальное значение для Y
+                /*  minPositionX={-700}
+                 maxPositionX={100} 
+                 minPositionY={-100} 
+                 maxPositionY={100} 
                  centerZoomedOut={true}
                  centerOnInit={true}
                  wheel={{ step: 50 }} */
@@ -99,7 +99,7 @@ export const Map: React.FC = () => {
                                         let circleData: CircleData;
                                         switch (point.type) {
                                             case 'path':
-                                                //const pathData = point.data as PathData; // Приводим тип
+                                                //const pathData = point.data as PathData; // ?
                                                 return (
                                                     <path onClick={() => console.log(point.id)} key={point.id} d={point.data as string} style={{ fill: '#FFFFFF' }} />
                                                 );
@@ -114,9 +114,9 @@ export const Map: React.FC = () => {
                                                         style={{ fill: '#FFFFFF' }}
                                                     />
                                                 );
-                                            // Вы можете добавить другие типы SVG, если нужно
+
                                             default:
-                                                return null; // Или можно обработать другие случаи
+                                                return null; // другие случаи
                                         }
                                     })}
                                 </svg>

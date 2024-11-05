@@ -2,19 +2,27 @@ import React, { useState } from 'react'
 import { Skill, Item } from '../../../types/playCard';
 
 import { usePlayCard } from '../../../state/playCard';
+import { useArena } from '../../../state/mainArena';
+import { useGameNav } from './../../../state/gameNav';
 
 import imgs from '../../Deck/charimg'
 import skillsImgs from '../../../assets/Game/icons/skills_25.webp'
+
 import { Potion } from '../../Some/PotionSvg';
 
 import s from './card.module.css'
 
 
+
 export const Card: React.FC = () => {
     const [stat, setStat] = useState(false);
 
+    const setNavDeck = useGameNav(state => state.setPageNav)
+
     const navTabs = usePlayCard(state => state.tabNav)
     const setTabNav = usePlayCard(state => state.setTabNav)
+
+    const floor = useArena(state => state.floor)
 
     const playCard = usePlayCard(state => state.playCard)
     const enemyAttack = usePlayCard(state => state.battleState.enemy.attack)
@@ -54,8 +62,17 @@ export const Card: React.FC = () => {
                 <div
                     className={s.lvl}>{playCard.lvl}
                 </div>
+
+                {floor === 0 &&
+                    <button
+                        className={s.change}
+                        style={{ zIndex: stat ? '300' : '400' }}
+                        onClick={() => setNavDeck('deck')} >
+                        Change Hero
+                    </button>}
+
                 <h2 className={`${getDamage === 'hero' ? s.damage : s.hide}`}>
-                    -{Number((enemyAttack - playCard.stats.mind).toFixed())}
+                    -{Number((enemyAttack - playCard.stats.mind).toFixed()) > 0 ? Number((enemyAttack - playCard.stats.mind).toFixed()) : 0}
                 </h2>
                 {<img className={s.cardimg} src={imgs[playCard.image]} alt="character pic" />}
 
@@ -182,6 +199,8 @@ export const Card: React.FC = () => {
                 </div>
 
             </div>
+
+
 
             <div className={s.bars} /* style={{ opacity: stat ? '0' : '1' }} */>
                 <div className={s.progressbar}>

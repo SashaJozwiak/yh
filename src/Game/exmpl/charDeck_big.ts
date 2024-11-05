@@ -1,4 +1,6 @@
-export const charDeck = [
+import { PlayCard } from "../types/playCard";
+
+export const charDeck: PlayCard[] = [
     {
         id: 1,
         lvl: 0,
@@ -112,55 +114,61 @@ export const charDeck = [
         id: 2,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Rick",
         profession: "Developer",
         description: "developer",
         image: "developer",
         key_power: 'mind',
+        balance_hp: 100,
+        energy_mp: 100,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 10,
+            mind: 15,
+            energy: 10,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -168,55 +176,61 @@ export const charDeck = [
         id: 3,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Austin",
         profession: "Hamster",
         description: "Investor",
         image: "hamster",
         key_power: 'energy',
+        balance_hp: 100,
+        energy_mp: 150,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 10,
+            mind: 10,
+            energy: 15,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -224,55 +238,61 @@ export const charDeck = [
         id: 4,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Larry",
         profession: "Influencer",
         description: "Investor",
         image: "influencer",
         key_power: 'balance',
+        balance_hp: 150,
+        energy_mp: 100,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 15,
+            mind: 10,
+            energy: 10,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -280,55 +300,61 @@ export const charDeck = [
         id: 5,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Anon",
         profession: "Scammer",
         description: "Investor",
         image: "scammer",
         key_power: 'mind',
+        balance_hp: 100,
+        energy_mp: 100,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 10,
+            mind: 15,
+            energy: 10,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -336,55 +362,61 @@ export const charDeck = [
         id: 6,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Jimmy",
         profession: "Ludoman",
         description: "ludoman",
         image: "ludoman",
         key_power: 'energy',
+        balance_hp: 100,
+        energy_mp: 150,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 10,
+            mind: 10,
+            energy: 15,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -392,55 +424,61 @@ export const charDeck = [
         id: 7,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Barry",
         profession: "Institutional",
         description: "Investor",
         image: "institutional",
         key_power: 'balance',
+        balance_hp: 150,
+        energy_mp: 100,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 15,
+            mind: 10,
+            energy: 10,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -448,55 +486,61 @@ export const charDeck = [
         id: 8,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Alex",
         profession: "Founder",
         description: "founder",
         image: "founder",
         key_power: 'mind',
+        balance_hp: 100,
+        energy_mp: 100,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 10,
+            mind: 15,
+            energy: 10,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -504,55 +548,61 @@ export const charDeck = [
         id: 9,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Michael",
         profession: "NFTartist",
         description: "NFTartist",
         image: "NFTartist",
         key_power: 'energy',
+        balance_hp: 100,
+        energy_mp: 150,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 10,
+            mind: 10,
+            energy: 15,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -560,55 +610,61 @@ export const charDeck = [
         id: 10,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Alfred",
         profession: "Whale",
         description: "Whale",
         image: "whale",
         key_power: 'balance',
+        balance_hp: 150,
+        energy_mp: 100,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 15,
+            mind: 10,
+            energy: 10,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -616,55 +672,61 @@ export const charDeck = [
         id: 11,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Jerry",
         profession: "Trader",
         description: "Trader",
         image: "trader",
         key_power: 'mind',
+        balance_hp: 100,
+        energy_mp: 100,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 10,
+            mind: 15,
+            energy: 10,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
@@ -672,58 +734,62 @@ export const charDeck = [
         id: 12,
         lvl: 0,
         exp: 0,
+        exp_points: 0,
         name: "Lilly",
         profession: "Support",
         description: "Support",
         image: "support",
         key_power: 'energy',
+        balance_hp: 100,
+        energy_mp: 150,
         stats: {
-            balance: 150,
-            mind: 100,
-            energy: 100,
+            balance: 10,
+            mind: 10,
+            energy: 15,
         },
-        skills: {
-            kick: {
+        skills: [
+            {
                 name: "Kick",
-                description: "Kick",
-                image: "kick",
+                id: 1,
+                description: "Just kick (default)",
                 cost: 0,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.1;
-                },
+                target: 'enemy',
+                multiplier: 1,
+                bp: [25, 2],
+                amount: 0,
             },
-            reftofin: {
-                name: "Refuse to finance",
+            {
+                name: "Refuse",
+                id: 2,
                 description: "Refuse to finance",
-                image: "reftofin",
                 cost: 20,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.2;
-                },
+                target: 'enemy',
+                multiplier: 1.2,
+                bp: [104, 25],
+                amount: 0,
             },
-            profitableInvestment: {
-                name: "Profitable investment",
-                description: "Profitable investment",
-                image: "profitableInvestment",
+            {
+                name: "Profitable",
+                id: 3,
+                description: "Profitable investment in project",
                 cost: 30,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.3,
+                bp: [0, 0],
+                amount: 0,
             },
-            buyProject: {
-                name: "Buy a project",
+            {
+                name: "Buy",
+                id: 4,
                 description: "Buy a project",
-                image: "buyProject",
                 cost: 40,
-                damage() {
-                    return charDeck.investor.stats.balance * 0.3;
-                },
+                target: 'enemy',
+                multiplier: 1.6,
+                bp: [78, 25],
+                amount: 0,
             }
-
-        },
+        ],
         inventory: [],
         items: [],
     },
 ];
-
-

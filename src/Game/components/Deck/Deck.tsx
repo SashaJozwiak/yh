@@ -127,7 +127,7 @@ export const Deck: React.FC = () => {
                                 onClick={() => showCard(card.name)}
                                 style={{ boxShadow: `0px 0px 25px rgb(${Grade === 'gray' ? '128 128 128' : Grade === 'bronze' ? '205 127 50' : Grade === 'silver' ? '154 154 154' : Grade === 'gold' ? '204 153 0' : '0 0 0'} / 50%)` }}
                                 key={card.id} className={s.pixel}>
-                                <CardInDeck grades={card.grades} name={card.name} img={imgs[card.img]} />
+                                <CardInDeck grades={card.grades} name={card.name} img={imgs[card.img]} handleClose={handleClose} />
                             </div>
                         ))}
                     </div>

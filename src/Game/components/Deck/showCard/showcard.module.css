@@ -29,8 +29,8 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: rgb(51 65 85);
-    max-width: 70%;
-    max-height: 98%;
+    max-width: 70vw;
+    max-height: 98vh;
     aspect-ratio: 10 / 17;
     margin: 0 auto;
     border-radius: 1rem;

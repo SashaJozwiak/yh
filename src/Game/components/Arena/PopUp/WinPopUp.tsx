@@ -4,10 +4,16 @@ import { useEffect, useState } from 'react'
 import { useArena } from '../../../state/mainArena'
 import { usePlayCard } from '../../../state/playCard'
 
+import { generateCard } from '../../../exmpl/arenaObjects';
+
+import { ArenaCard } from '../../../types/Arena';
 import s from './winpopup.module.css'
 
 export const WinPopUp = () => {
     const [getCard, setGetCard] = useState(false)
+
+    const { setLose, /* losing, */ endBattle, selectSkill } = usePlayCard(state => state);
+    const { setRow1, setRow2, setRow3, reset } = useArena(state => state);
 
     const closeWin = usePlayCard(state => state.closeWin)
     const floor = useArena(state => state.floor)
@@ -16,16 +22,19 @@ export const WinPopUp = () => {
     const addForSave = usePlayCard(state => state.addForSave)
     const goNextFloor = usePlayCard(state => state.goNextFloor)
 
+    const enemyType = usePlayCard(state => state.battleState.enemy.type);
+    const nextHouse = usePlayCard(state => state.nextHouse)
+
     const handleClose = () => {
         //получить или не получить карту
         //получить exp
-        if (getCard) {
+        /* if (getCard) {
             addForSave(2004)
-        }
+        } */
         //console.log(getCard)
-        addExp(100);
-        setGetCard(false)
-        goNextFloor(true)
+        //addExp(100);
+        //setGetCard(false)
+        //goNextFloor(true)
         closeWin(); //закрыть окно
     }
 
@@ -35,10 +44,44 @@ export const WinPopUp = () => {
         const isCard = Math.random() < chance;
         console.log('isCard: ', chance, Math.random(), isCard);
         if (isCard) {
-            setGetCard(true);
+            setGetCard(() => true);
+            addForSave(2004)
         } else {
-            setGetCard(false);
+            setGetCard(() => false);
         }
+        addExp(100);
+        if (enemyType === 'boss' && floor === 99) {
+            nextHouse();
+
+            reset(); //resetfloor
+            const newRow1: ArenaCard[] = [
+                { ...generateCard(0), multiplier: 3 } as ArenaCard,
+                { ...generateCard(0), multiplier: 3 } as ArenaCard,
+                { ...generateCard(0), multiplier: 3 } as ArenaCard,
+            ];
+            const newRow2: ArenaCard[] = [
+                { ...generateCard(0), multiplier: 2 } as ArenaCard,
+                { ...generateCard(0), multiplier: 2 } as ArenaCard,
+                { ...generateCard(0), multiplier: 2 } as ArenaCard,
+            ];
+            const newRow3: ArenaCard[] = [
+                { ...generateCard(0), multiplier: 1 } as ArenaCard,
+                { ...generateCard(0), multiplier: 1 } as ArenaCard,
+                { ...generateCard(0), multiplier: 1 } as ArenaCard,
+            ];
+            setRow1(newRow1);
+            setRow2(newRow2);
+            setRow3(newRow3);
+            //losing();
+            selectSkill(null);
+            setLose(false);
+            endBattle();
+        } else {
+            goNextFloor(true);
+        }
+
+
+        //save()
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

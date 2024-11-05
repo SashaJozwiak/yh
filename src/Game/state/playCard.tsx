@@ -164,6 +164,64 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
             }
         }));
     },
+    chooseHero: (name) => {
+        const newChar = charDeck.filter((card: PlayCard) => card.name === name)
+        set((state) => ({
+            ...state,
+            battleState: {
+                step: 0,
+                getDamage: '',
+                enemy: {
+                    id: 0,
+                    name: 'Empty',
+                    type: 'enemies',
+                    bp: [0, 0],
+                    multiplier: 1,
+                    balance: 0,
+                    attack: 0,
+                }
+            },
+            forSave: {
+                gameProgress: false,
+                cards: 0,
+                UH: 0,
+                B: 0,
+                count: 0,
+            },
+            playCard: newChar[0],
+        }))
+
+    },
+    nextHouse: () => {
+        const charId = get().playCard.id
+        const newChar = charDeck.filter((card: PlayCard) => card.id === charId)
+        set((state) => ({
+            ...state,
+            battleState: {
+                step: 0,
+                getDamage: '',
+                enemy: {
+                    id: 0,
+                    name: 'Empty',
+                    type: 'enemies',
+                    bp: [0, 0],
+                    multiplier: 1,
+                    balance: 0,
+                    attack: 0,
+                }
+            },
+            forSave: {
+                gameProgress: false,
+                cards: 0,
+                UH: 0,
+                B: 0,
+                count: 0,
+            },
+            playCard: newChar[0],
+        }))
+        useArena.getState().addHouse();
+
+    },
     setLose: (isTrue) => {
         set({ lose: isTrue })
     },
@@ -319,7 +377,11 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
             setTimeout(() => {
                 if (get().battleState.enemy.balance <= 0) {
                     set({ winUp: true });
+
+
                 }
+
+
 
             }, 1500)
 
@@ -327,6 +389,8 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
 
         setTimeout(() => {
             const updatedEnemy = get().battleState.enemy;
+            const enemyAttack = updatedEnemy.attack - get().playCard.stats.mind >= 0 ? updatedEnemy.attack - get().playCard.stats.mind : 0
+            console.log('updatedEnemyMinusMind: ', enemyAttack);
 
             if (updatedEnemy && 'balance' in updatedEnemy && updatedEnemy.balance > 0) {
                 get().setGetDamage('hero');
@@ -336,7 +400,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                     ...state,
                     playCard: {
                         ...state.playCard,
-                        balance_hp: state.playCard.balance_hp - (updatedEnemy.attack - state.playCard.stats.mind) >= 0 ? state.playCard.balance_hp - (updatedEnemy.attack - state.playCard.stats.mind) : 0,
+                        balance_hp: state.playCard.balance_hp - enemyAttack >= 0 ? state.playCard.balance_hp - enemyAttack : 0,
                     }
                 }));
 

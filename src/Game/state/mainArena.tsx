@@ -62,6 +62,9 @@ export const useArena = create<Arena>()(devtools((set, get) => ({
             attack: 15,
         },
     ],
+    addHouse: () => {
+        set({ house: get().house + 1 })
+    },
     reset: () => {
         set({ floor: 0 })
     },

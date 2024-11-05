@@ -81,6 +81,8 @@ export interface PlayCardState {
     inBattle: boolean;
     battleState: BattleState;
     buyItems: (state: StateForBuy) => void;
+    chooseHero: (name: string) => void;
+    nextHouse: () => void;
     setLose: (isTrue: boolean) => void;
     losing: () => void;
     addForSave: (id: number) => void;
