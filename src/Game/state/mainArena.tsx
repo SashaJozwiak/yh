@@ -1,10 +1,16 @@
 import { create } from 'zustand'
-import { Arena, ArenaCard } from '../types/Arena'
+import { Arena, ArenaCard, ArenaState } from '../types/Arena'
 import { devtools } from 'zustand/middleware'
+
+import { usePlayCard } from './playCard'
+import { useDeck } from './deck'
+
+import { findArenaObjectById } from '../exmpl/arenaObjects'
+
 
 export const useArena = create<Arena>()(devtools((set, get) => ({
     house: 1,
-    floor: 0,
+    floor: 96,
     row1: [
         {
             id: 1,
@@ -62,6 +68,130 @@ export const useArena = create<Arena>()(devtools((set, get) => ({
             attack: 15,
         },
     ],
+    isNeedInit: false,
+    saveGame: async (userId) => {
+        //console.log(userId)
+        const user_id = userId;
+        const { house, floor, row1, row2, row3 } = get();
+
+        const playCard = usePlayCard.getState().playCard;
+        //const allCards = useDeck.getState().cards;
+        const newCountCards = usePlayCard.getState().forSave.cards;
+        const { UH, B } = usePlayCard.getState().forSave;
+        const { cards, randomCards } = useDeck.getState();
+
+        const newRandomCards = randomCards + newCountCards;
+        console.log('newRandomCards: ', newRandomCards);
+
+        const character_state = {
+            playCard
+        };
+        const arena_state = {
+            house, floor, rows: [row1[0].id, row1[1].id, row1[2].id, row2[0].id, row2[1].id, row2[2].id, row3[0].id, row3[1].id, row3[2].id,
+            ]
+        };
+        const deck_state = { cards, randomCards: newRandomCards };
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}game/save`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, character_state, arena_state, deck_state, UH, B }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response \'savegame\' was not ok');
+            }
+
+            const res = await response.json()
+            console.log('save game:', res)
+            //const res = await response.json()
+            //console.log('save game:', response)
+            useDeck.getState().addRandomCards(newRandomCards);
+            usePlayCard.getState().resetForSave();
+
+            //get().loadArena(res.arena_state);
+            //usePlayCard.getState().loadCharacter(res.character_state);
+            //useDeck.getState().loadDeck(res.deck_state);
+
+        } catch (error) {
+            console.log('save game error: ', error)
+        } finally {
+            console.log('save game response: ok')
+        }
+
+    },
+    changeNeedInit: (isNeed) => {
+        set({ isNeedInit: isNeed })
+    },
+    loadArena: (arena_state: ArenaState) => {
+        //console.log('arena_state for load: ', arena_state);
+        const { floor, house, rows } = arena_state;
+
+        const [row1, row2, row3] = [
+            rows.slice(0, 3).map(id => findArenaObjectById(id)),
+            rows.slice(3, 6).map(id => findArenaObjectById(id)),
+            rows.slice(6, 9).map(id => findArenaObjectById(id)),
+        ];
+
+        //console.log('rows: ', row1, row2, row3);
+
+        set(() => ({
+            floor,
+            house,
+            row1: row1.map(card => ({ ...card, multiplier: 3, bp: [card.bp[0] || 0, card.bp[1] || 0] as [number, number] })),
+            row2: row2.map(card => ({ ...card, multiplier: 2, bp: [card.bp[0] || 0, card.bp[1] || 0] as [number, number] })),
+            row3: row3.map(card => ({ ...card, multiplier: 1, bp: [card.bp[0] || 0, card.bp[1] || 0] as [number, number] })),
+        }));
+    },
+    gameInit: async (userId) => {
+        //accum state:
+        const user_id = userId;
+        const playCard = usePlayCard.getState().playCard;
+        const { house, floor, row1, row2, row3 } = get();
+        const { cards, randomCards } = useDeck.getState();
+
+        console.log('random cards: ', randomCards)
+
+        const character_state = {
+            playCard
+        };
+        const arena_state = {
+            house, floor, rows: [row1[0].id, row1[1].id, row1[2].id, row2[0].id, row2[1].id, row2[2].id, row3[0].id, row3[1].id, row3[2].id,
+            ]
+        };
+        const deck_state = { cards, randomCards }
+
+        console.log('user_id and states ', user_id, character_state, arena_state, deck_state)
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}game/init`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, character_state, arena_state, deck_state }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response \'stopMining\' was not ok');
+            }
+
+            const res = await response.json()
+            console.log('init game:', res)
+
+            get().loadArena(res.arena_state);
+            usePlayCard.getState().loadCharacter(res.character_state);
+            useDeck.getState().loadDeck(res.deck_state);
+
+        } catch (error) {
+            console.log('game_init error: ', error)
+        } finally {
+            console.log('game_init response: ok')
+        }
+    },
     addHouse: () => {
         set({ house: get().house + 1 })
     },

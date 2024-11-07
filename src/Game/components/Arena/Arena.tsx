@@ -12,11 +12,16 @@ import { Rewards } from '../Some/Rewards';
 
 import imgs from './../Deck/charimg'
 import s from './arena.module.css';
+import { useUserData } from '../../../store/main';
 
 const imageArray = Object.values(imgs);
 
 export const Arena: React.FC = () => {
-    const { house, floor, row1, row2, row3, setRow1, setRow2, setRow3, addFloor } = useArena(state => state);
+
+    const userId = useUserData(state => state.user.internalId);
+    //const gameInit = useArena(state => state.gameInit);
+
+    const { house, floor, row1, row2, row3, isNeedInit, setRow1, setRow2, setRow3, changeNeedInit, gameInit, addFloor, saveGame } = useArena(state => state);
     const { battleState, inBattle, selectedSkill, playCard, nextFloor, selectSkill, addItem, startBattle, goNextFloor, endBattle, addForSave } = usePlayCard();
     const { animateRows, removingBottom, slidingDown, newRowVisible } = useCardRowAnimation({
         row1,
@@ -79,18 +84,24 @@ export const Arena: React.FC = () => {
     useEffect(() => {
         console.log('render 1')
         if (nextFloor) {
+            console.log('render 1 nextfloor: ', nextFloor)
             endBattle();
             animateRows();
             addFloor();
             setTimeout(() => setBlockClick(false), 1000);
             goNextFloor(false);
+            if ((floor + 1) % 10 === 0) {
+                console.log('this setTimeout save');
+                setTimeout(() => saveGame(userId), 1200);
+            }
         }
 
-    }, [addFloor, animateRows, endBattle, goNextFloor, nextFloor])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [addFloor, animateRows, endBattle, floor, goNextFloor, nextFloor])
 
     useEffect(() => {
         console.log('render 1')
-        //if (true) {
+        //if (!isNeedInit) {
         const newRow1: ArenaCard[] = [
             { ...generateCard(floor), multiplier: 3 } as ArenaCard,
             { ...generateCard(floor), multiplier: 3 } as ArenaCard,
@@ -110,6 +121,12 @@ export const Arena: React.FC = () => {
         setRow2(newRow2);
         setRow3(newRow3);
         //}
+
+        console.log('isNeedInit: ', isNeedInit)
+        if (isNeedInit) {
+            gameInit(userId);
+            changeNeedInit(false);
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

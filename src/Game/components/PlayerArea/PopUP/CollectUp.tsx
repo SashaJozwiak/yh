@@ -15,7 +15,7 @@ export const CollectUp: React.FC = () => {
                     <div> <h2>B</h2> {B}</div>
                     <div> <h2>Cards</h2>{cards}</div>
                 </div>
-                <p style={{ margin: '1rem' }}>All collected values are transferred to your balance and saved after every <b>10th floor.</b></p>
+                <p style={{ margin: '1rem' }}>All collected values are transferred to your balance and <b>auto saved</b> after every <b>10th</b> floor.</p>
                 <button
                     onClick={() => toggleCollect(false)}
                     className={s.btnok}

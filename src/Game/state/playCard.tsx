@@ -7,7 +7,6 @@ import { useArena } from './mainArena';
 
 import { charDeck } from '../exmpl/charDeck_big';
 
-
 export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
     playCard: {
         id: 1,
@@ -163,6 +162,21 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                 })
             }
         }));
+    },
+    resetForSave: () => {
+        set((state) => ({
+            ...state,
+            forSave: {
+                gameProgress: false, cards: 0, UH: 0, B: 0, count: 0
+            },
+        }))
+    },
+    loadCharacter: (character_state) => {
+        console.log('character_state: ', character_state)
+        set((state) => ({
+            ...state,
+            playCard: character_state.playCard,
+        }))
     },
     chooseHero: (name) => {
         const newChar = charDeck.filter((card: PlayCard) => card.name === name)
@@ -409,15 +423,10 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                 }
             }
 
-            console.log('addEnemy: ', updatedEnemy);
+            //console.log('addEnemy: ', updatedEnemy);
         }, 1100);
 
-
-
-
-
-        console.log('addEnemy: ', get().battleState.enemy);
-
+        //console.log('addEnemy: ', get().battleState.enemy);
     },
     addItem: (itemId) => {
         const item = get().playCard.items.find(item => item.id === itemId);

@@ -1,0 +1,63 @@
+/* .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1d1d1d;
+    color: white;
+    font-size: 1.5em;
+}
+
+.progressBar {
+    width: 0;
+    height: 8px;
+    background-color: #4caf50;
+    transition: width 0.3s;
+    margin-top: 16px;
+    border-radius: 4px;
+} */
+
+
+.progressbar {
+    //flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    //align-items: center;
+    margin: auto 1rem;
+    //height: 10vh;
+    //background-color:lightgrey;
+    //background-color: rgb(51 65 85);
+    //border: 1px solid lightgray;
+    //margin: 0 1rem;
+    //border-radius: 0.1rem;
+    bottom: 0;
+    gap:1rem;
+  
+  }
+  
+  .progress {
+    background-color: rgb(22 163 74);
+    //background: linear-gradient(white, rgb(25, 180, 21));
+    height: 3vh;
+    width:0;
+    border-radius: 0.3rem;
+    //border-top-left-radius:0.3rem;
+    //border-bottom-left-radius:0.3rem;
+    //border-top-right-radius:0.2rem;
+    //border-bottom-right-radius:0.2rem;
+    //transition: 2s ease-in-out;
+    transition: width 0.3s, background-color 0.3s;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+  
+    -webkit-transition: 0.4s linear;
+      -moz-transition: 0.4s linear;
+      -o-transition: 0.4s linear;
+      transition: 0.4s linear;
+      -webkit-transition-property: width, background-color;
+      -moz-transition-property: width, background-color;
+      -o-transition-property: width, background-color;
+      transition-property: width, background-color;
+      -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+  }

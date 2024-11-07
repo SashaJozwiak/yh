@@ -53,7 +53,6 @@ export const useListData = create<UseEAlist>()(devtools((set/* , get */) => ({
             }));
         }
     },
-
     addInList: async (userId, userName, balance) => {
         console.log('addInList: ', userId, userName, balance);
 
@@ -109,6 +108,34 @@ export const useListData = create<UseEAlist>()(devtools((set/* , get */) => ({
 
 
 
+    },
+    removeInList: async (userId) => {
+        console.log('removeInList: ', userId);
+
+        set((state) => ({
+            state: {
+                ...state.state,
+                isLoading: true,
+            },
+        }));
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}earlyAccess/removeInList?userId=${userId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                set((state) => ({
+                    state: {
+                        ...state.state,
+                        inList: false,
+                    },
+                }));
+            }
+        } catch (err) {
+            console.error('delete in EA list error: ', err);
+        }
     }
 
 })))
+

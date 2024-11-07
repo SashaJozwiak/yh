@@ -1,3 +1,5 @@
+//import { ArenaCard } from "../types/Arena";
+
 const enemies = [
     { id: 1, name: 'Badbug', type: 'enemies', bp: [40.7, 3.8], balance: 110, attack: 20 },
     { id: 2, name: 'Bitpink', type: 'enemies', bp: [59.3, 3.8], balance: 90, attack: 22 },
@@ -48,9 +50,9 @@ const rewards = [
     { id: 2004, name: 'Free Card', type: 'rewards', bp: [0, 0], balance: 0, attack: 0 },
 ];
 
-const initialChances = { enemies: 20, items: 40, rewards: 40 };
-const initialChancesItems = { 1001: 30, 1002: 30, 1003: 30, 1004: 30 };
-const initialChancesRewards = { 2001: 32, 2002: 32, 2003: 32, 2004: 32 };
+const initialChances = { enemies: 20, items: 50, rewards: 30 };
+const initialChancesItems = { 1001: 25, 1002: 25, 1003: 25, 1004: 25 };
+const initialChancesRewards = { 2001: 30, 2002: 30, 2003: 30, 2004: 10 };
 
 // Функция для случайного выбора типа карточки
 function getCardType(floor: number) {
@@ -118,3 +120,18 @@ export function generateCard(floor: number) {
 /* const floor = 5;
 const card = generateCard(floor);
 console.log(card); */
+// for load Arenastate:
+
+export const findArenaObjectById = (id: number) => {
+    return enemies.find(obj => obj.id === id)
+        || items.find(obj => obj.id === id)
+        || rewards.find(obj => obj.id === id)
+        || {
+        id: 0,
+        name: '',
+        type: 'empty',
+        bp: [0, 0],
+        balance: 0,
+        attack: 0,
+    };
+};

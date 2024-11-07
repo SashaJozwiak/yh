@@ -14,8 +14,6 @@ export const CardInDeck = ({ grades, name, img, handleClose }) => {
 
     const choose = usePlayCard(state => state.chooseHero)
 
-    console.log('handleclose: ', handleClose)
-
     return (
         <>
             <div className={s.pcimg}>

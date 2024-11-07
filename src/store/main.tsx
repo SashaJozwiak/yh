@@ -37,6 +37,40 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     miningError: '',
     miningLoader: false,
     //setUser: (user: User) => set(() => ({ user })),
+    minusBalance: async (price) => {
+        const user_id = get().user.internalId;
+        console.log('changeBalance price: ', price)
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}game/minusBalance`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, price }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response \'savedeck\' was not ok');
+            }
+
+            const res = await response.json()
+            console.log('newBalance after buy:', res)
+
+            set((state) => ({
+                ...state,
+                balance: {
+                    ...state.balance,
+                    balance: res.newBalance,
+                }
+            }))
+
+
+        } catch (err) {
+            console.log('minus balance error: ', err)
+        }
+
+    },
+
     handleReferral: async (userId, startParam) => {
         const [refId, refTeamId] = startParam.split("_");
         const refTeamNum = refTeamId ? Number(refTeamId) : null;
@@ -75,8 +109,10 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
                 method: 'GET',
                 headers: {
-                    'accept': 'application/json'
-                }
+                    'accept': 'application/json',
+                    'Cache-Control': 'no-cache' //add or clear
+                },
+                credentials: 'include', //add or clear
             });
 
             if (!response.ok) {
@@ -324,8 +360,10 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
                 {
                     method: 'GET',
                     headers: {
-                        'accept': 'application/json'
-                    }
+                        'accept': 'application/json',
+                        'Cache-Control': 'no-cache' //add or clear
+                    },
+                    credentials: 'include', //add or clear
                 }
             )
 

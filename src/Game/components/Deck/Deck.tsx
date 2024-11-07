@@ -35,6 +35,8 @@ export const Deck: React.FC = () => {
     const addCards = useDeck(state => state.addCards)
     const clearRandomCards = useDeck(state => state.clearRandomCards)
 
+    const save = useDeck(state => state.saveDeck)
+
     const handleClose = () => {
         setClose(true);
         setTimeout(() => {
@@ -63,7 +65,7 @@ export const Deck: React.FC = () => {
         setShowGetCard();
         addCards(cardsForAdd);
         clearRandomCards();
-
+        save();
     }
 
     const filteredAndPaddedCards = useMemo(() => {

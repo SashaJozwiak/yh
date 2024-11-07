@@ -1,15 +1,16 @@
 import { create } from 'zustand'
-import { Grades, UseDeck, /* Card */ } from '../types/forGameState'
+import { DeckState, Grades, UseDeck, /* Card */ } from '../types/forGameState'
 
 import { devtools } from 'zustand/middleware'
+import { useUserData } from '../../store/main';
 
-export const useDeck = create<UseDeck>()(devtools((set) => ({
+export const useDeck = create<UseDeck>()(devtools((set, get) => ({
     cards: [
         {
             id: 1,
             name: 'Jack',
             grades: {
-                gray: 2,
+                gray: 1,
                 bronze: 0,
                 silver: 0,
                 gold: 0,
@@ -30,7 +31,47 @@ export const useDeck = create<UseDeck>()(devtools((set) => ({
             key_power: 'mind'
         },
     ],
-    randomCards: 20,
+    randomCards: 0,
+    saveDeck: async () => {
+        const { cards, randomCards } = get();
+
+        const user_id = useUserData.getState().user.internalId;
+        const deck_state = { cards, randomCards };
+        console.log('deck_state: ', deck_state)
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}game/saveDeck`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, deck_state }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response \'savedeck\' was not ok');
+            }
+
+            const res = await response.json()
+            console.log('savedeck:', res)
+
+
+        } catch (error) {
+            console.log('save deck error: ', error)
+        } finally {
+            console.log('save deck response: finally')
+        }
+
+
+    },
+    loadDeck: (deck_state: DeckState) => {
+        console.log('deck_state: ', deck_state)
+        set((state) => ({
+            ...state,
+            cards: deck_state.cards,
+            randomCards: deck_state.randomCards,
+        }))
+    },
     getCards: () => {
         console.log('getCards')
     },
@@ -63,6 +104,9 @@ export const useDeck = create<UseDeck>()(devtools((set) => ({
 
             return { cards: updatedCards };
         });
+    },
+    addRandomCards: (count) => {
+        set(() => ({ randomCards: count }))
     },
     clearRandomCards: () => { set(() => ({ randomCards: 0 })); },
     removeCards: (cards) => {

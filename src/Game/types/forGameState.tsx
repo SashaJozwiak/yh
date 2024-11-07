@@ -13,11 +13,19 @@ export interface Card {
     key_power: string;
 }
 
+export interface DeckState {
+    cards: Card[];
+    randomCards: number;
+}
+
 export interface UseDeck {
     cards: Card[];
     randomCards: number;
+    saveDeck: () => void;
+    loadDeck: (deck_state: DeckState) => void;
     getCards: () => void;
     addCards: (newCards: Card[]) => void;
+    addRandomCards: (count: number) => void;
     clearRandomCards: () => void;
     removeCards: (cardsToRemove: Card[]) => void;
 }

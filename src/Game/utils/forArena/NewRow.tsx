@@ -58,6 +58,8 @@ export const useCardRowAnimation = ({
             setRow2(newRow2);
             setRow3(newRow3);
             setRemovingBottom(false);
+
+
             //setNewRowVisible(true); //перемещенное сверху
 
             //прошлое решение

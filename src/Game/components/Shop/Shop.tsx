@@ -7,6 +7,7 @@ import { Potion } from '../Some/PotionSvg';
 import { usePlayCard } from '../../state/playCard';
 
 import { StateForBuy } from '../../types/playCard'
+import { useUserData } from '../../../store/main';
 
 export const Shop: React.FC = () => {
 
@@ -23,6 +24,9 @@ export const Shop: React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [ok, setOk] = useState<boolean>(false);
+
+    const balance = useUserData(state => state.balance.balance);
+    const minusBalance = useUserData(state => state.minusBalance) 
 
     const changeCart = (id: number, type: string) => {
         const prices = {
@@ -55,6 +59,7 @@ export const Shop: React.FC = () => {
 
         buyItems(cart)
         //set cart state
+        minusBalance(cart['sum']);
 
         setTimeout(() => {
             setLoading(false)
@@ -66,10 +71,12 @@ export const Shop: React.FC = () => {
                 1004: 0,
                 sum: 0,
             })
+
             setTimeout(() => {
                 setOk(false)
 
             }, 2000)
+
         }, 1500);
     };
 
@@ -154,9 +161,14 @@ export const Shop: React.FC = () => {
 
             </div>
 
-            <div style={{ marginTop: '1rem' }}>Total cost: <b>{cart['sum']}</b> UH</div>
-            {loading && <span className={s.loader}></span>}
-            {ok && <h3 style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }}>Purchase successful!</h3>}
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: '0 0.5rem' }}>
+                <div style={{ marginTop: '1rem' }}>Balance: <b>{Math.floor(balance)}</b> UH</div>
+
+                {loading && <span className={s.loader}></span>}
+                {ok && <h4 style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }}>Successful!</h4>}
+
+                <div style={{ marginTop: '1rem' }}>Total cost: <b>{cart['sum']}</b> UH</div>
+            </div>
 
 
             <footer className={s.footer}>
@@ -166,6 +178,8 @@ export const Shop: React.FC = () => {
                 >BACK</button>
 
                 <button
+                    disabled={balance < cart['sum'] || loading}
+                    style={{ opacity: balance < cart['sum'] || loading ? '0.5' : '1' }}
                     className={s.fbtn}
                     onClick={handleBuy}
                 >BUY</button>

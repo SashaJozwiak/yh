@@ -39,9 +39,11 @@ export const BetaPage1 = () => {
     const userName = useUserData(state => state.user.userName);
     const balance = useUserData(state => state.balance.balance);
 
+    const [finishTime, setFinishTime] = useState(false);
+
     const calculateTimeLeft = (): TimeLeft => {
-        const targetDate = new Date('2024-11-11T00:00:00').getTime();
-        const now = new Date().getTime();
+        const targetDate = new Date(Date.UTC(2024, 10, 11, 0, 0, 0)).getTime();
+        const now = Date.now();
         const difference = targetDate - now;
 
         let timeLeft: TimeLeft = {
@@ -58,13 +60,14 @@ export const BetaPage1 = () => {
                 minutes: Math.floor((difference / 1000 / 60) % 60),
                 seconds: Math.floor((difference / 1000) % 60)
             };
-        }
+        } /* else {
+            setFinishTime(true);
+        } */
 
         return timeLeft;
     };
 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
 
     //RESOURCE LOADER
     useEffect(() => {
@@ -82,12 +85,21 @@ export const BetaPage1 = () => {
     }, []);
 
     useEffect(() => {
+        if (finishTime) return;
+
         const timer = setTimeout(() => {
-            setTimeLeft(calculateTimeLeft());
+            const newTimeLeft = calculateTimeLeft();
+
+            if (newTimeLeft.days === 0 && newTimeLeft.hours === 0 && newTimeLeft.minutes === 0 && newTimeLeft.seconds === 0) {
+                setFinishTime(true);
+            } else {
+                setTimeLeft(newTimeLeft);
+            }
+
         }, 1000);
 
         return () => clearTimeout(timer);
-    }, [timeLeft]);
+    }, [timeLeft, finishTime]);
 
     const { days, hours, minutes, seconds } = timeLeft;
 
@@ -119,23 +131,39 @@ export const BetaPage1 = () => {
                         </div>
 
                         <div className={s.buttons}>
-                            <button
+
+                            {finishTime ?
+                                <button
+                                    className={s.btnaddlist}
+                                    onClick={() => changeNav('game1')}
+                                    disabled={isLoading || balance < 250 || !finishTime}
+                                    style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'white' : balance > 250 ? 'white' : 'gray' }}
+                                >
+                                    Play
+                                </button> :
+
+                                <button
                                 onClick={() => addInList(userId, userName, balance)}
                                 disabled={inList || isLoading || balance < 250}
                                 className={s.btnaddlist} style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'gray' : balance > 250 ? 'white' : 'gray' }}>
                                 {isLoading ? 'loading...' : inList ? `${swichLang(userLang, 'beta_inlist')}` : balance > 250 ? `${swichLang(userLang, 'beta_goinlist')}` : `${swichLang(userLang, 'balance')} < 250 UH`}
                             </button>
-                            <Tooltip />
+
+                            }
+
+
+
+                            {!finishTime && <Tooltip />}
                         </div>
 
-                        {days !== undefined ? (
+                        {!finishTime ? (
                         <p className={s.timer}>
                                 {/* {swichLang(userLang, 'beta_timer')} */}
                             <span style={{ fontWeight: 'bold' }}> {days}{swichLang(userLang, 'd')} {hours}{swichLang(userLang, 'h')} {minutes}{swichLang(userLang, 'm')} {seconds}{swichLang(userLang, 's')}
                             </span>
                         </p>
                         ) : (
-                            <p>Time's up!</p>
+                                <p>Early access is open</p>
                         )}
                     </div>
 

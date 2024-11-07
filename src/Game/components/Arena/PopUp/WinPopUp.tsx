@@ -1,6 +1,7 @@
 //import React from 'react'
 
 import { useEffect, useState } from 'react'
+import { useUserData } from '../../../../store/main';
 import { useArena } from '../../../state/mainArena'
 import { usePlayCard } from '../../../state/playCard'
 
@@ -12,8 +13,10 @@ import s from './winpopup.module.css'
 export const WinPopUp = () => {
     const [getCard, setGetCard] = useState(false)
 
+    const userId = useUserData(state => state.user.internalId)
+
     const { setLose, /* losing, */ endBattle, selectSkill } = usePlayCard(state => state);
-    const { setRow1, setRow2, setRow3, reset } = useArena(state => state);
+    const { setRow1, setRow2, setRow3, reset, saveGame } = useArena(state => state);
 
     const closeWin = usePlayCard(state => state.closeWin)
     const floor = useArena(state => state.floor)
@@ -52,8 +55,7 @@ export const WinPopUp = () => {
         addExp(100);
         if (enemyType === 'boss' && floor === 99) {
             nextHouse();
-
-            reset(); //resetfloor
+            reset(); //resetfloor 0
             const newRow1: ArenaCard[] = [
                 { ...generateCard(0), multiplier: 3 } as ArenaCard,
                 { ...generateCard(0), multiplier: 3 } as ArenaCard,
@@ -76,6 +78,7 @@ export const WinPopUp = () => {
             selectSkill(null);
             setLose(false);
             endBattle();
+            saveGame(userId);
         } else {
             goNextFloor(true);
         }
