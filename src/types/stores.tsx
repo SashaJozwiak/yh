@@ -268,7 +268,7 @@ export interface EAlistState {
 
 export interface UseEAlist {
     state: EAlistState;
-    removeInList: (userId: number) => void;
+    removeInList: () => void;
     getInList: (userId: number) => Promise<void>;
     addInList: (userId: number, userName: string, balance: number) => Promise<void>;
 }

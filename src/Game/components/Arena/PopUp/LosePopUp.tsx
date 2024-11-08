@@ -1,18 +1,25 @@
 //import React from 'react'
 
-import { generateCard } from '../../../exmpl/arenaObjects';
+import { useUserData } from '../../../../store/main';
+//import { generateCard } from '../../../exmpl/arenaObjects';
 import { useArena } from '../../../state/mainArena'
 import { usePlayCard } from '../../../state/playCard'
-import { ArenaCard } from '../../../types/Arena';
+//import { ArenaCard } from '../../../types/Arena';
 import s from './winpopup.module.css'
 
 export const LosePopUp = () => {
 
+    const userId = useUserData(state => state.user.internalId)
+
     const { setLose, losing, endBattle } = usePlayCard(state => state);
-    const { setRow1, setRow2, setRow3, reset } = useArena(state => state);
+    const { /* setRow1, setRow2, setRow3, reset, */ gameInit } = useArena(state => state);
 
     const loseClose = () => {
-        reset(); //resetfloor
+        gameInit(userId);
+        losing();
+        setLose(false);
+        endBattle();
+       /*  reset(); //resetfloor
 
         const newRow1: ArenaCard[] = [
             { ...generateCard(0), multiplier: 3 } as ArenaCard,
@@ -34,7 +41,7 @@ export const LosePopUp = () => {
         setRow3(newRow3);
         losing();
         setLose(false);
-        endBattle();
+        endBattle(); */
 
     }
 

@@ -21,6 +21,7 @@ export interface Arena {
     house: number;
     floor: number;
     isNeedInit: boolean;
+    getReward: (user_id: number, UH: number, B: number, cards: number) => void;
     saveGame: (userId: number) => void;
     changeNeedInit: (isNeed: boolean) => void;
     loadArena: (arena_state: ArenaState) => void;

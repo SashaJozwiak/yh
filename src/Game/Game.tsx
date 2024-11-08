@@ -14,6 +14,7 @@ import s from './game.module.css'
 import { WinPopUp } from './components/Arena/PopUp/WinPopUp';
 import { usePlayCard } from './state/playCard';
 import { CollectUp } from './components/PlayerArea/PopUP/CollectUp';
+import { EAReward } from './components/PlayerArea/PopUP/EAReward';
 import { LosePopUp } from './components/Arena/PopUp/LosePopUp';
 import { Shop } from './components/Shop/Shop';
 import { Map } from './components/Map/Map';
@@ -39,7 +40,7 @@ export const Game: React.FC = () => {
 
 
     const nav = useGameNav(state => state.page);
-    const { winUp, collectUp, lose } = usePlayCard(state => state);
+    const { winUp, collectUp, rewardUp, lose } = usePlayCard(state => state);
 
     useEffect(() => {
         console.log('main game render')
@@ -82,6 +83,7 @@ export const Game: React.FC = () => {
         <div className={s.gamewrapper}>
             {lose && <LosePopUp />}
             {winUp && <WinPopUp />}
+            {rewardUp && <EAReward />}
             {collectUp && <CollectUp />}
             {nav === 'deck' && <Deck />}
             {nav === 'shop' && <Shop />}

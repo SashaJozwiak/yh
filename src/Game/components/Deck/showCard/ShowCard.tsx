@@ -3,10 +3,10 @@ import React, { /* useEffect, */ useState } from 'react'
 import { useGameNav } from '../../../state/gameNav'
 import { charDeck } from '../../../exmpl/charDeck_big';
 
-import imgs from '../charimg'
+//import imgs from '../charimg'
 
 import s from './showcard.module.css'
-import ss from '../../PlayerArea/Card/card.module.css'
+//import ss from '../../PlayerArea/Card/card.module.css'
 
 interface ShowCardProps {
     name: string;
@@ -14,7 +14,7 @@ interface ShowCardProps {
 
 export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
     const [card] = useState(charDeck.find((c: ShowCardProps) => c.name === name));
-    const [stat, setStat] = useState(false);
+    //const [stat, setStat] = useState(false);
 
     const setShowCard = useGameNav(state => state.setShowCard);
 
@@ -22,12 +22,12 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
         <div onClick={() => setShowCard()} className={s.container}>
             <div onClick={e => e.stopPropagation()}
                 className={s.playercard}>
-                <div className={ss.pcimg}>
+                <div /* className={ss.pcimg} */>
                     <h3 className={s.name}>{card?.profession} {name}</h3>
 
-                    {<img className={ss.cardimg} src={imgs[card?.image || 'empty']} alt="character pic" />}
+                    {/* <img className={s.cardimg} src={imgs[card?.image || 'empty']} alt="character pic" /> */}
 
-                    <button
+                    {/* <button
                         onClick={() => setStat((prev) => !prev)}
                         className={ss.stat}>
                         {!stat ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={'1rem'} strokeWidth={1.5} stroke="currentColor" className="svgstat" style={{ filter: 'drop-shadow(1px 2px rgba(0 0 0))' }}>
@@ -41,10 +41,10 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
 
                     <div className={`${ss.statblock} ${!stat ? ss.hiddenstat : null}`}>
                         <h4 className={ss.name}>Investor</h4>
-                    </div>
+                    </div> */}
                 </div>
 
-                <div className={ss.bars}>
+                {/* <div className={ss.bars}>
                     <div className={ss.hpbar}></div>
                     <div className={ss.mpbar}></div>
                 </div>
@@ -53,7 +53,7 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
                     <div className={ss.pcuitabs}>
                         <div className={ss.pcuitab}>s</div>
                         <div className={ss.pcuitab}>i</div>
-                        {/* <div className={s.pcuitab}>i</div> */}
+
                     </div>
                     <div className={ss.usearea}>
                         <div className={ss.playeritem}>1</div>
@@ -61,7 +61,7 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
                         <div className={ss.playeritem}>3</div>
                         <div className={ss.playeritem}>4</div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
 

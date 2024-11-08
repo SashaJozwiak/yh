@@ -50,9 +50,9 @@ const rewards = [
     { id: 2004, name: 'Free Card', type: 'rewards', bp: [0, 0], balance: 0, attack: 0 },
 ];
 
-const initialChances = { enemies: 20, items: 50, rewards: 30 };
+const initialChances = { enemies: 20, items: 55, rewards: 25 };
 const initialChancesItems = { 1001: 25, 1002: 25, 1003: 25, 1004: 25 };
-const initialChancesRewards = { 2001: 30, 2002: 30, 2003: 30, 2004: 10 };
+const initialChancesRewards = { 2001: 31, 2002: 31, 2003: 31, 2004: 7 };
 
 // Функция для случайного выбора типа карточки
 function getCardType(floor: number) {

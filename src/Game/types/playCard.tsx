@@ -76,6 +76,7 @@ export interface PlayCardState {
     forSave: ForSave;
     lose: boolean;
     winUp: boolean;
+    rewardUp: boolean;
     collectUp: boolean;
     nextFloor: boolean;
     inBattle: boolean;
@@ -88,6 +89,7 @@ export interface PlayCardState {
     setLose: (isTrue: boolean) => void;
     losing: () => void;
     addForSave: (id: number) => void;
+    toggleReward: (isTrue: boolean) => void;
     toggleCollect: (isTrue: boolean) => void;
     goNextFloor: (isTrue: boolean) => void;
     closeWin: () => void;

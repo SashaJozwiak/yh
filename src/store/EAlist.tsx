@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { UseEAlist } from '../types/stores'
 
 import { devtools } from 'zustand/middleware'
+import { useUserData } from './main'
 
 
 export const useListData = create<UseEAlist>()(devtools((set/* , get */) => ({
@@ -109,7 +110,8 @@ export const useListData = create<UseEAlist>()(devtools((set/* , get */) => ({
 
 
     },
-    removeInList: async (userId) => {
+    removeInList: async () => {
+        const userId = useUserData.getState().user.internalId;
         console.log('removeInList: ', userId);
 
         set((state) => ({
@@ -132,6 +134,14 @@ export const useListData = create<UseEAlist>()(devtools((set/* , get */) => ({
                     },
                 }));
             }
+
+            set((state) => ({
+                state: {
+                    ...state.state,
+                    isLoading: false,
+                },
+            }));
+
         } catch (err) {
             console.error('delete in EA list error: ', err);
         }

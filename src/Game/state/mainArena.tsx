@@ -6,11 +6,13 @@ import { usePlayCard } from './playCard'
 import { useDeck } from './deck'
 
 import { findArenaObjectById } from '../exmpl/arenaObjects'
+import { useUserBalances, useUserData } from '../../store/main'
+import { useListData } from '../../store/EAlist'
 
 
 export const useArena = create<Arena>()(devtools((set, get) => ({
     house: 1,
-    floor: 96,
+    floor: 0,
     row1: [
         {
             id: 1,
@@ -69,6 +71,54 @@ export const useArena = create<Arena>()(devtools((set, get) => ({
         },
     ],
     isNeedInit: false,
+    getReward: async (user_id, UH, B, cards) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}game/getReward`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, UH, B, cards }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response \'savedeck\' was not ok');
+            }
+
+            const res = await response.json()
+            console.log('reward fn return:', res)
+
+            const currentBalance = parseFloat(res.currentBalance);
+            const currentBonuses = parseInt(res.currentBonuses, 10);
+            const randomCards = res.randomCards;
+
+            useUserData.setState((state) => ({
+                ...state,
+                balance: {
+                    ...state.balance,
+                    balance: currentBalance
+                }
+            }));
+
+            useUserBalances.setState((state) => ({
+                ...state,
+                bal: state.bal.map((item) =>
+                    item.name === 'BONUS' ? { ...item, value: currentBonuses } : item
+                )
+            }));
+
+            useDeck.setState((state) => ({
+                ...state,
+                randomCards: randomCards
+            }));
+
+            useListData.getState().removeInList();
+
+        } catch (err) {
+            console.log('get reward error: ', err)
+        }
+
+    },
     saveGame: async (userId) => {
         //console.log(userId)
         const user_id = userId;
@@ -110,6 +160,14 @@ export const useArena = create<Arena>()(devtools((set, get) => ({
             //const res = await response.json()
             //console.log('save game:', response)
             useDeck.getState().addRandomCards(newRandomCards);
+            useUserData.setState((state) => ({
+                ...state,
+                balance: {
+                    ...state.balance,
+                    balance: state.balance.balance + UH
+                }
+            }));
+
             usePlayCard.getState().resetForSave();
 
             //get().loadArena(res.arena_state);

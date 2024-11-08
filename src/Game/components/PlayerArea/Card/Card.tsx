@@ -77,7 +77,7 @@ export const Card: React.FC = () => {
                 <h2 className={`${getDamage === 'hero' ? s.damage : s.hide}`}>
                     -{Number((enemyAttack - playCard.stats.mind).toFixed()) > 0 ? Number((enemyAttack - playCard.stats.mind).toFixed()) : 0}
                 </h2>
-                {<img className={s.cardimg} src={imgs[playCard.image]} alt="character pic" />}
+                <img className={s.cardimg} src={imgs[playCard.image]} alt="character pic" />
 
                 <button
                     onClick={() => setStat((prev) => !prev)}

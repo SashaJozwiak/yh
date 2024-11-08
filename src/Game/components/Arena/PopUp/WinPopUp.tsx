@@ -43,7 +43,7 @@ export const WinPopUp = () => {
 
     useEffect(() => {
         console.log(floor)
-        const chance = 100 / 1000;
+        const chance = enemyType === 'boss' ? 100 / 1000 : floor / 1000;
         const isCard = Math.random() < chance;
         console.log('isCard: ', chance, Math.random(), isCard);
         if (isCard) {

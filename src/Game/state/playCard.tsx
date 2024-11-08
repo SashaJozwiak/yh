@@ -141,6 +141,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
     },
     lose: false,
     winUp: false,
+    rewardUp: false,
     collectUp: false,
     nextFloor: false,
     inBattle: false,
@@ -285,6 +286,9 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
             }
         ))
     },
+    toggleReward: (isTrue) => {
+        set({ rewardUp: isTrue })
+    },
     toggleCollect: (isTrue) => {
         set({ collectUp: isTrue })
     },
@@ -324,6 +328,8 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         const selectSkill = get().selectedSkill || get().playCard.skills[0];
         const playerAttack = get().playCard.stats[basePower] * selectSkill.multiplier || 1;
 
+        //console.log('selectSkill: ', selectSkill);
+
         //for Enemy attacks
         //const enemy = get().battleState.enemy;
 
@@ -332,7 +338,9 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         console.log('playerAttack: ', playerAttack);
         console.log('getDamage: ', getDamage)
 
-        if (get().playCard.energy_mp - selectSkill.cost <= 0) return;
+        if (get().playCard.energy_mp - (selectSkill.cost * selectSkill.multiplier) <= 0) {
+            return;
+        }
 
         set({ inBattle: true });
 
@@ -404,6 +412,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         setTimeout(() => {
             const updatedEnemy = get().battleState.enemy;
             const enemyAttack = updatedEnemy.attack - get().playCard.stats.mind >= 0 ? updatedEnemy.attack - get().playCard.stats.mind : 0
+            const playerBalance = get().playCard.balance_hp;
             console.log('updatedEnemyMinusMind: ', enemyAttack);
 
             if (updatedEnemy && 'balance' in updatedEnemy && updatedEnemy.balance > 0) {
@@ -418,7 +427,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                     }
                 }));
 
-                if (get().playCard.balance_hp - (updatedEnemy.attack - get().playCard.stats.mind) <= 0) {
+                if (playerBalance - (updatedEnemy.attack - get().playCard.stats.mind) <= 0) {
                     get().setLose(true);
                 }
             }
