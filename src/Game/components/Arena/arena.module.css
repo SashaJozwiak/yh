@@ -123,3 +123,14 @@
     bottom:100%;
   }
 }
+
+.boss {
+  position: absolute;
+  left: 0;
+  top: 0;
+  maxHeight: 58%; 
+  borderRadius: 5%;
+  width: -webkit-fill-available;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}

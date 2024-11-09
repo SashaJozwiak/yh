@@ -3,6 +3,7 @@ import { DeckState, Grades, UseDeck, /* Card */ } from '../types/forGameState'
 
 import { devtools } from 'zustand/middleware'
 import { useUserData } from '../../store/main';
+import { useMap } from './map';
 
 export const useDeck = create<UseDeck>()(devtools((set, get) => ({
     cards: [
@@ -13,7 +14,7 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
                 gray: 1,
                 bronze: 0,
                 silver: 0,
-                gold: 0,
+                gold: 2,
             },
             img: 'investor',
             key_power: 'balance'
@@ -25,13 +26,66 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
                 gray: 1,
                 bronze: 0,
                 silver: 0,
-                gold: 0,
+                gold: 3,
             },
             img: 'developer',
             key_power: 'mind'
         },
     ],
-    randomCards: 0,
+    randomCards: 100,
+    sellGoldCard: async (card_id, city_id, price) => {
+        const user_id = useUserData.getState().user.internalId;
+        console.log('number: ', card_id, city_id, user_id, price)
+
+        set((state) => {
+            // Находим нужную карту
+            const card = state.cards.find((card) => card.id === card_id);
+
+            // Проверка, достаточно ли золотых карт
+            if (!card || card.grades.gold < price) {
+                console.error('Недостаточно золотых карт для обмена');
+                return state; // Возвращаем текущее состояние без изменений
+            }
+
+            // Обновляем состояние, отнимая нужное количество золотых карт
+            const updatedCards = state.cards.map((card) =>
+                card.id === card_id
+                    ? {
+                        ...card,
+                        grades: {
+                            ...card.grades,
+                            gold: card.grades.gold - price,
+                        },
+                    }
+                    : card
+            );
+            return {
+                ...state,
+                cards: updatedCards,
+            };
+        });
+        // Сохранение обновленного состояния
+        get().saveDeck();
+
+        // Добавление новой записи в city_map после сохранения deck_state
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}maps/addCity`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id, city_id }),
+            });
+
+            if (response.ok) {
+                console.log('City record successfully added');
+            } else {
+                console.error('Failed to add city record');
+            }
+        } catch (error) {
+            console.error('Error adding city record:', error);
+        } finally {
+            useMap.getState().fetchCityList();
+        }
+    },
     saveDeck: async () => {
         const { cards, randomCards } = get();
 

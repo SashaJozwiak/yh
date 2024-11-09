@@ -147,11 +147,8 @@ export const BetaPage1 = () => {
                                 disabled={inList || isLoading || balance < 250}
                                 className={s.btnaddlist} style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'gray' : balance > 250 ? 'white' : 'gray' }}>
                                 {isLoading ? 'loading...' : inList ? `${swichLang(userLang, 'beta_inlist')}` : balance > 250 ? `${swichLang(userLang, 'beta_goinlist')}` : `${swichLang(userLang, 'balance')} < 250 UH`}
-                            </button>
-
+                                </button>
                             }
-
-
 
                             {!finishTime && <Tooltip />}
                         </div>

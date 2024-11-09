@@ -17,7 +17,6 @@ import { useUserData } from '../../../store/main';
 const imageArray = Object.values(imgs);
 
 export const Arena: React.FC = () => {
-
     const userId = useUserData(state => state.user.internalId);
     //const gameInit = useArena(state => state.gameInit);
 
@@ -36,8 +35,6 @@ export const Arena: React.FC = () => {
     //const [getDamageAnim, setGetDamageAnim] = useState<boolean>(false);
     //const [getDamage, setGetDamage] = useState<string>('');
     const { getDamage } = usePlayCard(state => state.battleState);
-
-
 
     const [randomBoss] = useState(Math.floor(Math.random() * imageArray.length));
 
@@ -78,7 +75,6 @@ export const Arena: React.FC = () => {
             setTimeout(() => setBlockClick(false), 1000);
         }
     };
-
     //console.log('inBattle: ', battleState);
 
     useEffect(() => {
@@ -153,10 +149,10 @@ export const Arena: React.FC = () => {
                     style={{ opacity: inBattle && 'id' in battleState.enemy && card.id !== battleState.enemy.id && index !== battleIndex ? '0.6' : inBattle ? '1' : index <= 5 ? '0.6' : removingBottom ? '0' : '1' }}
                 >
                     {/* {card.name} */}
-                    <div style={{ borderRadius: '5%', width: '100%' }}>
+                    <div style={{ borderRadius: '5%', width: '-webkit-fill-available' }}>
 
                         <div style={{
-                            width: '100%',
+                            width: '-webkit-fill-available',
                             height: '9.5vh',
                             backgroundPosition: `${card.bp[0]}% ${card.bp[1]}%`,
                             backgroundSize: '71vh auto',
@@ -178,7 +174,7 @@ export const Arena: React.FC = () => {
 
                             {card.type === 'items' ? <Potion color={card.name === 'Balance' ? 'rgb(204, 153, 0)' : card.name === 'Energy' ? 'rgb(22 163 74)' : card.name === 'Experience' ? 'silver' : 'gray'} /> : card.type === 'rewards' ? <Rewards id={card.id} /> : card.type === 'boss' ?
 
-                                <img width={'99%'} src={imageArray[randomBoss]} alt="boss pic" style={{ position: 'absolute', left: '0', top: '0', maxHeight: '58%', borderRadius: '5%' }} />
+                                <img /* width={'99%'} */ src={imageArray[randomBoss]} alt="boss pic" className={s.boss} /* style={{ position: 'absolute', left: '0', top: '0', maxHeight: '58%', borderRadius: '5%' }} */ />
 
                                 : null}
                         </div>
@@ -212,7 +208,7 @@ export const Arena: React.FC = () => {
                                 </>}
 
                             {card.type === 'boss' &&
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '0.4rem' }}>
 
                                     <p style={{ color: 'rgb(204, 153, 0)', fontWeight: 'bold', fontSize: '1.8vh' }}>
                                         {inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id && battleIndex === index ?

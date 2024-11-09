@@ -23,6 +23,7 @@ import Loader from './Loader';
 import charImages from './components/Deck/charimg';
 import enimies from './assets/Game/icons/enemies_36.png'
 import skills from './assets/Game/icons/skills_25.webp'
+import { useDeck } from './state/deck';
 
 
 const icons = [
@@ -41,6 +42,7 @@ export const Game: React.FC = () => {
 
     const nav = useGameNav(state => state.page);
     const { winUp, collectUp, rewardUp, lose } = usePlayCard(state => state);
+    const deck = useDeck(state => state.cards)
 
     useEffect(() => {
         console.log('main game render')
@@ -78,6 +80,8 @@ export const Game: React.FC = () => {
     if (isLoading) {
         return <Loader progress={progress} />;
     }
+
+    console.log('deck:', deck)
 
     return (
         <div className={s.gamewrapper}>

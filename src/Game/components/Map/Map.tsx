@@ -3,6 +3,13 @@ import { useGameNav } from '../../state/gameNav';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import s from './map.module.css'
+import { useMap } from '../../state/map';
+import { City } from '../../types/MapTypes';
+import { useDeck } from '../../state/deck';
+
+import { Card } from '../../types/forGameState'
+import { BuyUp } from './BuyUp/BuyUp';
+import { useUserData } from '../../../store/main';
 
 /* interface PathData {
     d: string; // Данные пути для типа path
@@ -22,8 +29,22 @@ interface Point {
 
 export const Map: React.FC = () => {
 
+
+    const myId = useUserData(state => state.user.internalId);
     const setNav = useGameNav(state => state.setPageNav)
     const [close, setClose] = useState<boolean>(false);
+
+    const [selectedLocation, setSelectedLocation] = useState<City | null>(null);
+    const [buyUp, setBuyUp] = useState<boolean>(false);
+
+    const { cityList, setLoading, fetchCityList } = useMap(state => state);
+
+    const cards = useDeck((state) => state.cards);
+    const goldCardsCount = useDeck((state) =>
+        state.cards.reduce((total, card) => total + card.grades.gold, 0)
+    );
+
+    const [cardsWithGold, setCardsWithGold] = useState<Card[]>([]); // Список карт с количеством золота
 
 
     const handleClose = () => {
@@ -32,17 +53,31 @@ export const Map: React.FC = () => {
             setNav('main');
             //setClose(false);
         }, 500);
-    }
+    } 
 
     const [pointsData, setPointsData] = useState<Point[] | null>(null);
 
+    const chooseCity = (id: number) => {
+        const city = cityList.find((city) => city.city_id === id)
+        console.log('city: ', city)
+        if (city) {
+            setSelectedLocation(city)
+            return;
+        }
+
+        setSelectedLocation({ user_id: -1, city_id: id, username: 'No', price: 1 })
+    }
+
     useEffect(() => {
-        console.log('useEffect запущен');
-        // остальной код
-    }, []);
+        // Фильтруем карты с количеством gold больше 0 и обновляем состояние компонента
+        const filteredCards = cards.filter((card) => card.grades.gold > 0);
+        setCardsWithGold(filteredCards);
+    }, [cards]);
 
     useEffect(() => {
         console.log('Начинаю загрузку данных');
+        setLoading(true);
+        fetchCityList();
         fetch('pointsData_6.json') // или '/pointsData.json'
             .then((response) => {
                 if (!response.ok) {
@@ -54,24 +89,37 @@ export const Map: React.FC = () => {
                 console.log('Полученные данные:', data);
                 setPointsData(data);
             })
-            .catch((error) => console.error("Ошибка при загрузке JSON:", error));
-    }, []);
+            .catch((error) => console.error("Ошибка при загрузке JSON:", error))
+            .finally(() => {
+                setLoading(false);
+            });
 
+
+    }, [fetchCityList, setLoading]);
+
+    console.log('cityList: ', cityList)
 
     return (
         <div className={`${s.container} ${close ? s.containerclosing : null}`}>
+            {buyUp && <BuyUp cardsWithGold={cardsWithGold} setBuyUp={setBuyUp} selectedLocation={selectedLocation} setSelectedLocation={setSelectedLocation} />}
             <header className={s.header}>
-                <button
-                    onClick={handleClose}
-                >back</button>
 
-                <h2>Map</h2>
+                <p style={{ opacity: '0', padding: '0 0.5rem' }}>text</p>
 
-                <p>text</p>
+                <h2 style={{ margin: '0 auto' }}>Map</h2>
+
+                <button style={{ marginTop: '0.1rem', border: '1px solid', borderRadius: '0.3rem', backgroundColor: 'rgb(51 65 85)', padding: '0 0.3rem', opacity: '0' }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={30} strokeWidth={1.5} stroke="currentColor" className="size-6">text
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>
+
+                </button>
+                {/* <p>text</p> */}
+
 
             </header>
 
-            <div className={s.mapContainer} style={{ width: '100vw', height: '60vh' }}>
+            <div className={s.mapContainer} /* style={{ width: '100vw', height: '50vh' }} */>
                 <TransformWrapper
                     initialScale={1}
                     initialPositionX={0}
@@ -88,45 +136,94 @@ export const Map: React.FC = () => {
 
                     {({ zoomIn, zoomOut, resetTransform }) => (
                         <>
-                            <button onClick={() => zoomIn(0.5)}>Увеличить</button>
-                            <button onClick={() => zoomOut(0.5)}>Уменьшить</button>
-                            <button onClick={() => resetTransform()}>Сбросить</button>
+
 
                             <TransformComponent >
-                                <svg viewBox="0 0 525 525" preserveAspectRatio="none" style={{ width: '100vw', height: 'auto', border: '1px solid' }}>
-                                    <rect width="525" height="525" style={{ fill: '#1E8BC4' }} />
+                                <svg viewBox="0 0 525 350" preserveAspectRatio="none" style={{ width: '100vw', /* height: 'auto', *//*  border: '1px solid' */ }}>
+                                    <rect width="525" height="350" style={{ fill: 'rgb(51 65 85)' }} />
                                     {pointsData?.map(point => {
                                         let circleData: CircleData;
                                         switch (point.type) {
                                             case 'path':
                                                 //const pathData = point.data as PathData; // ?
                                                 return (
-                                                    <path onClick={() => console.log(point.id)} key={point.id} d={point.data as string} style={{ fill: '#FFFFFF' }} />
+                                                    <path
+                                                        onClick={() => chooseCity(point.id)}
+                                                        key={point.id}
+                                                        d={point.data as string}
+                                                        style={{ fill: point.id === selectedLocation?.city_id ? 'gray' : cityList.some((city) => city.city_id === point.id) ? 'rgb(22, 163, 74)' : '#FFFFFF' }} />
                                                 );
                                             case 'circle':
                                                 circleData = point.data as CircleData;  // Приводим тип
                                                 return (
                                                     <circle
+                                                        onClick={() => chooseCity(point.id)}
                                                         key={point.id}
                                                         cx={circleData.cx}
                                                         cy={circleData.cy}
                                                         r={circleData.r}
-                                                        style={{ fill: '#FFFFFF' }}
+                                                        style={{ fill: point.id === selectedLocation?.city_id ? 'gray' : cityList.some((city) => city.city_id === point.id) ? 'rgb(22, 163, 74)' : '#FFFFFF' }}
                                                     />
                                                 );
-
                                             default:
                                                 return null; // другие случаи
                                         }
                                     })}
                                 </svg>
                             </TransformComponent>
+                            <div className={s.btnset}>
+                                <button className={s.btn} onClick={() => zoomIn(0.5)}>+</button>
+                                <button className={s.btn} onClick={() => zoomOut(0.5)}>-</button>
+                                <button className={s.btn} onClick={() => resetTransform()}>reset</button>
+                            </div>
                         </>
                     )}
                 </TransformWrapper>
             </div>
 
-            <button onClick={handleClose}>close</button>
+            <div className={s.panel}>
+                {selectedLocation === null &&
+                    <h2 style={{ color: 'lightgray', margin: '0 auto' }}>Select a location</h2>}
+
+                {selectedLocation !== null &&
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', margin: '0 auto' }}>
+                            <h2 style={{ color: selectedLocation?.username !== 'No' ? 'rgb(22, 163, 74)' : 'lightgray', margin: '0 auto' }}>City #{selectedLocation.city_id}</h2>
+                            <p>Owner: <b>{selectedLocation?.user_id === myId ? 'YOU' : selectedLocation?.username || 'No'}</b></p>
+                            <p>Price: <b>{selectedLocation?.price || 0 > 0 ? selectedLocation?.price + ' Gold Card' : 'price not set'}</b></p>
+                            <p>You have : {goldCardsCount} Gold Cards</p>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <button
+                                    onClick={() => setBuyUp(true)}
+                                    disabled={goldCardsCount === 0 || selectedLocation?.price === 0}
+                                    style={{ opacity: goldCardsCount === 0 ? '0.5' : selectedLocation?.price === 0 ? '0.5' : '1' }}
+                                    className={s.btnbuy}>BUY
+                                </button>
+
+                                <button
+                                    //onClick={() => setBuyUp(true)}
+                                    disabled={selectedLocation?.user_id === -1}
+                                    style={{ opacity: selectedLocation?.user_id === -1 ? '0.5' : '1' }}
+                                    className={s.btnbuy}>ENTER
+                                </button>
+
+                            </div>
+
+
+                            {/* {myId === selectedLocation?.user_id && <button className={s.btnbuy}>BUY</button>} */}
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+            <footer className={s.footer}>
+                <button onClick={handleClose} className={s.back}>BACK</button>
+            </footer>
+
+
         </div>
     )
 }

@@ -103,7 +103,8 @@
   background-color: rgb(51 65 85);
   //height: 16.6vh;
   max-width: 22vw;
-  max-height: 20vh;
+  //min-width: 20vw;
+  //max-height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
