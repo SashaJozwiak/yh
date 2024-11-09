@@ -10,6 +10,7 @@ import { useDeck } from '../../state/deck';
 import { Card } from '../../types/forGameState'
 import { BuyUp } from './BuyUp/BuyUp';
 import { useUserData } from '../../../store/main';
+import WebApp from '@twa-dev/sdk';
 
 /* interface PathData {
     d: string; // Данные пути для типа path
@@ -189,7 +190,14 @@ export const Map: React.FC = () => {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', margin: '0 auto' }}>
                             <h2 style={{ color: selectedLocation?.username !== 'No' ? 'rgb(22, 163, 74)' : 'lightgray', margin: '0 auto' }}>City #{selectedLocation.city_id}</h2>
-                            <p>Owner: <b>{selectedLocation?.user_id === myId ? 'YOU' : selectedLocation?.username || 'No'}</b></p>
+                            <p
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if (selectedLocation?.username && selectedLocation?.username !== "No") {
+                                        WebApp.openTelegramLink(`https://t.me/${selectedLocation?.username}`);
+                                    }
+                                }}
+                            >Owner: <b style={{ color: selectedLocation?.username && selectedLocation?.username !== "No" ? 'rgb(22, 163, 74)' : 'white', textDecoration: selectedLocation?.username && selectedLocation?.username !== "No" ? 'underline' : 'none' }}>{selectedLocation?.user_id === myId ? 'YOU' : selectedLocation?.username || 'No'}</b></p>
                             <p>Price: <b>{selectedLocation?.price || 0 > 0 ? selectedLocation?.price + ' Gold Card' : 'price not set'}</b></p>
                             <p>You have : {goldCardsCount} Gold Cards</p>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -205,6 +213,15 @@ export const Map: React.FC = () => {
                                     disabled={selectedLocation?.user_id === -1}
                                     style={{ opacity: selectedLocation?.user_id === -1 ? '0.5' : '1' }}
                                     className={s.btnbuy}>ENTER
+                                </button>
+
+                                <button
+                                    //onClick={() => setBuyUp(true)}
+                                    disabled={true}
+                                    style={{ opacity: '0.5', fontSize: 'calc(1vh * 2)' }}
+                                    className={s.btnbuy}>
+                                    <p>Get NFT</p>
+                                    <i>soon</i>
                                 </button>
 
                             </div>
