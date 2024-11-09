@@ -80,9 +80,10 @@
       //height: 113%;
       //height: 8rem;
       aspect-ratio: 10/17;
-      //object-fit: cover;
+      object-fit: cover;
       border-top-right-radius: 1rem;
       border-top-left-radius: 1rem;
+
     
   }}
 
