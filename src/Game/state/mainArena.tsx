@@ -12,7 +12,7 @@ import { useListData } from '../../store/EAlist'
 
 export const useArena = create<Arena>()(devtools((set, get) => ({
     house: 1,
-    floor: 26,
+    floor: 0,
     row1: [
         {
             id: 1,

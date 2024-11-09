@@ -151,8 +151,9 @@ export const Arena: React.FC = () => {
                     {/* {card.name} */}
                     <div style={{ borderRadius: '5%', width: '-webkit-fill-available' }}>
 
-                        <div style={{
-                            width: '-webkit-fill-available',
+                        <div
+                            className={s.wfa}
+                            style={{
                             height: '9.5vh',
                             backgroundPosition: `${card.bp[0]}% ${card.bp[1]}%`,
                             backgroundSize: '71vh auto',
