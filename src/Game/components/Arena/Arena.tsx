@@ -14,7 +14,7 @@ import imgs from './../Deck/charimg'
 import s from './arena.module.css';
 import { useUserData } from '../../../store/main';
 
-const imageArray = Object.values(imgs);
+
 
 export const Arena: React.FC = () => {
     const userId = useUserData(state => state.user.internalId);
@@ -36,7 +36,11 @@ export const Arena: React.FC = () => {
     //const [getDamage, setGetDamage] = useState<string>('');
     const { getDamage } = usePlayCard(state => state.battleState);
 
+
+    const imageArray = Object.values(imgs);
     const [randomBoss] = useState(Math.floor(Math.random() * imageArray.length));
+
+
 
     const handleClick = (card: ArenaCard, indx: number) => {
 
@@ -157,8 +161,8 @@ export const Arena: React.FC = () => {
                             height: '9.5vh',
                             backgroundPosition: `${card.bp[0]}% ${card.bp[1]}%`,
                             backgroundSize: '71vh auto',
-                            backgroundImage: `url(${card.type === 'enemies' && enemies})`,
-                            aspectRatio: '1/1',
+                                backgroundImage: `url(${card.type === 'enemies' ? enemies : card.type === 'boss' ? imageArray[randomBoss] : ''})`,
+                                //aspectRatio: '1/1',
                             borderRadius: '5%',
                             borderBottomLeftRadius: '0%',
                             borderBottomRightRadius: '0%',
