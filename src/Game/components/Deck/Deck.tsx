@@ -36,6 +36,7 @@ export const Deck: React.FC = () => {
     const clearRandomCards = useDeck(state => state.clearRandomCards)
 
     const save = useDeck(state => state.saveDeck)
+    const buy = useDeck(state => state.buyRandomCards)
 
     const handleClose = () => {
         setClose(true);
@@ -170,10 +171,13 @@ export const Deck: React.FC = () => {
                         onClick={handleClose}
                     >BACK</button>
                     <button
+                        disabled={randomCards === 0}
+                        style={{ opacity: randomCards === 0 ? '0.5' : '1' }}
                         onClick={getRandomCards}
                         className={s.fbtn}
                     >CLAIM <p>({randomCards})</p></button>
                     <button
+                        onClick={() => buy()}
                         className={s.fbtn}
                     >BUY</button>
                 </footer>

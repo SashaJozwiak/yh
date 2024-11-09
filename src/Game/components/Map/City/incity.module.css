@@ -1,0 +1,15 @@
+.container {
+    //border: 2px solid gray;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color:black;
+    background-color: rgb(51, 65, 85);
+    z-index: 3000;
+}
+

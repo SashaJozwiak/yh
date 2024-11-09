@@ -4,6 +4,7 @@ import { DeckState, Grades, UseDeck, /* Card */ } from '../types/forGameState'
 import { devtools } from 'zustand/middleware'
 import { useUserData } from '../../store/main';
 import { useMap } from './map';
+import WebApp from '@twa-dev/sdk';
 
 export const useDeck = create<UseDeck>()(devtools((set, get) => ({
     cards: [
@@ -33,6 +34,39 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
         },
     ],
     randomCards: 100,
+    buyRandomCards: async () => {
+        console.log('text')
+        const title = 'Random cards';
+        const amount = 1;
+        const description = `Buy random cards`;
+
+        console.log(title, description, amount)
+
+        console.log(`${import.meta.env.VITE_SECRET_HOST}payments/starspay`);
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/starspay`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, description, amount }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const invoiceLink = data.invoiceLink;
+            console.log('Ссылка на инвойс получена:', invoiceLink);
+
+            WebApp.openInvoice(invoiceLink);
+
+        } catch (err) {
+            console.log('Error buy random cards: ', err)
+        }
+    },
     sellGoldCard: async (card_id, city_id, price) => {
         const user_id = useUserData.getState().user.internalId;
         console.log('number: ', card_id, city_id, user_id, price)
