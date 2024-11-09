@@ -153,7 +153,8 @@ export const Arena: React.FC = () => {
                     style={{ opacity: inBattle && 'id' in battleState.enemy && card.id !== battleState.enemy.id && index !== battleIndex ? '0.6' : inBattle ? '1' : index <= 5 ? '0.6' : removingBottom ? '0' : '1' }}
                 >
                     {/* {card.name} */}
-                    <div style={{ borderRadius: '5%', width: '-webkit-fill-available' }}>
+                    <div className={s.wfaup}
+                    /* style={{ borderRadius: '5%', width: '-webkit-fill-available' }} */>
 
                         <div
                             className={s.wfa}
@@ -162,7 +163,7 @@ export const Arena: React.FC = () => {
                             backgroundPosition: `${card.bp[0]}% ${card.bp[1]}%`,
                             backgroundSize: '71vh auto',
                                 backgroundImage: `url(${card.type === 'enemies' ? enemies : card.type === 'boss' ? imageArray[randomBoss] : ''})`,
-                                //aspectRatio: '1/1',
+                                aspectRatio: '1/1',
                             borderRadius: '5%',
                             borderBottomLeftRadius: '0%',
                             borderBottomRightRadius: '0%',

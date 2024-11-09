@@ -128,14 +128,22 @@
   position: absolute;
   left: 0;
   top: 0;
-  maxHeight: 58%; 
-  borderRadius: 5%;
+  //maxHeight: 58%; 
+  //borderRadius: 5%;
   width: 100%;
   width: -moz-available;          /* WebKit-based browsers will ignore this. */
   width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
   width: fill-available;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+}
+
+.wfaup {
+  borderRadius: 5%;
+  width: 100%;
+  width: -moz-available;          /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
 }
 
 .wfa {
