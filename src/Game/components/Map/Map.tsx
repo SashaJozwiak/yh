@@ -11,7 +11,7 @@ import { Card } from '../../types/forGameState'
 import { BuyUp } from './BuyUp/BuyUp';
 import { useUserData } from '../../../store/main';
 import WebApp from '@twa-dev/sdk';
-import { InCity } from './City/inCity';
+//import { InCity } from './City/inCity';
 
 /* interface PathData {
     d: string; // Данные пути для типа path
@@ -35,7 +35,7 @@ export const Map: React.FC = () => {
     const setNav = useGameNav(state => state.setPageNav)
     const [close, setClose] = useState<boolean>(false);
 
-    const [city, setCity] = useState(false);
+    //const [city, setCity] = useState(false);
 
     const [selectedLocation, setSelectedLocation] = useState<City | null>(null);
     const [buyUp, setBuyUp] = useState<boolean>(false);
@@ -105,7 +105,7 @@ export const Map: React.FC = () => {
     return (
         <div className={`${s.container} ${close ? s.containerclosing : null}`}>
 
-            {city && <InCity setCity={setCity} />}
+            {/* {city && <InCity setCity={setCity} />} */}
             {buyUp && <BuyUp cardsWithGold={cardsWithGold} setBuyUp={setBuyUp} selectedLocation={selectedLocation} setSelectedLocation={setSelectedLocation} />}
             <header className={s.header}>
 
@@ -215,7 +215,7 @@ export const Map: React.FC = () => {
                                 <button
                                     disabled={true}
                                     style={{ opacity: '0.5' }}
-                                    onClick={() => setCity(true)}
+                                    //onClick={() => setCity(true)}
                                     className={s.btnbuy}>ENTER
                                 </button>
 
