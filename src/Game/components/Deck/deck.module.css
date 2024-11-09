@@ -101,6 +101,11 @@
 .pixel {
   aspect-ratio: 10 / 17;
   background-color: rgb(51 65 85);
+  
+  width: 100%;
+  width: -moz-available;          /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
   //height: 16.6vh!!!!!;
   //max-width: 22vw;
   //min-width: 20vw;

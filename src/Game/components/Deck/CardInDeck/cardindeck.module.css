@@ -3,10 +3,10 @@
     position: relative;
     //aspect-ratio:1/1;
     //height: 52%;
-      width: 100%;
-      width: -moz-available;          /* WebKit-based browsers will ignore this. */
-      width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-      width: fill-available;
+    width: 100%;
+    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
     height:10vh;
     & .cardimg {
       width: 100%;
