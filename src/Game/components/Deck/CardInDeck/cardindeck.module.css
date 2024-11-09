@@ -1,6 +1,7 @@
 .pcimg {
     display: flex;
     position: relative;
+    aspect-ratio:1/1;
     //height: 52%;
     height:10vh;
     & .cardimg {
@@ -9,8 +10,8 @@
       width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
       width: fill-available;
       //object-fit: cover;
-      //aspect-ratio: 1/1;
-      height:10vh;
+      aspect-ratio: 1/1;
+      //height:10vh;
       //height:10vh;
       //height: 113%;
       //object-fit: cover;
