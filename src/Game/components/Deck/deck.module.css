@@ -101,8 +101,8 @@
 .pixel {
   aspect-ratio: 10 / 17;
   background-color: rgb(51 65 85);
-  //height: 16.6vh;
-  max-width: 22vw;
+  //height: 16.6vh!!!!!;
+  //max-width: 22vw;
   //min-width: 20vw;
   //max-height: 20vh;
   display: flex;
