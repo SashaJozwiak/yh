@@ -110,7 +110,7 @@
   max-width: 22vw;
   //min-width: 20vw;
   max-height: 20vh;
-  width: calc(10vw+10vh);
+  width: 15vh;
   //height: 30vw;
   aspect-ratio: 10 / 17;
   display: flex;
