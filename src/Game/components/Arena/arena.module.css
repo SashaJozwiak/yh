@@ -37,8 +37,8 @@
 
 
 .pixel {
-  aspect-ratio: 10 / 16;
-  height: 16.6vh;
+  //aspect-ratio: 10 / 16;
+  //height: 16.6vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
