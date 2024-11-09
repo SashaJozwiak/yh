@@ -161,7 +161,7 @@ export const Arena: React.FC = () => {
                             style={{
                             height: '9.5vh',
                             backgroundPosition: `${card.bp[0]}% ${card.bp[1]}%`,
-                            backgroundSize: '71vh auto',
+                                backgroundSize: card.type === 'boss' ? '100%' : '71vh auto',
                                 backgroundImage: `url(${card.type === 'enemies' ? enemies : card.type === 'boss' ? imageArray[randomBoss] : ''})`,
                                 aspectRatio: '1/1',
                             borderRadius: '5%',
@@ -178,9 +178,9 @@ export const Arena: React.FC = () => {
                                 -{Number(playCard.stats[playCard.key_power] * (selectedSkill?.multiplier || 1)).toFixed()}
                             </h2>
 
-                            {card.type === 'items' ? <Potion color={card.name === 'Balance' ? 'rgb(204, 153, 0)' : card.name === 'Energy' ? 'rgb(22 163 74)' : card.name === 'Experience' ? 'silver' : 'gray'} /> : card.type === 'rewards' ? <Rewards id={card.id} /> : card.type === 'boss' ?
+                            {card.type === 'items' ? <Potion color={card.name === 'Balance' ? 'rgb(204, 153, 0)' : card.name === 'Energy' ? 'rgb(22 163 74)' : card.name === 'Experience' ? 'silver' : 'gray'} /> : card.type === 'rewards' ? <Rewards id={card.id} /> /* : card.type === 'boss' ?
 
-                                <img /* width={'99%'} */ src={imageArray[randomBoss]} alt="boss pic" className={s.boss} /* style={{ position: 'absolute', left: '0', top: '0', maxHeight: '58%', borderRadius: '5%' }} */ />
+                                <img src={imageArray[randomBoss]} alt="boss pic" className={s.boss}  /> */
 
                                 : null}
                         </div>
