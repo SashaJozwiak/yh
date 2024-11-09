@@ -71,7 +71,12 @@
     height:22vh;
     & .cardimg {
       position: relative;
-      width:100%;
+      width: 100%;
+      width: -moz-available;          /* WebKit-based browsers will ignore this. */
+      width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+      width: fill-available;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
       //height: 113%;
       //height: 8rem;
       aspect-ratio: 10/17;
