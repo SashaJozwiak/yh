@@ -164,6 +164,7 @@ export const Arena: React.FC = () => {
                                 backgroundSize: card.type === 'boss' ? '100%' : '71vh auto',
                                 backgroundImage: `url(${card.type === 'enemies' ? enemies : card.type === 'boss' ? imageArray[randomBoss] : ''})`,
                                 aspectRatio: '1/1',
+                                backgroundRepeat: 'no-repeat',
                             borderRadius: '5%',
                             borderBottomLeftRadius: '0%',
                             borderBottomRightRadius: '0%',
