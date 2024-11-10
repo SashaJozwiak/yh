@@ -4,6 +4,7 @@ import { Card } from '../../types/forGameState';
 import { CardInDeck } from './CardInDeck/CardInDeck';
 import { ShowCard } from './showCard/ShowCard';
 import { ShowAddCards } from './ShowAddCards/ShowAddCards';
+import { BuyCardsUp } from './BuyCardsUp/BuyCardsUp';
 
 import { useGameNav } from '../../state/gameNav'
 import { useDeck } from '../../state/deck';
@@ -14,6 +15,7 @@ import { cardOrder } from '../../utils/deckOrder'
 import { GradesSvg } from '../Some/GradesSvg'
 import imgs from './charimg'
 import s from './deck.module.css'
+
 
 export const Deck: React.FC = () => {
     //const nav = useNav(state => state.page)
@@ -36,7 +38,14 @@ export const Deck: React.FC = () => {
     const clearRandomCards = useDeck(state => state.clearRandomCards)
 
     const save = useDeck(state => state.saveDeck)
-    const buy = useDeck(state => state.buyRandomCards)
+    //const buy = useDeck(state => state.buyRandomCards)
+
+    const [buyCardsUp, setBuyCardsUp] = useState(false);
+
+    const handleBuy = () => {
+        setBuyCardsUp(true)
+        //buy();
+    }
 
     const handleClose = () => {
         setClose(true);
@@ -122,6 +131,7 @@ export const Deck: React.FC = () => {
             <div className={`${s.container} ${close ? s.containerclosing : null}`}>
                 {isShowCard && <ShowCard name={showedCard} />}
                 {isShowGetCards && <ShowAddCards cards={addedCards} />}
+                {buyCardsUp && <BuyCardsUp setBuyCardsUp={setBuyCardsUp} />}
 
                 <div className={s.ui}>
                     <div className={s.table}>
@@ -172,14 +182,14 @@ export const Deck: React.FC = () => {
                     >BACK</button>
                     <button
                         disabled={randomCards === 0}
-                        style={{ opacity: randomCards === 0 ? '0.5' : '1' }}
+                        style={{ opacity: randomCards === 0 ? '0.5' : '1', color: randomCards > 0 ? 'rgb(22, 163, 74)' : 'gray' }}
                         onClick={getRandomCards}
                         className={s.fbtn}
                     >CLAIM <p>({randomCards})</p></button>
                     <button
-                        onClick={() => buy()}
+                        onClick={handleBuy}
                         className={s.fbtn}
-                    >BUY</button>
+                    >⭐BUY⭐</button>
                 </footer>
             </div >
         </>

@@ -34,6 +34,7 @@ export const BuyUp = ({ cardsWithGold, setBuyUp, selectedLocation, setSelectedLo
                             {card.img} {card.name}: <b>{card.grades.gold}</b> cards
                         </li>))}
                 </ul>
+
                 <button
                     onClick={() => sellCard(cardForSell)}
                     disabled={cardForSell === 0 || blockBtn}

@@ -38,6 +38,7 @@ export const Game: React.FC = () => {
     //const userId = useUserData(state => state.user.internalId);
     //const isNeedInit = useArena(state => state.isNeedInit);
     const changeNeedInit = useArena(state => state.changeNeedInit);
+    const resetForSave = usePlayCard(state => state.resetForSave);
 
 
     const nav = useGameNav(state => state.page);
@@ -46,8 +47,9 @@ export const Game: React.FC = () => {
 
     useEffect(() => {
         console.log('main game render')
+        resetForSave();
         changeNeedInit(true)
-    }, [changeNeedInit])
+    }, [changeNeedInit, resetForSave])
 
     useEffect(() => {
         const allResources = [...Object.values(charImages), ...icons];

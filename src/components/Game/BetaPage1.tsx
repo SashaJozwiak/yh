@@ -111,7 +111,7 @@ export const BetaPage1 = () => {
         <> {imageLoaded && 
             <div className={s.container}>
                 <h2 className={s.title}>{swichLang(userLang, 'beta_title')}</h2>
-                {(userId === 3441 || userId === 9 || userId === 2 || userId === 10) && <button
+                {(userId === 3441 || userId === 9 || userId === 2 || userId === 10 || userId === 24) && <button
                     onClick={() => changeNav('game1')}
                     style={{ padding: '0.85rem' }}>PLAY</button>}
 
