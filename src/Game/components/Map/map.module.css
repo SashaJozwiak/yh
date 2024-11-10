@@ -53,7 +53,7 @@
 }
 
 .mapContainer {
-    flex-grow: 1; /* Займет оставшуюся высоту после header  for iphone tests */
+    //flex-grow: 1; /* Займет оставшуюся высоту после header  for iphone tests */
 
     overflow: hidden;
     //height: 100%;

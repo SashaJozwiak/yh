@@ -11,7 +11,7 @@ const Loader: React.FC<LoaderProps> = ({ progress }) => {
             <h2 style={{ fontFamily: 'Impact' }}>YouHold Game</h2>
             <h3 style={{ fontFamily: 'Impact' }}>Early Access</h3>
             <div className={s.progress} style={{ width: `${progress}%` }} />
-            <p>Loading...{Math.round(progress)}%</p>
+            <p>Loading... {Math.round(progress)}%</p>
             <i>The first time load may be slow.</i>
         </div>
     );
