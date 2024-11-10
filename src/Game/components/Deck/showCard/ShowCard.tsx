@@ -71,7 +71,7 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
                 <div className={s.desblock}>
 
                     <p className={s.description}>
-                        <span style={{ fontWeight: 'bold', margin: '0' }}>{card?.profession} {name}</span> {swichLang(userLang, card?.id)/* card?.description */}
+                        <span style={{ fontWeight: 'bold', margin: '0' }}>{card?.profession} {name}</span> {swichLang(userLang, card?.id || 1)/* card?.description */}
                     </p>
 
                     <div style={{ marginBottom: '0.5rem 0' }}>

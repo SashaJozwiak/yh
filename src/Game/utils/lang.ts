@@ -38,7 +38,7 @@ export const langG = {
 };
 
 
-export const swichLang = (langCode: string, string: string) => {
+export const swichLang = (langCode: string, string: string | number) => {
     const en = 'en';
     return langG[langCode] ? langG[langCode][string] : langG[en][string];
 }
