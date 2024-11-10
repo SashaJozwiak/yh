@@ -53,14 +53,15 @@
 }
 
 .mapContainer {
-    //flex-grow: 1; /* Займет оставшуюся высоту после header */
+    flex-grow: 1; /* Займет оставшуюся высоту после header  for iphone tests */
 
     overflow: hidden;
     //height: 100%;
     //width: 100%;
     padding-bottom:1rem;
     //background-color:rgb(51, 65, 85);
-}
+    min-height: 40vh; /* for iphone tests */
+  }
 
 .react-transform-wrapper {
     width: 100%;
