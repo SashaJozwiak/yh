@@ -21,6 +21,7 @@ export interface DeckState {
 export interface UseDeck {
     cards: Card[];
     randomCards: number;
+    saveTransaction: (user_id: number, amount: number, price: number) => Promise<void>; 
     buyRandomCards: (options: { amount: number, price: number }, user_id: number) => Promise<void>;
     sellGoldCard: (card_id: number, city_id: number, price: number) => Promise<void>;
     saveDeck: () => void;

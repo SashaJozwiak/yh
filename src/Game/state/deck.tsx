@@ -35,6 +35,27 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
         },
     ],
     randomCards: 100,
+    saveTransaction: async (user_id, amount, price) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/finishpay`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, amount, price }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('ok save transaction: ', data)
+
+        } catch (err) {
+            console.log('запись об оплате в бд ошибка: ', err)
+        }
+    },
     buyRandomCards: async (options, user_id) => {
         const { amount, price } = options;
         console.log('userId: ', user_id)
@@ -68,6 +89,8 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
                 if (status === "paid") {
                     const newRandomCards = amount + get().randomCards;
                     get().addRandomCards(newRandomCards);
+                    get().saveDeck();
+                    get().saveTransaction(user_id, amount, price);
                     console.log('удалось оплатить, карты добавлены')
                 } else {
                     console.error('Не удалось оплатить');
