@@ -5,20 +5,24 @@ import App from './App.tsx';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk'
 
+import { qrstring } from './qrstring.ts';
 import PreloadImages from './utils/hooks/usePreloadImage.tsx';
+
 import './index.css'
 
 
 //device check!!!
-/* console.log('platform: ', WebApp.platform)
+
+console.log('platform: ', WebApp.platform)
 const platform = WebApp.platform;
 
-if (platform === "tdesktop" || platform === "unknown") {
-  document.body.innerHTML = "<h1>Use Phone :)</h1>";
+if (platform !== "ios" && platform !== "android" && platform !== "android_x") {
+  document.body.innerHTML = qrstring;
   document.body.style.textAlign = "center";
+  document.body.style.margin = "0 auto";
 } else {
   WebApp.ready();
-} */
+}
 
 WebApp.setHeaderColor('#1d283a');
 
