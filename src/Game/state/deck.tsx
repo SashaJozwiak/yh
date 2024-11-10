@@ -62,7 +62,16 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
             const invoiceLink = data.invoiceLink;
             console.log('Ссылка на инвойс получена:', invoiceLink);
 
-            WebApp.openInvoice(invoiceLink);
+            //WebApp.openInvoice(invoiceLink);
+            WebApp.openInvoice(invoiceLink, (status) => {
+                if (status === "paid") {
+                    const newRandomCards = amount + get().randomCards;
+                    get().addRandomCards(newRandomCards);
+                    console.log('удалось оплатить, карты добавлены')
+                } else {
+                    console.error('Не удалось оплатить');
+                }
+            });
 
         } catch (err) {
             console.log('Error buy random cards: ', err)
