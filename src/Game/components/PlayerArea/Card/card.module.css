@@ -45,6 +45,7 @@
     left:40%;
     bottom:50%;
     font-weight:bold;
+    z-index:1000;
   }
   
   @keyframes kick {
@@ -275,6 +276,10 @@
   .pcui {
     height: 50%;
     z-index:200;
+    width: 100%; /* add for items fix */
+    width: -moz-available;          /* add for items fix */
+    width: -webkit-fill-available;  /* add for items fix */
+    width: fill-available; /* add for items fix */
   }
   
   .pcuitabs {
@@ -305,7 +310,11 @@
 
   .aboutskill {
     height:fit;
-    width:100%;
+    //width:100%;
+    width: 100%; /* add for items fix */
+    width: -moz-available;          /* add for items fix */
+    width: -webkit-fill-available;  /* add for items fix */
+    width: fill-available; /* add for items fix */
     background-color:rgb(75, 94, 121); 
   }
 
