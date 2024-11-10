@@ -24,7 +24,7 @@ export const BuyCardsUp = ({ setBuyCardsUp }) => {
             <div onClick={e => e.stopPropagation()} className={s.window}>
 
 
-                <h2 style={{ color: 'gray', marginBottom: '1rem', marginTop: '1vh' }}>Select option</h2>
+                <h2 style={{ color: 'gray',/*  marginBottom: '1rem', */ marginTop: '1vh' }}>Select option</h2>
                 <ul style={{ marginBottom: '1rem' }}>
                     {payOptions.map((option, index: number) => (
                         <li
@@ -35,20 +35,21 @@ export const BuyCardsUp = ({ setBuyCardsUp }) => {
                         </li>))}
                 </ul>
 
+                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '1vh 1vh' }}>
+                    <button
+                        onClick={() => setBuyCardsUp(false)}
+                        style={{/*  display: 'flex', position: 'absolute', bottom: '1vh', left: '1vh', */ backgroundColor: 'rgb(93 121 160)', height: '2rem', width: '30vw', borderRadius: '0.3rem', opacity: '1', }}
+                    >Cancel
+                    </button>
 
-                <button
-                    onClick={() => setBuyCardsUp(false)}
-                    style={{ position: 'absolute', bottom: '1vh', left: '1vh', backgroundColor: 'rgb(93 121 160)', height: '2rem', width: '30vw', borderRadius: '0.3rem', opacity: '1', }}
-                >Cancel
-                </button>
+                    <button
+                        onClick={() => handleBuyuy()}
+                        disabled={forBuy.price === 0 || blockBtn}
 
-                <button
-                    onClick={() => handleBuyuy()}
-                    disabled={forBuy.price === 0 || blockBtn}
-
-                    style={{ position: 'absolute', bottom: '1vh', right: '1vh', backgroundColor: 'rgb(93 121 160)', height: '2rem', width: '30vw', borderRadius: '0.3rem', opacity: forBuy.price === 0 ? '0.5' : blockBtn ? '0.5' : '1', fontWeight: 'bold', }}
-                >Apply
-                </button>
+                        style={{ /* display: 'flex', position: 'absolute', bottom: '1vh', right: '1vh', */ backgroundColor: 'rgb(93 121 160)', height: '2rem', width: '30vw', borderRadius: '0.3rem', opacity: forBuy.price === 0 ? '0.5' : blockBtn ? '0.5' : '1', fontWeight: 'bold', }}
+                    >Apply
+                    </button>
+                </div>
             </div>
 
 

@@ -11,6 +11,8 @@ import s from './showcard.module.css'
 //import ss from '../../PlayerArea/Card/card.module.css'
 //import { langG, switchLang } from './../../../utils/lang';
 
+import { langG, swichLang } from '../../../utils/lang';
+
 interface ShowCardProps {
     name: string;
 }
@@ -20,7 +22,7 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
     const [stat, setStat] = useState(false);
 
     //const sl = switchLang()
-    //console.log('langG: ', langG, switchLang)
+    console.log('langG: ', langG, swichLang)
 
     const setShowCard = useGameNav(state => state.setShowCard);
 

@@ -27,7 +27,7 @@
     display: flex;
     position:relative;
     flex-direction: column;
-    //justify-content: space-between;
+    justify-content: space-between;
     background-color: rgb(51 65 85);
     width: 70vw;
     max-height: 98vh;
