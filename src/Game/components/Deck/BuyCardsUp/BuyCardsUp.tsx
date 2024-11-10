@@ -5,7 +5,7 @@ import { useUserData } from '../../../../store/main'
 
 export const BuyCardsUp = ({ setBuyCardsUp }) => {
 
-    const [payOptions] = useState([{ amount: 1, price: 1 }, { amount: 100, price: 100 }, { amount: 1000, price: 900 }, { amount: 5000, price: 4000 }, { amount: 10000, price: 8000 }, { amount: 15000, price: 10000 }])
+    const [payOptions] = useState([{ amount: 1, price: 1 }, { amount: 100, price: 100 }, { amount: 500, price: 450 }, { amount: 1000, price: 900 }, { amount: 5000, price: 4000 }, { amount: 10000, price: 8000 }, { amount: 15000, price: 10000 }])
     const [forBuy, setForBuy] = useState({ amount: 0, price: 0 })
     const [blockBtn, setBlockBtn] = useState(false);
 
