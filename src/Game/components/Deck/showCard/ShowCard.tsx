@@ -12,6 +12,7 @@ import s from './showcard.module.css'
 //import { langG, switchLang } from './../../../utils/lang';
 
 import { langG, swichLang } from '../../../utils/lang';
+import { useUserData } from '../../../../store/main';
 
 interface ShowCardProps {
     name: string;
@@ -22,6 +23,7 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
     const [stat, setStat] = useState(false);
 
     //const sl = switchLang()
+    const userLang = useUserData(state => state.user.languageCode)
     console.log('langG: ', langG, swichLang)
 
     const setShowCard = useGameNav(state => state.setShowCard);
@@ -60,20 +62,20 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
                         <p>Mind:  <span>{card?.stats.mind}</span></p>
                         <br />
                         <p>Attack:  <span>{card?.stats[card?.key_power]}</span> </p>
-                        <i>(depend: <b>{card?.key_power}</b>)</i>
+                        <i>({swichLang(userLang, 'depend')}: <b>{card?.key_power}</b>)</i>
                         <p>Defense:  <span>{card?.stats.mind}</span></p>
-                        <i>(depend: <b>mind</b>)</i>
+                        <i>({swichLang(userLang, 'depend')}: <b>mind</b>)</i>
                     </div>
                 </div>
 
                 <div className={s.desblock}>
 
                     <p className={s.description}>
-                        <span style={{ fontWeight: 'bold', margin: '0' }}>{card?.profession} {name}</span> {card?.description}
+                        <span style={{ fontWeight: 'bold', margin: '0' }}>{card?.profession} {name}</span> {swichLang(userLang, card?.id)/* card?.description */}
                     </p>
 
                     <div style={{ marginBottom: '0.5rem 0' }}>
-                        <p>Main power:&nbsp;
+                        <p>{swichLang(userLang, 'main_power')}:&nbsp;
                             <span style={{ fontWeight: 'bold' }}>
                                 {card?.key_power.toUpperCase()}
                             </span>

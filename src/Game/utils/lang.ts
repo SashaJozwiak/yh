@@ -12,6 +12,8 @@ export const langG = {
         10: "is the holder of a large number of assets in blockchains. Money for him is just a tool for managing the market and earning more.",
         11: "trades cryptocurrency and builds private trading strategies. Sometimes he himself is shocked by his ideas.",
         12: "works in the user support service of various projects. She loves to communicate with cryptans and help them.",
+        'main_power': 'Main power',
+        'depend': 'depend',
     },
     ru: {
         1: "5 лет назад собирал эйрдропы, а теперь инвестирует в блокчейн-стартапы и зарабатывает хорошие деньги.",
@@ -26,6 +28,8 @@ export const langG = {
         10: "является держателем большого количества активов в блокчейнах. Деньги для него — всего лишь инструмент для управления рынком.",
         11: "торгует криптовалютой и строит приватные торговые стратегии. Иногда сам бывает в шоке от своих прогнозов.",
         12: "работает в службе поддержки пользователей различных проектов. Любит общаться с криптанами и помогать им.",
+        'main_power': 'Главная сила',
+        'depend': 'зависит от',
     }
 };
 
