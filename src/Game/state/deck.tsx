@@ -58,7 +58,7 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
     },
     buyRandomCards: async (options, user_id) => {
         const { amount, price } = options;
-        console.log('userId: ', user_id)
+        console.log('userId and price ', user_id, price)
         const title = `${amount} random grey cards`;
     //const amount = 1;
         const description = `Buy random cards`;
@@ -73,7 +73,7 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ title, description, amount, price }),
+                body: JSON.stringify({ title, description, amount }),
             });
 
             if (!response.ok) {
