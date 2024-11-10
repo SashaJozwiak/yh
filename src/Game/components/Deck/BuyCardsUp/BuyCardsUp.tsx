@@ -24,7 +24,7 @@ export const BuyCardsUp = ({ setBuyCardsUp }) => {
             <div onClick={e => e.stopPropagation()} className={s.window}>
 
 
-                <h2 style={{ color: 'gray', marginBottom: '1rem' }}>Select option</h2>
+                <h2 style={{ color: 'gray', marginBottom: '1rem', marginTop: '1vh' }}>Select option</h2>
                 <ul style={{ marginBottom: '1rem' }}>
                     {payOptions.map((option, index: number) => (
                         <li

@@ -3,10 +3,13 @@ import React, { /* useEffect, */ useState } from 'react'
 import { useGameNav } from '../../../state/gameNav'
 import { charDeck } from '../../../exmpl/charDeck_big';
 
+//import langG from '../../../utils/'
+
 import imgs from '../charimg'
 
 import s from './showcard.module.css'
 //import ss from '../../PlayerArea/Card/card.module.css'
+//import { langG, switchLang } from './../../../utils/lang';
 
 interface ShowCardProps {
     name: string;
@@ -15,6 +18,9 @@ interface ShowCardProps {
 export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
     const [card] = useState(charDeck.find((c: ShowCardProps) => c.name === name));
     const [stat, setStat] = useState(false);
+
+    //const sl = switchLang()
+    //console.log('langG: ', langG, switchLang)
 
     const setShowCard = useGameNav(state => state.setShowCard);
 

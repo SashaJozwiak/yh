@@ -257,7 +257,7 @@ export const Card: React.FC = () => {
 
                 {navTabs === 'items' && <div className={s.usearea}>
                     {playCard.items.map((item, index) => (
-                        item.amount > 0 ?
+                        /* item.amount > 0 ? */
                             <button
                                 key={index}
                                 disabled={item.amount < 1}
@@ -267,7 +267,7 @@ export const Card: React.FC = () => {
                                 {/* {items?.name} */}
                                 <Potion color={item.color} />
                                 <span style={{ fontWeight: 'bold' }}>{item.amount} </span>
-                            </button> : null
+                        </button> /* : null */
                     ))}
                 </div>}
             </div>

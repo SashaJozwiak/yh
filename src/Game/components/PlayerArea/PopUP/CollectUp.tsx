@@ -19,7 +19,7 @@ export const CollectUp: React.FC = () => {
                     <div> <h2>B</h2> {B}</div>
                     <div> <h2>Cards</h2>{cards}</div>
                 </div>
-                {lang === 'ru' ? <p style={{ margin: '1rem' }}>После каждого <b>10 этажа (босса)</b> все собранные здесь активы переводятся на постоянный баланс и сохраняется игровой прогресс.</p> : <p style={{ margin: '1rem' }}>After every <b>10th floor (boss)</b>, all assets collected here are transferred to a permanent balance and game progress is saved.</p>}
+                {lang === 'ru' ? <p style={{ margin: '1rem' }}>После каждого <b>10 этажа (босса)</b> все собранные здесь активы переводятся на постоянный баланс, а игровой прогресс сохраняется.</p> : <p style={{ margin: '1rem' }}>After every <b>10th floor (boss)</b>, all assets collected here are transferred to a permanent balance and game progress is saved.</p>}
 
                 <button
                     onClick={() => toggleCollect(false)}

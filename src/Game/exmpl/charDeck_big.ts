@@ -8,7 +8,7 @@ export const charDeck: PlayCard[] = [
         exp_points: 0,
         name: "Jack",
         profession: "Investor",
-        description: "5 years ago he collected airdrops, and now he invests in blockchain startups and makes good money.",
+        description: "5 years ago collected airdrops, and now he invests in blockchain startups and makes good money.",
         image: "investor",
         key_power: 'balance',
         balance_hp: 150,
