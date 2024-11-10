@@ -13,7 +13,6 @@ import './index.css'
 
 //device check!!!
 
-console.log('platform: ', WebApp.platform)
 const platform = WebApp.platform;
 
 if (platform !== "ios" && platform !== "android" && platform !== "android_x") {
@@ -23,6 +22,7 @@ if (platform !== "ios" && platform !== "android" && platform !== "android_x") {
 } else {
   WebApp.ready();
 }
+//device check!!!
 
 WebApp.setHeaderColor('#1d283a');
 

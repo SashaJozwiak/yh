@@ -5,7 +5,7 @@ import { usePlayCard } from '../../../state/playCard';
 import { useArena } from '../../../state/mainArena';
 import { useGameNav } from './../../../state/gameNav';
 
-import { useUserData } from '../../../../store/main';
+//import { useUserData } from '../../../../store/main';
 
 import imgs from '../../Deck/charimg'
 import skillsImgs from '../../../assets/Game/icons/skills_25.webp'
@@ -18,7 +18,7 @@ import s from './card.module.css'
 export const Card: React.FC = () => {
     const [stat, setStat] = useState(false);
 
-    const userId = useUserData(state => state.user.id)
+    //const userId = useUserData(state => state.user.id)
 
     const setNavDeck = useGameNav(state => state.setPageNav)
 
@@ -30,7 +30,7 @@ export const Card: React.FC = () => {
     const playCard = usePlayCard(state => state.playCard)
     const enemyAttack = usePlayCard(state => state.battleState.enemy.attack)
     const addStat = usePlayCard(state => state.addStat)
-    const addExp = usePlayCard(state => state.addExp)
+    //const addExp = usePlayCard(state => state.addExp)
 
     const selectedSkill = usePlayCard(state => state.selectedSkill)
     const selectSkill = usePlayCard(state => state.selectSkill)
@@ -195,11 +195,11 @@ export const Card: React.FC = () => {
                             </div>
 
                         </div>
-                        {userId === 0 && 
+                        {/* {userId === 0 &&
                         <button
                                 onClick={() => addExp(150)}
                             >add exp</button>
-                        }
+                        } */}
 
                     </div>
                 </div>

@@ -5,8 +5,13 @@ import { useNav } from "../../../store/nav"
 import s from './header.module.css'
 import { useArena } from './../../state/mainArena';
 import { useGameNav } from './../../state/gameNav';
+import { useUserData } from '../../../store/main';
+import { swichLang } from '../../utils/lang';
 
 export const Header: React.FC = () => {
+
+    const userLang = useUserData(state => state.user.languageCode);
+
     const changeNav = useNav(state => state.setMainNav)
     const changeGameNav = useGameNav(state => state.setPageNav)
 
@@ -24,8 +29,8 @@ export const Header: React.FC = () => {
 
             </button>
 
-            <span className={s.stagetitle}>HOUSE<p className={s.stage}>{house}</p></span>
-            <span className={s.stagetitle}>FLOOR<p className={s.stage}>{floor}</p></span>
+            <span className={s.stagetitle}>{swichLang(userLang, 'house')}<p className={s.stage}>{house}</p></span>
+            <span className={s.stagetitle}>{swichLang(userLang, 'floor')}<p className={s.stage}>{floor}</p></span>
 
             <button onClick={() => changeGameNav('map')} className={s.top}>
                 {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={'1.5rem'} strokeWidth={1.5} stroke="currentColor" className="size-6">
