@@ -16,25 +16,13 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
                 gray: 1,
                 bronze: 0,
                 silver: 0,
-                gold: 2,
+                gold: 0,
             },
             img: 'investor',
             key_power: 'balance'
         },
-        {
-            id: 2,
-            name: 'Rick',
-            grades: {
-                gray: 1,
-                bronze: 0,
-                silver: 0,
-                gold: 3,
-            },
-            img: 'developer',
-            key_power: 'mind'
-        },
     ],
-    randomCards: 100,
+    randomCards: 0,
     saveTransaction: async (user_id, amount, price) => {
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/finishpay`, {
@@ -176,14 +164,11 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
 
             const res = await response.json()
             console.log('savedeck:', res)
-
-
         } catch (error) {
             console.log('save deck error: ', error)
         } finally {
             console.log('save deck response: finally')
         }
-
 
     },
     loadDeck: (deck_state: DeckState) => {

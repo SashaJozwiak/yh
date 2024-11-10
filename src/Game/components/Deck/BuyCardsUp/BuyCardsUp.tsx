@@ -19,7 +19,6 @@ export const BuyCardsUp = ({ setBuyCardsUp }) => {
         setBuyCardsUp(false);
     }
 
-
     return (
         <div className={s.container}>
             <div onClick={e => e.stopPropagation()} className={s.window}>
