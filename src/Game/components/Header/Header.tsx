@@ -7,6 +7,7 @@ import { useArena } from './../../state/mainArena';
 import { useGameNav } from './../../state/gameNav';
 import { useUserData } from '../../../store/main';
 import { swichLang } from '../../utils/lang';
+import { usePlayCard } from '../../state/playCard';
 
 export const Header: React.FC = () => {
 
@@ -15,13 +16,21 @@ export const Header: React.FC = () => {
     const changeNav = useNav(state => state.setMainNav)
     const changeGameNav = useGameNav(state => state.setPageNav)
 
+    const { inBattle, endBattle } = usePlayCard(state => state)
+    console.log('inBattle: ', inBattle);
+
     const { floor, house } = useArena(state => state)
 
     return (
         <div className={s.headgame}>
             <button
                 className={s.back}
-                onClick={() => changeNav('hold')}
+                onClick={() => {
+                    if (inBattle) {
+                        endBattle();
+                    }
+                    changeNav('hold')
+                }}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={'3vh'} strokeWidth={1.5} stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />

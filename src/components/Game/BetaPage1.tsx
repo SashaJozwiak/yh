@@ -13,7 +13,7 @@ import investor from '../../assets/game/img/inv3_11zon_1.webp'
 import { formatNumber } from './../../utils/formats/bigNumbers';
 
 import s from './betapage1.module.css'
-import { Tooltip } from './Tooltip';
+//import { Tooltip } from './Tooltip';
 
 
 interface TimeLeft {
@@ -150,7 +150,7 @@ export const BetaPage1 = () => {
                                 </button> */}
                             {/* } */}
 
-                            {!finishTime && <Tooltip />}
+                            {/* {!finishTime && <Tooltip />} */}
                         </div>
 
                         {!finishTime ? (
