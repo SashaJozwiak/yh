@@ -319,7 +319,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
     startBattle: (card) => {
         const enemyOrBoss = {
             'enemies': 100,
-            'boss': 10,
+            'boss': 50,
         }
         const floor = useArena.getState().floor;
         const house = useArena.getState().house;

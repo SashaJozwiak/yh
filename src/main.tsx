@@ -22,6 +22,7 @@ if (platform !== "ios" && platform !== "android" && platform !== "android_x") {
 } else {
   WebApp.ready();
 }
+
 //device check!!!
 
 WebApp.setHeaderColor('#1d283a');
