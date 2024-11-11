@@ -32,11 +32,11 @@ export const BetaPage1 = () => {
     const isLoading = useListData((state) => state.state.isLoading);
 
     const getInList = useListData((state) => state.getInList);
-    const addInList = useListData((state) => state.addInList);
+    //const addInList = useListData((state) => state.addInList);
 
     const changeNav = useNav(state => state.setMainNav)
     const userId = useUserData(state => state.user.internalId);
-    const userName = useUserData(state => state.user.userName);
+    //const userName = useUserData(state => state.user.userName);
     const balance = useUserData(state => state.balance.balance);
 
     const [finishTime, setFinishTime] = useState(false);
@@ -132,7 +132,7 @@ export const BetaPage1 = () => {
 
                         <div className={s.buttons}>
 
-                            {finishTime ?
+                            {/* {finishTime ? */}
                                 <button
                                     className={s.btnaddlist}
                                     onClick={() => changeNav('game1')}
@@ -140,15 +140,15 @@ export const BetaPage1 = () => {
                                     style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'white' : balance > 250 ? 'white' : 'gray' }}
                                 >
                                     {balance < 250 ? 'balance < 250' : 'Play'}
-                                </button> :
+                            </button> {/* : */}
 
-                                <button
+                            {/* <button
                                 onClick={() => addInList(userId, userName, balance)}
                                 disabled={inList || isLoading || balance < 250}
                                 className={s.btnaddlist} style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'gray' : balance > 250 ? 'white' : 'gray' }}>
                                 {isLoading ? 'loading...' : inList ? `${swichLang(userLang, 'beta_inlist')}` : balance > 250 ? `${swichLang(userLang, 'beta_goinlist')}` : `${swichLang(userLang, 'balance')} < 250 UH`}
-                                </button>
-                            }
+                                </button> */}
+                            {/* } */}
 
                             {!finishTime && <Tooltip />}
                         </div>
