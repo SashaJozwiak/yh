@@ -38,7 +38,8 @@ export const Arena: React.FC = () => {
 
 
     const imageArray = Object.values(imgs);
-    const [randomBoss] = useState(Math.floor(Math.random() * imageArray.length));
+
+    const [randomBoss, setRandomBoss] = useState(Math.floor(Math.random() * imageArray.length));
 
 
 
@@ -93,6 +94,8 @@ export const Arena: React.FC = () => {
             if ((floor + 1) % 10 === 0) {
                 console.log('this setTimeout save');
                 setTimeout(() => saveGame(userId), 1200);
+                setRandomBoss(Math.floor(Math.random() * imageArray.length))
+
             }
         }
 
@@ -135,7 +138,10 @@ export const Arena: React.FC = () => {
      console.log('row2: ', row2)
      console.log('row3: ', row3)
      console.log('blockClick: ', blockClick)
-     console.log('Arena state: ', [...row1, ...row2, ...row3]); */
+     console.log('Arena state: ', [...row1, ...row2, ...row3]); 
+     console.log('arena render')
+     */
+
 
     return (
         <div className={s.arena}>
