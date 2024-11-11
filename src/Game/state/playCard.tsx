@@ -528,7 +528,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                         ...state.playCard,
                         lvl: state.playCard.lvl + 1,
                         exp: 0 + additionalExp,
-                        exp_points: state.playCard.exp_points + 5,
+                        exp_points: state.playCard.exp_points + 4,
                         balance_hp: get().playCard.stats.balance * 10,
                         energy_mp: get().playCard.stats.energy * 10,
                     }
