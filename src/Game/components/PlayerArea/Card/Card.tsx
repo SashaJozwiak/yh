@@ -113,7 +113,7 @@ export const Card: React.FC = () => {
                                 {selectedSkill.id > 1000 ? 'Total' : 'Cost'}:&nbsp;
                                 {selectedSkill.id > 1000 ?
                                     <span style={{ color: 'white' }}>
-                                        {selectedSkill.amount}
+                                        {playCard.items.find((item) => item.id === selectedSkill.id)?.amount || 0 /* selectedSkill.amount */} 
                                     </span> :
                                     <span style={{ color: (selectedSkill.cost * selectedSkill.multiplier) > playCard.energy_mp ? 'rgb(235 94 48)' : 'white' }}>
                                         {(selectedSkill.cost * selectedSkill.multiplier).toFixed(0)}
