@@ -139,7 +139,7 @@ export const BetaPage1 = () => {
                                     disabled={isLoading || balance < 250 || !finishTime}
                                     style={{ padding: '0.5rem 1rem', marginBottom: '3%', marginRight: '2%', color: inList ? 'white' : balance > 250 ? 'white' : 'gray' }}
                                 >
-                                    Play
+                                    {balance < 250 ? 'balance < 250' : 'Play'}
                                 </button> :
 
                                 <button
