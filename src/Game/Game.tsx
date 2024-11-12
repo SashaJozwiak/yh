@@ -23,6 +23,7 @@ import Loader from './Loader';
 import charImages from './components/Deck/charimg';
 import enimies from './assets/Game/icons/enemies_36.png'
 import skills from './assets/Game/icons/skills_25.webp'
+import { Top } from './components/Top/Top';
 //import { useDeck } from './state/deck';
 
 const icons = [
@@ -93,6 +94,7 @@ export const Game: React.FC = () => {
             {nav === 'deck' && <Deck />}
             {nav === 'shop' && <Shop />}
             {nav === 'map' && <Map />}
+            {nav === 'top' && <Top />}
             <Header />
             <Arena />
             <PlayerArea />

@@ -9,7 +9,7 @@
     //border: 1px solid white;
 }
 
-.back, .top {
+.back, .map, .top {
     background-color: rgb(100 116 139);
     zIndex: 100;
     bottom: 0;
@@ -19,8 +19,13 @@
     
 }
 
+.map {
+    border-bottom-left-radius: 0.5rem;
+}
+
 .top {
     border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }
 
 .back {

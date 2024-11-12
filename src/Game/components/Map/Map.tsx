@@ -136,7 +136,7 @@ export const Map: React.FC = () => {
                 </button>
 
 
-                <h2 style={{ margin: '0 auto' }}>🟢Map🟢</h2>
+                <h2 style={{ margin: '0 auto' }}>🟢Map</h2>
 
                 <button
                     onClick={handleHome}
