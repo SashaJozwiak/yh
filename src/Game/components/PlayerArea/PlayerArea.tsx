@@ -7,6 +7,7 @@ import { usePlayCard } from '../../state/playCard'
 import s from './playerarea.module.css'
 import { useListData } from '../../../store/EAlist'
 import WebApp from '@twa-dev/sdk'
+import { useDeck } from '../../state/deck'
 
 
 export const PlayerArea: React.FC = () => {
@@ -15,8 +16,8 @@ export const PlayerArea: React.FC = () => {
     const { toggleCollect, toggleReward } = usePlayCard(state => state)
     //const [collect, setCollect] = React.useState(false)
 
+    const randomCards = useDeck(state => state.randomCards)
     const { cards, UH, B } = usePlayCard(state => state.forSave)
-
     const inList = useListData(state => state.state.inList)
 
     return (
@@ -25,8 +26,9 @@ export const PlayerArea: React.FC = () => {
             <div className={s.left}>
                 <button
                     onClick={() => setNav('deck')}
-                    style={{ border: '1px solid gray', margin: '2vh 4vw 0 4vw', background: 'rgb(75 94 121)', borderRadius: '0.3rem' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" width={30}>
+                    //className={randomCards ? s.blur : ''}
+                    style={{ border: '1px solid gray', margin: '2vh 4vw 0 4vw', background: 'rgb(75 94 121)', borderRadius: '0.3rem', color: randomCards ? 'rgb(22 163 74)' : 'white' }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke={randomCards ? 'rgb(22 163 74)' : 'white'} width={30} >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
                     </svg>
                     <p>Deck</p>
