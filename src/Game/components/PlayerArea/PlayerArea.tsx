@@ -31,7 +31,7 @@ export const PlayerArea: React.FC = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke={randomCards ? 'rgb(22 163 74)' : 'white'} width={30} >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
                     </svg>
-                    <p>Deck</p>
+                    <p>Cards</p>
                 </button>
 
                 <button
@@ -40,7 +40,7 @@ export const PlayerArea: React.FC = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke={cards > 0 || UH > 0 || B > 0 ? "rgb(22 163 74)" : 'white'} width={30} >
                         < path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
                     </svg >
-                    <p style={{ color: cards > 0 || UH > 0 || B > 0 ? 'rgb(22 163 74)' : 'white', fontWeight: cards > 0 || UH > 0 || B > 0 ? 'bold' : 'normal' }}>Collect</p>
+                    <p style={{ color: cards > 0 || UH > 0 || B > 0 ? 'rgb(22 163 74)' : 'white', fontWeight: cards > 0 || UH > 0 || B > 0 ? 'bold' : 'normal' }}>Save</p>
                 </button>
             </div>
 
