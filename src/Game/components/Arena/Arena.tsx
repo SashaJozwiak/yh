@@ -225,7 +225,7 @@ export const Arena: React.FC = () => {
                                     <p style={{ color: 'rgb(204, 153, 0)', fontWeight: 'bold', fontSize: '1.8vh' }}>
                                         {inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id && battleIndex === index ?
                                             battleState.enemy.balance.toFixed()
-                                            : card.multiplier === 1 ? ((card.balance * (floor / 20 + 1)) * (house / 100 + 1)).toFixed() : '***'
+                                            : card.multiplier === 1 ? ((card.balance * (floor / 18 + 1)) * (house / 100 + 1)).toFixed() : '***'
                                         }
 
                                         {/* {card.multiplier === 1 ? (card.balance * ((floor / 100 + 1))).toFixed() : '***'} */}
@@ -233,7 +233,7 @@ export const Arena: React.FC = () => {
                                     <p style={{ color: 'rgb(154 52 18)', fontWeight: 'bold', fontSize: '1.8vh' }}>
                                         {inBattle && 'id' in battleState.enemy && card.id === battleState.enemy.id ?
                                             battleState.enemy.attack.toFixed()
-                                            : card.multiplier === 1 ? ((card.attack * (floor / 20 + 1)) * (house / 100 + 1)).toFixed() : '***'
+                                            : card.multiplier === 1 ? ((card.attack * (floor / 18 + 1)) * (house / 100 + 1)).toFixed() : '***'
                                         }
                                         {/* {card.multiplier === 1 ? (card.attack * (floor / 100 + 1)).toFixed() : '***'} */}
                                     </p>
