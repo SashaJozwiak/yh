@@ -81,11 +81,11 @@ export const Header: React.FC = () => {
             }
 
             //setUser(newUser);
-        } else /*if (id !== 757322479  757322479 757322479 )*/ {
+        } else /*if (id !==    757322479 )*/ {
             const newUser = {
-                id: 0 /* 757322479 757322479 */,
+                id: 0 /*  757322479  */,
                 //internalId: null,
-                userName: "example",
+                userName: "Example",
                 languageCode: "ru",
                 userFriendlyAddress: '',
                 rawAddress: '',

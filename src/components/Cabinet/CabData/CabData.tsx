@@ -59,7 +59,7 @@ export const CabData = () => {
         }, 1200);
     }
 
-    console.log('active_usernames: ', active_usernames);
+    //console.log('active_usernames: ', active_usernames);
 
     return (
         <>
@@ -71,8 +71,8 @@ export const CabData = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                 </div>
-                {active_usernames.map((ref) => (
-                    <div>{ref}</div>
+                {active_usernames.map((ref, indx) => (
+                    <div key={indx}>{ref}</div>
                 ))}
             </div> : <>
             <div className={s.data}>

@@ -69,6 +69,8 @@ export const lang = {
         team_name: 'Team name',
         team_link: 'Team link',
         cancel: 'Cancel',
+        //transfers
+        transfers: 'Transfers',
         //game
         beta_title: 'The YouHold Game',
         beta_subtitle: 'Early access',
@@ -155,6 +157,8 @@ export const lang = {
         team_link: 'Ссылка',
         cancel: 'Выйти',
         not_team: 'Вы пока не в команде',
+        //transfers
+        transfers: 'Переводы',
         //game
         beta_title: 'Игра YouHold',
         beta_subtitle: 'Ранний доступ',

@@ -21,11 +21,12 @@
 
 .map {
     border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    
 }
 
 .top {
     border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
 }
 
 .back {

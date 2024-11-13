@@ -10,6 +10,7 @@ import { swichLang } from '../../lang/lang.js';
 import { BackButton } from "@twa-dev/sdk/react";
 
 import s from './cabinet.module.css'
+import { Transfers } from './Transfers/Transfers.tsx';
 
 //import { Invite } from './Invite/Invite';
 
@@ -29,17 +30,19 @@ export const Cabinet: React.FC = () => {
                 >{swichLang(userLang, 'info')}
                 </button>
                 <button
+                    onClick={() => changeCabNav('transfers')}
+                    className={`${s.cabnavbtn} ${cabNav === 'transfers' ? s.on : null}`}>{swichLang(userLang, 'transfers')}
+                </button>
+                <button
                     onClick={() => changeCabNav('teams')}
                     className={`${s.cabnavbtn} ${cabNav === 'teams' ? s.on : null}`}>{swichLang(userLang, 'teams')}
                 </button>
-                {/*  <button
-                    onClick={() => changeCabNav('invite')}
-                    className={`${s.cabnavbtn} ${cabNav === 'invite' ? s.on : null}`}>Invite
-                </button> */}
+
             </div>
 
             {cabNav === 'data' && <CabData />}
             {cabNav === 'teams' && <Teams />}
+            {cabNav === 'transfers' && <Transfers />}
             {/* {cabNav === 'invite' && <Invite />}  */}
         </>
     )

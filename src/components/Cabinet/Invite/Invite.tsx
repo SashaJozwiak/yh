@@ -5,7 +5,7 @@ import { swichLang } from '../../../lang/lang.js';
 import WebApp from '@twa-dev/sdk';
 import { useTeams } from '../../../store/teams';
 
-//import s from './invite.module.css'
+import s from './invite.module.css'
 import { useInvites10 } from '../../../store/invites';
 //import { ClaimInv } from './ClaimInv.tsx';
 
@@ -15,23 +15,33 @@ import { useInvites10 } from '../../../store/invites';
 export const Invite: React.FC = () => {
     //const [userClaimStatus, setUserClaimStatus] = useState<boolean | null>(null);
 
-    const { id, userName, languageCode/* , internalId */ } = useUserData(state => state.user)
+    const { id, userName, languageCode, internalId } = useUserData(state => state.user)
     const teamId = useTeams(state => state.myTeam.team_id)
 
-    const top10 = useInvites10(state => state.top10);
-    const getTop10 = useInvites10(state => state.getTop10);
+    //const top10 = useInvites10(state => state.top10);
+    //const getTop10 = useInvites10(state => state.getTop10);
 
     const winners = useInvites10(state => state.winners);
-    const getWinners = useInvites10(state => state.getWinners);
+    //const getWinners = useInvites10(state => state.getWinners);
     //const claim = useInvites10(state => state.addReward)
 
-    const total = useInvites10(state => state.total);
+    //const total = useInvites10(state => state.total);
 
-    //const loadStatus = useInvites10(state => state.loadStatus);
+    const loadStatus = useInvites10(state => state.loadStatus);
+
+
 
     const [link, setLink] = useState<string>(`https://t.me/youhold_bot?start=${id}`);
     const [copied, setCopied] = useState<boolean>(false);
     const [checked, setCheked] = useState<boolean>(!!teamId);
+
+    //console.log('activeFriends: ', activeFriends)
+
+    const [blockBtn, setBlockBtn] = useState<boolean>(true);
+    const checkRewards = useInvites10(state => state.checkRewards);
+    const addReward = useInvites10(state => state.addReward);
+    const rewards = useInvites10(state => state.rewards);
+    const activeFriends = useUserData(state => state.user.refs_active)
 
     const changeLink = () => {
         setCheked(prev => {
@@ -82,7 +92,7 @@ export const Invite: React.FC = () => {
         }
     }, [id, teamId])
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (!top10.length) {
             getTop10();
         }
@@ -92,7 +102,7 @@ export const Invite: React.FC = () => {
         if (total > 992) {
             getWinners();
         }
-    }, [getWinners, total])
+    }, [getWinners, total]) */
 
     const userInWinners = winners.find(winner => +(winner.id) === id);
     //const userClaimStatus = userInWinners ? userInWinners.is_claim : null;
@@ -108,12 +118,24 @@ export const Invite: React.FC = () => {
         }
     } */
 
+    useEffect(() => {
+        checkRewards(id)
+        setBlockBtn(false)
+        /* setTimeout(() => {
+            
+        }, 300) */
+
+    }, [checkRewards, id])
+
+    console.log('rewards: ', rewards);
+    console.log('activeFriends: ', activeFriends)
+
     return (
         <>
             <h2 style={{ marginTop: '0.6rem' }}>{swichLang(languageCode, 'hi')} 👋 {userName}!</h2>
             <h3 >{swichLang(languageCode, 'invite')}</h3>
 
-            <div style={{ marginTop: '1em', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+            <div style={{ marginTop: '1em',/*  marginBottom: '1vh', */ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto' }}>
                     <input
                         type="text"
@@ -187,6 +209,37 @@ export const Invite: React.FC = () => {
                 }}
                     style={{ border: '1px solid lightgray', background: 'rgb(103 119 142)', borderRadius: '0.25rem', padding: '0rem 0.5rem', margin: '2vh 4rem', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
                 ><h3 style={{ display: 'inline-block' }}>{swichLang(languageCode, 'invitebtn')}</h3></button>
+            </div>
+
+
+            <div style={{ display: 'flex', flexDirection: 'column', /* border: '2px solid ', */ margin: '2vh 0.3rem 0.3rem', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '2vh' }}>
+                    <p style={{ margin: 'auto', fontSize: 'calc(1.7vh + 1.7vw)' }}>3 active friends</p>
+                    <button
+                        onClick={() => addReward(id, internalId, 3000)}
+                        disabled={blockBtn || rewards.reward_3000 || activeFriends < 3 || loadStatus}
+                        style={{ opacity: blockBtn ? '0.5' : activeFriends < 3 ? '0.5' : (rewards.reward_3000) ? '0.5' : loadStatus ? '0.5' : '1' }}
+                        className={s.claim} >{rewards.reward_3000 ? 'completed' : 'claim 3000'}<span style={{ color: 'rgb(22, 163, 74)' }}>{!(rewards.reward_3000) ? ' B' : null}</span></button>
+                </div>
+                <div style={{ display: 'inline-flex', paddingBottom: '2vh' }}>
+                    <p style={{ margin: 'auto', fontSize: 'calc(1.7vh + 1.7vw)' }}>5 active friends</p>
+                    <button
+                        onClick={() => addReward(id, internalId, 6000)}
+                        disabled={blockBtn || rewards.reward_6000 || activeFriends < 5 || loadStatus}
+                        style={{ opacity: blockBtn ? '0.5' : activeFriends < 5 ? '0.5' : (rewards.reward_6000) ? '0.5' : loadStatus ? '0.5' : '1' }}
+                        className={s.claim}>{rewards.reward_6000 ? 'completed' : 'claim 6000'}
+                        <span style={{ color: 'rgb(22, 163, 74)' }}>{!(rewards.reward_6000) ? ' B' : null}</span></button>
+                </div>
+                <div
+                    style={{ display: 'inline-flex' }}>
+                    <p style={{ margin: 'auto', fontSize: 'calc(1.7vh + 1.7vw)' }}>10 active friends</p>
+                    <button
+                        onClick={() => addReward(id, internalId, 12000)}
+                        disabled={blockBtn || (rewards.reward_12000) || activeFriends < 10 || loadStatus}
+                        style={{ opacity: blockBtn ? '0.5' : activeFriends < 10 ? '0.5' : (rewards.reward_12000) ? '0.5' : loadStatus ? '0.5' : '1' }}
+                        className={s.claim}>{rewards.reward_12000 ? 'completed' : 'claim 12000'}
+                        <span style={{ color: 'rgb(22, 163, 74)' }}>{!(rewards.reward_12000) ? ' B' : null}</span></button>
+                </div>
             </div>
 
             {/* <p style={{ margin: '1rem 1rem' }}>{swichLang(languageCode, 'not_part')}</p> */}

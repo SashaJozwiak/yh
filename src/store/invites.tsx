@@ -2,12 +2,35 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { UseInvites10 } from '../types/stores';
 
-export const useInvites10 = create<UseInvites10>()(devtools((set) => ({
+export const useInvites10 = create<UseInvites10>()(devtools((set, get) => ({
     top10: [
     ],
     winners: [],
+    rewards: {
+        reward_3000: true,
+        reward_6000: true,
+        reward_12000: true
+    },
     total: 0,
     loadStatus: false,
+    checkRewards: async (id) => {
+        set({ loadStatus: true });
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}invites/checkRewards/${id}`);
+            if (response.ok) {
+                const data = await response.json();
+                console.log('reward state object: ', data)
+                set({ rewards: data });
+
+            } else {
+                console.error('Ошибка при проверке наград');
+            }
+        } catch (error) {
+            console.error('Ошибка сети при проверке наград:', error);
+        } finally {
+            set({ loadStatus: false });
+        }
+    },
     getTop10: async () => {
         set({ loadStatus: true });
         try {
@@ -86,22 +109,21 @@ export const useInvites10 = create<UseInvites10>()(devtools((set) => ({
             const data = await response.json();
             console.log(data.message); // Сообщение об успешном начислении награды
 
-            // Здесь можно обновить состояние, если это необходимо
-            // Например, если ты хочешь обновить список топа или баланс
-            // set((state) => ({ ...state, ... }));
+            get().checkRewards(externalId);
 
-            set((state) => ({
+            //set({ loadStatus: false });
+
+
+            /* set((state) => ({
                 winners: state.winners.map(winner =>
                     +(winner.id) === internalId
                         ? { ...winner, is_claim: true }
                         : winner
                 )
-            }));
+            })); */
 
         } catch (e) {
             console.error('Ошибка при начислении награды', e);
-        } finally {
-            set({ loadStatus: false }); // Устанавливаем статус загрузки в false
         }
     },
 })))

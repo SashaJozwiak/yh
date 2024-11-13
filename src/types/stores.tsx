@@ -1,3 +1,5 @@
+import { DeckState } from "../Game/types/forGameState";
+
 export interface User {
     id: number;
     internalId: number;
@@ -229,11 +231,19 @@ export interface Winners {
     is_claim: boolean;
 }
 
+interface Rewards {
+    reward_3000: boolean;
+    reward_6000: boolean;
+    reward_12000: boolean;
+}
+
 export interface UseInvites10 {
     top10: UserInvites[];
     winners: Winners[],
+    rewards: Rewards,
     total: number;
     loadStatus: boolean;
+    checkRewards: (id: number) => Promise<void>;
     getTop10: () => Promise<void>;
     getWinners: () => Promise<void>;
     addReward: (externalId: number, internalId: number, reward: number) => Promise<void>;
@@ -272,3 +282,29 @@ export interface UseEAlist {
     getInList: (userId: number) => Promise<void>;
     addInList: (userId: number, userName: string, balance: number) => Promise<void>;
 }
+
+//COMMISIONS 
+
+export interface Transactions {
+    id: number;
+    sender_id: number;
+    receiver_id: number;
+    transaction_timestamp: string;
+    transaction_type: boolean;
+    amount: number;
+    fee: number;
+    sender_username: string | null;
+    receiver_username: string | null;
+}
+
+export interface UseFees {
+    deckState: DeckState | null;
+    commission: number;
+    isLoading: boolean;
+    transactions: Transactions[],
+    isLoadingHistory: boolean;
+    fetchTransactionHistory: (userId: number) => Promise<void>;
+    fetchDeckState: (userId: number) => Promise<void>;
+}
+
+

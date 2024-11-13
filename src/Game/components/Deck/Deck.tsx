@@ -15,6 +15,7 @@ import { cardOrder } from '../../utils/deckOrder'
 import { GradesSvg } from '../Some/GradesSvg'
 import imgs from './charimg'
 import s from './deck.module.css'
+import { DeckInfo } from './DeckInfo/DeckInfo';
 
 
 export const Deck: React.FC = () => {
@@ -22,6 +23,9 @@ export const Deck: React.FC = () => {
     const [close, setClose] = useState(false)
     const [showedCard, setShowedCard] = useState<string>('')
     const [addedCards, setAddedCards] = useState<Card[]>([]);
+
+    const [deckInfo, setDeckInfo] = useState(false);
+
     const setNav = useGameNav(state => state.setPageNav)
 
     const isShowCard = useGameNav(state => state.showCard)
@@ -132,8 +136,10 @@ export const Deck: React.FC = () => {
                 {isShowCard && <ShowCard name={showedCard} />}
                 {isShowGetCards && <ShowAddCards cards={addedCards} />}
                 {buyCardsUp && <BuyCardsUp setBuyCardsUp={setBuyCardsUp} />}
+                {deckInfo && <DeckInfo setDeckInfo={setDeckInfo} />}
 
                 <div className={s.ui}>
+
                     <div className={s.table}>
                         {filteredAndPaddedCards.map(card => (
                             <div
@@ -172,6 +178,13 @@ export const Deck: React.FC = () => {
                             onClick={() => setGrade('gold')}
                             className={`${s.gradeBtn} ${Grade === 'gold' ? s.gradeBtnOn : null}`}><GradesSvg color={'#CC9900'} stroke={'white'} /> <p style={{ color: '#CC9900' }}>Gold</p>
                         </button>
+
+                        <button
+                            onClick={() => setDeckInfo(true)}
+                            className={s.info}>
+                            ?
+                        </button>
+
                     </div>
                 </div>
 
