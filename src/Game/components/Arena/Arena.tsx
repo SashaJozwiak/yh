@@ -238,7 +238,7 @@ export const Arena: React.FC = () => {
                                         {/* {card.multiplier === 1 ? (card.attack * (floor / 100 + 1)).toFixed() : '***'} */}
                                     </p>
 
-                                    <p style={{ /* position: 'absolute', bottom: '0' ,*/ fontSize: '1vh', color: 'gray', textAlign: 'center' }}>Card: 10%</p>
+                                    <p style={{ /* position: 'absolute', bottom: '0' ,*/ fontSize: '1vh', color: 'gray', textAlign: 'center' }}>Card drop: 10%</p>
                                 </div>
                             }
                         </div>

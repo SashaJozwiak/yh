@@ -11,8 +11,6 @@ import PreloadImages from './utils/hooks/usePreloadImage.tsx';
 import './index.css'
 
 
-//device check!!!
-
 const platform = WebApp.platform;
 
 if (platform !== "ios" && platform !== "android" && platform !== "android_x") {
@@ -23,7 +21,6 @@ if (platform !== "ios" && platform !== "android" && platform !== "android_x") {
   WebApp.ready();
 }
 
-//device check!!!
 
 WebApp.setHeaderColor('#1d283a');
 
