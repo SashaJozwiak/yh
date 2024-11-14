@@ -51,9 +51,9 @@ export const WinPopUp = () => {
         }
 
         const chance = enemyType === 'boss' ? 100 / 1000 : cardChance(enemyCard) / 100;/* floor / 1000 */
-        const isCard = Math.random() < chance;
+        const isCard = Math.random() < chance + 0.02;
         console.log('nm: ', chance, isCard);
-        console.log('isCard: ', chance, Math.random(), isCard);
+        console.log('isCard: ', chance + 0.02, Math.random(), isCard);
         if (isCard) {
             setGetCard(() => true);
             addForSave(2004)
