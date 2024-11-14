@@ -56,7 +56,7 @@ export const TimerButtonAd = ({ dailyReward }) => {
 
     //const claimableTime = rewardTime + hours * 60 * 60 * 1000;
 
-    const claimableTime = dailyReward.id === 8 ? rewardTime + minutes * 60 * 60 * 1000 : rewardTime + hours * 60 * 60 * 1000; /* && dailyReward.counter !== 20 ? rewardTime + minutes * 60 * 1000 : rewardTime + hours * 60 * 60 * 1000; */
+    const claimableTime = dailyReward.id === 8 ? rewardTime + minutes * 60 * 1000 : rewardTime + hours * 60 * 60 * 1000; /* && dailyReward.counter !== 20 ? rewardTime + minutes * 60 * 1000 : rewardTime + hours * 60 * 60 * 1000; */
 
     //const claimableTime5nibuts = rewardTime + minutes * 60 * 1000;
     const now = Date.now(); // Текущее время в миллисекундах
