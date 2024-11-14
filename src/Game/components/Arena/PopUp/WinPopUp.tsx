@@ -26,6 +26,7 @@ export const WinPopUp = () => {
     const goNextFloor = usePlayCard(state => state.goNextFloor)
 
     const enemyType = usePlayCard(state => state.battleState.enemy.type);
+    const enemyCard = usePlayCard(state => state.battleState.enemy);
     const nextHouse = usePlayCard(state => state.nextHouse)
 
     const handleClose = () => {
@@ -43,8 +44,15 @@ export const WinPopUp = () => {
 
     useEffect(() => {
         console.log(floor)
-        const chance = enemyType === 'boss' ? 100 / 1000 : floor / 1000;
+
+        const cardChance = (card: ArenaCard) => {
+            const chance = ((floor + card.multiplier) / 10) + (card.id / 100);
+            return chance < 0 ? 0 : chance;
+        }
+
+        const chance = enemyType === 'boss' ? 100 / 1000 : cardChance(enemyCard) / 100;/* floor / 1000 */
         const isCard = Math.random() < chance;
+        console.log('nm: ', chance, isCard);
         console.log('isCard: ', chance, Math.random(), isCard);
         if (isCard) {
             setGetCard(() => true);

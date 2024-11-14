@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useArena } from '../../state/mainArena';
 import { usePlayCard } from '../../state/playCard';
+import { useUserData } from '../../../store/main';
 
 import { ArenaCard } from '../../types/Arena';
 import { useCardRowAnimation } from '../../utils/forArena/NewRow';
@@ -12,9 +13,6 @@ import { Rewards } from '../Some/Rewards';
 
 import imgs from './../Deck/charimg'
 import s from './arena.module.css';
-import { useUserData } from '../../../store/main';
-
-
 
 export const Arena: React.FC = () => {
     const userId = useUserData(state => state.user.internalId);
@@ -36,12 +34,15 @@ export const Arena: React.FC = () => {
     //const [getDamage, setGetDamage] = useState<string>('');
     const { getDamage } = usePlayCard(state => state.battleState);
 
-
     const imageArray = Object.values(imgs);
 
     const [randomBoss, setRandomBoss] = useState(Math.floor(Math.random() * imageArray.length));
 
-
+    const cardChance = (card: ArenaCard) => {
+        //const sign = card.id > 15 ? -1 : 1;
+        const chance = ((floor + card.multiplier) / 10) + (card.id / 100);
+        return chance < 0 ? 0 : chance.toFixed(2);
+    }
 
     const handleClick = (card: ArenaCard, indx: number) => {
 
@@ -134,15 +135,6 @@ export const Arena: React.FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    /*  console.log('row1: ', row1)
-     console.log('row2: ', row2)
-     console.log('row3: ', row3)
-     console.log('blockClick: ', blockClick)
-     console.log('Arena state: ', [...row1, ...row2, ...row3]); 
-     console.log('arena render')
-     */
-
-
     return (
         <div className={s.arena}>
 
@@ -210,7 +202,7 @@ export const Arena: React.FC = () => {
                                         }
                                         {/* {card.multiplier === 1 ? (card.attack * (floor / 100 + 1)).toFixed() : '***'} */}
                                     </p>
-                                <p style={{ fontSize: '1.1vh', color: 'gray' }}>Card drop: {((floor + card.multiplier) / 10).toFixed()}%</p>
+                                <p style={{ fontSize: '1.1vh', color: 'gray' }}>Card drop:{/* {((floor + card.multiplier) / 10).toFixed()} */} {cardChance(card)}%</p>
                                 </>
                             }
                             {card.type === 'items' &&

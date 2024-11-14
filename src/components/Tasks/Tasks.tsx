@@ -137,8 +137,15 @@ export const Tasks = () => {
                 <div
                     key={task.id} className={s.listitem}
                     style={{ color: 'grey' }}>
-                    <div style={{ borderBottom: '1px gray solid' }}
-                        className={s.title}>{task.title}</div>
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                        }}
+                        disabled={task.type === 'affiliate'}
+                        style={{ borderBottom: '1px gray solid', color: 'gray' }}
+                        className={s.titlebtn}>{task.title}
+                    </button>
                     <div style={{ color: 'gray', backgroundColor: 'transparent' }} className={s.check}>🟢</div>
                     <div className={s.price}>{task.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
                 </div>

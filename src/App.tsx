@@ -7,7 +7,6 @@ import { Tasks } from './components/Tasks/Tasks';
 import { Stages } from './components/Stages/Stages';
 import { Cabinet } from './components/Cabinet/Cabinet';
 
-
 import { Invite } from './components/Cabinet/Invite/Invite';
 
 import { useNav } from './store/nav';
@@ -22,7 +21,7 @@ import WebApp from '@twa-dev/sdk';
 import './App.css';
 //import useScrollFix from './utils/hooks/useScrollFix';
 
-import { BetaPage1 } from './components/Game/BetaPage1';
+//import { BetaPage1 } from './components/Game/BetaPage1';
 import { Game } from './Game/Game';
 
 import { postEvent } from '@telegram-apps/sdk';
@@ -122,12 +121,12 @@ const App: React.FC = function () {
       {nav !== 'game1' && <Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}
-      {nav === 'game' && <BetaPage1 />}
+      {/* {nav === 'game' && <BetaPage1 />} */}
       {nav === 'game1' && <Game />}
       {nav === 'stage' && <Stages />}
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}
-      {nav !== 'game' && nav !== 'game1' && <Footer />}
+      {nav !== 'game1' && <Footer />}
     </>
   );
 }

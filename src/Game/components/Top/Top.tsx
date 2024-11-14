@@ -3,7 +3,7 @@ import s from './top.module.css'
 import { useGameNav } from '../../state/gameNav';
 import { useTopHeroes } from '../../state/top';
 import { useUserData } from '../../../store/main';
-import { swichLang } from '../../utils/lang';
+//import { swichLang } from '../../utils/lang';
 
 export const Top = () => {
     const [close, setClose] = useState<boolean>(false);
@@ -42,9 +42,9 @@ export const Top = () => {
                 <table style={{ borderSpacing: '0 1vh' }}>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Player</th>
-                            <th>{swichLang(userLang, 'house')}</th>
+                            <th>{userLang === 'ru' ? 'Место' : 'Place'}</th>
+                            <th>{userLang === 'ru' ? 'ТОП' : 'TOP'}</th>
+                            <th>{userLang === 'ru' ? 'Дом' : 'House'}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,9 +59,7 @@ export const Top = () => {
                 </table>
             }
 
-
-
-            <button className={s.btn} style={{ height: '5vh' }} onClick={handleClose}>close</button>
+            <button className={s.btn} /* style={{ height: '5vh' }} */ onClick={handleClose}>{userLang === 'ru' ? 'закрыть' : 'close'}</button>
         </div>
     )
 }

@@ -12,9 +12,12 @@
     //margin: auto auto;
     
     //aspect-ratio: 10 / 8;
+    
+    border:1px solid grey;
     background-color: rgb(51 65 85);
     box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
     border-radius: 1rem;
+
   
     animation: show 1s forwards;
     will-change: transform, opacity;

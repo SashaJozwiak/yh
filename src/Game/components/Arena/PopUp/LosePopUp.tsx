@@ -4,14 +4,18 @@ import { useUserData } from '../../../../store/main';
 //import { generateCard } from '../../../exmpl/arenaObjects';
 import { useArena } from '../../../state/mainArena'
 import { usePlayCard } from '../../../state/playCard'
+
+
 //import { ArenaCard } from '../../../types/Arena';
+import imgs from '../../Deck/charimg'
 import s from './winpopup.module.css'
 
 export const LosePopUp = () => {
 
     const userId = useUserData(state => state.user.internalId)
+    //const userLang = useUserData(state => state.user.languageCode)
 
-    const { setLose, losing, endBattle } = usePlayCard(state => state);
+    const { playCard, setLose, losing, endBattle } = usePlayCard(state => state);
     const { /* setRow1, setRow2, setRow3, reset, */ gameInit } = useArena(state => state);
 
     const loseClose = () => {
@@ -42,17 +46,14 @@ export const LosePopUp = () => {
         losing();
         setLose(false);
         endBattle(); */
-
     }
 
     return (
         <div className={s.container}>
             <div className={s.window}>
-                <h2 style={{ padding: '1rem' }}>Loss</h2>
-                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                    {/* <div> <h2>100</h2> exp</div>
-                    <div> <h2>{getCard ? 1 : 0}</h2> card</div> */}
-                </div>
+                <h2 style={{ padding: '1rem' }}>Defeat</h2>
+                <img style={{ filter: 'grayscale(1)' }} className={s.cardimg} src={imgs[playCard.image]} alt="character pic" />
+                <h3>Don't give up</h3>
                 <button
                     onClick={loseClose}
                     className={s.btnok}
