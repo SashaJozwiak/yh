@@ -18,7 +18,7 @@ export const Arena: React.FC = () => {
     const userId = useUserData(state => state.user.internalId);
     //const gameInit = useArena(state => state.gameInit);
 
-    const { house, floor, row1, row2, row3, isNeedInit, setRow1, setRow2, setRow3, changeNeedInit, gameInit, addFloor, saveGame } = useArena(state => state);
+    const { house, floor, row1, row2, row3, isNeedInit, setRow1, setRow2, setRow3, /* changeNeedInit, */ gameInit, addFloor, saveGame } = useArena(state => state);
     const { battleState, inBattle, selectedSkill, playCard, nextFloor, selectSkill, addItem, startBattle, goNextFloor, endBattle, addForSave } = usePlayCard();
     const { animateRows, removingBottom, slidingDown, newRowVisible } = useCardRowAnimation({
         row1,
@@ -129,7 +129,7 @@ export const Arena: React.FC = () => {
         console.log('isNeedInit: ', isNeedInit)
         if (isNeedInit) {
             gameInit(userId);
-            changeNeedInit(false);
+            //changeNeedInit(false);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -137,8 +137,9 @@ export const Arena: React.FC = () => {
 
     return (
         <div className={s.arena}>
+            {isNeedInit && <div style={{ margin: '0 auto' }} className={s.loader}></div>}
 
-            {[...row1, ...row2, ...row3].map((card, index) => (
+            {!isNeedInit && [...row1, ...row2, ...row3].map((card, index) => (
                 <div onClick={index > 5 && !blockClick ? () => handleClick(card, index) : () => { console.log('no click') }}
                     key={index}
                     className={`${s.pixel} ${!(card.name) ? s.hidden : ''}
@@ -202,7 +203,7 @@ export const Arena: React.FC = () => {
                                         }
                                         {/* {card.multiplier === 1 ? (card.attack * (floor / 100 + 1)).toFixed() : '***'} */}
                                     </p>
-                                <p style={{ fontSize: '1.1vh', color: 'gray' }}>Card drop:{/* {((floor + card.multiplier) / 10).toFixed()} */} {cardChance(card)}%</p>
+                                <p style={{ marginTop: '0.5vh', fontSize: '1.2vh', color: 'gray' }}>Card Drop:{/* {((floor + card.multiplier) / 10).toFixed()} */} {cardChance(card)}%</p>
                                 </>
                             }
                             {card.type === 'items' &&

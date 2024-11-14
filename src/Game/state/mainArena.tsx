@@ -248,6 +248,7 @@ export const useArena = create<Arena>()(devtools((set, get) => ({
             console.log('game_init error: ', error)
         } finally {
             console.log('game_init response: ok')
+            get().changeNeedInit(false)
         }
     },
     addHouse: () => {

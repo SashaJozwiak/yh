@@ -10,7 +10,6 @@ import PreloadImages from './utils/hooks/usePreloadImage.tsx';
 
 import './index.css'
 
-
 const platform = WebApp.platform;
 
 if (platform !== "ios" && platform !== "android" && platform !== "android_x") {
@@ -29,7 +28,6 @@ const manifestUrl = 'https://sashajozwiak.github.io/yh/tonconnect-manifest.json'
 const preloadSources = [
   '/yh/gnom_full_tr_150_compressed.png',
   /* '/yh/investor.webp' */
-  // Добавьте другие пути к изображениям, которые хотите предзагрузить
 ];
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

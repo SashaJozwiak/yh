@@ -45,11 +45,14 @@ export const Game: React.FC = () => {
     const { winUp, collectUp, rewardUp, lose } = usePlayCard(state => state);
     //const deck = useDeck(state => state.cards)
 
+    //const gameInit = useArena(state => state.gameInit);
+
     useEffect(() => {
         console.log('main game render')
         resetForSave();
         changeNeedInit(true)
     }, [changeNeedInit, resetForSave])
+
 
     useEffect(() => {
         const allResources = [...Object.values(charImages), ...icons];
@@ -79,11 +82,10 @@ export const Game: React.FC = () => {
         loadResources();
     }, []);
 
+
     if (isLoading) {
         return <Loader progress={progress} />;
     }
-
-    //console.log('deck:', deck)
 
     return (
         <div className={s.gamewrapper}>
@@ -95,6 +97,7 @@ export const Game: React.FC = () => {
             {nav === 'shop' && <Shop />}
             {nav === 'map' && <Map />}
             {nav === 'top' && <Top />}
+
             <Header />
             <Arena />
             <PlayerArea />
