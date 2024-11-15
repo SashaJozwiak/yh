@@ -139,7 +139,7 @@ export const Arena: React.FC = () => {
         <div className={s.arena}>
             {isNeedInit && <div style={{ margin: '0 auto' }} className={s.loader}></div>}
 
-            {!isNeedInit && [...row1, ...row2, ...row3].map((card, index) => (
+            {/* !isNeedInit &&  */[...row1, ...row2, ...row3].map((card, index) => (
                 <div onClick={index > 5 && !blockClick ? () => handleClick(card, index) : () => { console.log('no click') }}
                     key={index}
                     className={`${s.pixel} ${!(card.name) ? s.hidden : ''}

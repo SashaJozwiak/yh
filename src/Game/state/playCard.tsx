@@ -210,6 +210,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
     nextHouse: () => {
         const charId = get().playCard.id
         const newChar = charDeck.filter((card: PlayCard) => card.id === charId)
+
         set((state) => ({
             ...state,
             battleState: {
@@ -225,13 +226,13 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                     attack: 0,
                 }
             },
-            forSave: {
+            /* forSave: {
                 gameProgress: false,
                 cards: 0,
                 UH: 0,
                 B: 0,
                 count: 0,
-            },
+            }, */
             playCard: newChar[0],
         }))
         useArena.getState().addHouse();

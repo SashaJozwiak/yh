@@ -9,6 +9,7 @@ import { generateCard } from '../../../exmpl/arenaObjects';
 
 import { ArenaCard } from '../../../types/Arena';
 import s from './winpopup.module.css'
+//import { useDeck } from '../../../state/deck';
 
 export const WinPopUp = () => {
     const [getCard, setGetCard] = useState(false)
@@ -23,11 +24,18 @@ export const WinPopUp = () => {
 
     const addExp = usePlayCard(state => state.addExp)
     const addForSave = usePlayCard(state => state.addForSave)
+
+    //const randomCards = useDeck(state => state.randomCards)
+    //const cardsForSave = useDeck(state => state.randomCards)
+    //const addRandomCards = useDeck(state => state.addRandomCards)
+
     const goNextFloor = usePlayCard(state => state.goNextFloor)
 
     const enemyType = usePlayCard(state => state.battleState.enemy.type);
     const enemyCard = usePlayCard(state => state.battleState.enemy);
     const nextHouse = usePlayCard(state => state.nextHouse)
+
+    const [btnBlock, setBtnBlock] = useState(true);
 
     const handleClose = () => {
         //получить или не получить карту
@@ -61,8 +69,11 @@ export const WinPopUp = () => {
             setGetCard(() => false);
         }
         addExp(100);
+        //const newRC = randomCards + cardsForSave;
+        //addRandomCards(newRC);
+        //addRCinDeck
         if (enemyType === 'boss' && floor === 99) {
-            nextHouse();
+            //nextHouse(); отсюда
             reset(); //resetfloor 0
             const newRow1: ArenaCard[] = [
                 { ...generateCard(0), multiplier: 3 } as ArenaCard,
@@ -86,12 +97,16 @@ export const WinPopUp = () => {
             selectSkill(null);
             setLose(false);
             endBattle();
+
+            nextHouse(); //сюда
             saveGame(userId);
+            //setBtnOn(true);
         } else {
             goNextFloor(true);
         }
 
 
+        setBtnBlock(false);
         //save()
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,8 +122,9 @@ export const WinPopUp = () => {
                 </div>
                 <button
                     onClick={handleClose}
+                    disabled={btnBlock}
                     className={s.btnok}
-                    style={{ height: '5vh', borderRadius: '1rem', margin: '1rem' }}
+                    style={{ height: '5vh', borderRadius: '1rem', margin: '1rem', opacity: btnBlock ? '0.5' : '1' }}
                 ><h3>GET</h3></button>
             </div>
         </div>
