@@ -12,15 +12,24 @@ export const DeckInfo = ({ setDeckInfo }) => {
             className={s.container}>
             {/* containter */}
             <div onClick={e => e.stopPropagation()} className={s.window}>
-                <h2 style={{ marginTop: '2vh' }}>{userLang === 'ru' ? 'Коллекция карт' : 'Collection of cards'}</h2>
+                <div
+                    style={{ padding: '0 2vw' }}
+                ><h2 style={{ marginTop: '1vh' }}>{userLang === 'ru' ? 'Коллекция карт' : 'Collection of cards'}</h2>
+                    <p style={{ color: 'gray', fontSize: '1rem' }}>{userLang === 'ru' ? 'Серые карты выпадают в игре или ещё их можно купить за звезды' : 'Gray cards are dropped in the game or can be purchased for stars'}</p></div>
+
                 <div style={{ padding: '0 2vw', display: 'flex', flexDirection: 'column', gap: '1vh' }}>
+                    {/* <div>
+                        <p style={{ color: 'gray', fontSize: '1rem' }}>{userLang === 'ru' ? 'Серые карты выпадают в игре или покупаются за звезды' : '10 grey cards → 1 bronze'}</p>
+                    </div> */}
+                    {/* <br /> */}
                     <div>
-                        <h3>{userLang === 'ru' ? 'Как прокачивать?' : 'How to level up'}</h3>
+                        <h3>{userLang === 'ru' ? 'Как улучшаются?' : 'How to level up'}</h3>
                         <p>{userLang === 'ru' ? '10 серых → 1 бронзовая' : '10 grey cards → 1 bronze'}</p>
                         <p>{userLang === 'ru' ? '10 бронзовых → 1 серебряная' : '10 bronze cards → 1 silver'}</p>
                         <p>{userLang === 'ru' ? '10 серебряных → 1 золотая' : '10 silver cards → 1 gold card'}</p>
                     </div>
                     <br />
+
                     <div>
                         <h3>{userLang === 'ru' ? 'Для чего?' : 'For what?'}</h3>
                         <p>— {userLang === 'ru' ? 'Увеличивает айрдроп' : 'Increase the airdrop size'};</p>
@@ -40,7 +49,7 @@ export const DeckInfo = ({ setDeckInfo }) => {
                         }
 
                     }}
-                    style={{ backgroundColor: 'rgb(93 121 160)', height: '2rem', width: '30vw', borderRadius: '0.3rem', fontWeight: 'bold', margin: '0 auto', marginBottom: '2vh' }}>{userLang === 'ru' ? 'Больше инфо' : 'More info'}</button>
+                    style={{ backgroundColor: 'rgb(93 121 160)', height: '2rem', width: '30vw', borderRadius: '0.3rem', fontWeight: 'bold', margin: '0 auto', marginBottom: '1vh' }}>{userLang === 'ru' ? 'Больше инфо' : 'More info'}</button>
             </div>
         </div>
     )

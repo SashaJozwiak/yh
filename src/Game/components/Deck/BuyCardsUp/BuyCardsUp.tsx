@@ -10,6 +10,7 @@ export const BuyCardsUp = ({ setBuyCardsUp }) => {
     const [blockBtn, setBlockBtn] = useState(false);
 
     const userId = useUserData(state => state.user.internalId)
+    const userLang = useUserData(state => state.user.languageCode)
     const buy = useDeck(state => state.buyRandomCards)
 
     const handleBuyuy = () => {
@@ -24,7 +25,7 @@ export const BuyCardsUp = ({ setBuyCardsUp }) => {
             <div onClick={e => e.stopPropagation()} className={s.window}>
 
 
-                <h2 style={{ color: 'gray',/*  marginBottom: '1rem', */ marginTop: '1vh' }}>Select option</h2>
+                <h2 style={{ color: 'gray',/*  marginBottom: '1rem', */ marginTop: '1vh' }}>{userLang === 'ru' ? 'Количество карт' : 'Number of cards'}</h2>
                 <ul style={{ marginBottom: '1rem' }}>
                     {payOptions.map((option, index: number) => (
                         <li
@@ -39,7 +40,7 @@ export const BuyCardsUp = ({ setBuyCardsUp }) => {
                     <button
                         onClick={() => setBuyCardsUp(false)}
                         style={{/*  display: 'flex', position: 'absolute', bottom: '1vh', left: '1vh', */ backgroundColor: 'rgb(93 121 160)', height: '2rem', width: '30vw', borderRadius: '0.3rem', opacity: '1', }}
-                    >Cancel
+                    >{userLang === 'ru' ? 'Отмена' : 'Cancel'}
                     </button>
 
                     <button
@@ -47,7 +48,7 @@ export const BuyCardsUp = ({ setBuyCardsUp }) => {
                         disabled={forBuy.price === 0 || blockBtn}
 
                         style={{ /* display: 'flex', position: 'absolute', bottom: '1vh', right: '1vh', */ backgroundColor: 'rgb(93 121 160)', height: '2rem', width: '30vw', borderRadius: '0.3rem', opacity: forBuy.price === 0 ? '0.5' : blockBtn ? '0.5' : '1', fontWeight: 'bold', }}
-                    >Apply
+                    >{userLang === 'ru' ? 'Выбрать' : 'Choose'}
                     </button>
                 </div>
             </div>
