@@ -54,7 +54,7 @@ const Loader: React.FC<LoaderProps> = ({ progress }) => {
             </div>
             <div className={s.progress} style={{ width: `${progress}%` }} />
             <p style={{ fontWeight: 'bold', textShadow: 'rgb(0, 0, 0) 1px 0px 10px' }}>{/* {userLang === 'ru' ? 'Загрузка...' : 'Loading'}... */} {Math.round(progress)}%</p>
-            {/* <i>{userLang === 'ru' ? 'Первая загрузка может идти дольше' : 'The first time load may be slow'}</i> */}
+            <i>{userLang === 'ru' ? 'Первая загрузка может быть дольше' : 'The first time load may be slow'}</i>
         </div>
     );
 };
