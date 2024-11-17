@@ -33,7 +33,7 @@ export const Tasks = () => {
 
     const handleBuy = (stars: number) => {
         setBlockBuyBtns(true);
-        buyBonuses(stars, userData.internalId)
+        buyBonuses(userData.internalId, stars)
         setBlockBuyBtns(false);
     }
 
