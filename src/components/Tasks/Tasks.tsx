@@ -141,46 +141,9 @@ export const Tasks = () => {
                 </div>
             ))}
 
-            {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'completed')}</h2>}
-            {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').map(task => (
-                <div
-                    key={task.id} className={s.listitem}
-                    style={{ color: 'grey' }}>
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
-                        }}
-                        disabled={task.type === 'affiliate'}
-                        style={{ borderBottom: '1px gray solid', color: 'gray' }}
-                        className={s.titlebtn}>{task.title}
-                    </button>
-                    <div style={{ color: 'gray', backgroundColor: 'transparent' }} className={s.check}>🟢</div>
-                    <div className={s.price}>{task.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
-                </div>
-            ))}
-
-
-
-
             {!loadStatus &&
                 <>
-                    <h2 style={{ color: 'gray' }} className={s.line}>Boosts</h2>
-                {/* <div
-                        //key={task.id}
-                        className={s.listitem}
-                        style={{ color: 'grey' }}>
-                        <button
-                            onClick={() => handleBuy(1)}
-                            disabled={blockBuyBtns}
-                            style={{ borderBottom: '1px white solid', color: 'white' }}
-                            className={s.titlebtn}>Bonuses for stars
-                        </button>
-                        <button
-                            onClick={() => handleBuy(1)}
-                            style={{ color: 'black', backgroundColor: 'white' }} className={s.check}>1⭐</button>
-                        <div style={{ color: 'white', border: '1px solid gray' }} className={s.price}>1K<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
-                    </div> */}
+                <h2 style={{ color: 'gray' }} className={s.line}>Boosts</h2>
                     <div
                         //key={task.id} 
                         className={s.listitem}
@@ -230,6 +193,25 @@ export const Tasks = () => {
                     </div>
                 </>
             }
+
+            {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'completed')}</h2>}
+            {tasks.filter(task => task.completed === true && task.title !== 'Active Friends').map(task => (
+                <div
+                    key={task.id} className={s.listitem}
+                    style={{ color: 'grey' }}>
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                        }}
+                        disabled={task.type === 'affiliate'}
+                        style={{ borderBottom: '1px gray solid', color: 'gray' }}
+                        className={s.titlebtn}>{task.title}
+                    </button>
+                    <div style={{ color: 'gray', backgroundColor: 'transparent' }} className={s.check}>🟢</div>
+                    <div className={s.price}>{task.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
+                </div>
+            ))}
 
             {loadStatus && <span className={s.loader}></span>}
         </div>
