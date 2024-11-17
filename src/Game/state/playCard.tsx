@@ -373,7 +373,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                     set({ winUp: true });
                 }
 
-            }, 1500)
+            }, 1000)
 
 
         } else if (get().battleState.step > 0) {
@@ -400,13 +400,8 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
             setTimeout(() => {
                 if (get().battleState.enemy.balance <= 0) {
                     set({ winUp: true });
-
-
                 }
-
-
-
-            }, 1500)
+            }, 1000)
 
         }
 
