@@ -72,7 +72,7 @@ export const WinPopUp = () => {
         //const newRC = randomCards + cardsForSave;
         //addRandomCards(newRC);
         //addRCinDeck
-        if (enemyType === 'boss' && floor === 99) {
+        if (enemyType === 'boss' && floor >= 99) {
             //nextHouse(); отсюда
             reset(); //resetfloor 0
             const newRow1: ArenaCard[] = [
