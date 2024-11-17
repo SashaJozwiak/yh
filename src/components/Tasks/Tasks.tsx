@@ -163,11 +163,11 @@ export const Tasks = () => {
 
 
 
-            {userData.internalId === 9 &&
+            {!loadStatus &&
                 <>
                     <h2 style={{ color: 'gray' }} className={s.line}>Boosts</h2>
-                    <div
-                        //key={task.id} 
+                {/* <div
+                        //key={task.id}
                         className={s.listitem}
                         style={{ color: 'grey' }}>
                         <button
@@ -180,7 +180,7 @@ export const Tasks = () => {
                             onClick={() => handleBuy(1)}
                             style={{ color: 'black', backgroundColor: 'white' }} className={s.check}>1⭐</button>
                         <div style={{ color: 'white', border: '1px solid gray' }} className={s.price}>1K<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
-                    </div>
+                    </div> */}
                     <div
                         //key={task.id} 
                         className={s.listitem}
