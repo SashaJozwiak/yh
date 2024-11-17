@@ -164,6 +164,8 @@ export interface UseTasks {
     adReward: TaskAd;
     tasks: Task[];
     loadStatus: boolean;
+    saveBonusesTransaction: (user_id: number, bonuses: number, amount: number) => void;
+    buyBonuses: (user_id: number, amount: number) => void;
     completeTask: (id: number) => void;
     completeAdTask: (userId: number) => void;
     getAllTasks: (userId: number) => void;

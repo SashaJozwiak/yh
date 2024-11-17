@@ -2,8 +2,9 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { Task, UseTasks } from '../types/stores';
 import { useUserData } from './main';
+import WebApp from '@twa-dev/sdk';
 
-export const useTasks = create<UseTasks>()(devtools((set) => ({
+export const useTasks = create<UseTasks>()(devtools((set, get) => ({
     activeFriends: {
         id: 0,
         title: 'Active Friends',
@@ -24,7 +25,7 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
     },
     adReward: {
         id: 0,
-        title: 'Ad reward (soon)',
+        title: 'Ad reward..',
         completed: false,
         price: 0,
         src: '',
@@ -35,6 +36,68 @@ export const useTasks = create<UseTasks>()(devtools((set) => ({
     tasks: [
     ],
     loadStatus: false,
+    saveBonusesTransaction: async (user_id, bonuses, amount) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/finishpay_bonuses`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, bonuses, amount }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('ok save transaction: ', data)
+
+        } catch (err) {
+            console.log('запись об оплате в бд ошибка: ', err)
+        }
+    },
+    buyBonuses: async (user_id, amount) => {
+        const bonuses = amount * 100;
+        const title = `${bonuses} BONUSES`;
+        const description = `Buy BONUSES`;
+        console.log('amount B: ', title, description, user_id, amount)
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/bonuspay`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, description, amount }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const invoiceLink = data.invoiceLink;
+            console.log('Ссылка на инвойс получена:', invoiceLink);
+
+            WebApp.openInvoice(invoiceLink, (status) => {
+                if (status === "paid") {
+                    get().saveBonusesTransaction(user_id, bonuses, amount);
+
+                    console.log('удалось оплатить, карты добавлены')
+                } else {
+                    console.error('Не удалось оплатить');
+                }
+            });
+
+        } catch (err) {
+            console.log('Error buy random cards: ', err)
+        }
+
+
+
+
+    },
     completeTask: async (taskId: number) => {
         const internalId = useUserData.getState().user.internalId;
         const getAllTasks = useTasks.getState().getAllTasks;
