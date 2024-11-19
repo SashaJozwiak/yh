@@ -110,7 +110,7 @@ export const Card: React.FC = () => {
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1rem' }}>
                             <p style={{ textWrap: 'nowrap', color: 'silver' }}>
-                                {selectedSkill.id > 1000 ? 'Total' : 'Cost'}:&nbsp;
+                                {selectedSkill.id > 1000 ? 'Total' : 'Enrg'}:&nbsp;
                                 {selectedSkill.id > 1000 ?
                                     <span style={{ color: 'white' }}>
                                         {playCard.items.find((item) => item.id === selectedSkill.id)?.amount || 0 /* selectedSkill.amount */} 
