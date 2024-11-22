@@ -36,6 +36,7 @@ const App: React.FC = function () {
   const nav = useNav((state) => state.nav.main)
 
   const rawAddress = useUserData(state => state.user.rawAddress);
+  const authError = useUserData(state => state.authError);
 
   //const bonuses = useUserBalances((state) => state.bonuses);
   //const userId = useUserData(state => state.user.internalId);
@@ -47,12 +48,19 @@ const App: React.FC = function () {
   const updateStonFiBalance = useStonFi((state) => state.updateBalanceSF)
   const updateBalanceDedust = useDedust((state) => state.updateBalanceDedust);
 
+
   useEffect(() => {
     if (!WebApp.isExpanded) {
       WebApp.expand();
     }
+    console.log('authError: ', authError)
+    if (authError) {
+
+      WebApp.showAlert('Authorization error, try again later');
+    }
+
     postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
-  }, []);
+  }, [authError]);
 
   useEffect(() => {
     //console.log('render change rawaddres in LIST')

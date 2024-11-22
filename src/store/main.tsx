@@ -36,7 +36,9 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     balanceLoader: true,
     miningError: '',
     miningLoader: false,
+    authError: false,
     //setUser: (user: User) => set(() => ({ user })),
+    setAuthError: (isTrue) => set(() => ({ authError: isTrue })),
     minusBalance: async (price) => {
         const user_id = get().user.internalId;
         console.log('changeBalance price: ', price)
@@ -70,7 +72,6 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         }
 
     },
-
     handleReferral: async (userId, startParam) => {
         const [refId, refTeamId] = startParam.split("_");
         const refTeamNum = refTeamId ? Number(refTeamId) : null;
@@ -164,6 +165,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     internalId: 1,
                 }
             }))
+            set({ authError: true });
             console.error('setUser error :', err);
         }
     },

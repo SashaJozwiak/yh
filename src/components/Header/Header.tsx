@@ -39,7 +39,9 @@ export const Header: React.FC = () => {
     const addAddresses = useUserData((state) => state.addAddresses);
 
     const actualSpeed = useUserData(state => state.balance.speed);
-    const isAuth = useUserData(state => state.isAuth)
+    const isAuth = useUserData(state => state.isAuth);
+
+    const setAuthError = useUserData(state => state.setAuthError);
 
     //const { connected } = useTonConnect();
 
@@ -82,20 +84,25 @@ export const Header: React.FC = () => {
 
             //setUser(newUser);
         } else /*if (id !==    757322479 )*/ {
+
             const newUser = {
                 id: 0 /*  757322479  */,
                 //internalId: null,
                 userName: "Example",
-                languageCode: "ru",
+                languageCode: "en",
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
             //console.log('write jozwiak user in store')
+
             setUser(newUser);
             //console.log('write jozwiak user in store finish')
+            if (userFromTg.id === 757322479) {
+                setAuthError(true);
+            }
         }
         }
-    }, [setUser, handleReferral, startParam, userFromTg, isAuth]);//id
+    }, [setUser, handleReferral, startParam, userFromTg, isAuth, setAuthError]);//id
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')

@@ -28,6 +28,8 @@ export interface UseStore {
     miningLoader: boolean;
     balanceLoader: boolean;
     isAuth: boolean;
+    authError: boolean;
+    setAuthError: (isTrue: boolean) => void;
     minusBalance: (price: number) => Promise<void>;
     handleReferral: (userId: number, startParam: string) => Promise<void>;
     setUser: (user: Partial<User>) => void;
