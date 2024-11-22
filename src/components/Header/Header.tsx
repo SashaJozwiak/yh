@@ -71,6 +71,10 @@ export const Header: React.FC = () => {
                 rawAddress: '',
             };
 
+            if (newUser.id === 757322479) {
+                setAuthError(true);
+            }
+
             if (startParam) {
                 handleReferral(newUser.id, startParam).then(() => {
                     setUser(newUser); // Устанавливаем пользователя после обработки рефералов
