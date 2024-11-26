@@ -23,6 +23,7 @@ import './App.css';
 
 //import { BetaPage1 } from './components/Game/BetaPage1';
 import { Game } from './Game/Game';
+import { AuthError } from './AuthError';
 
 import { postEvent } from '@telegram-apps/sdk';
 
@@ -53,10 +54,11 @@ const App: React.FC = function () {
     if (!WebApp.isExpanded) {
       WebApp.expand();
     }
-    console.log('authError: ', authError)
+    //console.log('authError: ', authError)
     if (authError) {
 
       WebApp.showAlert('Authorization error, try again later');
+      //alert('Authorization error, try again later')
     }
 
     postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
@@ -126,6 +128,7 @@ const App: React.FC = function () {
 
   return (
     <>
+      {authError && <AuthError />}
       {nav !== 'game1' && <Header />}
       {nav === 'hold' && <Main />}
       {nav === 'bonus' && <Tasks />}

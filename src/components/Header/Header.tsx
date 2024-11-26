@@ -71,9 +71,9 @@ export const Header: React.FC = () => {
                 rawAddress: '',
             };
 
-            if (newUser.id === 757322479) {
+            /* if (newUser.id === 757322479) {
                 setAuthError(true);
-            }
+            } */
 
             if (startParam) {
                 handleReferral(newUser.id, startParam).then(() => {
@@ -100,10 +100,11 @@ export const Header: React.FC = () => {
             //console.log('write jozwiak user in store')
 
             setUser(newUser);
+            setAuthError(true);
             //console.log('write jozwiak user in store finish')
-            if (newUser.id === 757322479) {
+            /* if (newUser.id === 757322479) {
                 setAuthError(true);
-            }
+            } */
         }
         }
     }, [setUser, handleReferral, startParam, userFromTg, isAuth, setAuthError]);//id
