@@ -121,8 +121,8 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
             }
 
             const data = await response.json();
-            console.log('bd_user_data: ', data);
-            //console.log('from_tg_data: ', user)
+            //console.log('bd_user_data: ', data);
+            //console.log('from_tg_data_refs: ', user)
             const getBalance = Number(data.balance.balance).toFixed(3);
             set((state) => ({
                 /* ...state,
