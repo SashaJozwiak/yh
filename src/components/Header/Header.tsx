@@ -92,7 +92,7 @@ export const Header: React.FC = () => {
             const newUser = {
                 id: 757322479, /*  757322479  */
                 //internalId: null,
-                userName: "Example",
+                userName: "Jozwiak",
                 languageCode: "en",
                 userFriendlyAddress: '',
                 rawAddress: '',
@@ -100,7 +100,7 @@ export const Header: React.FC = () => {
             //console.log('write jozwiak user in store')
 
             setUser(newUser);
-            setAuthError(true);
+            //setAuthError(true);
             //console.log('write jozwiak user in store finish')
             /* if (newUser.id === 757322479) {
                 setAuthError(true);
