@@ -315,3 +315,36 @@ export interface UseFees {
 }
 
 
+// PARTNERS
+
+export interface UserPurchase {
+    price: number;
+    date: string;
+}
+
+export interface RawUserDetails {
+    internal_id: string;
+    username: string;
+    balance: string;
+    card_purchases: { price: string; date: string }[];
+    bonus_purchases: { price: string; date: string }[];
+    house: string | null;
+}
+
+export interface UserDetails {
+    internal_id: number;
+    username: string;
+    balance: number;
+    card_purchases: UserPurchase[];
+    bonus_purchases: UserPurchase[];
+    house?: number | null;
+}
+
+export interface UsePartners {
+    userDetails: UserDetails[];
+    withdraw: number;
+    loading: boolean;
+    error: string | null;
+    fetchUserDetails: (user_id: number, internalIds: number[]) => Promise<void>;
+    createWithdraw: (user_id: number, amount: number, address: string) => Promise<void>;
+}

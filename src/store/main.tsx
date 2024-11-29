@@ -107,6 +107,24 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         })) */
         try {
 
+            /* const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}authN`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'accept': 'application/json',       
+                    'Cache-Control': 'no-cache'         
+                },
+                credentials: 'include', 
+                body: JSON.stringify({  
+                    externalId: user.id,
+                    userName: user.userName
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update user in DB');
+            } */
+
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
                 method: 'GET',
                 headers: {
