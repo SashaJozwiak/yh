@@ -114,11 +114,14 @@ export const Card: React.FC = () => {
                     +100 Exp
                 </h2>
 
+                {!stat && 
                 <img
                     onClick={() => playNy()}
                     className={isPlay ? s.shakingx : ''}
                     style={{ position: 'absolute', zIndex: '900', top: '-1.6vh', left: '-4vw' }}
                     src={ny} alt="new year pic" width={'50vw'} height={'30vh'} />
+                }
+
                 <img
                     style={{ filter: `grayscale(${1 - (playCard.balance_hp / (playCard.stats.balance * 10))})` }}
                     className={s.cardimg} src={imgs[playCard.image]} alt="character pic" />
