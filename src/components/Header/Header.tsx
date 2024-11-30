@@ -77,23 +77,23 @@ export const Header: React.FC = () => {
 
             if (startParam) {
                 handleReferral(newUser.id, startParam).then(() => {
-                    setUser(newUser); // Устанавливаем пользователя после обработки рефералов
+                    setUser(newUser); // после обработки рефералов
                 }).catch((error: Error) => {
                     console.error('Error handling referral:', error);
-                    setUser(newUser); // В случае ошибки все равно устанавливаем пользователя
+                    setUser(newUser); // все равно уст пользователя
                 });
             } else {
-                setUser(newUser); // Если нет startParam, просто устанавливаем пользователя
+                setUser(newUser); // Если нет startParam
             }
 
             //setUser(newUser);
         } else /*if (id !==    757322479 )*/ {
 
             const newUser = {
-                id: 757322479, /*  757322479  */
+                id: 0, /*  946292829 757322479  */
                 //internalId: null,
-                userName: "Jozwiak",
-                languageCode: "en",
+                userName: "Example",
+                languageCode: "ru",
                 userFriendlyAddress: '',
                 rawAddress: '',
             };

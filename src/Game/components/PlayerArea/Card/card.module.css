@@ -34,6 +34,26 @@
   100% { transform: rotate(0deg); }
   }
 
+  .shakingx {
+    animation: shakingx 3s infinite;
+  }
+  
+  @keyframes shakingx {
+    0% { transform: rotate(0deg); }
+    5% { transform: rotate(-2deg); }
+    10% { transform: rotate(8deg); }
+   20% { transform: rotate(0deg); }
+   25% { transform: rotate(-2deg); }
+   35% { transform: rotate(8deg); }
+   40%  { transform: rotate(0deg); }
+   50%  { transform: rotate(-2deg); }
+   60%  { transform: rotate(8deg); }
+   70%  { transform: rotate(0deg); }
+   80%  { transform: rotate(-2deg); }
+   90%  { transform: rotate(8deg); }
+  100% { transform: rotate(0deg); }
+  }
+
   .hide {
     display: none;
   }
@@ -41,6 +61,17 @@
   .damage {
     position: absolute;
     color: red;
+    animation: kick 2.5s forwards;
+    left: 40%;
+    bottom: 50%;
+    font-weight: bold;
+    z-index: 1000;
+    text-shadow:rgb(0, 0, 0) 1px 0px 10px;
+  }
+
+  .expanim {
+    position: absolute;
+    color: white;
     animation: kick 2.5s forwards;
     left: 40%;
     bottom: 50%;

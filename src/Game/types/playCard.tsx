@@ -74,6 +74,7 @@ export interface PlayCardState {
     tabNav: string;
     selectedSkill: Skill | Item | null;
     forSave: ForSave;
+    addExpAnim: boolean,
     lose: boolean;
     winUp: boolean;
     rewardUp: boolean;

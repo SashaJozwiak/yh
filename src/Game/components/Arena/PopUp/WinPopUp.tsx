@@ -115,10 +115,10 @@ export const WinPopUp = () => {
     return (
         <div className={s.container}>
             <div className={s.window}>
-                <h2 style={{ padding: '1rem' }}>Reward</h2>
+                <h2 style={{ padding: '1rem' }}>Win</h2>
                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                     <div> <h2>100</h2> exp</div>
-                    <div> <h2>{getCard ? 1 : 0}</h2> card</div>
+                    {getCard && <div> <h2>{getCard ? 1 : 0}</h2> card</div>}
                 </div>
                 <button
                     onClick={handleClose}

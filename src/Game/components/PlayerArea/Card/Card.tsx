@@ -10,13 +10,19 @@ import { useGameNav } from './../../../state/gameNav';
 import imgs from '../../Deck/charimg'
 import skillsImgs from '../../../assets/Game/icons/skills_25.webp'
 
+import ny from '../../../assets/Game/ny/ny_smallsize.png'
+
 import { Potion } from '../../Some/PotionSvg';
 
+import useSound from 'use-sound';
+import ny_sound from '../../../assets/Game/ny/ny_sound_3s.mp3'
 import s from './card.module.css'
 
 
 export const Card: React.FC = () => {
     const [stat, setStat] = useState(false);
+    const [play] = useSound(ny_sound);
+    const [isPlay, setIsPlay] = useState(false);
 
     //const userId = useUserData(state => state.user.id)
 
@@ -36,6 +42,7 @@ export const Card: React.FC = () => {
     const selectSkill = usePlayCard(state => state.selectSkill)
 
     const goUseItem = usePlayCard(state => state.useItem)
+    const addExpAnim = usePlayCard(state => state.addExpAnim);
 
     console.log('stat: ', stat)
 
@@ -58,6 +65,15 @@ export const Card: React.FC = () => {
     }
 
     //console.log('selectedSkill: ', selectedSkill.amount)
+    const playNy = () => {
+        if (!isPlay) {
+            setIsPlay(true)
+            play()
+            setTimeout(() => {
+                setIsPlay(false)
+            }, 3000)
+        }
+    }
 
     return (
         <div className={`${s.playercard} ${getDamage === 'hero' && s.shaking}`}>
@@ -74,10 +90,38 @@ export const Card: React.FC = () => {
                         Change Hero
                     </button>}
 
-                <h2 className={`${getDamage === 'hero' ? s.damage : s.hide}`}>
+                {/* <h2 className={`${getDamage === 'hero' ? s.damage : s.hide}`}>
                     -{Number((enemyAttack - playCard.stats.mind).toFixed()) > 0 ? Number((enemyAttack - playCard.stats.mind).toFixed()) : 0}
+                </h2> */}
+
+
+                <h2 className={`${getDamage === 'hero' ? s.damage : s.hide}`}
+                    style={{ position: 'absolute' }}
+                >
+                    <p>-{Number((enemyAttack - playCard.stats.mind).toFixed()) > 0 ? Number((enemyAttack - playCard.stats.mind).toFixed()) : 0}</p>
+
+                    <p style={{ display: 'inline-block', whiteSpace: 'nowrap', color: 'lightgray', margin: '0 auto' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6" width={18} height={18} style={{ alignItems: 'end' }}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                        </svg>
+                        <span>{Number((enemyAttack - playCard.stats.mind).toFixed()) > 0 ? Number((playCard.stats.mind).toFixed()) : enemyAttack}</span>
+                    </p>
+                </h2 >
+
+                <h2 className={`${addExpAnim ? s.expanim : s.hide}`}
+                    style={{ position: 'absolute' }}
+                >
+                    +100 Exp
                 </h2>
-                <img className={s.cardimg} src={imgs[playCard.image]} alt="character pic" />
+
+                <img
+                    onClick={() => playNy()}
+                    className={isPlay ? s.shakingx : ''}
+                    style={{ position: 'absolute', zIndex: '900', top: '-1.6vh', left: '-4vw' }}
+                    src={ny} alt="new year pic" width={'50vw'} height={'30vh'} />
+                <img
+                    style={{ filter: `grayscale(${1 - (playCard.balance_hp / (playCard.stats.balance * 10))})` }}
+                    className={s.cardimg} src={imgs[playCard.image]} alt="character pic" />
 
                 <button
                     onClick={() => setStat((prev) => !prev)}

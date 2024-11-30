@@ -139,6 +139,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         B: 0,
         count: 0,
     },
+    addExpAnim: false,
     lose: false,
     winUp: false,
     rewardUp: false,
@@ -505,9 +506,11 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         selectedSkill: skill
     })),
     addExp: (addExp) => {
-        console.log('exp: ', addExp)
+        /* console.log('exp: ', addExp)
         console.log('exp_state: ', get().playCard.exp)
-        console.log('new_exp: ', get().playCard.exp + addExp)
+        console.log('new_exp: ', get().playCard.exp + addExp) */
+
+        set(state => ({ ...state, addExpAnim: true }))
 
         const needExp = (100 + (get().playCard.lvl * 10)) - get().playCard.exp;
         const beExp = needExp - addExp
@@ -539,6 +542,14 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                 }
             }));
         }
+
+        setTimeout(() => {
+            set((state) => ({
+                ...state,
+                addExpAnim: false
+            }))
+        }, 1000);
+
     },
     addStat: (stat: string) => set((state) => ({
         ...state,
