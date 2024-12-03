@@ -206,10 +206,10 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         console.log('newStats: ', newStats);
 
         const updatedPlayCard = {
-            ...newChar[0], // Берем все свойства из newChar[0]
-            balance_hp: newStats.balance_hp, // Заменяем balance_hp
-            energy_mp: newStats.energy_mp, // Заменяем energy_mp
-            stats: newStats.stats, // Заменяем stats
+            ...newChar[0],
+            balance_hp: newStats.balance_hp,
+            energy_mp: newStats.energy_mp,
+            stats: newStats.stats, 
         };
 
         set((state) => ({
@@ -239,8 +239,32 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
 
     },
     nextHouse: () => {
-        const charId = get().playCard.id
-        const newChar = charDeck.filter((card: PlayCard) => card.id === charId)
+        const name = get().playCard.name
+        const newChar = charDeck.filter((card: PlayCard) => card.name === name)
+
+        const deck = useDeck.getState().cards;
+
+        const findMaxGrade = (grades) => {
+            if (grades.gold > 0) return 'gold';
+            if (grades.silver > 0) return 'silver';
+            if (grades.bronze > 0) return 'bronze';
+            return 'gray'; // По умолчанию
+        };
+
+        const deckCard = deck.find(card => card.name === name)
+
+        // Определить грейд героя
+        const heroGrade = deckCard ? findMaxGrade(deckCard.grades) : 'gray';
+
+        const newStats = statGrades[name][heroGrade];
+
+        const updatedPlayCard = {
+            ...newChar[0],
+            balance_hp: newStats.balance_hp,
+            energy_mp: newStats.energy_mp,
+            stats: newStats.stats,
+        };
+
 
         set((state) => ({
             ...state,
@@ -264,7 +288,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                 B: 0,
                 count: 0,
             }, */
-            playCard: newChar[0],
+            playCard: updatedPlayCard,
         }))
         useArena.getState().addHouse();
 
@@ -273,7 +297,61 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         set({ lose: isTrue })
     },
     losing: () => {
-        const charId = get().playCard.id
+
+        const name = get().playCard.name
+        const newChar = charDeck.filter((card: PlayCard) => card.name === name)
+
+        const deck = useDeck.getState().cards;
+
+        const findMaxGrade = (grades) => {
+            if (grades.gold > 0) return 'gold';
+            if (grades.silver > 0) return 'silver';
+            if (grades.bronze > 0) return 'bronze';
+            return 'gray'; // По умолчанию
+        };
+
+        const deckCard = deck.find(card => card.name === name)
+
+        // Определить грейд героя
+        const heroGrade = deckCard ? findMaxGrade(deckCard.grades) : 'gray';
+
+        const newStats = statGrades[name][heroGrade];
+
+        const updatedPlayCard = {
+            ...newChar[0],
+            balance_hp: newStats.balance_hp,
+            energy_mp: newStats.energy_mp,
+            stats: newStats.stats,
+        };
+
+
+        set((state) => ({
+            ...state,
+            battleState: {
+                step: 0,
+                getDamage: '',
+                enemy: {
+                    id: 0,
+                    name: 'Empty',
+                    type: 'enemies',
+                    bp: [0, 0],
+                    multiplier: 1,
+                    balance: 0,
+                    attack: 0,
+                }
+            },
+            forSave: {
+                gameProgress: false,
+                cards: 0,
+                UH: 0,
+                B: 0,
+                count: 0,
+            },
+            playCard: updatedPlayCard,
+        }))
+
+
+        /* const charId = get().playCard.id
         const newChar = charDeck.filter((card: PlayCard) => card.id === charId)
 
         console.log('new char: ', newChar)
@@ -300,7 +378,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                 count: 0,
             },
             playCard: newChar[0],
-        }))
+        })) */
         //useArena.getState().reset();
         //get().setLose(true)
 
