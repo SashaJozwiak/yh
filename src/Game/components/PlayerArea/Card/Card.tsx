@@ -89,7 +89,7 @@ export const Card: React.FC = () => {
 
                 {floor === 0 &&
                     <button
-                        className={s.change}
+                        className={`${s.change}`}
                         style={{ zIndex: stat ? '300' : '400' }}
                         onClick={() => setNavDeck('deck')} >
                         Change Hero

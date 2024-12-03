@@ -35,7 +35,7 @@
     aspect-ratio: 10 / 17;
     margin: 0 auto;
     border-radius: 1rem;
-    box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
+    //box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
 
     //border: 1px solid gray;
 }
@@ -117,3 +117,4 @@
     align-items:flex-start;
     margin-top: 1vh;
   }
+
