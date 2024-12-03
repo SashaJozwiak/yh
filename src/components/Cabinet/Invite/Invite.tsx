@@ -31,7 +31,7 @@ export const Invite: React.FC = () => {
 
 
 
-    const [link, setLink] = useState<string>(`https://t.me/youhold_bot?start=${id}`);
+    const [link, setLink] = useState<string>(`https://t.me/youhold_bot/youhold_app?startapp=${id}`);
     const [copied, setCopied] = useState<boolean>(false);
     const [checked, setCheked] = useState<boolean>(!!teamId);
 
@@ -47,9 +47,9 @@ export const Invite: React.FC = () => {
         setCheked(prev => {
             const newIsTeam = !prev;
             if (newIsTeam) {
-                setLink(`https://t.me/youhold_bot?start=${id}_${teamId}`);
+                setLink(`https://t.me/youhold_bot/youhold_app?startapp=${id}_${teamId}`);
             } else {
-                setLink(`https://t.me/youhold_bot?start=${id}`);
+                setLink(`https://t.me/youhold_bot/youhold_app?startapp=${id}`);
             }
             return newIsTeam;
         });
@@ -82,12 +82,12 @@ export const Invite: React.FC = () => {
         if (teamId && teamId !== 0) {
             //console.log('authData team: ', authData.ref_team_by);
             setCheked(true);
-            const linkWithTeam = `https://t.me/youhold_bot?start=${id}_${teamId}`;
+            const linkWithTeam = `https://t.me/youhold_bot/youhold_app?startapp=${id}_${teamId}`;
             setLink(linkWithTeam)
         } else {
             setCheked(false);
             //console.log('authData no team:', authData);
-            const link = `https://t.me/youhold_bot?start=${id}`;
+            const link = `https://t.me/youhold_bot/youhold_app?startapp=${id}`;
             setLink(link)
         }
     }, [id, teamId])

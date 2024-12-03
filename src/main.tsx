@@ -20,6 +20,7 @@ if (platform !== "ios" && platform !== "android" && platform !== "android_x") {
   WebApp.ready();
 }
 
+
 WebApp.setHeaderColor('#1d283a');
 
 const manifestUrl = 'https://sashajozwiak.github.io/yh/tonconnect-manifest.json';

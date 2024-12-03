@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { DeckState, Grades, UseDeck, /* Card */ } from '../types/forGameState'
+import { DeckState, Grades, UseDeck, Card } from '../types/forGameState'
 
 import { devtools } from 'zustand/middleware'
 import { useUserData } from '../../store/main';
@@ -23,6 +23,22 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
         },
     ],
     randomCards: 0,
+    gradeDetector: (name) => {
+        const cards = get().cards;
+        const deckCard = cards.find((card: Card) => card.name === name)
+
+        console.log('deckCard: ', deckCard)
+
+        if (!deckCard) {
+            console.log('не найдена')
+            return 'gray';
+        }
+
+        if (deckCard.grades.gold > 0) return 'gold';
+        if (deckCard.grades.silver > 0) return 'silver';
+        if (deckCard.grades.bronze > 0) return 'bronze';
+        return 'gray';
+    },
     saveTransaction: async (user_id, amount, price) => {
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/finishpay`, {

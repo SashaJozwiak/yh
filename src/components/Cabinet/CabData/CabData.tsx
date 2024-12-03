@@ -115,12 +115,12 @@ export const CabData = () => {
                                 <h3>Total Active Friends: <b style={{ color: 'green' }}>{calcData.stats.totalUsers}</b></h3>
                                 <br />
                                 <p>
-                                    {`— house > 10: `}  <b style={{ color: 'green' }}>{calcData.stats.houseAbove10}</b> = <span style={{ fontWeight: 'bold', textAlign: 'right' }}>{(calcData.stats.houseAbove10 * 0.04).toFixed(2)} USDT</span>
+                                    {`— house > 10: `}  <b style={{ color: 'green' }}>{calcData.stats.houseAbove10}</b> = <span style={{ fontWeight: 'bold', textAlign: 'right' }}>{(calcData.stats.houseAbove10 * 0.06).toFixed(2)} USDT</span>
                                 </p>
 
                                 <p>
                                     {`— balance > 500: `}
-                                    <b style={{ color: 'green' }}>{calcData.stats.balanceAbove500HouseBelow10}</b> = <span style={{ fontWeight: 'bold', textAlign: 'right' }}>{(calcData.stats.balanceAbove500HouseBelow10 * 0.03).toFixed(2)} USDT</span>
+                                    <b style={{ color: 'green' }}>{calcData.stats.balanceAbove500HouseBelow10}</b> = <span style={{ fontWeight: 'bold', textAlign: 'right' }}>{(calcData.stats.balanceAbove500HouseBelow10 * 0.04).toFixed(2)} USDT</span>
                                 </p>
 
                                 <p>
@@ -128,16 +128,16 @@ export const CabData = () => {
                                 </p>
 
                                 <p>
-                                    — purchases: <b style={{ color: 'green' }}>{calcData.stats.totalPurchasesSum.toFixed()}⭐</b> = <span style={{ fontWeight: 'bold', textAlign: 'right' }}>{(calcData.stats.totalPurchasesSum * 0.0015).toFixed(2)} USDT</span>
+                                    — purchases: <b style={{ color: 'green' }}>{calcData.stats.totalPurchasesSum.toFixed()}⭐</b> = <span style={{ fontWeight: 'bold', textAlign: 'right' }}>{(calcData.stats.totalPurchasesSum * 0.002).toFixed(2)} USDT</span>
                                 </p>
 
                                 <br />
                                 {!loading && <div>
                                     <p style={{ fontSize: '0.8rem', color: 'gray' }}>{withdrwan > 0 && `-${withdrwan.toFixed(2)} USDT`}</p>
-                                    <h3>Income: {(((calcData.stats.houseAbove10 * 0.04) + (calcData.stats.balanceAbove500HouseBelow10 * 0.03) + ((calcData.stats.totalUsers - calcData.stats.balanceAbove500HouseBelow10 - calcData.stats.houseAbove10) * 0.02) + (calcData.stats.totalPurchasesSum * 0.0015)) - (withdrwan > 0 ? withdrwan : 0)).toFixed(2)} USDT</h3>
-                                    {(((calcData.stats.houseAbove10 * 0.04) + (calcData.stats.balanceAbove500HouseBelow10 * 0.03) + ((calcData.stats.totalUsers - calcData.stats.balanceAbove500HouseBelow10 - calcData.stats.houseAbove10) * 0.02) + (calcData.stats.totalPurchasesSum * 0.0015)) - (withdrwan > 0 ? withdrwan : 0)) > 10 ? <WithdrawTimer latestPurchaseDate={calcData?.stats.latestPurchaseDate} setPopUp={setPopUp} /> : <button
+                                    <h3>Profit: {(((calcData.stats.houseAbove10 * 0.06) + (calcData.stats.balanceAbove500HouseBelow10 * 0.04) + ((calcData.stats.totalUsers - calcData.stats.balanceAbove500HouseBelow10 - calcData.stats.houseAbove10) * 0.02) + (calcData.stats.totalPurchasesSum * 0.002)) - (withdrwan > 0 ? withdrwan : 0)).toFixed(2)} USDT</h3>
+                                    {(((calcData.stats.houseAbove10 * 0.04) + (calcData.stats.balanceAbove500HouseBelow10 * 0.03) + ((calcData.stats.totalUsers - calcData.stats.balanceAbove500HouseBelow10 - calcData.stats.houseAbove10) * 0.02) + (calcData.stats.totalPurchasesSum * 0.002)) - (withdrwan > 0 ? withdrwan : 0)) > 10 ? <WithdrawTimer latestPurchaseDate={calcData?.stats.latestPurchaseDate} setPopUp={setPopUp} /> : <button
                                         style={{ height: '2rem', padding: '0rem 0.5rem', margin: '1rem auto', backgroundColor: 'rgb(103, 119, 142)', opacity: '0.8' }}
-                                    > {`Income < 10.00 USDT`}</button>}
+                                    > {`Profit < 10.00 USDT`}</button>}
                                 </div>}
 
 
@@ -146,7 +146,7 @@ export const CabData = () => {
                                 <i style={{ fontSize: '0.8rem', color: 'gray' }}>{languageCode === 'ru' ?
                                     <>
                                         Для вывода доступно не менее <b>10 USDT</b> и <b>25 дней</b> после последней покупки друга.<br />
-                                        Если вы ни разу не вывели накопленные средства до on-chain этапа, вы будете включены в <b>программу аллокации пропорционально вашему балансу, и это будет более выгодно.</b>
+                                        Если вы ни разу не вывели накопленные средства до on-chain этапа, вы будете включены в <b>программу аллокации пропорционально вашему балансу, а мы проследим чтобы это было выгоднее.</b>
                                     </>
                                     : <>
                                         At least <b>10 USDT</b> is available for withdrawal and <b>25 days</b> after the last purchase by an active friend.<br />

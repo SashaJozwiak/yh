@@ -1,4 +1,4 @@
-import React, { /* useEffect, */ useState } from 'react'
+import React, { /* useEffect, */ useEffect, useState } from 'react'
 
 import { useGameNav } from '../../../state/gameNav'
 import { charDeck } from '../../../exmpl/charDeck_big';
@@ -9,24 +9,58 @@ import imgs from '../charimg'
 
 import s from './showcard.module.css'
 //import ss from '../../PlayerArea/Card/card.module.css'
-//import { langG, switchLang } from './../../../utils/lang';
 
-import { langG, swichLang } from '../../../utils/lang';
+
+import { swichLang } from '../../../utils/lang';
 import { useUserData } from '../../../../store/main';
+import { statGrades } from '../../../exmpl/statsGrades';
+import { useDeck } from '../../../state/deck';
 
 interface ShowCardProps {
     name: string;
 }
 
+/* const colors = {
+    gray: {
+        color: 'gray',
+        fontWeight: 'bold',
+        fontSize: 'medium',
+    },
+    bronze: {
+        color: 'rgb(205, 127, 50)',
+        fontWeight: 'bold',
+        fontSize: 'medium',
+    },
+    silver: {
+        color: 'lightgray',
+        fontWeight: 'bold',
+        fontSize: 'medium',
+    },
+    gold: {
+        color: 'rgb(204, 153, 0)',
+        fontWeight: 'bold',
+        fontSize: 'medium',
+    },
+} */
+
 export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
     const [card] = useState(charDeck.find((c: ShowCardProps) => c.name === name));
     const [stat, setStat] = useState(false);
+    const [grade, setGrade] = useState('gray')
 
     //const sl = switchLang()
     const userLang = useUserData(state => state.user.languageCode)
-    console.log('langG: ', langG, swichLang)
+    console.log('card: ', card)
 
     const setShowCard = useGameNav(state => state.setShowCard);
+
+    const gradeDetector = useDeck(state => state.gradeDetector);
+
+    useEffect(() => {
+        const newGrade = gradeDetector(name);
+        console.log('new grade: ', newGrade)
+        setGrade(newGrade)
+    }, [gradeDetector, name])
 
     return (
         <div onClick={() => setShowCard()} className={s.container}>
@@ -57,13 +91,17 @@ export const ShowCard: React.FC<ShowCardProps> = ({ name }) => {
                         <p style={{ fontWeight: 'bold' }}>{card?.profession} {name}</p>
                         <div style={{ color: 'silver', marginTop: '0.5vh' }}> <b>Lvl: 0</b>  | 0/100 exp</div>
                         <br />
-                        <p>Balance: <span>{card?.balance_hp}</span></p>
-                        <p>Energy:  <span>{card?.energy_mp}</span></p>
-                        <p>Mind:  <span>{card?.stats.mind}</span></p>
+
+                        <p style={{ color: 'lightgray' }}>Balance: <span style={{ color: 'rgb(154, 154, 154)', fontSize: grade === 'gray' ? 'larger' : 'small', fontWeight: grade === 'gray' ? 'bold' : 'normal' }}>{statGrades[name]["gray"]["balance_hp"]}</span> <span style={{ color: 'rgb(205, 127, 50)', fontSize: grade === 'bronze' ? 'larger' : 'small', fontWeight: grade === 'bronze' ? 'bold' : 'normal' }}>{statGrades[name]["bronze"]["balance_hp"]}</span> <span style={{ color: 'lightgray', fontSize: grade === 'silver' ? 'larger' : 'small', fontWeight: grade === 'silver' ? 'bold' : 'normal' }}>{statGrades[name]["silver"]["balance_hp"]}</span> <span style={{ color: 'rgb(204, 153, 0)', fontSize: grade === 'gold' ? 'larger' : 'small' }}>{statGrades[name]["gold"]["balance_hp"]}</span></p>
+
+                        <p style={{ color: 'lightgray' }}>Energy: <span style={{ color: 'rgb(154, 154, 154)', fontSize: grade === 'gray' ? 'larger' : 'small', fontWeight: grade === 'gray' ? 'bold' : 'normal' }}>{statGrades[name]["gray"]["energy_mp"]}</span> <span style={{ color: 'rgb(205, 127, 50)', fontSize: grade === 'bronze' ? 'larger' : 'small', fontWeight: grade === 'bronze' ? 'bold' : 'normal' }}>{statGrades[name]["bronze"]["energy_mp"]}</span> <span style={{ color: 'lightgray', fontSize: grade === 'silver' ? 'larger' : 'small', fontWeight: grade === 'silver' ? 'bold' : 'normal' }}>{statGrades[name]["silver"]["energy_mp"]}</span> <span style={{ color: 'rgb(204, 153, 0)', fontSize: grade === 'gold' ? 'larger' : 'small' }}>{statGrades[name]["gold"]["energy_mp"]}</span></p>
+
+                        <p style={{ color: 'lightgray' }}>Mind: <span style={{ color: 'rgb(154, 154, 154)', fontSize: grade === 'gray' ? 'larger' : 'small', fontWeight: grade === 'gray' ? 'bold' : 'normal' }}>{statGrades[name]["gray"]["stats"]["mind"]}</span> <span style={{ color: 'rgb(205, 127, 50)', fontSize: grade === 'bronze' ? 'larger' : 'small', fontWeight: grade === 'bronze' ? 'bold' : 'normal' }}>{statGrades[name]["bronze"]["stats"]["mind"]}</span> <span style={{ color: 'lightgray', fontSize: grade === 'silver' ? 'larger' : 'small', fontWeight: grade === 'silver' ? 'bold' : 'normal' }}>{statGrades[name]["silver"]["stats"]["mind"]}</span> <span style={{ color: 'rgb(204, 153, 0)', fontSize: grade === 'gold' ? 'larger' : 'small' }}>{statGrades[name]["gold"]["stats"]["mind"]}</span></p>
+
                         <br />
-                        <p>Attack:  <span>{card?.stats[card?.key_power]}</span> </p>
+                        <p>Attack:  <span>{statGrades[name][grade]['stats'][card?.key_power]}</span></p>
                         <i>({swichLang(userLang, 'depend')}: <b>{card?.key_power}</b>)</i>
-                        <p>Defense:  <span>{card?.stats.mind}</span></p>
+                        <p>Defense:  <span>{statGrades[name][grade].stats.mind}</span></p>
                         <i>({swichLang(userLang, 'depend')}: <b>mind</b>)</i>
                     </div>
                 </div>

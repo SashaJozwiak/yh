@@ -6,6 +6,8 @@ import { devtools } from 'zustand/middleware'
 import { useArena } from './mainArena';
 
 import { charDeck } from '../exmpl/charDeck_big';
+import { statGrades } from '../exmpl/statsGrades';
+import { useDeck } from './deck';
 
 export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
     playCard: {
@@ -181,7 +183,35 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         }))
     },
     chooseHero: (name) => {
+        const deck = useDeck.getState().cards;
+
+        const findMaxGrade = (grades) => {
+            if (grades.gold > 0) return 'gold';
+            if (grades.silver > 0) return 'silver';
+            if (grades.bronze > 0) return 'bronze';
+            return 'gray'; // По умолчанию
+        };
+
         const newChar = charDeck.filter((card: PlayCard) => card.name === name)
+
+        const deckCard = deck.find(card => card.name === name)
+
+        // Определить грейд героя
+        const heroGrade = deckCard ? findMaxGrade(deckCard.grades) : 'gray';
+
+        const newStats = statGrades[name][heroGrade];
+
+        console.log('newChar: ', newChar);
+        console.log('herograde: ', heroGrade);
+        console.log('newStats: ', newStats);
+
+        const updatedPlayCard = {
+            ...newChar[0], // Берем все свойства из newChar[0]
+            balance_hp: newStats.balance_hp, // Заменяем balance_hp
+            energy_mp: newStats.energy_mp, // Заменяем energy_mp
+            stats: newStats.stats, // Заменяем stats
+        };
+
         set((state) => ({
             ...state,
             battleState: {
@@ -204,7 +234,7 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                 B: 0,
                 count: 0,
             },
-            playCard: newChar[0],
+            playCard: updatedPlayCard,
         }))
 
     },

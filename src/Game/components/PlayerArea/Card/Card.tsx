@@ -17,6 +17,7 @@ import { Potion } from '../../Some/PotionSvg';
 import useSound from 'use-sound';
 import ny_sound from '../../../assets/Game/ny/ny_sound_3s.mp3'
 import s from './card.module.css'
+import { useDeck } from '../../../state/deck';
 
 
 export const Card: React.FC = () => {
@@ -43,6 +44,8 @@ export const Card: React.FC = () => {
 
     const goUseItem = usePlayCard(state => state.useItem)
     const addExpAnim = usePlayCard(state => state.addExpAnim);
+
+    const grade = useDeck(state => state.gradeDetector(playCard.name))
 
     console.log('stat: ', stat)
 
@@ -76,7 +79,9 @@ export const Card: React.FC = () => {
     }
 
     return (
-        <div className={`${s.playercard} ${getDamage === 'hero' && s.shaking}`}>
+        <div className={`${s.playercard} ${getDamage === 'hero' && Number(enemyAttack - playCard.stats.mind) > 0 ? s.shaking : getDamage === 'hero' && s.dodge}`}
+            style={{ boxShadow: grade === 'bronze' ? '0px 0px 25px rgb(205 127 50 / 50%)' : grade === 'silver' ? '0px 0px 25px rgb(212 212 212 / 50%)' : grade === 'gold' ? '0px 0px 25px rgb(204 153 0 / 50%)' : '0px 0px 25px rgb(0 0 0 / 50%)' }}
+        >
             <div className={s.pcimg}>
                 <div
                     className={s.lvl}>{playCard.lvl}
@@ -202,7 +207,7 @@ export const Card: React.FC = () => {
                         <div style={{ fontWeight: 'bold', marginBottom: '2vh', color: 'silver' }}>Defense: {playCard.stats.mind}</div>
 
 
-                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'balance' ? 'bold' : 'normal', marginBottom: '0.8vh' }}>
+                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'balance' ? 'bold' : 'normal', marginBottom: '2vh' }}>
                             Balance: {playCard.stats.balance}
                             <div>
                                 <span style={{ textDecoration: 'underline' }}/* className={`${playCard.exp_points > 0 ? s.blur : null}`} */>{playCard.exp_points}</span>
@@ -211,11 +216,13 @@ export const Card: React.FC = () => {
                                     onClick={() => addStat('balance')}
                                     disabled={playCard.exp_points < 1}
                                     style={{ opacity: playCard.exp_points < 1 ? '0.5' : '1' }}
-                                    className={`${s.plus} ${playCard.exp_points > 0 ? s.blur : null}`}>+</button>
+                                    className={`${s.plus} ${playCard.exp_points > 0 ? s.blur : null}`}>
+                                    {/* <span style={{ textAlign: 'center' }}>+</span> */}+
+                                </button>
                             </div>
                         </div>
 
-                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'mind' ? 'bold' : 'normal', marginBottom: '0.8vh' }}>
+                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'mind' ? 'bold' : 'normal', marginBottom: '2vh' }}>
                             Mind: {playCard.stats.mind}
                             <div>
                                 <span style={{ textDecoration: 'underline' }} /* className={`${playCard.exp_points > 0 ? s.blur : null}`} */>{playCard.exp_points}</span>
@@ -228,7 +235,7 @@ export const Card: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'energy' ? 'bold' : 'normal', marginBottom: '1vh' }}>
+                        <div className={s.statline} style={{ fontWeight: playCard.key_power === 'energy' ? 'bold' : 'normal', marginBottom: '2vh' }}>
                             Energy: {playCard.stats.energy}
 
                             <div>

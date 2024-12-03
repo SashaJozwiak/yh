@@ -27,7 +27,7 @@ export const WithdrawPopUp: React.FC<WithdrawProps> = ({ /* onWithdraw,  */setPo
 
     useEffect(() => {
         if (calcData) {
-            setSum((((calcData.stats.houseAbove10 * 0.04) + (calcData.stats.balanceAbove500HouseBelow10 * 0.03) + ((calcData.stats.totalUsers - calcData.stats.balanceAbove500HouseBelow10 - calcData.stats.houseAbove10) * 0.02) + (calcData.stats.totalPurchasesSum * 0.0015)) - (withdrawn > 0 ? withdrawn : 0)))
+            setSum((((calcData.stats.houseAbove10 * 0.06) + (calcData.stats.balanceAbove500HouseBelow10 * 0.04) + ((calcData.stats.totalUsers - calcData.stats.balanceAbove500HouseBelow10 - calcData.stats.houseAbove10) * 0.02) + (calcData.stats.totalPurchasesSum * 0.0020)) - (withdrawn > 0 ? withdrawn : 0)))
         }
 
         if (uf_addres) {
@@ -61,7 +61,7 @@ export const WithdrawPopUp: React.FC<WithdrawProps> = ({ /* onWithdraw,  */setPo
                 <h2>{Math.round(sum * 100) / 100} USDT</h2>
 
                 <div className={s.inputform}>
-                    Addres for withdraw:
+                    Address for withdraw:
                     <input
                         value={address}
                         onChange={handleChange}
