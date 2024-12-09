@@ -87,7 +87,7 @@ export const Map: React.FC = () => {
             return;
         }
 
-        setSelectedLocation({ user_id: -1, city_id: id, username: 'No', price: 1 })
+        setSelectedLocation({ user_id: -1, city_id: id, username: 'No', price: 1, color: 'rgb(22, 163, 74)' })
     }
 
     useEffect(() => {
@@ -123,7 +123,7 @@ export const Map: React.FC = () => {
 
     return (
         <>
-            {city ? <InCity setCity={setCity} /> :
+            {city ? <InCity setCity={setCity} selectedLocation={selectedLocation} /> : 
         <div className={`${s.container} ${close ? s.containerclosing : null}`}>
 
             {/* {city && <InCity setCity={setCity} />} */}
@@ -250,7 +250,7 @@ export const Map: React.FC = () => {
                                             //disabled={true}
                                             style={{ opacity: '0.5' }}
                                             onClick={() => {
-                                                if (myId === 3441 || myId === 9 || myId === 10) {
+                                                if (myId === 3441 || myId === 0 || myId === 9 || myId === 10) {
                                                     setCity(true);
                                                 } else {
                                                     console.log('closed');

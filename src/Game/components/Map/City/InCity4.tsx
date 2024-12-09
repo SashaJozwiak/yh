@@ -9,6 +9,12 @@ import elka from './assets/elka.gif'
 
 
 import s from './incity.module.css';
+import MyCarAnimation from './Car';
+import { Elka } from './Windows/Elka';
+import { useUserData } from '../../../../store/main';
+import WebApp from '@twa-dev/sdk';
+//import { useMap } from '../../../state/map';
+//import { useArena } from '../../../state/mainArena';
 
 window.oncontextmenu = function (event) {
     event.preventDefault();
@@ -39,6 +45,12 @@ const collisionMap = [
     [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
 ];
 
+const highlightedTiles = [
+    { x: 6, y: 4, type: 'cityHall' },
+    { x: 5, y: 4, type: 'cityHall' },
+    { x: 6, y: 7, type: 'elka' },
+]; 
+
 const checkCollision = (x: number, y: number) => {
     // Преобразуем абсолютные координаты персонажа в глобальные координаты на карте
     const globalX = Math.abs(x);
@@ -52,7 +64,7 @@ const checkCollision = (x: number, y: number) => {
 
     // Проверяем, существует ли такая ячейка в карте
     if (tileY >= 0 && tileY < collisionMap.length && tileX >= 0 && tileX < collisionMap[0].length) {
-        console.log('collision: ', x, y, globalX, globalY, tileX, tileY, collisionMap[tileY], collisionMap[tileY][tileX]);
+        //console.log('collision: ', x, y, globalX, globalY, tileX, tileY, collisionMap[tileY], collisionMap[tileY][tileX]);
         return collisionMap[tileY][tileX] === 1;
     }
 
@@ -60,8 +72,11 @@ const checkCollision = (x: number, y: number) => {
     return true;
 };
 
-export const InCity = ({ setCity }) => {
+export const InCity = ({ setCity, selectedLocation }) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const playerData = useUserData(state => state.user)
 
+    //const cityList = useMap(state => state.cityList)
 
     const [btnColorUp, setBtnColorUp] = useState('lightgray');
     const [btnColorDown, setBtnColorDown] = useState('lightgray');
@@ -70,6 +85,9 @@ export const InCity = ({ setCity }) => {
 
     /* const areaWidth = window.innerWidth; // Ширина области для отображения
     const areaHeight = window.innerHeight * 0.65;  //Высота области для отображения (исключая header и footer) */
+    const [openElka, setOpenElka] = useState(false);
+    const [cityHall, setCityHall] = useState(false);
+    const [openWindow, setOpenWindow] = useState('');
 
     const headerHeight = window.innerHeight * 0.1;  // Высота header (10vh)
     const footerHeight = window.innerHeight * 0.25;  // Высота footer (25vh)
@@ -92,23 +110,6 @@ export const InCity = ({ setCity }) => {
 
     const step = 10; // Шаг перемещения персонажа
     const animationFrames = 8; // Количество кадров анимации
-
-    //calc sizes
-    /* const calculateBackgroundSize = () => {
-        // Минимальное увеличение фона относительно экрана (например, 1.5x)
-        const scaleFactor = 3;
-    
-        // Размер фона зависит от размеров экрана с учетом увеличения
-        const imageWidth = window.innerWidth * scaleFactor;
-        const imageHeight = (window.innerHeight - headerHeight - footerHeight) * scaleFactor;
-    
-        // Размер одного тайла (рассчитываем как пропорцию)
-        const tileWidth = imageWidth / collisionMap[0].length;
-        const tileHeight = imageHeight / collisionMap.length;
-    
-        return { imageWidth, imageHeight, tileWidth, tileHeight };
-    };
-    const { imageWidth, imageHeight, tileWidth, tileHeight } = calculateBackgroundSize(); */
 
     //refs update
     const updateBackgroundPosition = (newPosition) => {
@@ -250,12 +251,61 @@ export const InCity = ({ setCity }) => {
         };
     }, [handleKeyDown, handleKeyUp]);
 
-    console.log('charPosition: ', charPosition)
-    console.log('backgroundPosition: ', backgroundPosition)
+    //console.log('charPosition: ', charPosition)
+    //console.log('backgroundPosition: ', backgroundPosition)
     //console.log('areaWidth: ', areaWidth, 'areaHeight:', areaHeight)
 
+    useEffect(() => {
+        // Создаём массив промисов для загрузки изображений
+        const images = [city_bg, char, elka];
+        const promises = images.map((src) => {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.src = src;
+                img.onload = resolve;
+                img.onerror = resolve;
+            });
+        });
+
+        // Когда все изображения загрузятся, переключаем isLoading
+        Promise.all(promises).then(() => setIsLoading(false));
+    }, []);
+
+    useEffect(() => {
+        // Проверяем попадание в подсвеченные тайлы
+        const playerTileX = Math.floor((charPosition.x - backgroundPosition.x + 30) / tileWidth);
+        const playerTileY = Math.floor((charPosition.y - backgroundPosition.y + 40) / tileHeight);
+
+        let isCityHall = false;
+        let isElka = false;
+
+        highlightedTiles.forEach((tile) => {
+            if (tile.x === playerTileX && tile.y === playerTileY) {
+                if (tile.type === 'cityHall') isCityHall = true;
+                if (tile.type === 'elka') isElka = true;
+            }
+        });
+
+        setCityHall(isCityHall);
+        setOpenElka(isElka);
+    }, [charPosition, backgroundPosition]);
+
+    const openWindowfn = (nameWindow) => {
+        if (nameWindow === '') return;
+        console.log('nameWindow: ', nameWindow)
+        setOpenWindow(nameWindow);
+    }
+
     return (
+        <>
+            {isLoading ?
+                <div className={s.container} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', zIndex: '3000' }}>
+                    <MyCarAnimation />
+                    <span className={s.loader} style={{ margin: '0 auto' }}></span>
+                </div>
+                : 
         <div className={s.container}>
+                    {openWindow === 'Elka' && <Elka setOpenWindow={setOpenWindow} />}
             <div
                 style={{
                     height: '10vh',
@@ -274,8 +324,17 @@ export const InCity = ({ setCity }) => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                     </svg>
                 </button>
-                <p>City #1504</p>
-                <p>Mayor: @zwiak</p>
+                        <div>
+                            <p>{`City #${selectedLocation.city_id || null}`}</p>
+                        </div>
+                        <p>{playerData.languageCode === 'ru' ? 'Мэр' : 'Mayor'}:&nbsp;
+                            <span
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    WebApp.openTelegramLink(`https://t.me/${selectedLocation?.username || 'anonymous'}`);
+                                }}
+                                style={{ textDecoration: 'underline' }}>{(selectedLocation?.username || 'anonymous').substring(0, 12)}</span>
+                        </p>
             </div>
 
             <div
@@ -294,14 +353,26 @@ export const InCity = ({ setCity }) => {
             >
 
 
-                {/* <GridOverlay
-                    imageWidth={imageWidth}
-                    imageHeight={imageHeight}
-                    tileWidth={tileWidth}
-                    tileHeight={tileHeight}
-                    backgroundPosition={backgroundPosition}
-                    offsetTop={window.innerHeight * 0.1}
-                /> */}
+                        {highlightedTiles.map(({ x, y }) => {
+                            const tileLeft = x * tileWidth + backgroundPosition.x;
+                            const tileTop = y * tileHeight + backgroundPosition.y;
+
+                            return (
+                                <div
+                                    key={`${x}-${y}`}
+                                    style={{
+                                        position: 'absolute',
+                                        left: tileLeft,
+                                        top: tileTop,
+                                        width: tileWidth,
+                                        height: tileHeight,
+                                        backgroundColor: 'rgba(0, 255, 0, 0.15)',
+                                        //border: '1px solid green',
+                                        //borderRadius: '1rem',
+                                    }}
+                                />
+                            );
+                        })}
 
                 <div
                     className="character"
@@ -319,7 +390,7 @@ export const InCity = ({ setCity }) => {
 
 
                     }}
-                ><p style={{ position: 'relative', zIndex: '400' }}>username</p></div>
+                        ><p style={{ position: 'relative', zIndex: '400' }}>{(playerData.userName).substring(0, 10)}</p></div>
 
                 <img
                     style={{
@@ -412,14 +483,21 @@ export const InCity = ({ setCity }) => {
 
                 <div style={{ flexGrow: '1', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                     <button
+                                onClick={() => {
+                                    if (openElka || cityHall) {
+                                        const nameWindow = openElka ? 'Elka' : openElka ? 'cityHall' : '';
+                                        openWindowfn(nameWindow)
+                                    }
+                                }}
                         className={s.btnPush}
-                        style={{ color: 'transparent', backgroundColor: 'lightgray', borderRadius: '50%', aspectRatio: '1/1', opacity: '0.5' }}
+                                style={{ color: 'transparent', backgroundColor: 'lightgray', borderRadius: '50%', aspectRatio: '1/1', opacity: openElka || cityHall ? '1' : '0.5' }}
                     >BIG BUTTON</button>
                 </div>
 
 
             </div>
 
-        </div >
+                </div >}
+        </>
     );
 }
