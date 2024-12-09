@@ -16,7 +16,7 @@ window.oncontextmenu = function (event) {
     return false;
 };
 
-const elkaPosition = { x: 50, y: 50 }; // Процентные координаты: x = 50% ширины, y = 30% высоты
+const elkaPosition = { x: 50, y: 42 }; // Процентные координаты: x = 50% ширины, y = 30% высоты
 const imageWidth = 1100; // Ширина изображения
 const imageHeight = 1100; // Высота изображения
 
@@ -26,15 +26,15 @@ const tileHeight = 100;
 const collisionMap = [
     // Пример карты коллизий для фона
     // 0 — проходимо, 1 — препятствие
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1],
+    [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
     [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1],
-    [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1],
+    [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+    [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
     [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
     [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
 ];
@@ -80,114 +80,136 @@ export const InCity = ({ setCity }) => {
 
     const areaWidth = window.innerWidth;  // Ширина области по всей ширине окна
 
-    const [backgroundPosition, setBackgroundPosition] = useState({ x: -200, y: -500 });
+    const [backgroundPosition, setBackgroundPosition] = useState({ x: -570, y: -450 });
     const [charPosition, setCharPosition] = useState({ x: areaWidth / 2, y: areaHeight / 2 })
-    const [charView, setCharView] = useState({ x: 0, y: 64 * 10 }); // Начальная позиция текстуры персонажа
+
+    const charPositionRef = useRef({ x: areaWidth / 2, y: areaHeight / 2 });
+    const backgroundPositionRef = useRef({ x: -570, y: -450 });
+
+    const [charView, setCharView] = useState({ x: 0, y: 64 * 9 }); // Начальная позиция текстуры персонажа
 
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const step = 10; // Шаг перемещения персонажа
     const animationFrames = 8; // Количество кадров анимации
 
+    //calc sizes
+    /* const calculateBackgroundSize = () => {
+        // Минимальное увеличение фона относительно экрана (например, 1.5x)
+        const scaleFactor = 3;
+    
+        // Размер фона зависит от размеров экрана с учетом увеличения
+        const imageWidth = window.innerWidth * scaleFactor;
+        const imageHeight = (window.innerHeight - headerHeight - footerHeight) * scaleFactor;
+    
+        // Размер одного тайла (рассчитываем как пропорцию)
+        const tileWidth = imageWidth / collisionMap[0].length;
+        const tileHeight = imageHeight / collisionMap.length;
+    
+        return { imageWidth, imageHeight, tileWidth, tileHeight };
+    };
+    const { imageWidth, imageHeight, tileWidth, tileHeight } = calculateBackgroundSize(); */
 
+    //refs update
+    const updateBackgroundPosition = (newPosition) => {
+        setBackgroundPosition(newPosition);
+        backgroundPositionRef.current = newPosition; // Синхронизируем useRef
+    };
 
-
+    const updateCharPosition = (newPosition) => {
+        setCharPosition(newPosition);
+        charPositionRef.current = newPosition; // Синхронизируем useRef
+    };
 
     // Обработчик нажатий клавиш
     const handleKeyDown = useCallback(
         (event) => {
             if (intervalRef.current) return; // Избегаем наложения интервалов
 
-            //ПОПРОБОВАТЬ ЗДЕСЬ ПРОВЕРЯТЬ КОЛЛИЗИЮ 
-
             let i = 0; // Индекс текущего кадра анимации
-            let movedBackground = false; // Флаг для проверки сдвига фона
-
-
-            let isCharHorizontallyCenteredLeft = Math.abs(charPosition.x) < areaWidth / 2 - 30;
-            let isCharHorizontallyCenteredRight = Math.abs(charPosition.x) > areaWidth / 2 - 30;
-
-            let isCharVerticallyCenteredDown = Math.abs(charPosition.y) > areaHeight / 2 - 35;
-            let isCharVerticallyCenteredUP = Math.abs(charPosition.y) < areaHeight / 2 - 35;
-
-            //collisions block
-
-
-
 
             const move = () => {
-                setBackgroundPosition((prevBackgroundPos) => {
-                    let newX = prevBackgroundPos.x;
-                    let newY = prevBackgroundPos.y;
+                const currentCharPosition = { ...charPositionRef.current };
+                const currentBackgroundPosition = { ...backgroundPositionRef.current };
 
-                    if (checkCollision(charPosition.x - (newX - step), charPosition.y - newY)) {
-                        return { x: newX += step, y: newY }
-                    }
+                const newBackgroundPosition = { ...currentBackgroundPosition };
+                const newCharPosition = { ...currentCharPosition };
 
+                let movedBackground = false;
 
-                    // Логика движения фона
+                // Движение фона
+                switch (event.key) {
+                    case "ArrowUp":
+                        setCharView((prev) => ({ ...prev, y: 64 * 8 })); // Спрайт вверх
+                        if (!checkCollision(currentCharPosition.x - currentBackgroundPosition.x, currentCharPosition.y - (currentBackgroundPosition.y + step))) {
+                            if (currentCharPosition.y <= areaHeight / 2 && newBackgroundPosition.y + step <= 0) {
+                                newBackgroundPosition.y += step;
+                                movedBackground = true;
+                            }
+                        }
+                        break;
+
+                    case "ArrowDown":
+                        setCharView((prev) => ({ ...prev, y: 64 * 10 })); // Спрайт вниз
+                        if (!checkCollision(currentCharPosition.x - currentBackgroundPosition.x, currentCharPosition.y - (currentBackgroundPosition.y - step))) {
+                            if (currentCharPosition.y >= areaHeight / 2 && newBackgroundPosition.y - step >= -(imageHeight - areaHeight)) {
+                                newBackgroundPosition.y -= step;
+                                movedBackground = true;
+                            }
+                        }
+                        break;
+
+                    case "ArrowLeft":
+                        setCharView((prev) => ({ ...prev, y: 64 * 9 })); // Спрайт влево
+                        if (!checkCollision(currentCharPosition.x - (currentBackgroundPosition.x + step), currentCharPosition.y - currentBackgroundPosition.y)) {
+                            if (currentCharPosition.x <= areaWidth / 2 && newBackgroundPosition.x + step <= 0) {
+                                newBackgroundPosition.x += step;
+                                movedBackground = true;
+                            }
+                        }
+                        break;
+
+                    case "ArrowRight":
+                        setCharView((prev) => ({ ...prev, y: 64 * 11 })); // Спрайт вправо
+                        if (!checkCollision(currentCharPosition.x - (currentBackgroundPosition.x - step), currentCharPosition.y - currentBackgroundPosition.y)) {
+                            if (currentCharPosition.x >= areaWidth / 2 && newBackgroundPosition.x - step >= -(imageWidth - areaWidth)) {
+                                newBackgroundPosition.x -= step;
+                                movedBackground = true;
+                            }
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (movedBackground) {
+                    // Если двигался фон, обновляем его позицию
+                    updateBackgroundPosition(newBackgroundPosition);
+                } else {
+                    // Если фон не двигался, двигаем персонажа
                     switch (event.key) {
                         case "ArrowUp":
-                            setCharView((prev) => ({ ...prev, y: 64 * 8 })); // Ряд спрайтов вверх
-                            if (checkCollision(charPosition.x - newX, charPosition.y - (newY + step))) {
-                                newY -= step;
-                                movedBackground = false;
-                                break;
-                            }
-                            if (isCharVerticallyCenteredUP && newY + step <= 0) {
-                                newY += step;
-                                movedBackground = true;
-                            } else {
-                                movedBackground = false;
+                            if (currentCharPosition.y > areaTop && !checkCollision(currentCharPosition.x - currentBackgroundPosition.x, currentCharPosition.y - step - currentBackgroundPosition.y)) {
+                                newCharPosition.y -= step;
                             }
                             break;
 
                         case "ArrowDown":
-                            setCharView((prev) => ({ ...prev, y: 64 * 10 })); // Ряд спрайтов вниз
-                            if (checkCollision(charPosition.x - newX, charPosition.y - (newY - step))) {
-                                newY += step;
-                                movedBackground = false;
-                                break;
-                            }
-                            if (isCharVerticallyCenteredDown && newY - step >= -(imageHeight - areaHeight)) {
-                                newY -= step;
-                                movedBackground = true;
-                            } else {
-                                movedBackground = false;
+                            if (currentCharPosition.y < areaHeight && !checkCollision(currentCharPosition.x - currentBackgroundPosition.x, currentCharPosition.y + step - currentBackgroundPosition.y)) {
+                                newCharPosition.y += step;
                             }
                             break;
 
                         case "ArrowLeft":
-                            setCharView((prev) => ({ ...prev, y: 64 * 9 })); // Ряд спрайтов влево
-                            if (checkCollision(charPosition.x - (newX + step), charPosition.y - newY)) {
-                                newX -= step;
-                                movedBackground = false;
-                                break;
-                            }
-                            if (isCharHorizontallyCenteredLeft && newX + step <= 0) {
-                                newX += step;
-                                movedBackground = true;
-                            } else {
-                                movedBackground = false;
+                            if (currentCharPosition.x > 0 && !checkCollision(currentCharPosition.x - step - currentBackgroundPosition.x, currentCharPosition.y - currentBackgroundPosition.y)) {
+                                newCharPosition.x -= step;
                             }
                             break;
 
                         case "ArrowRight":
-
-                            setCharView((prev) => ({ ...prev, y: 64 * 11 })); // Ряд спрайтов вправо
-                            console.log('вправо коллизия? бг')
-                            if (checkCollision(charPosition.x - (newX - step), charPosition.y - newY)) {
-                                console.log('вправо коллизия? бг да')
-                                newX += step;
-                                movedBackground = false;
-                                break;
-                            }
-
-                            if (isCharHorizontallyCenteredRight && newX - step >= -(imageWidth - areaWidth)) {
-                                newX -= step;
-                                movedBackground = true;
-                            } else {
-                                movedBackground = false;
+                            if (currentCharPosition.x < areaWidth && !checkCollision(currentCharPosition.x + step - currentBackgroundPosition.x, currentCharPosition.y - currentBackgroundPosition.y)) {
+                                newCharPosition.x += step;
                             }
                             break;
 
@@ -195,104 +217,19 @@ export const InCity = ({ setCity }) => {
                             break;
                     }
 
-                    // Возвращаем обновленные позиции фона, если фон был сдвинут
-                    if (!checkCollision(charPosition.x - newX, charPosition.y - newY)) {
-                        return movedBackground ? { x: newX, y: newY } : prevBackgroundPos;
-                    } else {
-                        return { x: prevBackgroundPos.x, y: prevBackgroundPos.y };
-                    }
-
-                });
-
-                // Если фон не двигается, двигаем персонажа
-                if (!movedBackground) {
-                    setCharPosition((prevCharPos) => {
-                        let charX = prevCharPos.x;
-                        let charY = prevCharPos.y;
-
-                        isCharVerticallyCenteredDown = Math.abs(charY) > areaHeight / 2 - 35;
-                        isCharVerticallyCenteredUP = Math.abs(charY) < areaHeight / 2 - 35;
-
-                        isCharHorizontallyCenteredLeft = Math.abs(charX) < areaWidth / 2 - 30;
-                        isCharHorizontallyCenteredRight = Math.abs(charX) > areaWidth / 2 - 30;
-
-                        // Двигаем персонажа в зависимости от нажатой клавиши
-                        /* if (!checkCollision(charX, charY)) {
-                            return { x: charX, y: charY };
-                        } */
-                        switch (event.key) {
-                            case "ArrowUp":
-                                if ((!isCharVerticallyCenteredUP || !movedBackground) && charY > areaTop) {
-                                    if (!checkCollision(charX - backgroundPosition.x, (charY - step) - backgroundPosition.y)) {
-                                        charY -= step;
-                                    } else {
-                                        charY += step;
-                                    }
-                                }
-                                break;
-
-                            case "ArrowDown":
-                                if ((!isCharVerticallyCenteredDown || !movedBackground) && charY < areaHeight) {
-                                    if (!checkCollision(charX - backgroundPosition.x, (charY + step) - backgroundPosition.y)) {
-                                        charY += step;
-                                    } else {
-                                        charY -= step;
-                                    }
-                                }
-                                break;
-
-                            case "ArrowLeft":
-                                if ((!isCharHorizontallyCenteredLeft || !movedBackground) && charX > 0) {
-                                    if (!checkCollision((charX - step) - backgroundPosition.x, charY - backgroundPosition.y)) {
-                                        charX -= step;
-                                    } else {
-                                        charX += step;
-                                    }
-
-                                }
-                                break;
-
-                            case "ArrowRight":
-                                if ((!isCharHorizontallyCenteredRight || !movedBackground) && charX < areaWidth - 60) {
-                                    console.log('вправо коллизия? хар')
-                                    if (!checkCollision((charX + step) - backgroundPosition.x, charY - backgroundPosition.y)) {
-                                        //console.log('вправо коллизия? да')
-                                        charX += step;
-                                    } else {
-                                        console.log('вправо коллизия? хар да')
-                                        charX -= step;
-                                    }
-                                }
-                                break;
-
-
-                            default: break;
-                        }
-
-
-                        // Возвращаем обновленную позицию персонажа
-                        if (!checkCollision(charX - backgroundPosition.x, charY - backgroundPosition.y)) {
-                            return { x: charX, y: charY };
-                        } else {
-                            return prevCharPos;
-                        }
-                    });
+                    updateCharPosition(newCharPosition);
                 }
 
-                // Обновление текущего кадра спрайтов
+                // Обновление анимации
                 i = (i + 1) % animationFrames;
                 setCharView((prev) => ({ ...prev, x: 64 * i }));
             };
 
-            // Устанавливаем интервал для анимации
+            // Устанавливаем интервал
             intervalRef.current = setInterval(move, 50);
         },
-        [charPosition.x, charPosition.y, areaWidth, areaHeight, areaTop, backgroundPosition.y, backgroundPosition.x]
+        [areaWidth, areaHeight, areaTop]
     );
-
-
-
-
 
     // Остановка анимации при отпускании клавиши
     const handleKeyUp = useCallback(() => {
@@ -380,16 +317,17 @@ export const InCity = ({ setCity }) => {
                         background: `url(${char})`,
                         backgroundPosition: `${-charView.x}px ${-charView.y}px`,
 
+
                     }}
-                >name</div>
+                ><p style={{ position: 'relative', zIndex: '400' }}>username</p></div>
 
                 <img
                     style={{
                         position: "absolute",
-                        width: "38vw",
-                        height: "35vh",
-                        top: `${(elkaPosition.y / 100) * imageHeight - (-backgroundPosition.y)}px`,
-                        left: `${(elkaPosition.x / 100) * imageWidth - (-backgroundPosition.x)}px`,
+                        width: "170px",//38vw
+                        height: "250px",//35vh
+                        top: `${(elkaPosition.y / 100) * imageHeight + backgroundPosition.y}px`,
+                        left: `${(elkaPosition.x / 100) * imageWidth + backgroundPosition.x}px`,
                         zIndex: "200",
 
 

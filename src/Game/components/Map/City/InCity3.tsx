@@ -98,42 +98,37 @@ export const InCity = ({ setCity }) => {
         (event) => {
             if (intervalRef.current) return; // Избегаем наложения интервалов
 
-            //ПОПРОБОВАТЬ ЗДЕСЬ ПРОВЕРЯТЬ КОЛЛИЗИЮ 
-
             let i = 0; // Индекс текущего кадра анимации
             let movedBackground = false; // Флаг для проверки сдвига фона
 
+            let isCharHorizontallyCenteredLeft = Math.abs(charPosition.x) <= areaWidth / 2;
+            let isCharHorizontallyCenteredRight = Math.abs(charPosition.x) >= areaWidth / 2;
 
-            let isCharHorizontallyCenteredLeft = Math.abs(charPosition.x) < areaWidth / 2 - 30;
-            let isCharHorizontallyCenteredRight = Math.abs(charPosition.x) > areaWidth / 2 - 30;
-
-            let isCharVerticallyCenteredDown = Math.abs(charPosition.y) > areaHeight / 2 - 35;
-            let isCharVerticallyCenteredUP = Math.abs(charPosition.y) < areaHeight / 2 - 35;
-
-            //collisions block
-
-
-
+            let isCharVerticallyCenteredDown = Math.abs(charPosition.y) >= areaHeight / 2;
+            let isCharVerticallyCenteredUP = Math.abs(charPosition.y) <= areaHeight / 2;
 
             const move = () => {
+                let currentCharPosition = { ...charPosition }; // Локальная копия позиции персонажа
+                let currentBackgroundPosition = { ...backgroundPosition }; // Локальная копия позиции фона
+
+
                 setBackgroundPosition((prevBackgroundPos) => {
                     let newX = prevBackgroundPos.x;
                     let newY = prevBackgroundPos.y;
 
-                    if (checkCollision(charPosition.x - (newX - step), charPosition.y - newY)) {
-                        return { x: newX += step, y: newY }
-                    }
-
+                    console.log('initial, back+char: ', currentBackgroundPosition, currentCharPosition);
+                    console.log('move precheck collision (background x,y): ', newX, newY);
 
                     // Логика движения фона
                     switch (event.key) {
                         case "ArrowUp":
                             setCharView((prev) => ({ ...prev, y: 64 * 8 })); // Ряд спрайтов вверх
-                            if (checkCollision(charPosition.x - newX, charPosition.y - (newY + step))) {
-                                newY -= step;
-                                movedBackground = false;
+                            if (checkCollision(currentCharPosition.x - newX, currentCharPosition.y - (newY + step))) {
+                                //newY -= step;
+                                //movedBackground = false;
                                 break;
                             }
+                            console.log('isCharVerticallyCenteredUP: ', isCharVerticallyCenteredUP)
                             if (isCharVerticallyCenteredUP && newY + step <= 0) {
                                 newY += step;
                                 movedBackground = true;
@@ -144,9 +139,9 @@ export const InCity = ({ setCity }) => {
 
                         case "ArrowDown":
                             setCharView((prev) => ({ ...prev, y: 64 * 10 })); // Ряд спрайтов вниз
-                            if (checkCollision(charPosition.x - newX, charPosition.y - (newY - step))) {
-                                newY += step;
-                                movedBackground = false;
+                            if (checkCollision(currentCharPosition.x - newX, currentCharPosition.y - (newY - step))) {
+                                //newY += step;
+                                //movedBackground = false;
                                 break;
                             }
                             if (isCharVerticallyCenteredDown && newY - step >= -(imageHeight - areaHeight)) {
@@ -159,9 +154,9 @@ export const InCity = ({ setCity }) => {
 
                         case "ArrowLeft":
                             setCharView((prev) => ({ ...prev, y: 64 * 9 })); // Ряд спрайтов влево
-                            if (checkCollision(charPosition.x - (newX + step), charPosition.y - newY)) {
-                                newX -= step;
-                                movedBackground = false;
+                            if (checkCollision(currentCharPosition.x - (newX + step), currentCharPosition.y - newY)) {
+                                //newX -= step;
+                                //movedBackground = false;
                                 break;
                             }
                             if (isCharHorizontallyCenteredLeft && newX + step <= 0) {
@@ -173,16 +168,12 @@ export const InCity = ({ setCity }) => {
                             break;
 
                         case "ArrowRight":
-
                             setCharView((prev) => ({ ...prev, y: 64 * 11 })); // Ряд спрайтов вправо
-                            console.log('вправо коллизия? бг')
-                            if (checkCollision(charPosition.x - (newX - step), charPosition.y - newY)) {
-                                console.log('вправо коллизия? бг да')
-                                newX += step;
-                                movedBackground = false;
+                            if (checkCollision(currentCharPosition.x - (newX - step), currentCharPosition.y - newY)) {
+                                //newX += step;
+                                //movedBackground = false;
                                 break;
                             }
-
                             if (isCharHorizontallyCenteredRight && newX - step >= -(imageWidth - areaWidth)) {
                                 newX -= step;
                                 movedBackground = true;
@@ -195,12 +186,25 @@ export const InCity = ({ setCity }) => {
                             break;
                     }
 
+                    const isCollision = checkCollision(
+                        currentCharPosition.x - newX,
+                        currentCharPosition.y - newY
+                    );
+
+                    if (isCollision) {
+                        console.log('Collision detected, stopping movement.');
+                        return prevBackgroundPos; // Останавливаем движение фона
+                    }
+
+                    currentBackgroundPosition = { x: newX, y: newY };
+                    //return movedBackground ? { x: newX, y: newY } : prevBackgroundPos;
+                    return { x: newX, y: newY };
                     // Возвращаем обновленные позиции фона, если фон был сдвинут
-                    if (!checkCollision(charPosition.x - newX, charPosition.y - newY)) {
+                    /* if (!checkCollision(charPosition.x - newX, charPosition.y - newY)) {
                         return movedBackground ? { x: newX, y: newY } : prevBackgroundPos;
                     } else {
                         return { x: prevBackgroundPos.x, y: prevBackgroundPos.y };
-                    }
+                    } */
 
                 });
 
@@ -210,72 +214,60 @@ export const InCity = ({ setCity }) => {
                         let charX = prevCharPos.x;
                         let charY = prevCharPos.y;
 
-                        isCharVerticallyCenteredDown = Math.abs(charY) > areaHeight / 2 - 35;
-                        isCharVerticallyCenteredUP = Math.abs(charY) < areaHeight / 2 - 35;
+                        isCharVerticallyCenteredDown = Math.abs(charY) >= areaHeight / 2 /* - 35 */;
+                        isCharVerticallyCenteredUP = Math.abs(charY) <= areaHeight / 2 /* - 35 */;
 
-                        isCharHorizontallyCenteredLeft = Math.abs(charX) < areaWidth / 2 - 30;
-                        isCharHorizontallyCenteredRight = Math.abs(charX) > areaWidth / 2 - 30;
+                        isCharHorizontallyCenteredLeft = Math.abs(charX) <= areaWidth / 2 /* - 30 */;
+                        isCharHorizontallyCenteredRight = Math.abs(charX) >= areaWidth / 2 /* - 30 */;
 
-                        // Двигаем персонажа в зависимости от нажатой клавиши
-                        /* if (!checkCollision(charX, charY)) {
-                            return { x: charX, y: charY };
-                        } */
                         switch (event.key) {
+
                             case "ArrowUp":
                                 if ((!isCharVerticallyCenteredUP || !movedBackground) && charY > areaTop) {
-                                    if (!checkCollision(charX - backgroundPosition.x, (charY - step) - backgroundPosition.y)) {
+                                    if (!checkCollision(charX - currentBackgroundPosition.x, charY - step - currentBackgroundPosition.y)) {
+
                                         charY -= step;
-                                    } else {
-                                        charY += step;
                                     }
                                 }
                                 break;
 
                             case "ArrowDown":
                                 if ((!isCharVerticallyCenteredDown || !movedBackground) && charY < areaHeight) {
-                                    if (!checkCollision(charX - backgroundPosition.x, (charY + step) - backgroundPosition.y)) {
+                                    if (!checkCollision(charX - currentBackgroundPosition.x, charY + step - currentBackgroundPosition.y)) {
                                         charY += step;
-                                    } else {
-                                        charY -= step;
                                     }
                                 }
                                 break;
 
                             case "ArrowLeft":
                                 if ((!isCharHorizontallyCenteredLeft || !movedBackground) && charX > 0) {
-                                    if (!checkCollision((charX - step) - backgroundPosition.x, charY - backgroundPosition.y)) {
+                                    if (!checkCollision(charX - step - currentBackgroundPosition.x, charY - currentBackgroundPosition.y)) {
                                         charX -= step;
-                                    } else {
-                                        charX += step;
                                     }
-
                                 }
                                 break;
 
                             case "ArrowRight":
-                                if ((!isCharHorizontallyCenteredRight || !movedBackground) && charX < areaWidth - 60) {
-                                    console.log('вправо коллизия? хар')
-                                    if (!checkCollision((charX + step) - backgroundPosition.x, charY - backgroundPosition.y)) {
-                                        //console.log('вправо коллизия? да')
+                                if ((!isCharHorizontallyCenteredRight || !movedBackground) && charX < areaWidth) {
+                                    if (!checkCollision(charX + step - currentBackgroundPosition.x, charY - currentBackgroundPosition.y)) {
                                         charX += step;
-                                    } else {
-                                        console.log('вправо коллизия? хар да')
-                                        charX -= step;
                                     }
                                 }
                                 break;
 
-
-                            default: break;
+                            default:
+                                break;
                         }
 
 
-                        // Возвращаем обновленную позицию персонажа
+                        currentCharPosition = { x: charX, y: charY };
                         if (!checkCollision(charX - backgroundPosition.x, charY - backgroundPosition.y)) {
                             return { x: charX, y: charY };
                         } else {
                             return prevCharPos;
                         }
+
+                        //return { x: charX, y: charY };
                     });
                 }
 
@@ -287,9 +279,8 @@ export const InCity = ({ setCity }) => {
             // Устанавливаем интервал для анимации
             intervalRef.current = setInterval(move, 50);
         },
-        [charPosition.x, charPosition.y, areaWidth, areaHeight, areaTop, backgroundPosition.y, backgroundPosition.x]
+        [charPosition, areaWidth, areaHeight, backgroundPosition, areaTop]
     );
-
 
 
 

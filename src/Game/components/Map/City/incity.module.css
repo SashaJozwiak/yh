@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;
 
-    background-color:black;
+    //background-color:black;
     background-color: rgb(51, 65, 85);
     z-index: 3000;
     /* width:100vw;
@@ -16,9 +16,35 @@
     background-color:black; */
 }
 
-.area {
+
+.back {
+    margin-left: 0.1rem;
+    background-color: rgb(51 65 85);
+    padding: 0 0.5rem;
+    border-radius: 0.3rem;
     border: 1px solid;
+  }
+
+.area {
+    //border: 1px solid;
     width:100vw;
     height:90vh;
+}
+
+.btns {
+    border-radius:0.5rem;
+    background: radial-gradient(farthest-side at top left, transparent, #363636);
+    box-shadow: 2px 6px 20px rgba(0, 0, 0, 0.3), -10px -10px 20px rgb(64 64 64 / 50%);
+}
+
+.btnPush {
+    width: max-content;
+    background: radial-gradient(#f9f9f9, #868686);
+    box-shadow: 8px -5px 20px rgb(0 0 0 / 62%), 2px -3px 20px rgb(177 177 177 / 54%);
+}
+
+.btnPush:active {
+ transform: scale(0.8);
+ box-shadow: none;
 }
 

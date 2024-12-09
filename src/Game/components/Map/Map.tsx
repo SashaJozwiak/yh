@@ -11,7 +11,9 @@ import { Card } from '../../types/forGameState'
 import { BuyUp } from './BuyUp/BuyUp';
 import { useUserData } from '../../../store/main';
 import WebApp from '@twa-dev/sdk';
-import { InCity } from './City/InCity';
+
+//import { InCity } from './City/InCity';
+import { InCity } from './City/InCity4';
 
 /* interface PathData {
     d: string; // Данные пути для типа path
@@ -142,7 +144,7 @@ export const Map: React.FC = () => {
 
                 <button
                     onClick={handleHome}
-                    style={{ marginTop: '0.1rem', border: '1px solid', borderRadius: '0.3rem', backgroundColor: 'rgb(51 65 85)', padding: '0 0.3rem'/* , opacity: '0' */ }}>
+                            style={{ margin: '0.1rem', border: '1px solid', borderRadius: '0.3rem', backgroundColor: 'rgb(51 65 85)', padding: '0 0.3rem'/* , opacity: '0' */ }}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={30} strokeWidth={1.5} stroke="currentColor" className="size-6">text
                         <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                     </svg>
@@ -245,9 +247,15 @@ export const Map: React.FC = () => {
                                 </button>
 
                                 <button
-                                            disabled={true}
+                                            //disabled={true}
                                             style={{ opacity: '0.5' }}
-                                            onClick={() => setCity(true)}
+                                            onClick={() => {
+                                                if (myId === 3441 || myId === 9 || myId === 10) {
+                                                    setCity(true);
+                                                } else {
+                                                    console.log('closed');
+                                                }
+                                            }}
                                     className={s.btnbuy}>ENTER
                                 </button>
 
