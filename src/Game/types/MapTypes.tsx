@@ -3,6 +3,7 @@ export interface City {
     city_id: number;
     username: string;
     price: number | null;
+    color: string;
 }
 
 export interface UseMap {
