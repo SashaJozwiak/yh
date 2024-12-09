@@ -30,5 +30,35 @@ export const useMap = create<UseMap>((set) => ({
     },
     setLoading: (isTrue) => {
         set({ isLoading: isTrue });
-    }
+    },
+    changeMyColor: async (city_id, color) => {
+        set({ isLoading: true });
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}maps/updateCityColor`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ city_id, color }), // Передаем id города и новый цвет
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update city color');
+            }
+
+            const updatedCity = await response.json();
+            // Обновляем цвет города в состоянии
+            set((state) => ({
+                cityList: state.cityList.map((city) =>
+                    city.city_id === updatedCity.city_id ? { ...city, color: updatedCity.color } : city
+                ),
+            }));
+
+        } catch (error) {
+            console.error('Error updating city color:', error);
+            set({ error: (error as Error).message });
+        } finally {
+            set({ isLoading: false });
+        }
+    },
 }));

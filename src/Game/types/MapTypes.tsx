@@ -12,4 +12,5 @@ export interface UseMap {
     error: string | null;
     fetchCityList: () => Promise<void>;
     setLoading: (isTrue: boolean) => void;
+    changeMyColor: (city_id: number, color: string) => Promise<void>;
 }

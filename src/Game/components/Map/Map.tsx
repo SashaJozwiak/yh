@@ -38,6 +38,8 @@ export const Map: React.FC = () => {
     const [close, setClose] = useState<boolean>(false);
 
     const [city, setCity] = useState(false);
+    const [color, setColor] = useState('#16a34a')
+    const [wasChangeColor, setWasChangeColor] = useState(false);
 
     const [selectedLocation, setSelectedLocation] = useState<City | null>(null);
 
@@ -47,14 +49,19 @@ export const Map: React.FC = () => {
 
     const [buyUp, setBuyUp] = useState<boolean>(false);
 
-    const { cityList, setLoading, fetchCityList } = useMap(state => state);
+    const { cityList, isLoading, setLoading, fetchCityList, changeMyColor } = useMap(state => state);
 
     const cards = useDeck((state) => state.cards);
     const goldCardsCount = useDeck((state) =>
         state.cards.reduce((total, card) => total + card.grades.gold, 0)
     );
 
-    const [cardsWithGold, setCardsWithGold] = useState<Card[]>([]); // Список карт с количеством золота
+    const [cardsWithGold, setCardsWithGold] = useState<Card[]>([]);
+
+    const changeColor = (color: string) => {
+        setWasChangeColor(true);
+        setColor(color);
+    }
 
     const handleHome = () => {
         const homeList = cityList.filter((city) => city.user_id === myId);
@@ -114,19 +121,33 @@ export const Map: React.FC = () => {
             .catch((error) => console.error("Ошибка при загрузке JSON:", error))
             .finally(() => {
                 setLoading(false);
+
             });
 
 
     }, [fetchCityList, setLoading]);
 
     console.log('cityList: ', cityList)
+    console.log('color: ', color);
+
+    /* if (isLoading) {
+        return (
+            <div className={s.loader}>LOADING</div>
+        )
+    } */
+
+    /* useEffect(()=> {
+        const myColor = cityList.find((city) => city.city_id === point.id)?.color
+        setColor(myColor)
+    },[cityList]) */
+
+
 
     return (
-        <>
+        <> 
             {city ? <InCity setCity={setCity} selectedLocation={selectedLocation} /> : 
         <div className={`${s.container} ${close ? s.containerclosing : null}`}>
 
-            {/* {city && <InCity setCity={setCity} />} */}
             {buyUp && <BuyUp cardsWithGold={cardsWithGold} setBuyUp={setBuyUp} selectedLocation={selectedLocation} setSelectedLocation={setSelectedLocation} />}
             <header className={s.header}>
 
@@ -189,7 +210,7 @@ export const Map: React.FC = () => {
                                                         onClick={() => chooseCity(point.id)}
                                                         key={point.id}
                                                         d={point.data as string}
-                                                        style={{ fill: point.id === selectedLocation?.city_id ? 'gray' : homeOn && isHome(point.id) ? 'rgb(204, 153, 0)' : cityList.some((city) => city.city_id === point.id) ? 'rgb(22, 163, 74)' : '#FFFFFF' }} />
+                                                        style={{ fill: point.id === selectedLocation?.city_id ? 'gray' : homeOn && isHome(point.id) ? 'rgb(204, 153, 0)' : /* cityList.some((city) => city.city_id === point.id) ? color : */ cityList.find((city) => city.city_id === point.id)?.color || '#FFFFFF' }} />
                                                 );
                                             case 'circle':
                                                 circleData = point.data as CircleData;  // Приводим тип
@@ -200,7 +221,7 @@ export const Map: React.FC = () => {
                                                         cx={circleData.cx}
                                                         cy={circleData.cy}
                                                         r={circleData.r}
-                                                        style={{ fill: point.id === selectedLocation?.city_id ? 'gray' : homeOn && isHome(point.id) ? 'rgb(204, 153, 0)' : cityList.some((city) => city.city_id === point.id) ? 'rgb(22, 163, 74)' : '#FFFFFF' }}
+                                                        style={{ fill: point.id === selectedLocation?.city_id ? 'gray' : homeOn && isHome(point.id) ? 'rgb(204, 153, 0)' : /* cityList.some((city) => city.city_id === point.id) ? color : */ cityList.find((city) => city.city_id === point.id)?.color || '#FFFFFF' }}
                                                     />
                                                 );
                                             default:
@@ -236,6 +257,21 @@ export const Map: React.FC = () => {
                                     }
                                 }}
                             >Owner: <b style={{ color: selectedLocation?.username && selectedLocation?.username !== "No" ? 'rgb(22, 163, 74)' : 'white', textDecoration: selectedLocation?.username && selectedLocation?.username !== "No" ? 'underline' : 'none' }}>{selectedLocation?.user_id === myId ? 'YOU' : selectedLocation?.username || 'No'}</b></p>
+
+                                    {selectedLocation?.user_id === myId && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                        {/* <label htmlFor="color">Color: </label> */}
+                                        <input
+                                            style={{ backgroundColor: 'rgb(51 65 85)' }}
+                                            onChange={(e) => changeColor(e.target.value)} type="color" id="color" name="color" value={color} />
+                                        {wasChangeColor && <button
+                                            onClick={() => {
+                                                changeMyColor(selectedLocation?.city_id, color)
+                                                setWasChangeColor(false);
+                                            }}
+                                            disabled={isLoading}
+                                            style={{ backgroundColor: 'rgb(51 65 85)', margin: '0.3rem', padding: '0.2rem', borderRadius: '0.3rem', opacity: isLoading ? '0.5' : '1' }}>save</button>}
+                                    </div>}
+
                             <p>Price: <b>{selectedLocation?.price || 0 > 0 ? selectedLocation?.price + ' Gold Card' : 'price not set'}</b></p>
                             <p>You have : {goldCardsCount} Gold Cards</p>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -250,7 +286,7 @@ export const Map: React.FC = () => {
                                             //disabled={true}
                                             style={{ opacity: '0.5' }}
                                             onClick={() => {
-                                                if (myId === 3441 || myId === 0 || myId === 9 || myId === 10) {
+                                                if (myId === 3441 || myId === 0 || myId === 2 || myId === 9 || myId === 10) {
                                                     setCity(true);
                                                 } else {
                                                     console.log('closed');

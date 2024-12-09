@@ -290,7 +290,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
         setOpenElka(isElka);
     }, [charPosition, backgroundPosition]);
 
-    const openWindowfn = (nameWindow) => {
+    const openWindowfn = (nameWindow: string) => {
         if (nameWindow === '') return;
         console.log('nameWindow: ', nameWindow)
         setOpenWindow(nameWindow);
@@ -305,7 +305,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
                 </div>
                 : 
         <div className={s.container}>
-                    {openWindow === 'Elka' && <Elka setOpenWindow={setOpenWindow} />}
+                    {openWindow === 'Elka' && <Elka setOpenWindow={setOpenWindow} selectedLocation={selectedLocation} />}
             <div
                 style={{
                     height: '10vh',
