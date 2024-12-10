@@ -392,7 +392,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
 
 
                     }}
-                        ><p style={{ position: 'relative', zIndex: '400' }}>{(playerData.userName).substring(0, 10)}</p></div>
+                        ><p style={{ position: 'relative', zIndex: '400' }}>{(playerData.userName).substring(0, 12)}</p></div>
 
                 <img
                     style={{
