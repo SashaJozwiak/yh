@@ -41,7 +41,7 @@ export const Map: React.FC = () => {
     const [color, setColor] = useState('#16a34a')
     const [wasChangeColor, setWasChangeColor] = useState(false);
 
-    const [selectedLocation, setSelectedLocation] = useState<City | null>(null);
+    //const [selectedLocation, setSelectedLocation] = useState<City | null>(null);
 
     const [homeOn, setHomeOn] = useState<boolean>(false);
     const [homeList, setHomeList] = useState<City[]>([]);
@@ -49,7 +49,7 @@ export const Map: React.FC = () => {
 
     const [buyUp, setBuyUp] = useState<boolean>(false);
 
-    const { cityList, isLoading, setLoading, fetchCityList, changeMyColor } = useMap(state => state);
+    const { cityList, isLoading, selectedLocation, setLoading, fetchCityList, setSelectedLocation, changeMyColor } = useMap(state => state);
 
     const cards = useDeck((state) => state.cards);
     const goldCardsCount = useDeck((state) =>
@@ -94,7 +94,7 @@ export const Map: React.FC = () => {
             return;
         }
 
-        setSelectedLocation({ user_id: -1, city_id: id, username: 'No', price: 1, color: 'rgb(22, 163, 74)' })
+        setSelectedLocation({ user_id: -1, city_id: id, username: 'No', price: 1, color: 'rgb(22, 163, 74)', channel: 'youhold' })
     }
 
     useEffect(() => {
@@ -283,8 +283,8 @@ export const Map: React.FC = () => {
                                 </button>
 
                                 <button
-                                            //disabled={true}
-                                            style={{ opacity: '0.5' }}
+                                            disabled={selectedLocation?.username === 'No'}
+                                            style={{ opacity: selectedLocation?.username === 'No' ? '0.5' : '1' }}
                                             onClick={() => {
                                                 if (myId === 3441 || myId === 0 || myId === 2 || myId === 9 || myId === 10) {
                                                     setCity(true);

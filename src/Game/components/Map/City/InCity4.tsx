@@ -7,12 +7,12 @@ import elka from './assets/elka.gif'
 
 //import { GridOverlay } from './GridOverlay';
 
-
 import s from './incity.module.css';
-import MyCarAnimation from './Car';
+//import MyCarAnimation from './Car';
 import { Elka } from './Windows/Elka';
 import { useUserData } from '../../../../store/main';
 import WebApp from '@twa-dev/sdk';
+import { CityHall } from './Windows/CityHall';
 //import { useMap } from '../../../state/map';
 //import { useArena } from '../../../state/mainArena';
 
@@ -296,16 +296,18 @@ export const InCity = ({ setCity, selectedLocation }) => {
         setOpenWindow(nameWindow);
     }
 
+    //console.log('openWindow: ', openWindow)
+
     return (
         <>
             {isLoading ?
                 <div className={s.container} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', zIndex: '3000' }}>
-                    <MyCarAnimation />
                     <span className={s.loader} style={{ margin: '0 auto' }}></span>
                 </div>
                 : 
         <div className={s.container}>
                     {openWindow === 'Elka' && <Elka setOpenWindow={setOpenWindow} selectedLocation={selectedLocation} />}
+                    {openWindow === 'cityHall' && <CityHall setOpenWindow={setOpenWindow} selectedLocation={selectedLocation} />}
             <div
                 style={{
                     height: '10vh',
@@ -485,12 +487,12 @@ export const InCity = ({ setCity, selectedLocation }) => {
                     <button
                                 onClick={() => {
                                     if (openElka || cityHall) {
-                                        const nameWindow = openElka ? 'Elka' : openElka ? 'cityHall' : '';
+                                        const nameWindow = openElka ? 'Elka' : cityHall ? 'cityHall' : '';
                                         openWindowfn(nameWindow)
                                     }
                                 }}
                         className={s.btnPush}
-                                style={{ color: 'transparent', backgroundColor: 'lightgray', borderRadius: '50%', aspectRatio: '1/1', opacity: openElka || cityHall ? '1' : '0.5' }}
+                                style={{ color: 'transparent', backgroundColor: 'lightgray', borderRadius: '50%', aspectRatio: '1/1', minHeight: '5rem', minWidth: '5rem', opacity: openElka || cityHall ? '1' : '0.5' }}
                     >BIG BUTTON</button>
                 </div>
 
