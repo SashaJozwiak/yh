@@ -9,9 +9,11 @@ export interface City {
 
 export interface UseMap {
     cityList: City[];
+    city: boolean;
     isLoading: boolean;
     error: string | null;
     selectedLocation: City | null;
+    setCity: (city: boolean) => void;
     setSelectedLocation(city: City): void;
     fetchCityList: () => Promise<void>;
     setLoading: (isTrue: boolean) => void;

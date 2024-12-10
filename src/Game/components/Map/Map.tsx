@@ -37,7 +37,7 @@ export const Map: React.FC = () => {
     const setNav = useGameNav(state => state.setPageNav)
     const [close, setClose] = useState<boolean>(false);
 
-    const [city, setCity] = useState(false);
+    //const [city, setCity] = useState(false);
     const [color, setColor] = useState('#16a34a')
     const [wasChangeColor, setWasChangeColor] = useState(false);
 
@@ -49,7 +49,7 @@ export const Map: React.FC = () => {
 
     const [buyUp, setBuyUp] = useState<boolean>(false);
 
-    const { cityList, isLoading, selectedLocation, setLoading, fetchCityList, setSelectedLocation, changeMyColor } = useMap(state => state);
+    const { cityList, isLoading, selectedLocation, city, setCity, setLoading, fetchCityList, setSelectedLocation, changeMyColor } = useMap(state => state);
 
     const cards = useDeck((state) => state.cards);
     const goldCardsCount = useDeck((state) =>
@@ -141,7 +141,7 @@ export const Map: React.FC = () => {
         setColor(myColor)
     },[cityList]) */
 
-
+    useEffect(() => { setColor(selectedLocation?.color || '#16a34a') }, [selectedLocation])
 
     return (
         <> 
@@ -286,7 +286,7 @@ export const Map: React.FC = () => {
                                             disabled={selectedLocation?.username === 'No'}
                                             style={{ opacity: selectedLocation?.username === 'No' ? '0.5' : '1' }}
                                             onClick={() => {
-                                                if (myId === 3441 || myId === 0 || myId === 2 || myId === 9 || myId === 10) {
+                                                if (myId === 3441 || myId === 0 || myId === 2 || myId === 9 || myId === 10 || myId === 24) {
                                                     setCity(true);
                                                 } else {
                                                     console.log('closed');

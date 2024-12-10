@@ -82,9 +82,9 @@ export const Elka = ({ setOpenWindow, selectedLocation }) => {
                                 />
                             </label>
                             <br />
-
                             <label>
                                 <input
+                                    style={{ marginTop: '0.5rem' }}
                                     type="checkbox"
                                     checked={noChannel}
                                     disabled={isSave}

@@ -7,9 +7,13 @@ import { UseMap, City } from '../types/MapTypes';
 
 export const useMap = create<UseMap>((set) => ({
     cityList: [],
+    city: false,
     selectedLocation: null,
     isLoading: true,
     error: null,
+    setCity: (isTrue) => {
+        set({ city: isTrue });
+    },
     setSelectedLocation: (city: City) => {
         set({ selectedLocation: city });
     },

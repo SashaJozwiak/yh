@@ -161,7 +161,7 @@ export const CabData = () => {
 
             </div> : <>
             <div className={s.data}>
-                <img className={s.gnom} style={{ borderRadius: '0.3rem' }}
+                        <img className={s.gnom} style={{ borderRadius: '0.3rem', pointerEvents: "none" }}
                     width='150' height='118' src={defaultAvatar} alt={``} />
                 <div className={s.info}>
                     <p className={s.line}>{swichLang(languageCode, 'user')}: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>

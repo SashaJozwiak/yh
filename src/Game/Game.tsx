@@ -28,6 +28,7 @@ import { Top } from './components/Top/Top';
 import { NYFrewards } from './components/Arena/PopUp/NYFrewards';
 
 import { useUserRewardStore } from './state/nyf_rewards';
+import { useMap } from './state/map';
 
 const icons = [
     enimies,
@@ -52,6 +53,7 @@ export const Game: React.FC = () => {
     const { winUp, collectUp, rewardUp, lose } = usePlayCard(state => state);
     //const deck = useDeck(state => state.cards)
 
+    const city = useMap(state => state.city);
     //const gameInit = useArena(state => state.gameInit);
 
     useEffect(() => {
@@ -99,7 +101,7 @@ export const Game: React.FC = () => {
     }
 
     return (
-        <div className={s.gamewrapper}>
+        <div style={{ margin: city ? '0 0' : '0 auto' }} className={s.gamewrapper}>
             {!hasClaimed && <NYFrewards />}
             {lose && <LosePopUp />}
             {winUp && <WinPopUp />}
@@ -110,9 +112,10 @@ export const Game: React.FC = () => {
             {nav === 'map' && <Map />}
             {nav === 'top' && <Top />}
 
-            <Header />
-            <Arena />
-            <PlayerArea />
+            {!city && <Header />}
+            {!city && <Arena />}
+            {!city && <PlayerArea />}
+
         </div>
     )
 }
