@@ -88,7 +88,7 @@ export const Map: React.FC = () => {
 
     const chooseCity = (id: number) => {
         const city = cityList.find((city) => city.city_id === id)
-        console.log('city: ', city)
+        //console.log('city: ', city)
         if (city) {
             setSelectedLocation(city)
             return;
@@ -104,7 +104,7 @@ export const Map: React.FC = () => {
     }, [cards]);
 
     useEffect(() => {
-        console.log('Начинаю загрузку данных');
+        //console.log('Начинаю загрузку данных');
         setLoading(true);
         fetchCityList();
         fetch('pointsData_6.json') // или '/pointsData.json'
@@ -127,8 +127,8 @@ export const Map: React.FC = () => {
 
     }, [fetchCityList, setLoading]);
 
-    console.log('cityList: ', cityList)
-    console.log('color: ', color);
+    //console.log('cityList: ', cityList)
+    //console.log('color: ', color);
 
     /* if (isLoading) {
         return (
@@ -286,7 +286,7 @@ export const Map: React.FC = () => {
                                             disabled={selectedLocation?.username === 'No'}
                                             style={{ opacity: selectedLocation?.username === 'No' ? '0.5' : '1' }}
                                             onClick={() => {
-                                                if (myId === 3441 || myId === 0 || myId === 2 || myId === 9 || myId === 10 || myId === 24) {
+                                                if (selectedLocation?.username !== 'No') {
                                                     setCity(true);
                                                 } else {
                                                     console.log('closed');

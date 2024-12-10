@@ -350,7 +350,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
                     width: areaWidth,
                     height: areaHeight,
                 }}
-                onClick={(e) => console.log('e: ', e.clientX, e.clientY)}
+                        //onClick={(e) => console.log('e: ', e.clientX, e.clientY)}
 
             >
 

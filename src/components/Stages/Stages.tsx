@@ -37,8 +37,8 @@ export const Stages = () => {
             <ul className={s.stagelist}>
                 <li className={s.listelement}>🟢 {swichLang(userLang, 'beta_launch')} </li>
                 <li className={s.listelement}>🟢 {swichLang(userLang, 'launch_app')}</li>
-                <li className={`${s.listelement} ${s.ok}`}>🟢 {swichLang(userLang, 'launch_game')}</li>
-                <li className={s.listelement}>🟡 {swichLang(userLang, 'marketing')}</li>
+                <li className={s.listelement}>🟢 {swichLang(userLang, 'launch_game')}</li>
+                <li className={`${s.listelement} ${s.ok}`}>🟡 {swichLang(userLang, 'marketing')}</li>
                 <li className={s.listelement}>⚪ {swichLang(userLang, 'presa')}</li>
                 <li className={s.listelement}>⚪ {swichLang(userLang, 'airdrop')}</li>
             </ul >
