@@ -414,11 +414,13 @@ export const InCity = ({ setCity, selectedLocation }) => {
                     alignItems: 'center',
                     backgroundColor: 'rgb(51, 65, 85)',
                     boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 25px 5px',
-                    zIndex: "300",
+                            zIndex: "500",
                 }}
-                onClick={() => setCity(false)}
-            >
-                <button className={s.back}>
+
+                    >
+                        <button
+                            onClick={() => setCity(false)} 
+                            className={s.back}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={'1.5rem'} strokeWidth={1.5} stroke="currentColor" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                     </svg>
@@ -541,7 +543,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
             </div>
 
             <div
-                style={{ height: '25vh', zIndex: "300", backgroundColor: 'rgb(51, 65, 85)', display: 'flex', justifyContent: 'space-between', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 25px 5px' }}
+                        style={{ height: '25vh', zIndex: "500", backgroundColor: 'rgb(51, 65, 85)', display: 'flex', justifyContent: 'space-between', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 25px 5px' }}
             >
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', flexGrow: '1' }}>
 
