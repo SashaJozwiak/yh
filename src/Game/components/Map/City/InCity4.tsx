@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-
+import { io, Socket } from 'socket.io-client';
 
 import city_bg from './assets/city_3_2.png';
 import char from './assets/char.png';
@@ -16,11 +16,22 @@ import { CityHall } from './Windows/CityHall';
 //import { useMap } from '../../../state/map';
 //import { useArena } from '../../../state/mainArena';
 
+const server = (import.meta.env.VITE_SECRET_HOST).slice(0, -5);
+
 window.oncontextmenu = function (event) {
     event.preventDefault();
     event.stopPropagation();
     return false;
 };
+
+interface Player {
+    userId: number;
+    username: string;
+    charPosition: [number, number];
+    charView: [number, number];
+}
+
+type Players = Record<string, Player>;
 
 const elkaPosition = { x: 50, y: 42 }; // Процентные координаты: x = 50% ширины, y = 30% высоты
 const imageWidth = 1100; // Ширина изображения
@@ -73,6 +84,10 @@ const checkCollision = (x: number, y: number) => {
 };
 
 export const InCity = ({ setCity, selectedLocation }) => {
+    const [socket, setSocket] = useState<Socket | null>(null);
+    const [players, setPlayers] = useState<Players>({});
+    //const [currentPlayer, setCurrentPlayer] = useState<Socket | null>(null);
+
     const [isLoading, setIsLoading] = useState(true);
     const playerData = useUserData(state => state.user)
 
@@ -82,6 +97,8 @@ export const InCity = ({ setCity, selectedLocation }) => {
     const [btnColorDown, setBtnColorDown] = useState('lightgray');
     const [btnColorRight, setBtnColorRight] = useState('lightgray');
     const [btnColorLeft, setBtnColorLeft] = useState('lightgray');
+
+
 
     /* const areaWidth = window.innerWidth; // Ширина области для отображения
     const areaHeight = window.innerHeight * 0.65;  //Высота области для отображения (исключая header и footer) */
@@ -296,7 +313,87 @@ export const InCity = ({ setCity, selectedLocation }) => {
         setOpenWindow(nameWindow);
     }
 
-    //console.log('openWindow: ', openWindow)
+    useEffect(() => {
+        const socketInstance = io(server); // Укажите ваш сервер
+
+        socketInstance.on('connect', () => {
+            console.log('Подключено к серверу');
+        });
+
+        socketInstance.onAny((event, ...args) => {
+            console.log(`Событие получено: ${event}`, args);
+        });
+
+        // Отправляем данные инициализации при подключении
+        socketInstance.emit('init-player', {
+            userId: playerData.internalId, // Случайный userId
+            username: playerData.userName || 'anonim' + playerData.internalId,
+            charPosition: [charPosition.x - backgroundPosition.x, charPosition.y - backgroundPosition.y],
+            charView: [charView.x, charView.y],
+            houses: 0,
+        });
+
+        // Получение информации обо всех игроках
+        socketInstance.on('init', (allPlayers) => {
+            setPlayers(allPlayers);
+        });
+
+        // Добавление нового игрока
+        socketInstance.on('new-player', (player) => {
+            setPlayers((prev) => ({ ...prev, [player.id]: player }));
+        });
+
+        // Обновление движения игроков
+        socketInstance.on('player-moved', (data) => {
+            console.log('Player moved event received:', data);
+            /* setPlayers((prev) => ({
+                ...prev,
+                [data.id]: { ...prev[data.id], charPosition: data.charPosition, charView: data.charView },
+            })); */
+            setPlayers((prev) => ({
+                ...prev,
+                [data.id]: {
+                    ...prev[data.id],
+                    charPosition: data.charPosition,
+                    charView: data.charView,
+                },
+            }));
+        });
+
+        // Удаление игрока при отключении
+        socketInstance.on('player-disconnected', (id) => {
+            setPlayers((prev) => {
+                const updatedPlayers = { ...prev };
+                delete updatedPlayers[id];
+                return updatedPlayers;
+            });
+        });
+
+        // Сохраняем сокет в состояние
+        setSocket(socketInstance);
+
+        return () => {
+            socketInstance.disconnect();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+
+    useEffect(() => {
+        if (!socket) return; // Если сокет не инициализирован, ничего не делаем
+
+        const sendMoveData = () => {
+            const moveData = {
+                charPosition: [charPosition.x - backgroundPosition.x, charPosition.y - backgroundPosition.y],
+                charView: [charView.x, charView.y],
+            };
+            console.log("Sending move data to server:", moveData);
+            socket.emit('move', moveData);
+        };
+
+        sendMoveData(); // Отправляем данные немедленно при изменении
+
+    }, [charPosition, backgroundPosition, charView, socket]);
 
     return (
         <>
@@ -342,8 +439,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
             <div
                 className={s.area}
                 style={{
-                    overflow: "hidden", // Скрываем выходящие части изображения
-                    //border: "1px solid black",
+                    overflow: "hidden", 
                     backgroundImage: `url(${city_bg})`,
                     backgroundPosition: `${backgroundPosition.x}px ${backgroundPosition.y}px`,
                     backgroundRepeat: 'no-repeat',
@@ -351,10 +447,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
                     height: areaHeight,
                 }}
                         //onClick={(e) => console.log('e: ', e.clientX, e.clientY)}
-
-            >
-
-
+                    >
                         {highlightedTiles.map(({ x, y }) => {
                             const tileLeft = x * tileWidth + backgroundPosition.x;
                             const tileTop = y * tileHeight + backgroundPosition.y;
@@ -369,28 +462,65 @@ export const InCity = ({ setCity, selectedLocation }) => {
                                         width: tileWidth,
                                         height: tileHeight,
                                         backgroundColor: 'rgba(0, 255, 0, 0.15)',
-                                        //border: '1px solid green',
-                                        //borderRadius: '1rem',
                                     }}
                                 />
                             );
                         })}
 
+
+                        {Object.entries(players)
+                            .filter(([, player]: [string, Player]) => player.userId !== playerData.internalId)
+                            .map(([id, player]: [string, Player]) => {
+                                //console.log(`Rendering player ${player.username}: charView`, player.charView);
+
+                                const playerLeft = player.charPosition[0] + backgroundPosition.x;
+                                const playerTop = player.charPosition[1] + backgroundPosition.y;
+
+                                const charViewX = Number(player.charView[0]);
+                                const charViewY = Number(player.charView[1]);
+
+                                if (isNaN(charViewX) || isNaN(charViewY)) {
+                                    console.error("Invalid charView:", player.charView);
+                                }
+
+                                return (
+                                    <div
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            WebApp.openTelegramLink(`https://t.me/${player.username}`);
+                                        }}
+                                        key={id}
+                                        style={{
+                                            position: 'absolute',
+                                            width: "60px",
+                                            height: "70px",
+                                            backgroundColor: 'black',
+                                            top: `${playerTop}px`,
+                                            left: `${playerLeft}px`,
+                                            background: `url(${char})`,
+                                            backgroundPosition: `${-charViewX}px ${-charViewY}px`,
+                                            backgroundSize: 'auto',
+                                            fontWeight: selectedLocation?.username === player.username ? 'bold' : 'normal',
+                                        }}
+                                    >
+                                        {player.username}
+                                    </div>
+                                );
+                            })}
+
+
+
                 <div
                     className="character"
                     style={{
                         position: "absolute",
-                        //top: "50%",
-                        //left: "50%",
                         top: `${charPosition.y}px`,
                         left: `${charPosition.x}px`,
                         width: "60px",
                         height: "70px",
-                        //transform: "translate(-50%, -50%)",
                         background: `url(${char})`,
                         backgroundPosition: `${-charView.x}px ${-charView.y}px`,
-
-
+                        fontWeight: selectedLocation?.username === playerData.userName ? 'bold' : 'normal',
                     }}
                         ><p style={{ position: 'relative', zIndex: '400' }}>{(playerData.userName).substring(0, 12)}</p></div>
 
