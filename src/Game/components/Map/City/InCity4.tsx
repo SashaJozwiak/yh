@@ -501,6 +501,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
                                             backgroundPosition: `${-charViewX}px ${-charViewY}px`,
                                             backgroundSize: 'auto',
                                             fontWeight: selectedLocation?.username === player.username ? 'bold' : 'normal',
+                                            zIndex: playerTop > charPosition.y ? '350' : '250'
                                         }}
                                     >
                                         {player.username}
@@ -521,8 +522,9 @@ export const InCity = ({ setCity, selectedLocation }) => {
                         background: `url(${char})`,
                         backgroundPosition: `${-charView.x}px ${-charView.y}px`,
                         fontWeight: selectedLocation?.username === playerData.userName ? 'bold' : 'normal',
+                        zIndex: '300'
                     }}
-                        ><p style={{ position: 'relative', zIndex: '400' }}>{(playerData.userName).substring(0, 12)}</p></div>
+                        ><p style={{ position: 'relative' }}>{(playerData.userName).substring(0, 12)}</p></div>
 
                 <img
                     style={{
@@ -531,7 +533,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
                         height: "250px",//35vh
                         top: `${(elkaPosition.y / 100) * imageHeight + backgroundPosition.y}px`,
                         left: `${(elkaPosition.x / 100) * imageWidth + backgroundPosition.x}px`,
-                        zIndex: "200",
+                                zIndex: "400",
 
 
                     }}
