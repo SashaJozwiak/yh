@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import trottle from './../../../utils/math/trottle';
 
 import city_bg from './assets/city_3_2.png';
 import char from './assets/char.png';
@@ -387,12 +388,13 @@ export const InCity = ({ setCity, selectedLocation }) => {
                 charView: [charView.x, charView.y],
             };
             //console.log("Sending move data to server:", moveData);
-            socket.emit('move', moveData);
+            socket.emit('move', selectedLocation.city_id, moveData);
         };
+        const throttledSend = trottle(sendMoveData, 50); // Отправка данных максимум каждые 50 мс
+        throttledSend();
+        //sendMoveData(); // Отправляем данные немедленно при изменении
 
-        sendMoveData(); // Отправляем данные немедленно при изменении
-
-    }, [charPosition, backgroundPosition, charView, socket]);
+    }, [charPosition, backgroundPosition, charView, socket, selectedLocation.city_id]);
 
     return (
         <>
