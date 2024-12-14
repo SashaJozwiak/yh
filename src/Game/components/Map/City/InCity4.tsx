@@ -314,42 +314,35 @@ export const InCity = ({ setCity, selectedLocation }) => {
     }
 
     useEffect(() => {
-        const socketInstance = io(server); // Укажите ваш сервер
+        // Создаем новый экземпляр соединения
+        const socketInstance = io(server);
 
+        // Подключение подтверждено
         socketInstance.on('connect', () => {
             console.log('Подключено к серверу');
         });
 
-        socketInstance.onAny((event, ...args) => {
-            console.log(`Событие получено: ${event}`, args);
-        });
-
-        // Отправляем данные инициализации при подключении
-        socketInstance.emit('init-player', {
-            userId: playerData.internalId, // Случайный userId
+        // Присоединяемся к комнате города
+        socketInstance.emit('join-room', selectedLocation.city_id, {
+            userId: playerData.internalId,
             username: playerData.userName || 'anonim' + playerData.internalId,
             charPosition: [charPosition.x - backgroundPosition.x, charPosition.y - backgroundPosition.y],
             charView: [charView.x, charView.y],
             houses: 0,
         });
 
-        // Получение информации обо всех игроках
+        // Получение данных всех игроков в комнате
         socketInstance.on('init', (allPlayers) => {
             setPlayers(allPlayers);
         });
 
-        // Добавление нового игрока
+        // Добавление нового игрока в комнате
         socketInstance.on('new-player', (player) => {
             setPlayers((prev) => ({ ...prev, [player.id]: player }));
         });
 
         // Обновление движения игроков
         socketInstance.on('player-moved', (data) => {
-            console.log('Player moved event received:', data);
-            /* setPlayers((prev) => ({
-                ...prev,
-                [data.id]: { ...prev[data.id], charPosition: data.charPosition, charView: data.charView },
-            })); */
             setPlayers((prev) => ({
                 ...prev,
                 [data.id]: {
@@ -360,7 +353,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
             }));
         });
 
-        // Удаление игрока при отключении
+        // Удаление игрока из комнаты
         socketInstance.on('player-disconnected', (id) => {
             setPlayers((prev) => {
                 const updatedPlayers = { ...prev };
@@ -369,14 +362,20 @@ export const InCity = ({ setCity, selectedLocation }) => {
             });
         });
 
-        // Сохраняем сокет в состояние
+        // Сохраняем экземпляр сокета в состоянии, если нужно использовать его в других местах
         setSocket(socketInstance);
 
+        // Очищаем обработчики событий и разрываем соединение при размонтировании
         return () => {
+            socketInstance.off('init');
+            socketInstance.off('new-player');
+            socketInstance.off('player-moved');
+            socketInstance.off('player-disconnected');
             socketInstance.disconnect();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
 
     useEffect(() => {
@@ -387,7 +386,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
                 charPosition: [charPosition.x - backgroundPosition.x, charPosition.y - backgroundPosition.y],
                 charView: [charView.x, charView.y],
             };
-            console.log("Sending move data to server:", moveData);
+            //console.log("Sending move data to server:", moveData);
             socket.emit('move', moveData);
         };
 
