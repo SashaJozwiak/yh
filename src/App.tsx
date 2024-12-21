@@ -10,7 +10,7 @@ import { Cabinet } from './components/Cabinet/Cabinet';
 import { Invite } from './components/Cabinet/Invite/Invite';
 
 import { useNav } from './store/nav';
-import { useUserData, useUserBalances, useJettonsBalances, useStonFi, useDedust } from './store/main'
+import { useUserData, useUserBalances, useJettonsBalances, useStonFi, useDedust, useTonco } from './store/main'
 
 import WebApp from '@twa-dev/sdk';
 //import eruda from 'eruda'
@@ -48,6 +48,7 @@ const App: React.FC = function () {
 
   const updateStonFiBalance = useStonFi((state) => state.updateBalanceSF)
   const updateBalanceDedust = useDedust((state) => state.updateBalanceDedust);
+  const updateBalanceTonco = useTonco((state) => state.updateBalanceTonco);
 
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const App: React.FC = function () {
   }, [rawAddress, updateBalance]);
 
   useEffect(() => {
-    //console.log('render change rawaddres in LIST jettons')
+    console.log('render change rawaddres in LIST jettons')
     if (rawAddress) {
       updateBalanceJ(rawAddress);
     }
@@ -91,6 +92,13 @@ const App: React.FC = function () {
       updateBalanceDedust(rawAddress)
     }
   }, [rawAddress, updateBalanceDedust]);
+
+  useEffect(() => {
+    //console.log('render change rawaddres in LIST dedust')
+    if (rawAddress) {
+      updateBalanceTonco(rawAddress)
+    }
+  }, [rawAddress, updateBalanceTonco]);
 
   // Try promise race later
 

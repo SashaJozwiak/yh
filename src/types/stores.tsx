@@ -88,13 +88,16 @@ export interface NavObj {
     list: boolean;
     main: string;
     cab: string;
+    stage: string;
 }
 
 export interface UseNav {
+    //[x: string]: unknown;
     nav: NavObj;
     setNavList: (bool: boolean) => void;
     setMainNav: (tabName: string) => void;
     setCabNav: (tabName: string) => void;
+    setStages: (tabName: string) => void;
 }
 
 //=== main balance and state
@@ -138,6 +141,14 @@ export interface UseDedust {
     updateBalanceDedust: (rawAddress: string) => void;
     updateSpeedDD: (name: string, speed: number) => void;
     totalSpeedDD: () => number;
+}
+
+export interface UseTonco {
+    pools: PoolsSFState[];
+    loadStatus: boolean;
+    updateBalanceTonco: (rawAddress: string) => void;
+    updateSpeedTonco: (name: string, speed: number) => void;
+    totalSpeedTonco: () => number;
 }
 
 //=== tasks

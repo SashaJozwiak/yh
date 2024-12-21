@@ -8,6 +8,7 @@ import { swichLang } from '../../lang/lang.js';
 import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 //import { useTonConnect } from '@tonconnect/ui-react';
 
+//import { Address } from "@ton/ton";
 import WebApp from '@twa-dev/sdk';
 import s from './header.module.css';
 
@@ -137,6 +138,10 @@ export const Header: React.FC = () => {
         }
 
     }, [addAddresses, internalId, userFriendlyAddress])
+
+    //const address = Address.parse(userFriendlyAddress).toString();
+
+    //console.log('address:', address ? address : 'none')
 
     return (
         <div className={s.header} style={{ position: nav === 'game' ? 'absolute' : 'static', opacity: nav === 'game' ? 0 : 1 }}>

@@ -85,6 +85,12 @@ export const lang = {
         m: 'm',
         s: 's',
         beta_tooltip: 'This is not a payment, this is an activity check. You can sign up for early access if you mine. All early access participants will receive rewards in BONUSES and valuable in-game items.',
+        //UHS TOOLTIP
+        uhs_title: 'UH Speed token:',
+        uhs_1: 'Cheaply increases mining speed',
+        uhs_2: 'allows investors to vote',
+        uhs_3: 'allows investors into closed DAO',
+        uhs_4: 'and much more',
     },
     ru: {
         //categories
@@ -172,7 +178,13 @@ export const lang = {
         h: 'ч',
         m: 'м',
         s: 'с',
-        beta_tooltip: 'Это не оплата, это проверка активности. Вы можете записаться на ранний доступ, если вы майните. Все участники раннего доступа получат награды в виде BONUS и ценных внутриигровых предметов.'
+        beta_tooltip: 'Это не оплата, это проверка активности. Вы можете записаться на ранний доступ, если вы майните. Все участники раннего доступа получат награды в виде BONUS и ценных внутриигровых предметов.',
+        //UHS TOOLTIP
+        uhs_title: 'UH Speed token:',
+        uhs_1: 'Выгодно увеличивает скорость',
+        uhs_2: 'позволяет голосовать',
+        uhs_3: 'доступ в закрытое DAO',
+        uhs_4: 'многое другое',
     }
 }
 

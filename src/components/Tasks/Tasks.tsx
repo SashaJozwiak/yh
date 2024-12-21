@@ -120,8 +120,8 @@ export const Tasks = () => {
                     <div className={s.price}>{task.price}<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
                 </div>
             ))}
-            {tasks.filter(task => task.type === 'affiliate' && task.completed === false && task.id !== 7 && task.id !== 6).length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'partnership')}</h2>}
-            {tasks.filter(task => task.type === 'affiliate' && task.completed === false && task.id !== 7 && task.id !== 6).map(task => (
+            {tasks.filter(task => task.type === 'affiliate' && task.completed === false && task.id !== 7 /* && task.id !== 6 */).length > 0 && <h2 className={s.line}>{swichLang(userData.languageCode, 'partnership')}</h2>}
+            {tasks.filter(task => task.type === 'affiliate' && task.completed === false && task.id !== 7 /* && task.id !== 6 */).map(task => (
                 <div
                     key={task.id} className={s.listitem}>
                     <button
@@ -204,7 +204,7 @@ export const Tasks = () => {
                             e.preventDefault();
                             WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
                         }}
-                        disabled={task.type === 'affiliate'}
+                        disabled={task.id === 7}
                         style={{ borderBottom: '1px gray solid', color: 'gray' }}
                         className={s.titlebtn}>{task.title}
                     </button>

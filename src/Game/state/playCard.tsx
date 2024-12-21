@@ -20,12 +20,12 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
         description: "Investor",
         image: "investor",
         key_power: 'balance',
-        balance_hp: 200,
-        energy_mp: 150,
+        balance_hp: 180,
+        energy_mp: 130,
         stats: {
-            balance: 20,
-            mind: 15,
-            energy: 15,
+            balance: 18,
+            mind: 13,
+            energy: 13,
         },
         skills: [
             {

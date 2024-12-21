@@ -1,8 +1,13 @@
 import { create } from 'zustand'
-import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, UseDedust, BalanceObj } from '../types/stores'
+import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, UseDedust, UseTonco, BalanceObj } from '../types/stores'
 import { devtools } from 'zustand/middleware'
+import { Address } from "@ton/ton";
+
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 import WebApp from '@twa-dev/sdk';
+
+
 
 export const useUserData = create<UseStore>()(devtools((set, get) => ({
     user:
@@ -452,6 +457,15 @@ export const useUserBalances = create<UseUserBalances>()(devtools((set, get) => 
 export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
     jettons: [
         {
+            name: 'UHS',
+            address: '0:3c4aac2fb4c1dee6c0bacbf86505f6bc7c31426959afd34c09e69ef3eae0dfcc',
+            value: 0,
+            range: [1, 100000],
+            inH: 5000,
+            speed: 0,
+            src: 'https://app.tonco.io/#/swap?from=USD%E2%82%AE&to=UHS',
+        },
+        {
             name: 'USDT',
             address: '0:b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe',
             value: 0,
@@ -494,8 +508,6 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             }
 
             const data = await response.json();
-            //console.log('jbalance: ', data);
-
 
             set((state) => {
                 const updatedJettons = state.jettons.map(jetton => {
@@ -507,8 +519,13 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
                             value: +(parseFloat(serverJetton.balance) / (10 ** serverJetton.jetton.decimals)).toFixed(2) 
                         };
                     }
-                    return jetton;
+                    return {
+                        ...jetton,
+                        value: 0,
+                    };
                 });
+
+                console.log('updatedJettons: ', updatedJettons);
 
                 return {
                     jettons: updatedJettons
@@ -685,3 +702,103 @@ export const useDedust = create<UseDedust>((set, get) => ({
         }, 0);
     },
 }))
+
+export const useTonco = create<UseTonco>((set, get) => ({
+    pools: [
+        {
+            name: 'UHS/USDT',
+            address: '0:c2fd933c63ed12ebc737692903dd34fa400f296158445782a56ccf6d39981dd0',
+            value: 0,
+            range: [1, 100000],
+            inH: 5000,
+            speed: 0,
+            src: 'https://app.tonco.io/#/pool/EQDC_ZM8Y-0S68c3aSkD3TT6QA8pYVhEV4KlbM9tOZgd0CSa',
+        },
+    ],
+    loadStatus: false,
+    updateBalanceTonco: async (rawAddress: string) => {
+        set({ loadStatus: true });
+        //const testRawAddress = 'UQAfojORTA27dsoKsPrxmDo5zQ_UK0hwK4MgxH-Ny9YiUYz5'
+        const client = new ApolloClient({
+            uri: 'https://indexer.tonco.io', // Ваш GraphQL endpoint
+            cache: new InMemoryCache(),
+        });
+
+        const POSITIONS_QUERY = gql`
+            query GetPoolHolders($poolAddress: String!, $ownerAddress: String!) {
+  positions(where: { pool: $poolAddress, owner: $ownerAddress }) {
+    amount0
+    amount1
+  }
+}
+        `
+
+        console.log('tonco rawAddress: ', rawAddress)
+        const ownerAddress = Address.parse(rawAddress).toString();
+        console.log('tonco EQ address: ', ownerAddress)
+
+        //const where = { pool: '0:c2fd933c63ed12ebc737692903dd34fa400f296158445782a56ccf6d39981dd0', owner: address }
+
+        const poolAddress = '0:c2fd933c63ed12ebc737692903dd34fa400f296158445782a56ccf6d39981dd0'
+
+        const { data } = await client.query({
+            query: POSITIONS_QUERY,
+            variables: { poolAddress, ownerAddress },
+        });
+
+        console.log('tonco data: ', data)
+
+        const positions = data.positions;
+
+        console.log('positions:', positions)
+
+        const decimalsJetton0 = 9; // Для UHS (236275754292824 -> 236.275)
+        const decimalsJetton1 = 6;  // Для USD₮ (500039911 -> 500.03)
+
+        // Функция для преобразования строки в читаемый формат с учетом `decimals`
+        const formatAmount = (amount, decimals) => Number(amount) / 10 ** decimals;
+
+        // Переменные для накопления сумм
+        let totalJetton0 = 0;
+        let totalJetton1 = 0;
+
+        // Проходим по всем позициям и суммируем
+        positions.forEach((position) => {
+            totalJetton0 += formatAmount(position.amount0, decimalsJetton0);
+            totalJetton1 += formatAmount(position.amount1, decimalsJetton1);
+        });
+
+        // Округляем итоговые суммы для читаемости
+        totalJetton0 = +totalJetton0.toFixed(3); // До 3 знаков после запятой
+        totalJetton1 = +totalJetton1.toFixed(2) * 100; // Для USD₮
+
+        // Суммируем для `value`
+        const totalValue = totalJetton0 + totalJetton1;
+
+        // Обновляем состояние пула
+        set((state) => ({
+            pools: state.pools.map((pool) =>
+                pool.address === "0:c2fd933c63ed12ebc737692903dd34fa400f296158445782a56ccf6d39981dd0"
+                    ? { ...pool, value: totalValue }
+                    : pool
+            ),
+        }));
+
+        console.log(`Updated TONCO pool value: ${totalValue}`);
+
+    },
+
+    updateSpeedTonco: (name: string, speed: number) => set((state) => ({
+        pools: state.pools.map(item =>
+            item.name === name ? { ...item, speed } : item
+        )
+    })),
+    totalSpeedTonco: () => {
+        const state = get();
+        return state.pools.reduce((acc, currency) => {
+            //const speed = ((currency.value - currency.range[0]) / (currency.range[1] - currency.range[0]) * currency.inH);
+            return acc + currency.speed;
+        }, 0);
+    },
+}))
+

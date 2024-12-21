@@ -7,8 +7,16 @@ export const useNav = create<UseNav>()(devtools((set) => ({
     {
         list: true,
         main: 'hold',
-        cab: 'data'
+        cab: 'data',
+        stage: 'stages',
     },
+    setStages: (tabName: string) => set((state) => ({
+        nav:
+        {
+            ...state.nav,
+            stage: tabName
+        }
+    })),
     setNavList: (bool: boolean) => set((state) => ({
         nav:
         {
