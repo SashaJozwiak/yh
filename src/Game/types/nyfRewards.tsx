@@ -9,5 +9,5 @@ export interface NyfRewards {
     isLoading: boolean;
     hasClaimed: boolean;
     fetchUserReward: (userId: number) => Promise<void>,
-    addInRewardList: (userId: number, cards: number, uh: number) => Promise<void>,
+    addInRewardList: (userId: number, cards: number, uh: number, address: string | null) => Promise<void>,
 }

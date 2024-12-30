@@ -10,6 +10,7 @@ export const useUserRewardStore = create<NyfRewards>((set) => ({
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}rewards/nyfReward/${userId}`); // Отправляем запрос
             const data = await response.json();
+            console.log('rewData: ', data)
 
             if (data.success) {
                 console.log('nyfRewards:', data.data)
@@ -24,7 +25,7 @@ export const useUserRewardStore = create<NyfRewards>((set) => ({
             set({ isLoading: false }); // Снимаем состояние загрузки
         }
     },
-    addInRewardList: async (userId, cards, uh) => {
+    addInRewardList: async (userId, cards, uh, address) => {
         set({ isLoading: true });
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}rewards/addInListNyfReward`, {
@@ -32,7 +33,7 @@ export const useUserRewardStore = create<NyfRewards>((set) => ({
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userId, cards, uh }),
+                body: JSON.stringify({ userId, cards, uh, address }),
             });
 
             const data = await response.json();

@@ -737,8 +737,6 @@ export const useTonco = create<UseTonco>((set, get) => ({
         const ownerAddress = Address.parse(rawAddress).toString();
         console.log('tonco EQ address: ', ownerAddress)
 
-        //const where = { pool: '0:c2fd933c63ed12ebc737692903dd34fa400f296158445782a56ccf6d39981dd0', owner: address }
-
         const poolAddress = '0:c2fd933c63ed12ebc737692903dd34fa400f296158445782a56ccf6d39981dd0'
 
         const { data } = await client.query({
@@ -752,30 +750,27 @@ export const useTonco = create<UseTonco>((set, get) => ({
 
         console.log('positions:', positions)
 
-        const decimalsJetton0 = 9; // Для UHS (236275754292824 -> 236.275)
-        const decimalsJetton1 = 6;  // Для USD₮ (500039911 -> 500.03)
+        const decimalsJetton0 = 9;
+        const decimalsJetton1 = 6;  
 
-        // Функция для преобразования строки в читаемый формат с учетом `decimals`
         const formatAmount = (amount, decimals) => Number(amount) / 10 ** decimals;
 
-        // Переменные для накопления сумм
         let totalJetton0 = 0;
         let totalJetton1 = 0;
 
-        // Проходим по всем позициям и суммируем
+
         positions.forEach((position) => {
             totalJetton0 += formatAmount(position.amount0, decimalsJetton0);
             totalJetton1 += formatAmount(position.amount1, decimalsJetton1);
         });
 
-        // Округляем итоговые суммы для читаемости
-        totalJetton0 = +totalJetton0.toFixed(3); // До 3 знаков после запятой
-        totalJetton1 = +totalJetton1.toFixed(2) * 100; // Для USD₮
 
-        // Суммируем для `value`
+        totalJetton0 = +totalJetton0.toFixed(3);
+        totalJetton1 = +totalJetton1.toFixed(2) * 100; 
+
         const totalValue = totalJetton0 + totalJetton1;
 
-        // Обновляем состояние пула
+
         set((state) => ({
             pools: state.pools.map((pool) =>
                 pool.address === "0:c2fd933c63ed12ebc737692903dd34fa400f296158445782a56ccf6d39981dd0"
