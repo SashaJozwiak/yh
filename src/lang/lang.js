@@ -56,9 +56,9 @@ export const lang = {
         launch_app: 'Launch app',
         launch_game: 'Launch game',
         marketing: 'Marketing and partnership',
-        presa: 'Main product presentation',
+        presa: 'Release of tools',
         airdrop: 'Airdrop',
-        after: 'After product presentation...',
+        after: 'After the release of the tools',
         //teams
         not_team: 'You are not on the team yet.',
         join: 'Join',
@@ -150,9 +150,9 @@ export const lang = {
         launch_app: 'Запуск приложения',
         launch_game: 'Запуск игры',
         marketing: 'Маркетинг и партнерства',
-        presa: 'Презентация главного продукта',
+        presa: 'Релиз инструментов',
         airdrop: 'Айрдроп',
-        after: 'После през-ии главного продукта',
+        after: 'После релиза инструментов',
         //teams
         join: 'Войти',
         leave: 'Уйти',

@@ -508,6 +508,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             }
 
             const data = await response.json();
+            //console.log('jetttons result:', data)
 
             set((state) => {
                 const updatedJettons = state.jettons.map(jetton => {
