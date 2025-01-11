@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react'
-import { BackButton } from "@twa-dev/sdk/react";
-
 import dev from '../Game/assets/Game/developer.jpg'
 
 import s from './earn.module.css'
 
 import { useUserData } from '../store/main';
-import { useNav } from '../store/nav';
 
 import { swichLang } from '../lang/lang'
 
@@ -18,10 +15,10 @@ interface TimeLeft {
 }
 
 export const Earn = () => {
-
     const userLang = useUserData(state => state.user.languageCode);
-    const changeNav = useNav((state) => state.setMainNav)
 
+
+    const [imageLoaded, setImageLoaded] = useState(false);
     const [finishTime, setFinishTime] = useState(false);
 
     const calculateTimeLeft = (): TimeLeft => {
@@ -43,14 +40,25 @@ export const Earn = () => {
                 minutes: Math.floor((difference / 1000 / 60) % 60),
                 seconds: Math.floor((difference / 1000) % 60)
             };
-        } /* else {
-            setFinishTime(true);
-        } */
-
+        }
         return timeLeft;
     };
 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+    //RESOURCE LOADER
+    useEffect(() => {
+        const preloadImage = new Image();
+        preloadImage.src = dev;
+
+        preloadImage.onload = () => {
+            setImageLoaded(true);
+        };
+
+        return () => {
+            preloadImage.onload = null;
+        };
+    }, []);
 
     useEffect(() => {
         if (finishTime) return;
@@ -72,10 +80,10 @@ export const Earn = () => {
     const { days, hours, minutes, seconds } = timeLeft;
 
     return (
-        <><BackButton onClick={() => changeNav('hold')} />
-            {/* <div>Earn</div> */}
+        <>
+            {imageLoaded &&
             <div style={{ width: '70vw', display: 'flex', justifyContent: 'space-between', flexDirection: 'column', margin: 'auto auto', marginTop: '1rem' }}>
-                <img style={{ width: '70vw', margin: '0 auto', borderRadius: '0.5rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)' }} src={dev} alt="" />
+                    <img style={{ width: '70vw', margin: '0 auto', borderRadius: '0.5rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)' }} src={dev} alt="developer pic" />
 
                 <h2 style={{ marginBottom: '1rem' }}>{userLang === 'ru' ? 'Rick в работе' : 'Rick in work'}</h2>
 
@@ -88,7 +96,8 @@ export const Earn = () => {
                     <p>Time's up</p>
                 )}
                 <p>{userLang === 'ru' ? 'или раньше.' : 'or earlier.'}</p>
-            </div>
+                </div>}
+            {!imageLoaded && <span className={s.loader}></span>}
         </>
     )
 }
