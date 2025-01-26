@@ -62,14 +62,14 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
     },
     buyRandomCards: async (options, user_id) => {
         const { amount, price } = options;
-        console.log('userId and price ', user_id, price)
+        //console.log('userId and price ', user_id, price)
         const title = `${amount} random grey cards`;
     //const amount = 1;
         const description = `Buy random cards`;
 
-        console.log(title, description, amount)
+        //console.log(title, description, amount)
 
-        console.log(`${import.meta.env.VITE_SECRET_HOST}payments/starspay`);
+        //console.log(`${import.meta.env.VITE_SECRET_HOST}payments/starspay`);
 
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/starspay`, {
@@ -77,7 +77,7 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ title, description, amount }),
+                body: JSON.stringify({ title, description, amount, price }),
             });
 
             if (!response.ok) {
@@ -86,7 +86,7 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
 
             const data = await response.json();
             const invoiceLink = data.invoiceLink;
-            console.log('Ссылка на инвойс получена:', invoiceLink);
+            //console.log('Ссылка на инвойс получена:', invoiceLink);
 
             //WebApp.openInvoice(invoiceLink);
             WebApp.openInvoice(invoiceLink, (status) => {

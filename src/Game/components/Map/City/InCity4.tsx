@@ -6,10 +6,7 @@ import city_bg from './assets/city_3_2.png';
 import char from './assets/char.png';
 import elka from './assets/elka.gif'
 
-//import { GridOverlay } from './GridOverlay';
-
 import s from './incity.module.css';
-//import MyCarAnimation from './Car';
 import { Elka } from './Windows/Elka';
 import { useUserData } from '../../../../store/main';
 import WebApp from '@twa-dev/sdk';
@@ -98,8 +95,6 @@ export const InCity = ({ setCity, selectedLocation }) => {
     const [btnColorDown, setBtnColorDown] = useState('lightgray');
     const [btnColorRight, setBtnColorRight] = useState('lightgray');
     const [btnColorLeft, setBtnColorLeft] = useState('lightgray');
-
-
 
     /* const areaWidth = window.innerWidth; // Ширина области для отображения
     const areaHeight = window.innerHeight * 0.65;  //Высота области для отображения (исключая header и footer) */

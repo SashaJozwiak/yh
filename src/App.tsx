@@ -25,6 +25,7 @@ import './App.css';
 import { Game } from './Game/Game';
 import { AuthError } from './AuthError';
 import { Earn } from './Earn/Earn';
+import { MainEarn } from './Earn/MainEarn';
 
 import { postEvent } from '@telegram-apps/sdk';
 
@@ -147,6 +148,7 @@ const App: React.FC = function () {
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}
       {nav === 'earn' && <Earn />}
+      {nav === 'UHS' && <MainEarn />}
       {nav !== 'game1' && <Footer />}
     </>
   );

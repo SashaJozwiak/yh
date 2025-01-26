@@ -66,7 +66,7 @@ export const Elka = ({ setOpenWindow, selectedLocation }) => {
                 {isOwner ? (
                     <>
                         <h2 style={{ padding: '0 0.5rem' }}>
-                            {playerData.languageCode === 'ru' ? `Мэр ${selectedLocation?.username} поздравляет Вас с наступающим Новым Годом!🎉` : `Mayor ${selectedLocation?.username} wishes you a Happy New Year!🎉`}
+                            {playerData.languageCode === 'ru' ? `Мэр ${selectedLocation?.username} поздравляет Вас с Новым Годом!🎉` : `Mayor ${selectedLocation?.username} wishes you a Happy New Year!🎉`}
                         </h2>
 
                         <div>
@@ -106,7 +106,7 @@ export const Elka = ({ setOpenWindow, selectedLocation }) => {
                 ) : (
                     <>
                         <h3 style={{ padding: '0 0.5rem' }}>
-                            {playerData.languageCode === 'ru' ? `Мэр ${selectedLocation?.username} поздравляет вас с наступающим Новым Годом!🎉` : `Mayor ${selectedLocation?.username} wishes you a Happy New Year!🎉`}
+                                {playerData.languageCode === 'ru' ? `Мэр ${selectedLocation?.username} поздравляет вас с Новым Годом!🎉` : `Mayor ${selectedLocation?.username} wishes you a Happy New Year!🎉`}
                         </h3>
                         <h2 style={{ fontWeight: 'bold', color: 'rgb(93, 121, 160)' }}>
                                 Reward <br /> <span style={{ color: selectedLocation.color }}>300 B</span>

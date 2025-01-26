@@ -4,6 +4,7 @@ import dev from '../Game/assets/Game/developer.jpg'
 import s from './earn.module.css'
 
 import { useUserData } from '../store/main';
+import { useNav } from '../store/nav';
 
 import { swichLang } from '../lang/lang'
 
@@ -15,11 +16,13 @@ interface TimeLeft {
 }
 
 export const Earn = () => {
+    const userId = useUserData(state => state.user.id)
     const userLang = useUserData(state => state.user.languageCode);
-
 
     const [imageLoaded, setImageLoaded] = useState(false);
     const [finishTime, setFinishTime] = useState(false);
+
+    const changeNav = useNav((state) => state.setMainNav)
 
     const calculateTimeLeft = (): TimeLeft => {
         const targetDate = new Date(Date.UTC(2025, 1, 25, 0, 0, 0)).getTime();
@@ -96,8 +99,13 @@ export const Earn = () => {
                     <p>Time's up</p>
                 )}
                 <p>{userLang === 'ru' ? 'или раньше.' : 'or earlier.'}</p>
+                    {userId === 0 && <button
+                        onClick={() => changeNav('UHS')}
+                        style={{ marginTop: '1rem', height: '2rem' }}>START</button>}
                 </div>}
             {!imageLoaded && <span className={s.loader}></span>}
+
+
         </>
     )
 }

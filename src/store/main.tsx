@@ -3,6 +3,8 @@ import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, UseDedust
 import { devtools } from 'zustand/middleware'
 import { Address } from "@ton/ton";
 
+import { useWallet } from '../Earn/earnStore/wallet';
+
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 import WebApp from '@twa-dev/sdk';
@@ -495,6 +497,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
 
     updateBalanceJ: async (rawAddress: string) => {
         set({ loadStatus: true });
+        const { setWallet } = useWallet.getState();
 
         try {
             const response = await fetch(`https://tonapi.io/v2/accounts/${encodeURIComponent(rawAddress)}/jettons`, {
@@ -508,7 +511,46 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             }
 
             const data = await response.json();
-            //console.log('jetttons result:', data)
+            console.log('jetttons result:', data)
+            // Фильтрация данных
+            const filteredBalances = data.balances.filter(
+                (item) =>
+                    item.balance !== '0' &&  // Условие: баланс не равен 0
+                    !item.jetton.name.startsWith('LP ') && // Условие: имя не начинается с "LP "
+                    (
+                        item.jetton.address === "0:3c4aac2fb4c1dee6c0bacbf86505f6bc7c31426959afd34c09e69ef3eae0dfcc" || // Адрес равен указанному
+                        item.jetton.verification === "whitelist" // Если адрес не равен, проверяем verification
+                    )
+            );
+
+            const sortedBalances = filteredBalances.sort((a, b) => {
+                const priority = ["UHS", "USD₮", "TON"]; // Заданный порядок
+
+                const aPriority = priority.indexOf(a.jetton.symbol);
+                const bPriority = priority.indexOf(b.jetton.symbol);
+
+                // Если оба токена имеют приоритет, сортируем по их индексам
+                if (aPriority !== -1 && bPriority !== -1) {
+                    return aPriority - bPriority;
+                }
+
+                // Если только один из токенов имеет приоритет, он должен идти первым
+                if (aPriority !== -1) return -1;
+                if (bPriority !== -1) return 1;
+
+                // Если ни один из токенов не имеет приоритета, сортируем по значению
+                const aValue = parseFloat(a.balance) / (10 ** a.jetton.decimals);
+                const bValue = parseFloat(b.balance) / (10 ** b.jetton.decimals);
+
+                return bValue - aValue; // Сортировка по убыванию
+            });
+
+            // Отправка отфильтрованных данных в другой стор
+            setWallet({
+                address: rawAddress, // Передаем адрес
+                assets: sortedBalances, // Передаем отфильтрованные токены
+            });
+
 
             set((state) => {
                 const updatedJettons = state.jettons.map(jetton => {
