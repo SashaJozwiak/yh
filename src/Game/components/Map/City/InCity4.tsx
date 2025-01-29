@@ -31,7 +31,7 @@ interface Player {
 
 type Players = Record<string, Player>;
 
-const elkaPosition = { x: 50, y: 42 }; // Процентные координаты: x = 50% ширины, y = 30% высоты
+//const elkaPosition = { x: 50, y: 42 }; // Процентные координаты: x = 50% ширины, y = 30% высоты
 const imageWidth = 1100; // Ширина изображения
 const imageHeight = 1100; // Высота изображения
 
@@ -47,7 +47,7 @@ const collisionMap = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1],
     [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-    [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1],
+    [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
     [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
     [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
     [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
@@ -524,7 +524,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
                     }}
                         ><p style={{ position: 'relative' }}>{(playerData.userName).substring(0, 12)}</p></div>
 
-                <img
+                        {/* <img
                     style={{
                         position: "absolute",
                         width: "170px",//38vw
@@ -535,7 +535,7 @@ export const InCity = ({ setCity, selectedLocation }) => {
 
 
                     }}
-                    src={elka} alt="elka_pic" />
+                    src={elka} alt="elka_pic" /> */}
             </div>
 
             <div
@@ -614,14 +614,14 @@ export const InCity = ({ setCity, selectedLocation }) => {
                 {/* <div style={{ border: '1px solid', flexGrow: '1' }}>DATA</div> */}
 
                 <div style={{ flexGrow: '1', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-                    <button
+                            <button
                                 onClick={() => {
                                     if (openElka || cityHall) {
-                                        const nameWindow = openElka ? 'Elka' : cityHall ? 'cityHall' : '';
+                                        const nameWindow = openElka ? 'cityHall' : cityHall ? 'Elka' : '';
                                         openWindowfn(nameWindow)
                                     }
                                 }}
-                        className={s.btnPush}
+                                className={s.btnPush}
                                 style={{ color: 'transparent', backgroundColor: 'lightgray', borderRadius: '50%', aspectRatio: '1/1', minHeight: '5rem', minWidth: '5rem', opacity: openElka || cityHall ? '1' : '0.5' }}
                     >BIG BUTTON</button>
                 </div>

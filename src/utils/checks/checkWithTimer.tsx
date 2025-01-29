@@ -11,7 +11,12 @@ export const checkWithTimer = async (
 
     // Переходим по ссылке
     console.log('link', `https://t.me/${src.slice(1)}`)
-    WebApp.openTelegramLink(`https://t.me/${src.slice(1)}`);
+    if (taskId === 10) {
+        window.open(`https://x.com/youhold_ton`, '_blank', 'noopener,noreferrer');
+    } else {
+        WebApp.openTelegramLink(`https://t.me/${src.slice(1)}`);
+    }
+
 
     // Ждем 4 секунды
     setTimeout(async () => {

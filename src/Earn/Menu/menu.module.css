@@ -1,0 +1,24 @@
+.menu {
+    //position:fixed;
+    display:flex;
+    justify-content: space-between;
+    gap:0.5rem;
+    //background-color: rgb(100 116 139);
+    background-color: rgb(71 85 105);
+    height: 3.5rem;
+    //width: 100vw;
+    padding: 0.5rem 0.6rem 0.5rem;
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 50%);
+    z-index:200;
+}
+
+.button {
+    flex: 1; /* Каждая кнопка будет занимать одинаковую ширину */
+    background: none;
+    border: 1px solid;
+    padding: 0.5rem;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.3rem;
+}

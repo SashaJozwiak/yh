@@ -10,20 +10,20 @@ import { useGameNav } from './../../../state/gameNav';
 import imgs from '../../Deck/charimg'
 import skillsImgs from '../../../assets/Game/icons/skills_25.webp'
 
-import ny from '../../../assets/Game/ny/ny_smallsize.png'
+//import ny from '../../../assets/Game/ny/ny_smallsize.png'
 
 import { Potion } from '../../Some/PotionSvg';
 
-import useSound from 'use-sound';
-import ny_sound from '../../../assets/Game/ny/ny_sound_3s.mp3'
+//import useSound from 'use-sound';
+//import ny_sound from '../../../assets/Game/ny/ny_sound_3s.mp3'
 import s from './card.module.css'
 import { useDeck } from '../../../state/deck';
 
 
 export const Card: React.FC = () => {
     const [stat, setStat] = useState(false);
-    const [play] = useSound(ny_sound);
-    const [isPlay, setIsPlay] = useState(false);
+    //const [play] = useSound(ny_sound);
+    //const [isPlay, setIsPlay] = useState(false);
 
     //const userId = useUserData(state => state.user.id)
 
@@ -68,7 +68,7 @@ export const Card: React.FC = () => {
     }
 
     //console.log('selectedSkill: ', selectedSkill.amount)
-    const playNy = () => {
+    /* const playNy = () => {
         if (!isPlay) {
             setIsPlay(true)
             play()
@@ -76,7 +76,7 @@ export const Card: React.FC = () => {
                 setIsPlay(false)
             }, 3000)
         }
-    }
+    } */
 
     return (
         <div className={`${s.playercard} ${getDamage === 'hero' && Number(enemyAttack - playCard.stats.mind) > 0 ? s.shaking : getDamage === 'hero' && s.dodge}`}
@@ -119,13 +119,13 @@ export const Card: React.FC = () => {
                     +100 Exp
                 </h2>
 
-                {!stat && 
+                {/* {!stat &&
                 <img
                     onClick={() => playNy()}
                     className={isPlay ? s.shakingx : ''}
                     style={{ position: 'absolute', zIndex: '900', top: '-1.6vh', left: '-4vw' }}
                     src={ny} alt="new year pic" width={'50vw'} height={'30vh'} />
-                }
+                } */}
 
                 <img
                     style={{ filter: `grayscale(${1 - (playCard.balance_hp / (playCard.stats.balance * 10))})` }}

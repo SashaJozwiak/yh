@@ -4,11 +4,11 @@ import { useState } from "react"
 import { useWallet } from "./earnStore/wallet"
 
 import s from './mainearn.module.css'
+import { Menu } from './Menu/Menu';
+
 
 export const MainEarn = () => {
-
     const [loading] = useState(false)
-
     const walletAssets = useWallet(state => state.assets)
 
     console.log('use wallet: ', walletAssets)
@@ -37,37 +37,17 @@ export const MainEarn = () => {
                     </g>
                     <text x="35" y="110" fill='white' fontWeight="bold" fontSize='42'>🟢</text>
                 </svg>
-                <p>{loading ? <span className={s.loader}></span> : <span>35.28 <span style={{ fontSize: '1.2rem' }}>USDT</span></span>}</p>
+                <p>{loading ? <span className={s.loader}></span> : <span>{(0).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}<span style={{ fontSize: '1rem' }}>USD₮</span></span>}</p>
+                {/* <button style={{ position: 'relative', textAlign: 'right' }}>OPEN</button> */}
+                <button style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', /* border: '1px solid', */ height: '2.5rem', marginLeft: '1rem' }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={'1.5rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                </button>
             </div>
 
-            <div>
-                <button style={{ marginTop: '-1rem' }}>Open</button>
-            </div>
+            <Menu />
 
-
-
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '0.5rem' }}>
-                <button>All wallets</button>
-                <button>TON wallet</button>
-                <button>Invest wallet</button>
-            </div>
-
-            <ul style={{ overflowY: 'auto', margin: '1rem 0.6rem 5rem 0.6rem' }}>
-                {walletAssets.map((asset, index) => (
-                    <li key={index} style={{ marginBottom: "1rem", listStyle: "none", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
-                            <img style={{ borderRadius: '50%' }} src={asset.jetton.image} width={50} alt="" />
-                            <div>
-                                {asset.jetton.symbol}
-                            </div>
-                        </div>
-
-                        <div>
-                            {(Number(asset.balance) / (10 ** asset.jetton.decimals)).toFixed(2)} <strong>{asset.jetton.symbol}</strong>
-                        </div>
-                    </li>
-                ))}
-            </ul>
         </>
     )
 }

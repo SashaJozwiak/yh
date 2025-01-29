@@ -48,6 +48,7 @@ export const Tasks = () => {
                 break;
             case 6:
             case 7:
+            case 10:
                 checkWithTimer(/* userId, */ taskId, src, completeTask, setLoadBtn);
                 break;
             case 4:
@@ -106,14 +107,22 @@ export const Tasks = () => {
                     key={task.id} className={s.listitem}>
                     <button
                         onClick={() => {
+                            if (task.id === 10) {
+                                window.open(`https://x.com/youhold_ton`, '_blank', 'noopener,noreferrer');
+                            } else {
                             WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                            }
                         }}
                         className={s.titlebtn}>{task.title}</button>
                     <button
                         style={{ backgroundColor: blockBtns ? 'transparent' : 'whitesmoke', color: blockBtns ? 'gray' : 'black' }}
                         onClick={() => {
                             setBlockBtns(true)
-                            checkTask(userData.id, task.id, task.src)
+                            if (task.id === 10) {
+                                checkTask(userData.id, task.id, `https://x.com/youhold_ton`)
+                            } else {
+                                checkTask(userData.id, task.id, task.src)
+                            }
                         }}
                         disabled={blockBtns}
                         className={s.check}>{swichLang(userData.languageCode, 'check')}</button>
@@ -202,7 +211,11 @@ export const Tasks = () => {
                     <button
                         onClick={(e) => {
                             e.preventDefault();
+                            if (task.id === 10) {
+                                window.open(`https://x.com/youhold_ton`, '_blank', 'noopener,noreferrer');
+                            } else {
                             WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                            }
                         }}
                         disabled={task.id === 7}
                         style={{ borderBottom: '1px gray solid', color: 'gray' }}
