@@ -2,19 +2,19 @@ export const statGrades = {
     //balance
     Jack: {
         gray: {
-            balance_hp: 170,
+            balance_hp: 160,
             energy_mp: 130,
             stats: {
-                balance: 17,
+                balance: 16,
                 mind: 12,
                 energy: 13,
             },
         },
         bronze: {
-            balance_hp: 450,
+            balance_hp: 440,
             energy_mp: 350,
             stats: {
-                balance: 45,
+                balance: 44,
                 mind: 33,
                 energy: 35,
             },
@@ -41,19 +41,19 @@ export const statGrades = {
 
     Barry: {
         gray: {
-            balance_hp: 180,
+            balance_hp: 170,
             energy_mp: 110,
             stats: {
-                balance: 18,
+                balance: 17,
                 mind: 13,
                 energy: 11,
             },
         },
         bronze: {
-            balance_hp: 480,
+            balance_hp: 470,
             energy_mp: 300,
             stats: {
-                balance: 48,
+                balance: 47,
                 mind: 35,
                 energy: 30,
             },
@@ -80,19 +80,19 @@ export const statGrades = {
 
     Larry: {
         gray: {
-            balance_hp: 160,
+            balance_hp: 150,
             energy_mp: 150,
             stats: {
-                balance: 16,
+                balance: 15,
                 mind: 11,
                 energy: 15,
             },
         },
         bronze: {
-            balance_hp: 430,
+            balance_hp: 420,
             energy_mp: 400,
             stats: {
-                balance: 43,
+                balance: 42,
                 mind: 30,
                 energy: 40,
             },
@@ -119,19 +119,19 @@ export const statGrades = {
 
     Alfred: {
         gray: {
-            balance_hp: 190,
+            balance_hp: 180,
             energy_mp: 120,
             stats: {
-                balance: 19,
+                balance: 18,
                 mind: 11,
                 energy: 12,
             },
         },
         bronze: {
-            balance_hp: 500,
+            balance_hp: 490,
             energy_mp: 330,
             stats: {
-                balance: 50,
+                balance: 49,
                 mind: 30,
                 energy: 33,
             },
@@ -164,7 +164,7 @@ export const statGrades = {
             energy_mp: 170,
             stats: {
                 balance: 11,
-                mind: 14,
+                mind: 13,
                 energy: 17,
             },
         },
@@ -173,7 +173,7 @@ export const statGrades = {
             energy_mp: 450,
             stats: {
                 balance: 30,
-                mind: 30,
+                mind: 29,
                 energy: 45,
             },
         },
@@ -203,7 +203,7 @@ export const statGrades = {
             energy_mp: 150,
             stats: {
                 balance: 14,
-                mind: 13,
+                mind: 12,
                 energy: 15,
             },
         },
@@ -212,7 +212,7 @@ export const statGrades = {
             energy_mp: 400,
             stats: {
                 balance: 38,
-                mind: 28,
+                mind: 27,
                 energy: 40,
             },
         },
@@ -242,7 +242,7 @@ export const statGrades = {
             energy_mp: 140,
             stats: {
                 balance: 15,
-                mind: 13,
+                mind: 12,
                 energy: 14,
             },
         },
@@ -251,7 +251,7 @@ export const statGrades = {
             energy_mp: 380,
             stats: {
                 balance: 40,
-                mind: 28,
+                mind: 27,
                 energy: 38,
             },
         },
@@ -281,7 +281,7 @@ export const statGrades = {
             energy_mp: 150,
             stats: {
                 balance: 14,
-                mind: 13,
+                mind: 12,
                 energy: 15,
             },
         },
@@ -290,7 +290,7 @@ export const statGrades = {
             energy_mp: 400,
             stats: {
                 balance: 38,
-                mind: 28,
+                mind: 27,
                 energy: 40,
             },
         },
@@ -319,11 +319,11 @@ export const statGrades = {
     Austin: {
         gray: {
             balance_hp: 120,
-            energy_mp: 190,
+            energy_mp: 180,
             stats: {
                 balance: 12,
                 mind: 11,
-                energy: 19,
+                energy: 18,
             },
         },
         bronze: {
@@ -358,20 +358,20 @@ export const statGrades = {
     Michael: {
         gray: {
             balance_hp: 150,
-            energy_mp: 140,
+            energy_mp: 130,
             stats: {
                 balance: 15,
                 mind: 13,
-                energy: 14,
+                energy: 13,
             },
         },
         bronze: {
             balance_hp: 400,
-            energy_mp: 380,
+            energy_mp: 360,
             stats: {
                 balance: 40,
                 mind: 35,
-                energy: 38,
+                energy: 36,
             },
         },
         silver: {
@@ -397,20 +397,20 @@ export const statGrades = {
     Jimmy: {
         gray: {
             balance_hp: 140,
-            energy_mp: 160,
+            energy_mp: 150,
             stats: {
                 balance: 14,
                 mind: 12,
-                energy: 16,
+                energy: 15,
             },
         },
         bronze: {
             balance_hp: 380,
-            energy_mp: 430,
+            energy_mp: 420,
             stats: {
                 balance: 38,
                 mind: 33,
-                energy: 43,
+                energy: 42,
             },
         },
         silver: {
@@ -436,20 +436,20 @@ export const statGrades = {
     Lilly: {
         gray: {
             balance_hp: 130,
-            energy_mp: 150,
+            energy_mp: 140,
             stats: {
                 balance: 13,
                 mind: 14,
-                energy: 15,
+                energy: 14,
             },
         },
         bronze: {
             balance_hp: 350,
-            energy_mp: 400,
+            energy_mp: 390,
             stats: {
                 balance: 35,
                 mind: 38,
-                energy: 40,
+                energy: 39,
             },
         },
         silver: {

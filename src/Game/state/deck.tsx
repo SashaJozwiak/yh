@@ -22,7 +22,7 @@ export const useDeck = create<UseDeck>()(devtools((set, get) => ({
             key_power: 'balance'
         },
     ],
-    randomCards: 0,
+    randomCards: 100,
     gradeDetector: (name) => {
         const cards = get().cards;
         const deckCard = cards.find((card: Card) => card.name === name)

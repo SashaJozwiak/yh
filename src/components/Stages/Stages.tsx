@@ -50,6 +50,11 @@ export const Stages = () => {
                         <li className={`${s.listelement} ${s.ok}`}>🟡 {swichLang(userLang, 'marketing')}</li>
                         <li className={s.listelement}>⚪ {swichLang(userLang, 'presa')}</li>
                         <li className={s.listelement}>⚪ {swichLang(userLang, 'airdrop')}</li>
+                        <li style={{ fontSize: '1rem', marginTop: '-1rem', fontStyle: 'italic' }}>&emsp; &emsp; inviting friends</li>
+                        <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; cards in the game</li>
+                        <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; purchases ★</li>
+                        <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; houses in the game</li>
+                        <li style={{ fontSize: '1rem', fontStyle: 'italic', marginBottom: '1rem' }}>&emsp; &emsp; UH</li>
                     </ul >
                     <h2>{swichLang(userLang, 'on_chain')}</h2>
                     <ul className={s.stagelist}>

@@ -6,6 +6,8 @@ export const useWallet = create<UseWallet>((set) => ({
     address: null,
     assets: [],
     status: 'loading',
-    setWallet: ({ address, assets }) => set({ address, assets }),
-
+    setWallet: ({ address, assets }) => {
+        set({ address, assets, status: 'loaded' })
+        //set({ status: 'loaded' })
+    }
 }))
