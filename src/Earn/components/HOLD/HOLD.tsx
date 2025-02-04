@@ -3,7 +3,7 @@ import { Plus, Question } from "../../svgs";
 
 import { HoldTW } from './HoldTW/HoldTW';
 
-import s from './HOLD.module.css'
+import s from './hold.module.css'
 
 
 export const HOLD = () => {
