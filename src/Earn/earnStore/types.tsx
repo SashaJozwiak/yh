@@ -49,6 +49,8 @@ export interface UseUHSWallet {
 export interface Nav {
     isOpenWallet: boolean;
     tool: string;
+    hold: string;
+    setHold: (hold: string) => void;
     setTool: (tool: string) => void;
     setIsOpenWallet: (isOpen: boolean) => void;
 }

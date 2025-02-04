@@ -49,7 +49,7 @@ export const TimerButtonAd = ({ dailyReward }) => {
 
   }, [getAllTasks, userInternalId]);
 
-  const showAd = useAdsgram({ blockId: "3255", onReward, onError });
+  const showAd = useAdsgram({ blockId: "7623", onReward, onError });
 
   useEffect(() => {
     const rewardTime = new Date(dailyReward.timer).getTime();

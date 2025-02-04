@@ -5,12 +5,10 @@ import { useEarnNav } from '../../earnStore/nav'
 import { useUHSWallet } from '../../earnStore/UHSWallet'
 
 export const Balance = () => {
-    const [loading] = useState(false)
+    //const [loading] = useState(false)
 
-    const isOpenWallet = useEarnNav((state) => state.isOpenWallet)
-    const setIsOpenWallet = useEarnNav((state) => state.setIsOpenWallet)
-
-    const assets = useUHSWallet(state => state.assets)
+    const { isOpenWallet, setIsOpenWallet } = useEarnNav(state => state);
+    const { assets, status } = useUHSWallet(state => state);
 
     const [totalValue, setTotalValue] = useState(0);
 
@@ -51,7 +49,7 @@ export const Balance = () => {
                 </g>
                 <text x="35" y="110" fill='white' fontWeight="bold" fontSize='42'>🟢</text>
             </svg>}
-            <p>{loading ? <span className={s.loader}></span> : <span>{(totalValue).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}<span style={{ fontSize: '1rem' }}> USD{/* ₮ */}</span></span>}</p>
+            <p>{status === 'loading' ? <span className={s.loader}></span> : <span>{(totalValue).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}<span style={{ fontSize: '1rem' }}> USD{/* ₮ */}</span></span>}</p>
             <button
                 onClick={() => setIsOpenWallet(!isOpenWallet)}
                 style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', height: '2.5rem', marginLeft: '1rem' }}>

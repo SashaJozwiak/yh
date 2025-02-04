@@ -8,7 +8,7 @@ export const ShowBalance = () => {
 
     return (
         <>
-            {/* <h2 style={{ borderBottom: '1px solid gray' }}>Investment Wallet</h2> */}
+            <h2 style={{ borderBottom: '1px solid gray' }}>Assets</h2>
             <ul style={{ overflowY: 'auto', margin: '0 0 6rem 0', paddingBottom: '1rem' }}>
                 {UHSWalletAssets.map((asset, index) => (
                     <li key={index} style={{ marginBottom: "0.5rem", padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', alignItems: 'center', /* border: '1px solid gray', */ /* borderRadius: '0.3rem',  */backgroundColor: 'rgb(58 70 88)', /* boxShadow: '0px 0px 5px 0px rgb(0 0 0 / 50%)', */ borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
