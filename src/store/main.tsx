@@ -484,7 +484,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             inH: 50,
             speed: 0,
             src: 'https://t.me/notcoin',
-        },
+        },/* ,
         {
             name: 'RODDGAZM',
             address: '0:4da7033be81d36a70fe3fd43da6a6bdb5317ea1595a636a3c2405ed1a1f9cbc6',
@@ -493,7 +493,7 @@ export const useJettonsBalances = create<UseUserBalancesJ>((set, get) => ({
             inH: 100,
             speed: 0,
             src: 'https://t.me/milanrodd',
-        }
+        } */
     ],
     loadStatus: true,
     totalSpeedJ: () => {
