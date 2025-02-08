@@ -54,3 +54,21 @@ export interface Nav {
     setTool: (tool: string) => void;
     setIsOpenWallet: (isOpen: boolean) => void;
 }
+
+//==== HOLD JETTONS ====
+
+export interface assets {
+    name: string;
+    address: string;
+    value: number;
+    range: [number, number];
+    APY: number;
+    speed: number;
+    src: string;
+}
+
+export interface UseHold {
+    assets: Array<assets>;
+    updateHoldAssets: () => void;
+
+}

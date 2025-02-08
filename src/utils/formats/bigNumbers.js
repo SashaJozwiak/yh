@@ -30,3 +30,15 @@ export const formatNumberToo = (num) => {
     num = (+num).toFixed();
     return num.toLocaleString('ru');
 };
+
+export const formatNumberToo2 = (num) => {
+
+    if (num > 999999) {
+        num = num / 1000000
+        num = (+num).toFixed(2);
+        return `${num}kk`;
+    }
+
+    num = (+num).toFixed(2);
+    return num
+};
