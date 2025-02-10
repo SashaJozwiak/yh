@@ -1,17 +1,11 @@
 import { useEffect } from "react"
 import { useHold } from "../../../earnStore/hold"
 
-import { formatNumber, formatNumberToo2 } from "../../../../utils/formats/bigNumbers"
+import { formatNumber, formatNumberToo2, roundToFixed } from "../../../../utils/formats/bigNumbers"
 
 import s from './hold.module.css'
 
-const roundToFixed = (num, decimalPlaces) => {
-    const factor = Math.pow(10, decimalPlaces);
-    return Math.round(num * factor) / factor;
-};
-
 export const HoldTW = () => {
-
     const assets = useHold(state => state.assets)
     const updateAssets = useHold(state => state.updateHoldAssets)
 
@@ -26,12 +20,12 @@ export const HoldTW = () => {
 
         {assets.filter(asset => asset.value >= asset.range[0]).length > 0 &&
 
-            <ul style={{ overflowY: 'auto',/*  paddingBottom: '1rem', */ margin: '0.6rem', border: '2px solid', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem', borderBottomLeftRadius: '0.3rem', borderBottomRightRadius: '0.3rem' }}>
+            <ul style={{ overflowY: 'auto',/*  paddingBottom: '1rem', */ margin: '0.6rem', border: '2px solid', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem', borderBottomLeftRadius: '0.3rem', borderBottomRightRadius: '0.3rem', backgroundColor: 'rgb(58, 70, 88)' }}>
 
                 {assets.filter(asset => asset.value >= asset.range[0]).map((asset) => {
 
                     return (
-                        <li key={asset.address} style={{ /* marginBottom: "0.5rem", */ padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', /* alignItems: 'center', */ backgroundColor: 'rgb(58 70 88)', borderBottom: '1px solid gray' }}>
+                        <li key={asset.address} style={{ /* marginBottom: "0.5rem", */ padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', /* alignItems: 'center', */ backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray' }}>
                             <div className={s.block}>
                                 <div>
                                     {asset.name}
@@ -63,16 +57,31 @@ export const HoldTW = () => {
                             <div className={s.block}>
                                 <span style={{ fontSize: '1.1rem' }}>Reward</span>
                                 <div style={{ fontStyle: 'italic', fontSize: '0.8rem', opacity: '1' }}>
-                                    {((asset.value > asset.range[1] ? asset.range[1] : asset.value) * asset.APY / (365)).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {asset.name}
+                                    {((asset.value > asset.range[1] ? asset.range[1] : asset.value) * asset.APY / (365 / 1)).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {asset.name}
                                 </div>
                             </div>
                         </li>
                     )
                 })}
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', /* padding: '0 0.6rem' *//* , marginBottom: '0.5rem' */ }}>
-                    <div style={{ fontSize: '0.8rem', fontStyle: 'italic', padding: '0 0.6rem', alignContent: 'center' }}>Rewards: {'1 UHS'}</div>
-                    <button style={{ fontSize: '1.3rem', padding: '0 0.5rem', backgroundColor: 'rgb(71, 85, 105)', color: 'white', borderRadius: '0.1rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 10px 0px'/* , border: '2px solid gray' */ }}>Claim all</button>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    {/* <div style={{ fontSize: '0.8rem', fontStyle: 'italic', padding: '0 0.6rem', alignContent: 'center' }}>Claim:
+                        {
+                            assets
+                                .filter(asset => asset.value >= asset.range[0]) // Фильтруем assets
+                                .map(asset => {
+                                    // Ограничиваем asset.value значением asset.range[1], если оно превышено
+                                    const cappedValue = Math.min(asset.value, asset.range[1]);
+                                    // Вычисляем доходность для текущего asset
+                                    const dailyYield = (cappedValue * asset.APY) / 365;
+                                    // Возвращаем строку с именем asset и его доходностью
+                                    return ` +${dailyYield.toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} ${asset.name} ${asset.name} ${asset.name} ${asset.name}`;
+                                })
+                                .join(', ') // Объединяем строки через запятую
+                        }
+
+                    </div> */}
+                    <button style={{ fontSize: '1.3rem', padding: '0 0.5rem', backgroundColor: 'rgb(71, 85, 105)', color: 'white', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 10px 0px', border: '1px solid lightgray', marginBottom: '0.3rem' }}>Claim all</button>
                 </div>
             </ul>
         }
@@ -113,7 +122,7 @@ export const HoldTW = () => {
                         <div className={s.block}>
                             <span style={{ fontSize: '1.1rem' }}>Reward</span>
                             <div style={{ fontStyle: 'italic', fontSize: '0.8rem', opacity: '1' }}>
-                                {/* {((asset.value > asset.range[1] ? asset.range[1] : asset.value) * asset.APY / (365)).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {asset.name} */} 0.000 {asset.name}
+                                0.000 {asset.name}
                             </div>
                         </div>
                     </li>

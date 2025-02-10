@@ -2,6 +2,7 @@ import { useEarnNav } from "../../earnStore/nav";
 import { Plus, Close, Question } from "../../svgs";
 
 import { HoldTW } from './HoldTW/HoldTW';
+import { HoldUW } from "./HoldUW/HoldUW";
 import { Info } from "./Info/Info";
 
 import s from './hold.module.css'
@@ -34,6 +35,7 @@ export const HOLD = () => {
             </header>
 
             {hold === 'twallet' && <HoldTW />}
+            {hold === 'uwallet' && <HoldUW />}
             {hold === 'info' && <Info />}
 
         </>

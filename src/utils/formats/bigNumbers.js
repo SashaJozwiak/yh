@@ -42,3 +42,9 @@ export const formatNumberToo2 = (num) => {
     num = (+num).toFixed(2);
     return num
 };
+
+
+export const roundToFixed = (num, decimalPlaces) => {
+    const factor = Math.pow(10, decimalPlaces);
+    return Math.round(num * factor) / factor;
+};
