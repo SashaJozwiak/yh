@@ -359,3 +359,31 @@ export interface UsePartners {
     fetchUserDetails: (user_id: number, internalIds: number[]) => Promise<void>;
     createWithdraw: (user_id: number, amount: number, address: string) => Promise<void>;
 }
+
+//====c AUTH
+
+export interface Proof {
+    timestamp: number;
+    domain: { lengthBytes: number; value: string }
+    payload: string;
+    signature: string
+}
+
+export interface Account {
+    address: string;
+    chain: string;
+    publicKey?: string;
+    walletStateInit: string;
+}
+
+export interface UseAuth {
+    userId: number | null;
+    token: string;
+    address: string;
+    isAuth: boolean;
+    isError: boolean;
+    isLoading: boolean;
+    isRefreshing: boolean;
+    refreshToken: (token: string) => Promise<void>;
+    checkNonce: (proof: Proof, account: Account) => Promise<void>;
+}

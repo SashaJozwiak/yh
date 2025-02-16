@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, UseDedust, UseTonco, BalanceObj } from '../types/stores'
+import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, UseDedust, UseTonco, BalanceObj, UseAuth } from '../types/stores'
 import { devtools } from 'zustand/middleware'
 import { Address } from "@ton/ton";
 
@@ -9,7 +9,87 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 import WebApp from '@twa-dev/sdk';
 
+export const useAuth = create<UseAuth>((set, get) => ({
+    userId: null,
+    token: '',
+    address: '',
+    isAuth: false,
+    isError: false,
+    isLoading: false,
+    isRefreshing: false,
+    refreshToken: async (token) => {
+        //auth/refresh
+        const isRefreshing = get().isRefreshing;
+        console.log('isRefreshing: ', isRefreshing)
+        if (isRefreshing) {
+            return;
+        }
 
+        set({ isRefreshing: true });
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsusers/auth/refresh`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token })
+            });
+
+            if (!response.ok) {
+                console.log(response.json())
+                set(() => ({ isError: true }))
+                throw new Error('refresh token failed');
+            }
+
+
+            const res = await response.json()
+            console.log('refresh res: ', res)
+
+            localStorage.setItem(res.userRes.wallet_address + 'uhs', res.token)
+
+            /* set((state) => ({
+                ...state,
+                isAuth: true,
+                token: res.token,
+                userId: res.userRes.id,
+                address: res.userRes.wallet_address,
+            })); */
+
+            set(() => ({ isAuth: true, token: res.token, userId: res.userRes.id, address: res.userRes.wallet_address, isRefreshing: true }))
+
+
+        } catch (err) {
+            console.log('error: ', err);
+        }
+    },
+    checkNonce: async (proof, account) => {
+        console.log('proof and accont for post fecth: ', proof, account)
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsusers/auth`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ proof, account })
+            });
+
+            if (!response.ok) {
+                console.log(response.json())
+                set(() => ({ isError: true }))
+                throw new Error('checkNonce and auth was not ok');
+            }
+
+            const res = await response.json()
+            console.log('res auth:', res)
+            //localStorage.setItem('test', 'test');
+            localStorage.setItem(res.user.wallet_address + 'uhs', res.token)
+
+            set(() => ({ isAuth: true, token: res.token, userId: res.user.id, address: res.user.wallet_address }))
+
+        } catch (err) {
+            set(() => ({ isError: true }))
+            console.log('error: ', err);
+        }
+
+    }
+}))
 
 export const useUserData = create<UseStore>()(devtools((set, get) => ({
     user:
@@ -289,7 +369,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         }
     },
     addAddresses: async (addresses) => {
-        //console.log('addresses: ', addresses);
+        console.log('addresses: ', addresses);
 
         /* const response = await fetch('http://localhost:3000/api/wallet', {
             method: 'POST',

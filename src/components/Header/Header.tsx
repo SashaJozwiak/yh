@@ -1,11 +1,11 @@
-import { useEffect, /* useState, */ /* useCallback */ } from 'react';
+import { useCallback, useEffect, useRef, useState, /* useCallback */ } from 'react';
 
-import { useUserData, /* useUserBalances */ } from '../../store/main';
+import { useAuth, useUserData, /* useUserBalances */ } from '../../store/main';
 //import { useBalance } from '../../store/balance';
 import { useNav } from '../../store/nav';
 import { swichLang } from '../../lang/lang.js';
 
-import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
+import { ConnectedWallet, TonConnectButton, useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 //import { useTonConnect } from '@tonconnect/ui-react';
 
 //import { Address } from "@ton/ton";
@@ -32,6 +32,7 @@ export const Header: React.FC = () => {
 
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
+    const [tonConnectUI] = useTonConnectUI();
 
     const rawAddressInState = useUserData(state => state.user.rawAddress);
 
@@ -51,6 +52,13 @@ export const Header: React.FC = () => {
     const startParam = WebApp.initDataUnsafe.start_param || parsedInitData.start_param;
 
     console.log('userFromTg: ', userFromTg, 'startParam: ', startParam)
+
+    const [onChange, setOnchange] = useState<boolean>(true)
+    const statusChangeHandlerRef = useRef<(wallet: ConnectedWallet | null) => Promise<void>>(() => Promise.resolve());
+
+    const auth = useAuth(state => state.checkNonce);
+    const refreshToken = useAuth(state => state.refreshToken)
+    //const authData = useAuth(state => state)
 
     useEffect(() => {
     //const userFromTg = WebApp.initDataUnsafe.user;
@@ -139,9 +147,104 @@ export const Header: React.FC = () => {
 
     }, [addAddresses, internalId, userFriendlyAddress])
 
+
+    useEffect(() => {
+        //if no connected wallet - get nonce
+        const getNonce = async () => {
+            console.log('start');
+            tonConnectUI.setConnectRequestParameters({ state: 'loading' });
+
+            try {
+                const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsusers/auth/getnonce`);
+                const result = await response.json();
+                console.log('getNonce: ', result);
+
+                if (result.tonProof) {
+                    tonConnectUI.setConnectRequestParameters({
+                        state: 'ready',
+                        value: { tonProof: result.tonProof }
+                    });
+                    //setOnchange(true);
+                } else {
+                    tonConnectUI.setConnectRequestParameters(null);
+                }
+
+                //console.log('ok');
+                //console.log('tonConnectUI: ', tonConnectUI.connector);
+                //console.log('wallet?.connectItems?.tonProof: ', tonConnectUI.wallet?.connectItems?.tonProof);
+            } catch (error) {
+                console.error('Error fetching nonce:', error);
+            }
+        };
+
+        if (rawAddress) {
+            const lsData = localStorage.getItem(rawAddress + 'uhs');
+            if (lsData) {
+                refreshToken(lsData)
+            }
+        } else if (!userFriendlyAddress) {
+            getNonce();
+        }
+
+    }, [rawAddress, refreshToken, tonConnectUI, userFriendlyAddress]);
+
+    const handleStatusChange = useCallback(async (wallet: ConnectedWallet | null) => {
+        // eslint-disable-next-line no-unsafe-optional-chaining
+        if (wallet?.connectItems?.tonProof && 'proof' in wallet?.connectItems?.tonProof && onChange) {
+            const proof = wallet?.connectItems?.tonProof.proof;
+            const account = wallet.account;
+
+            console.log('proof: ', proof);
+            console.log('account: ', account);
+
+            setOnchange(false);
+            // Ваш код для отправки на бэкенд
+            if (proof && account) {
+                console.log("Client proof payload:", proof.payload);
+                console.log("Client signature (base64):", proof.signature);
+                console.log("Client signature (hex):", Buffer.from(proof.signature, "base64").toString("hex"));
+                console.log("Client signed message (hex):", Buffer.from(proof.payload).toString("hex"));
+                console.log("Client proof timestamp:", proof.timestamp);
+                auth(proof, account);
+            }
+
+
+
+        } else {
+            console.log('Нет proof');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [onChange]);
+
+    useEffect(() => {
+        if (onChange) {
+            setOnchange(false);
+            statusChangeHandlerRef.current = handleStatusChange;
+            tonConnectUI.onStatusChange(statusChangeHandlerRef.current);
+
+            //tonConnectUI.onStatusChange(statusChangeHandlerRef.current);
+
+        } else {
+            console.log('Нет wallet');
+        }
+
+        return () => {
+            /* if (statusChangeHandlerRef.current) {
+                tonConnectUI.onStatusChange(null); // или можно просто не вызывать, если это не требуется
+            }// Очистка обработчика */
+            //statusChangeHandlerRef.current = null
+            //tonConnectUI.onStatusChange(wallet => wallet);
+        };
+
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tonConnectUI, onChange])
+
     //const address = Address.parse(userFriendlyAddress).toString();
 
     //console.log('address:', address ? address : 'none')
+
+    //console.log('authData: ', authData)
 
     return (
         <div className={s.header} style={{ position: nav === 'game' ? 'absolute' : 'static', opacity: nav === 'game' ? 0 : 1 }}>

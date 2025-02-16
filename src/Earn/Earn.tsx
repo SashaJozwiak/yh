@@ -82,6 +82,8 @@ export const Earn = () => {
 
     const { days, hours, minutes, seconds } = timeLeft;
 
+    //console.log('userId: ', userId)
+
     return (
         <>
             {imageLoaded &&
@@ -99,7 +101,7 @@ export const Earn = () => {
                     <p>Time's up</p>
                 )}
                 <p>{userLang === 'ru' ? 'или раньше.' : 'or earlier.'}</p>
-                    {userId === 0 && <button
+                    {userId === 0 || userId === 946292829 && <button
                         onClick={() => changeNav('UHS')}
                         style={{ marginTop: '1rem', height: '2rem' }}>START</button>}
                 </div>}

@@ -1,4 +1,5 @@
 //import { useUserData } from '../../store/main';
+import { useAuth } from '../../store/main';
 import { useNav } from '../../store/nav';
 import s from './footer.module.css'
 
@@ -6,6 +7,8 @@ export const Footer: React.FC = () => {
     const nav = useNav((state) => state.nav.main)
     const changeNav = useNav((state) => state.setMainNav)
     //const userId = useUserData(state => state.user.internalId)
+
+    const isAuth = useAuth(state => state.userId)
 
     return (
         <div className={s.footer}>
@@ -17,12 +20,17 @@ export const Footer: React.FC = () => {
             </button>
 
             <button
-                onClick={() => changeNav('earn')} className={`${s.btn} ${nav === 'earn' ? s.btnOn : nav === 'UHS' ? s.btnOn : null}`}>
+                disabled={!isAuth}
+                style={{ opacity: !isAuth ? '0.5' : '1' }}
+                onClick={() => changeNav('earn')}
+                className={`${s.btn} ${nav === 'earn' ? s.btnOn : nav === 'UHS' ? s.btnOn : null}`}>
+
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} width={'2rem'} stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
                 </svg>
 
-                <p>EARN</p></button>
+                <p>EARN</p>
+            </button>
 
             {/* <button disabled={true} onClick={() => changeNav('loan')} className={`${s.btn} ${nav === 'loan' ? s.btnOn : null}`} style={{ color: 'gray' }}><p>TOP</p>SECRET</button> */}
 
