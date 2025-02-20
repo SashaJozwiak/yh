@@ -26,7 +26,6 @@ export const Header: React.FC = () => {
     const changeNav = useNav((state) => state.setMainNav)
     const nav = useNav((state) => state.nav.main);
 
-    //const id = useUserData((state) => state.user.id);
     const internalId = useUserData((state) => state.user.internalId);
     const userLang = useUserData((state) => state.user.languageCode);
 
@@ -45,9 +44,6 @@ export const Header: React.FC = () => {
 
     const setAuthError = useUserData(state => state.setAuthError);
 
-    //const { connected } = useTonConnect();
-
-    //test use initData if no initDataUnsafe
     const userFromTg = WebApp.initDataUnsafe.user || parsedInitData.user;
     const startParam = WebApp.initDataUnsafe.start_param || parsedInitData.start_param;
 
@@ -58,11 +54,8 @@ export const Header: React.FC = () => {
 
     const auth = useAuth(state => state.checkNonce);
     const refreshToken = useAuth(state => state.refreshToken)
-    //const authData = useAuth(state => state)
 
     useEffect(() => {
-    //const userFromTg = WebApp.initDataUnsafe.user;
-    //const startParam = WebApp.initDataUnsafe.start_param;
         if (!isAuth) {
         if (startParam) {
             console.log('Start app:', startParam);
@@ -106,7 +99,6 @@ export const Header: React.FC = () => {
                 userFriendlyAddress: '',
                 rawAddress: '',
             };
-            //console.log('write jozwiak user in store')
 
             setUser(newUser);
             //setAuthError(true);
@@ -149,7 +141,6 @@ export const Header: React.FC = () => {
 
 
     useEffect(() => {
-        //if no connected wallet - get nonce
         const getNonce = async () => {
             console.log('start');
             tonConnectUI.setConnectRequestParameters({ state: 'loading' });
@@ -169,9 +160,6 @@ export const Header: React.FC = () => {
                     tonConnectUI.setConnectRequestParameters(null);
                 }
 
-                //console.log('ok');
-                //console.log('tonConnectUI: ', tonConnectUI.connector);
-                //console.log('wallet?.connectItems?.tonProof: ', tonConnectUI.wallet?.connectItems?.tonProof);
             } catch (error) {
                 console.error('Error fetching nonce:', error);
             }
@@ -180,6 +168,7 @@ export const Header: React.FC = () => {
         if (rawAddress) {
             const lsData = localStorage.getItem(rawAddress + 'uhs');
             if (lsData) {
+                setOnchange(false);
                 refreshToken(lsData)
             }
         } else if (!userFriendlyAddress) {
@@ -198,18 +187,9 @@ export const Header: React.FC = () => {
             console.log('account: ', account);
 
             setOnchange(false);
-            // Ваш код для отправки на бэкенд
             if (proof && account) {
-                console.log("Client proof payload:", proof.payload);
-                console.log("Client signature (base64):", proof.signature);
-                console.log("Client signature (hex):", Buffer.from(proof.signature, "base64").toString("hex"));
-                console.log("Client signed message (hex):", Buffer.from(proof.payload).toString("hex"));
-                console.log("Client proof timestamp:", proof.timestamp);
                 auth(proof, account);
             }
-
-
-
         } else {
             console.log('Нет proof');
         }
@@ -221,30 +201,20 @@ export const Header: React.FC = () => {
             setOnchange(false);
             statusChangeHandlerRef.current = handleStatusChange;
             tonConnectUI.onStatusChange(statusChangeHandlerRef.current);
-
-            //tonConnectUI.onStatusChange(statusChangeHandlerRef.current);
-
         } else {
             console.log('Нет wallet');
         }
 
         return () => {
-            /* if (statusChangeHandlerRef.current) {
-                tonConnectUI.onStatusChange(null); // или можно просто не вызывать, если это не требуется
-            }// Очистка обработчика */
-            //statusChangeHandlerRef.current = null
-            //tonConnectUI.onStatusChange(wallet => wallet);
-        };
 
+        };
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tonConnectUI, onChange])
 
     //const address = Address.parse(userFriendlyAddress).toString();
-
     //console.log('address:', address ? address : 'none')
-
-    //console.log('authData: ', authData)
+    //console.log('========onChange: ', onChange)
 
     return (
         <div className={s.header} style={{ position: nav === 'game' ? 'absolute' : 'static', opacity: nav === 'game' ? 0 : 1 }}>
@@ -260,7 +230,6 @@ export const Header: React.FC = () => {
             </button>
 
             <button className={s.speed}>
-                {/* <p style={{ marginBlockStart: '-0.2em' }}>Current speed</p> */}
                 <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/{swichLang(userLang, 'hours')}</p>
             </button>
 

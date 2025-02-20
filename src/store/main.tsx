@@ -25,7 +25,8 @@ export const useAuth = create<UseAuth>((set, get) => ({
             return;
         }
 
-        set({ isRefreshing: true });
+        //set({ isRefreshing: true });
+
 
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsusers/auth/refresh`, {
@@ -58,11 +59,15 @@ export const useAuth = create<UseAuth>((set, get) => ({
 
 
         } catch (err) {
+            //maybe clear locstrg?
+            localStorage.removeItem(token)
+            set({ isRefreshing: false });
             console.log('error: ', err);
         }
     },
     checkNonce: async (proof, account) => {
         console.log('proof and accont for post fecth: ', proof, account)
+
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsusers/auth`, {
                 method: 'POST',

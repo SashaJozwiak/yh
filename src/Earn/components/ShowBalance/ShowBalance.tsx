@@ -1,10 +1,38 @@
 import { useUHSWallet } from "../../earnStore/UHSWallet"
+import { useTonConnectUI } from "@tonconnect/ui-react";
 
 //import s from "./showbalance.module.css"
+
+const RECIPIENT = "UQBgPBEzOvxXzv9k8IMGEGHULcBn4KTnnQSN2HZ7Wz0qUC-8"; // Адрес получателя (в формате Bounceable)
+const AMOUNT_TON = "0.1"; // Количество TON для отправки
 
 export const ShowBalance = () => {
 
     const UHSWalletAssets = useUHSWallet(state => state.assets)
+
+    const [tonConnectUI] = useTonConnectUI();
+
+    async function sendTon() {
+        const nanoAmount = (parseFloat(AMOUNT_TON) * 1e9).toFixed(0); // Переводим TON → nanoTON
+
+        const transaction = {
+            validUntil: Math.floor(Date.now() / 1000) + 60, // Время действия (60 секунд)
+            messages: [
+                {
+                    address: RECIPIENT,
+                    amount: nanoAmount,
+                    payload: "", // Обычный перевод без payload
+                },
+            ],
+        };
+
+        try {
+            await tonConnectUI.sendTransaction(transaction);
+            console.log("Перевод отправлен!");
+        } catch (error) {
+            console.error("Ошибка отправки:", error);
+        }
+    }
 
     return (
         <>
@@ -38,7 +66,7 @@ export const ShowBalance = () => {
 
                 ))}
                 <button
-                    //onClick={() => setIsOpenWallet(!isOpenWallet)}
+                    onClick={() => sendTon()}
                     style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', height: '2.5rem', width: '20vw' }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={'1.5rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
