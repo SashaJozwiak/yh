@@ -1,37 +1,66 @@
+import { useState } from "react";
 import { useUHSWallet } from "../../earnStore/UHSWallet"
-import { useTonConnectUI } from "@tonconnect/ui-react";
+//import { useTonConnectUI } from "@tonconnect/ui-react";
+//import { Address, beginCell } from "@ton/ton";
+
+import { Asset } from "../../earnStore/types";
+import { DepositUp } from "./windows/depositUp";
 
 //import s from "./showbalance.module.css"
 
-const RECIPIENT = "UQBgPBEzOvxXzv9k8IMGEGHULcBn4KTnnQSN2HZ7Wz0qUC-8"; // Адрес получателя (в формате Bounceable)
-const AMOUNT_TON = "0.1"; // Количество TON для отправки
+/* const JETTON_WALLET = Address.parse("EQDG4NzL0tLGuobhVBypJlb-HT7JjsKer6drUy4v5OV-NVB4"); // Адрес Jetton Wallet (не Minter!)
+const RECIPIENT = Address.parse("UQBgPBEzOvxXzv9k8IMGEGHULcBn4KTnnQSN2HZ7Wz0qUC-8"); // Адрес получателя
+const AMOUNT_JETTON = "1.5"; // Количество Jetton
+const TON_FEE = "0.05"; // Минимальная комиссия в TON */
 
 export const ShowBalance = () => {
 
     const UHSWalletAssets = useUHSWallet(state => state.assets)
 
-    const [tonConnectUI] = useTonConnectUI();
+    //const [tonConnectUI] = useTonConnectUI();
 
-    async function sendTon() {
-        const nanoAmount = (parseFloat(AMOUNT_TON) * 1e9).toFixed(0); // Переводим TON → nanoTON
+    const [depWindow, setDepWindow] = useState(false);
+    const [currentAsset, setCurrentAsset] = useState<Asset | null>(null);
+
+    /* async function sendJetton1() {
+        const nanoAmount = +((parseFloat(AMOUNT_JETTON) * 1e9).toFixed(0)); // Перевод в nanoTON
+        const tonFeeInNano = parseFloat(TON_FEE) * 1e9; // Преобразование TON_FEE в нано-тонны
+
+        // Создаём payload для Jetton Transfer
+        const payload = beginCell()
+            .storeUint(0xf8a7ea5, 32) // OP-код transfer
+            .storeUint(0, 64) // Query ID (можно 0)
+            .storeCoins(nanoAmount) // Количество Jetton
+            .storeAddress(RECIPIENT) // Кошелёк получателя
+            .storeAddress(null) // Нет кастомного отправителя
+            .storeBit(0) // Нет payload'а
+            .storeCoins(tonFeeInNano) // Комиссия
+            .storeBit(0) // Нет доп. payload'а
+            .endCell();
 
         const transaction = {
-            validUntil: Math.floor(Date.now() / 1000) + 60, // Время действия (60 секунд)
+            validUntil: Math.floor(Date.now() / 1000) + 60,
             messages: [
                 {
-                    address: RECIPIENT,
-                    amount: nanoAmount,
-                    payload: "", // Обычный перевод без payload
+                    address: JETTON_WALLET.toString(),
+                    amount: tonFeeInNano.toFixed(0), // 0.05 TON на комиссию
+                    payload: payload.toBoc().toString("base64"),
                 },
             ],
         };
 
         try {
             await tonConnectUI.sendTransaction(transaction);
-            console.log("Перевод отправлен!");
+            console.log("Jetton отправлен!");
         } catch (error) {
-            console.error("Ошибка отправки:", error);
+            console.error("Ошибка:", error);
         }
+    } */
+
+    async function sendJetton(jetton: Asset) {
+        console.log('asset: ', jetton)
+        setCurrentAsset(jetton);
+        setDepWindow(true);
     }
 
     return (
@@ -59,14 +88,16 @@ export const ShowBalance = () => {
 
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <button style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>deposit</button>
+                            <button
+                                onClick={() => sendJetton(asset)}
+                                style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>deposit</button>
                             <button style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>withdraw</button>
                         </div>
                     </li>
 
                 ))}
                 <button
-                    onClick={() => sendTon()}
+                    //onClick={() => sendJetton(asset)}
                     style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', height: '2.5rem', width: '20vw' }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={'1.5rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -86,8 +117,7 @@ export const ShowBalance = () => {
                 </button>
             </ul>
 
-
-
+            {depWindow && <DepositUp setDepWindow={setDepWindow} currentAsset={currentAsset} />}
 
         </>
     )

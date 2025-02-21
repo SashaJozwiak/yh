@@ -17,7 +17,7 @@ interface Jetton {
     verification: string;
 }
 
-interface Asset {
+export interface Asset {
     balance: string;
     wallet_address: WalletAddress;
     jetton: Jetton;
