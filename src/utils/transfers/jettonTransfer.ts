@@ -30,7 +30,7 @@ export const getJettonSendTransactionRequest = (
         validUntil: Math.floor(Date.now() / 1000) + 360,
         messages: [{
             address: jetton.wallet_address.address.toString(),// toRawString() ???
-            amount: toNano('0.05').toString(), // estimated fee
+            amount: toNano('0.14').toString(), // estimated fee
             payload: body.toBoc().toString('base64'),
         }]
     };
