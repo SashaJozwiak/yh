@@ -6,7 +6,7 @@ import { useUHSWallet } from "../../earnStore/UHSWallet"
 import { Asset } from "../../earnStore/types";
 import { DepositUp } from "./windows/depositUp";
 
-//import s from "./showbalance.module.css"
+//import s from "./showbalance.module.css"1
 
 /* const JETTON_WALLET = Address.parse("EQDG4NzL0tLGuobhVBypJlb-HT7JjsKer6drUy4v5OV-NVB4"); // Адрес Jetton Wallet (не Minter!)
 const RECIPIENT = Address.parse("UQBgPBEzOvxXzv9k8IMGEGHULcBn4KTnnQSN2HZ7Wz0qUC-8"); // Адрес получателя
