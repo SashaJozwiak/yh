@@ -4,7 +4,8 @@ import { useUHSWallet } from "../../earnStore/UHSWallet"
 //import { Address, beginCell } from "@ton/ton";
 
 import { Asset } from "../../earnStore/types";
-import { DepositUp } from "./windows/depositUp";
+
+import { DepositUp } from "./windows/DepUp";
 
 //import s from "./showbalance.module.css"
 
