@@ -18,7 +18,7 @@ export const MainEarn = () => {
     //const { connector } = TonConnectUIProviderPropsWithConnector();
     //const walletState = useWallet(state => state)
     const walletAssets = useWallet(state => state.assets)
-    //const UHSWalletAssets = useUHSWallet(state => state.assets)
+    const UHSWalletAssets = useUHSWallet(state => state.assets)
 
     //navs
     const isOpenWallet = useEarnNav(state => state.isOpenWallet)
@@ -28,7 +28,8 @@ export const MainEarn = () => {
     const getPricesUsd = useUHSWallet(state => state.fetchPrices)
     const getUHSPrice = useUHSWallet(state => state.fetchUHSPrice)
 
-    console.log('use wallet: ', walletAssets)
+    console.log('TON wallet: ', walletAssets)
+    console.log('UHS Wallet: ', UHSWalletAssets);
     console.log('tonConnectUI: ', tonConnectUI.connector?.wallet?.connectItems?.tonProof);
 
     useEffect(() => {

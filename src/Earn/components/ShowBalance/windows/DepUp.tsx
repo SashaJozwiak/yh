@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
-import { Address } from '@ton/core';
+//import { Address } from '@ton/core';
 
 import { Close } from '../../../svgs';
 import { useWallet } from '../../../earnStore/wallet';
@@ -14,24 +14,17 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
     const balance = useWallet(state => state.assets);
 
     const [inWallet, setInWallet] = useState(0);
-    //const [isTx, setIsTx] = useState(false);
-
 
     const [tonConnectUI] = useTonConnectUI();
     const ufAddress = useTonAddress();
-
 
     function getReadableBalance(assets: Array<Asset>, currentAssets: Asset) {
         const matchingAsset = assets.find(asset => asset.jetton.address === currentAssets.jetton.address);
 
         if (matchingAsset) {
-            // Извлечь balance и преобразовать в число
             const balance = Number(matchingAsset.balance);
-            // Преобразовать balance в читаемую сумму
             const readableBalance = Number(balance) / Math.pow(10, currentAssets.jetton.decimals);
-
-            return readableBalance; // Округлить до двух знаков после запятой
-
+            return readableBalance; 
         } else {
             return 0;
         }
@@ -39,22 +32,11 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-
-        // Удаляем все символы, кроме цифр и точки
         const formattedValue = value.replace(/[^0-9.]/g, '');
-
-        // Проверяем, чтобы не было более одной точки
         const parts = formattedValue.split('.');
         if (parts.length > 2) {
             return;
         }
-
-        /* // Ограничиваем количество знаков после запятой до 2
-        if (parts[1] && parts[1].length > 2) {
-            return;
-        } */
-        //const result = Number(formattedValue);
-
         setAmount(formattedValue);
     };
 
@@ -64,13 +46,14 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
 
     console.log('assets: ', balance);
     console.log('currentAsset: ', currentAsset);
+    console.log('ufAddress: ', ufAddress, typeof ufAddress);
 
     async function sendJetton(jetton: Asset) {
         console.log('asset: ', jetton)
         setDepWindow(false)
 
         try {
-            const transaction = getJettonSendTransactionRequest(jetton, amount, 'UQCErfaAo0Hv2UWW8oWYb3LllMjLZGmVtV_yu3SJwolV95tD', Address.parse(ufAddress));
+            const transaction = getJettonSendTransactionRequest(jetton, amount, 'UQCErfaAo0Hv2UWW8oWYb3LllMjLZGmVtV_yu3SJwolV95tD', ufAddress);
 
             console.log('transaction: ', transaction)
 
@@ -78,7 +61,7 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
                 .then(() => {
                     //setError(null);
                     //onClose();
-                    console.log('transaction')
+                    console.log('transaction then')
                 })
                 .catch((e: unknown) => {
                     if (e instanceof Error) {
@@ -87,8 +70,6 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
                         console.log("Transaction failed: ", String(e))
                     }
                 });
-
-
         } catch (e: unknown) {
             if (e instanceof Error) {
                 console.log("Unexpected error occurred: ", e.message);
@@ -107,12 +88,10 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
     }, [balance, currentAsset])
 
 
-    console.log('ufAddress: ', ufAddress);
     console.log('amount: ', amount, typeof amount);
 
     return (
-        <div
-            onClick={() => { setDepWindow(false) }}
+        <div onClick={() => { setDepWindow(false) }}
             className={s.container}>
             <div
                 onClick={(e) => { e.stopPropagation() }}
@@ -128,7 +107,6 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
                     </div>
                 </div>
 
-
                 <div style={{ alignItems: 'center', width: '70vw' }}>
 
                     <input
@@ -138,7 +116,6 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
                             width: '45vw',
                             textAlign: 'center',
                             background: 'transparent',
-                            //border: '1px solid gray',
                             borderRadius: '1rem',
                             fontSize: '2rem',
                             color: 'white',
@@ -163,7 +140,6 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
                     onClick={() => sendJetton(currentAsset)}
                     disabled={!amount || inWallet < Number(amount)}
                     className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', opacity: !amount || (inWallet < Number(amount)) ? '0.3' : '1' }}>{inWallet < Number(amount) ? 'not enough' : 'Deposit'}</button>
-
             </div>
         </div>
     )

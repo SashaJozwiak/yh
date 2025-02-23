@@ -9,54 +9,12 @@ import { DepositUp } from "./windows/DepUp";
 
 //import s from "./showbalance.module.css"
 
-/* const JETTON_WALLET = Address.parse("EQDG4NzL0tLGuobhVBypJlb-HT7JjsKer6drUy4v5OV-NVB4"); // Адрес Jetton Wallet (не Minter!)
-const RECIPIENT = Address.parse("UQBgPBEzOvxXzv9k8IMGEGHULcBn4KTnnQSN2HZ7Wz0qUC-8"); // Адрес получателя
-const AMOUNT_JETTON = "1.5"; // Количество Jetton
-const TON_FEE = "0.05"; // Минимальная комиссия в TON */
 
 export const ShowBalance = () => {
-
     const UHSWalletAssets = useUHSWallet(state => state.assets)
-
-    //const [tonConnectUI] = useTonConnectUI();
 
     const [depWindow, setDepWindow] = useState(false);
     const [currentAsset, setCurrentAsset] = useState<Asset | null>(null);
-
-    /* async function sendJetton1() {
-        const nanoAmount = +((parseFloat(AMOUNT_JETTON) * 1e9).toFixed(0)); // Перевод в nanoTON
-        const tonFeeInNano = parseFloat(TON_FEE) * 1e9; // Преобразование TON_FEE в нано-тонны
-
-        // Создаём payload для Jetton Transfer
-        const payload = beginCell()
-            .storeUint(0xf8a7ea5, 32) // OP-код transfer
-            .storeUint(0, 64) // Query ID (можно 0)
-            .storeCoins(nanoAmount) // Количество Jetton
-            .storeAddress(RECIPIENT) // Кошелёк получателя
-            .storeAddress(null) // Нет кастомного отправителя
-            .storeBit(0) // Нет payload'а
-            .storeCoins(tonFeeInNano) // Комиссия
-            .storeBit(0) // Нет доп. payload'а
-            .endCell();
-
-        const transaction = {
-            validUntil: Math.floor(Date.now() / 1000) + 60,
-            messages: [
-                {
-                    address: JETTON_WALLET.toString(),
-                    amount: tonFeeInNano.toFixed(0), // 0.05 TON на комиссию
-                    payload: payload.toBoc().toString("base64"),
-                },
-            ],
-        };
-
-        try {
-            await tonConnectUI.sendTransaction(transaction);
-            console.log("Jetton отправлен!");
-        } catch (error) {
-            console.error("Ошибка:", error);
-        }
-    } */
 
     async function sendJetton(jetton: Asset) {
         console.log('asset: ', jetton)
