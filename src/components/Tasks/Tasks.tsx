@@ -25,17 +25,17 @@ export const Tasks = () => {
     const getAllTasks = useTasks((state) => state.getAllTasks)
     const loadStatus = useTasks((state) => state.loadStatus)
 
-    const buyBonuses = useTasks((state) => state.buyBonuses)
+    //const buyBonuses = useTasks((state) => state.buyBonuses)
 
     const [blockBtns, setBlockBtns] = useState(false);
-    const [blockBuyBtns, setBlockBuyBtns] = useState(false);
+    //const [blockBuyBtns, setBlockBuyBtns] = useState(false);
     const [loadBtn, setLoadBtn] = useState(false);
 
-    const handleBuy = (stars: number) => {
+    /* const handleBuy = (stars: number) => {
         setBlockBuyBtns(true);
         buyBonuses(userData.internalId, stars)
         setBlockBuyBtns(false);
-    }
+    } */
 
     const checkTask = async (userId: number, taskId: number, src: string) => {
 
@@ -152,35 +152,37 @@ export const Tasks = () => {
 
             {!loadStatus &&
                 <>
-                <h2 style={{ color: 'gray' }} className={s.line}>Boosts</h2>
+                <h2 style={{ color: 'gray' }} className={s.line}><span style={{ textDecoration: 'line-through' }}>Boosts</span>&nbsp;<span> (airdrop soon)</span></h2>
                     <div
                         //key={task.id} 
                         className={s.listitem}
-                        style={{ color: 'grey' }}>
+                    style={{ color: 'grey', opacity: '0.5' }}>
                         <button
-                            onClick={() => handleBuy(100)}
-                            disabled={blockBuyBtns}
-                            style={{ borderBottom: '1px white solid', color: 'white' }}
+                        //onClick={() => handleBuy(100)}
+                        disabled={true}
+                        style={{ borderBottom: '1px white solid', color: 'white', textDecoration: 'line-through' }}
                             className={s.titlebtn}>Bonuses for stars
                         </button>
                         <button
-                            onClick={() => handleBuy(100)}
-                            style={{ color: 'black', backgroundColor: 'white' }} className={s.check}>100⭐</button>
+                        disabled={true}
+                        //onClick={() => handleBuy(100)}
+                        style={{ color: 'black', backgroundColor: 'white', }} className={s.check}>100⭐</button>
                         <div style={{ color: 'white', border: '1px solid gray' }} className={s.price}>10K<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
                     </div>
 
                     <div
                         //key={task.id} 
                         className={s.listitem}
-                        style={{ color: 'grey' }}>
+                    style={{ color: 'grey', opacity: '0.5' }}>
                         <button
-                            onClick={() => handleBuy(500)}
-                            disabled={blockBuyBtns}
-                            style={{ borderBottom: '1px white solid', color: 'white' }}
+                        //onClick={() => handleBuy(500)}
+                        disabled={true}
+                        style={{ borderBottom: '1px white solid', color: 'white', textDecoration: 'line-through' }}
                             className={s.titlebtn}>Bonuses for stars
                         </button>
                         <button
-                            onClick={() => handleBuy(500)}
+                        disabled={true}
+                        //onClick={() => handleBuy(500)}
                             style={{ color: 'black', backgroundColor: 'white' }} className={s.check}>500⭐</button>
                         <div style={{ color: 'white', border: '1px solid gray' }} className={s.price}>50K<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
                     </div>
@@ -188,15 +190,16 @@ export const Tasks = () => {
                     <div
                         //key={task.id} 
                         className={s.listitem}
-                        style={{ color: 'grey' }}>
+                    style={{ color: 'grey', opacity: '0.5' }}>
                         <button
-                            onClick={() => handleBuy(1000)}
-                            disabled={blockBuyBtns}
-                            style={{ borderBottom: '1px white solid', color: 'white' }}
+                        //onClick={() => handleBuy(1000)}
+                        disabled={true}
+                        style={{ borderBottom: '1px white solid', color: 'white', textDecoration: 'line-through' }}
                             className={s.titlebtn}>Bonuses for stars
                         </button>
                         <button
-                            onClick={() => handleBuy(1000)}
+                        //onClick={() => handleBuy(1000)}
+                        disabled={true}
                             style={{ color: 'black', backgroundColor: 'white' }} className={s.check}>1000⭐</button>
                         <div style={{ color: 'white', border: '1px solid gray' }} className={s.price}>100K<span style={{ color: 'rgb(22, 163, 74)' }}> B</span></div>
                     </div>

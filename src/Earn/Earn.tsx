@@ -25,7 +25,7 @@ export const Earn = () => {
     const changeNav = useNav((state) => state.setMainNav)
 
     const calculateTimeLeft = (): TimeLeft => {
-        const targetDate = new Date(Date.UTC(2025, 1, 25, 0, 0, 0)).getTime();
+        const targetDate = new Date(Date.UTC(2025, 2, 4, 0, 0, 0)).getTime();
         const now = Date.now();
         const difference = targetDate - now;
 
@@ -100,7 +100,7 @@ export const Earn = () => {
                 ) : (
                     <p>Time's up</p>
                 )}
-                <p>{userLang === 'ru' ? 'или раньше.' : 'or earlier.'}</p>
+                    {/* <p>{userLang === 'ru' ? 'или раньше.' : 'or earlier.'}</p> */}
                     {(userId === 0 || userId === 946292829) && <button
                         onClick={() => changeNav('UHS')}
                         style={{ marginTop: '1rem', height: '2rem' }}>START</button>}
