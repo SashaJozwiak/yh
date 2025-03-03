@@ -8,6 +8,8 @@ import { Asset } from '../../../earnStore/types';
 
 import s from './depositUp.module.css'
 import { getJettonSendTransactionRequest } from '../../../../utils/transfers/jettonTransfer';
+import { useAuth } from '../../../../store/main';
+import { useUHSWallet } from '../../../earnStore/UHSWallet';
 
 export const DepositUp = ({ setDepWindow, currentAsset }) => {
     const [amount, setAmount] = useState('');
@@ -17,6 +19,9 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
 
     const [tonConnectUI] = useTonConnectUI();
     const ufAddress = useTonAddress();
+
+    const uhsId = useAuth(state => state.userId)
+    const saveTx = useUHSWallet(state => state.saveTx);
 
     function getReadableBalance(assets: Array<Asset>, currentAssets: Asset) {
         const matchingAsset = assets.find(asset => asset.jetton.address === currentAssets.jetton.address);
@@ -49,13 +54,29 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
     console.log('ufAddress: ', ufAddress, typeof ufAddress);
 
     async function sendJetton(jetton: Asset) {
-        console.log('asset: ', jetton)
+
+        if (amount === null) {
+            console.error('Amount is null. Cannot proceed with the transaction.');
+            return;
+        }
+
+        if (uhsId === null) {
+            console.error('Amount is null. Cannot proceed with the transaction.');
+            return;
+        }
+
+
+        const currency = jetton.jetton.symbol;
+        const amountForDb = Number(amount) * Math.pow(10, jetton.jetton.decimals);
+        console.log('asset: ', uhsId, typeof uhsId, currency, amountForDb);
+        saveTx(uhsId, ufAddress, currency, amountForDb);
+
         setDepWindow(false)
 
         try {
             const transaction = getJettonSendTransactionRequest(jetton, amount, 'UQCErfaAo0Hv2UWW8oWYb3LllMjLZGmVtV_yu3SJwolV95tD', ufAddress);
 
-            console.log('transaction: ', transaction)
+            console.log('transaction: ', uhsId, transaction)
 
             tonConnectUI.sendTransaction(transaction)
                 .then(() => {

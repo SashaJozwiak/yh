@@ -16,6 +16,8 @@ export const ShowBalance = () => {
     const [depWindow, setDepWindow] = useState(false);
     const [currentAsset, setCurrentAsset] = useState<Asset | null>(null);
 
+    const [history, setHistory] = useState<boolean>(false);
+
     async function sendJetton(jetton: Asset) {
         console.log('asset: ', jetton)
         setCurrentAsset(jetton);
@@ -24,7 +26,21 @@ export const ShowBalance = () => {
 
     return (
         <>
-            <h2 style={{ borderBottom: '1px solid gray' }}>Assets</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 0.6rem' }}>
+                <button
+                    style={{ width: '5rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem', fontStyle: 'italic' }}>
+                    Buy UHS</button>
+                <h2 style={{ borderBottom: '1px solid gray' }}>{history ? 'History' : 'Assets'}</h2>
+                <button
+                    onClick={() => setHistory(prev => !prev)}
+                    style={{ width: '5rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem', fontStyle: 'italic' }}>
+                    {history ? <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg> : 'History'}</button>
+            </div>
+
+            {history && <div>history</div>}
+
             <ul style={{ overflowY: 'auto', margin: '0 0 6rem 0', paddingBottom: '1rem' }}>
                 {UHSWalletAssets.map((asset, index) => (
                     <li key={index} style={{ marginBottom: "0.5rem", padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', alignItems: 'center', /* border: '1px solid gray', */ /* borderRadius: '0.3rem',  */backgroundColor: 'rgb(58 70 88)', /* boxShadow: '0px 0px 5px 0px rgb(0 0 0 / 50%)', */ borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>

@@ -8,7 +8,7 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
     address: null,
     assets: [
         {
-            balance: "5902638871874",
+            balance: "0",
             jetton:
             {
                 address: '0:3c4aac2fb4c1dee6c0bacbf86505f6bc7c31426959afd34c09e69ef3eae0dfcc',
@@ -28,7 +28,7 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
             priceUsd: 0,
         },
         {
-            balance: "9308339",
+            balance: "0",
             jetton:
             {
                 address: "0:b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe",
@@ -49,6 +49,81 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
         },
     ],
     status: 'loading',
+    recBalance: false,
+    saveTx: async (uhsId, ufAddress, currency, amount) => {
+
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_SECRET_HOST}uhsbalances/saveTx`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uhsId, ufAddress, currency, amount }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('response saveTx:', data);
+
+        } catch (error) {
+            console.error('Error save tx:', error);
+        }
+
+    },
+    getBalance: async (uhsId) => {
+        set({ status: 'loading' });
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_SECRET_HOST}uhsbalances/getbalance`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uhsId }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('response balance:', data);
+
+            /* if (!data.balances || !Array.isArray(data.balances)) {
+                throw new Error('Invalid response format: balances is missing or not an array');
+            } */
+
+            set((state) => {
+                const updatedAssets = state.assets.map((asset) => {
+                    // Ищем соответствующий баланс из данных сервера
+                    const matchedBalance = data.balance.find(
+                        (balance) => balance.token_address === asset.jetton.address
+                    );
+
+                    // Если баланс найден, обновляем его
+                    if (matchedBalance) {
+                        return {
+                            ...asset,
+                            balance: matchedBalance.balance,
+                        };
+                    }
+
+                    // Если баланс не найден, возвращаем актив без изменений
+                    return asset;
+                });
+
+                return {
+                    ...state,
+                    assets: updatedAssets,
+                    recBalance: true,
+                };
+            });
+            set({ status: 'loaded' });
+
+        } catch (error) {
+            console.error('Error get balance:', error);
+        }
+    },
     fetchUHSPrice: async () => {
         set({ status: 'loading' });
         const client = new ApolloClient({

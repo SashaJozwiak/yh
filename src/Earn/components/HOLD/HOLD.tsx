@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useAuth } from "../../../store/main";
+import { useUHSWallet } from "../../earnStore/UHSWallet";
 import { useEarnNav } from "../../earnStore/nav";
 import { Plus, Close, Question } from "../../svgs";
 
@@ -10,6 +13,17 @@ import s from './hold.module.css'
 
 export const HOLD = () => {
     const { hold, setHold } = useEarnNav(state => state)
+    const uhsId = useAuth(state => state.userId)
+
+    const { recBalance, getBalance } = useUHSWallet(state => state)
+
+    useEffect(() => {
+        if (!recBalance) {
+            getBalance(uhsId);
+        }
+    }, [getBalance, recBalance, uhsId])
+
+    console.log('uhsId: ', typeof uhsId)
 
     return (
         < /* style={{ overflowY: 'auto' }} */>

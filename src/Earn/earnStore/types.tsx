@@ -38,6 +38,9 @@ export interface UseUHSWallet {
     address: string | null;
     assets: Array<Asset>;
     status: string;
+    recBalance: boolean;
+    saveTx: (uhsId: number, ufAddress: string, currency: string, amount: number) => Promise<void>;
+    getBalance: (uhsId: number | null) => Promise<void>;
     setWallet: (payload: { address: string | null; assets: Array<Asset> }) => void;
     fetchPrices: () => Promise<void>;
     fetchUHSPrice: () => Promise<void>;
