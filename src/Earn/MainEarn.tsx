@@ -8,8 +8,9 @@ import { useUHSWallet } from "./earnStore/UHSWallet"
 
 import { useEarnNav } from './earnStore/nav';
 import { ShowBalance } from './components/ShowBalance/ShowBalance';
-import { useEffect } from 'react';
+import { useEffect/* , useReducer  */ } from 'react';
 import { HOLD } from './components/HOLD/HOLD';
+import { useUserData } from '../store/main';
 
 //import s from './mainearn.module.css'
 
@@ -23,6 +24,9 @@ export const MainEarn = () => {
     //navs
     const isOpenWallet = useEarnNav(state => state.isOpenWallet)
     const tool = useEarnNav(state => state.tool)
+
+    const ufAddress = useUserData(state => state.user.userFriendlyAddress)
+
 
 
     const getPricesUsd = useUHSWallet(state => state.fetchPrices)
@@ -40,12 +44,15 @@ export const MainEarn = () => {
         getUHSPrice();
     }, [getUHSPrice])
 
+
+
     return (
         <>
-            <Balance />
-            {!isOpenWallet && <Menu />}
-            {isOpenWallet && <ShowBalance />}
-            {tool === 'hold' && !isOpenWallet && <HOLD />}
+            {!ufAddress && <h2>Connect wallet, please</h2>}
+            {ufAddress && <Balance />}
+            {ufAddress && !isOpenWallet && <Menu />}
+            {ufAddress && isOpenWallet && <ShowBalance />}
+            {ufAddress && tool === 'hold' && !isOpenWallet && <HOLD />}
         </>
     )
 }

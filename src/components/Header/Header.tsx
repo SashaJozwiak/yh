@@ -55,6 +55,8 @@ export const Header: React.FC = () => {
     const auth = useAuth(state => state.checkNonce);
     const refreshToken = useAuth(state => state.refreshToken)
 
+    const [disreload, setDisreload] = useState<boolean>(false);
+
     useEffect(() => {
         if (!isAuth) {
         if (startParam) {
@@ -133,11 +135,15 @@ export const Header: React.FC = () => {
                 rawAddress: null,
             }
             addAddresses(addresses);
+            if (disreload) {
+                window.location.reload();
+            }
         } else {
             console.log('wallet connected')
+            setDisreload(true);
         }
 
-    }, [addAddresses, internalId, userFriendlyAddress])
+    }, [addAddresses, disreload, internalId, userFriendlyAddress])
 
 
     useEffect(() => {

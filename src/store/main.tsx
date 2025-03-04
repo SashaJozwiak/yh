@@ -13,6 +13,7 @@ export const useAuth = create<UseAuth>((set, get) => ({
     userId: null,
     token: '',
     address: '',
+    limit: 24,
     isAuth: false,
     isError: false,
     isLoading: false,
@@ -55,7 +56,7 @@ export const useAuth = create<UseAuth>((set, get) => ({
                 address: res.userRes.wallet_address,
             })); */
 
-            set(() => ({ isAuth: true, token: res.token, userId: res.userRes.id, address: res.userRes.wallet_address, isRefreshing: true }))
+            set(() => ({ isAuth: true, token: res.token, userId: res.userRes.id, address: res.userRes.wallet_address, limit: res.userRes.limit, isRefreshing: true }))
 
 
         } catch (err) {

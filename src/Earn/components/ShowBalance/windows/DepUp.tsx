@@ -15,6 +15,8 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
     const [amount, setAmount] = useState('');
     const balance = useWallet(state => state.assets);
 
+    const [jettonToTx, setJettonToTx] = useState<Asset | null>(null);
+
     const [inWallet, setInWallet] = useState(0);
 
     const [tonConnectUI] = useTonConnectUI();
@@ -27,6 +29,7 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
         const matchingAsset = assets.find(asset => asset.jetton.address === currentAssets.jetton.address);
 
         if (matchingAsset) {
+            setJettonToTx(matchingAsset)
             const balance = Number(matchingAsset.balance);
             const readableBalance = Number(balance) / Math.pow(10, currentAssets.jetton.decimals);
             return readableBalance; 
@@ -74,7 +77,8 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
         setDepWindow(false)
 
         try {
-            const transaction = getJettonSendTransactionRequest(jetton, amount, 'UQCErfaAo0Hv2UWW8oWYb3LllMjLZGmVtV_yu3SJwolV95tD', ufAddress);
+            if (!jettonToTx) return;
+            const transaction = getJettonSendTransactionRequest(jettonToTx, amount, 'UQCErfaAo0Hv2UWW8oWYb3LllMjLZGmVtV_yu3SJwolV95tD', ufAddress);
 
             console.log('transaction: ', uhsId, transaction)
 

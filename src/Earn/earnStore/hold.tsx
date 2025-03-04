@@ -27,6 +27,22 @@ export const useHold = create<UseHold>((set, get) => ({
             src: "https://cache.tonapi.io/imgproxy/T3PB4s7oprNVaJkwqbGg54nexKE0zzKhcrPv8jcWYzU/rs:fill:200:200:1/g:no/aHR0cHM6Ly90ZXRoZXIudG8vaW1hZ2VzL2xvZ29DaXJjbGUucG5n.webp",
         },
     ],
+    lastClaimTimestamp: '',
+    loading: true,
+    fetchLastClaim: async (userId) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}claim/last-claim/${userId}/tw-claim`);
+            const data = await response.json();
+
+            if (response.ok) {
+                set({ lastClaimTimestamp: data.timestamp, loading: false });
+            } else {
+                console.error("Ошибка при получении последней claim транзакции:", data.message);
+            }
+        } catch (error) {
+            console.error("Ошибка сети при запросе последней claim транзакции:", error);
+        }
+    },
     updateHoldAssets: () => {
         const walletState = useWallet.getState();
         const holdState = get();
@@ -34,11 +50,11 @@ export const useHold = create<UseHold>((set, get) => ({
         const updatedAssets = holdState.assets.map(asset => {
             const matchingJetton = walletState.assets.find(jetton => jetton.jetton.address === asset.address);
             if (matchingJetton) {
-                //const realBalance = Number((Number(matchingJetton.balance) / (10 ** matchingJetton.jetton.decimals)).toFixed(2));
-
+                /* const realBalance = Number((Number(matchingJetton.balance) / (10 ** matchingJetton.jetton.decimals)).toFixed(2));
+ */
                 return {
                     ...asset,
-                    value: 500,
+                    value: 600,
                     //src: matchingJetton.jetton.image
                 };
             }
@@ -49,6 +65,7 @@ export const useHold = create<UseHold>((set, get) => ({
 
         set({ assets: updatedAssets });
     },
+
 }))
 
 
@@ -74,6 +91,22 @@ export const useHoldUH = create<UseHold>((set, get) => ({
             src: "https://cache.tonapi.io/imgproxy/T3PB4s7oprNVaJkwqbGg54nexKE0zzKhcrPv8jcWYzU/rs:fill:200:200:1/g:no/aHR0cHM6Ly90ZXRoZXIudG8vaW1hZ2VzL2xvZ29DaXJjbGUucG5n.webp",
         },
     ],
+    lastClaimTimestamp: '',
+    loading: true,
+    fetchLastClaim: async (userId) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}claim/last-claim/${userId}/uw-claim`);
+            const data = await response.json();
+
+            if (response.ok) {
+                set({ lastClaimTimestamp: data.timestamp, loading: false });
+            } else {
+                console.error("Ошибка при получении последней claim транзакции:", data.message);
+            }
+        } catch (error) {
+            console.error("Ошибка сети при запросе последней claim транзакции:", error);
+        }
+    },
     updateHoldAssets: () => {
         const walletState = useUHSWallet.getState();
         const holdState = get();

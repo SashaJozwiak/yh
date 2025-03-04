@@ -380,6 +380,7 @@ export interface UseAuth {
     userId: number | null;
     token: string;
     address: string;
+    limit: number;
     isAuth: boolean;
     isError: boolean;
     isLoading: boolean;

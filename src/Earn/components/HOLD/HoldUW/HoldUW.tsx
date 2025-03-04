@@ -1,16 +1,88 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useHoldUH } from '../../../earnStore/hold'
 
 import s from './holduw.module.css'
 import { roundToFixed, formatNumber, formatNumberToo2 } from './../../../../utils/formats/bigNumbers';
+import { Rewards } from '../../../earnStore/types';
+import { useAuth } from '../../../../store/main';
+import { useUHSWallet } from '../../../earnStore/UHSWallet';
 
 export const HoldUW = () => {
     const assets = useHoldUH(state => state.assets)
     const updateAssetsUH = useHoldUH(state => state.updateHoldAssets)
 
+    const uhsId = useAuth(state => state.userId)
+    const limit = useAuth(state => state.limit)
+    const claim = useUHSWallet(state => state.claim)
+
+    const { lastClaimTimestamp, loading, fetchLastClaim } = useHoldUH(state => state)
+    const [disableButton, setDisableButton] = useState(false)
+
+    const differentTime = () => {
+        const lastClaimDate = new Date(lastClaimTimestamp);
+        const currentTimeInSeconds = Math.floor(new Date().getTime() / 1000);
+        const lastClaimTimeInSeconds = Math.floor(lastClaimDate.getTime() / 1000);
+        const differenceInSeconds = currentTimeInSeconds - lastClaimTimeInSeconds;
+
+        return differenceInSeconds;
+    }
+
+    const remainingTime = () => {
+        const limitInSeconds = limit * 3600; // Переводим часы в секунды
+        const elapsedSeconds = differentTime();
+        const remainingSeconds = limitInSeconds - elapsedSeconds;
+
+        // Если оставшееся время меньше или равно нулю, значит, время уже истекло
+        return remainingSeconds > 0 ? remainingSeconds : 0;
+    };
+
+    const formatRemainingTime = (totalSeconds) => {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        return `${hours}h ${minutes}m`;
+    };
+
+    console.log('lastClaim: ', lastClaimTimestamp)
+    console.log('lastClaim math: ', formatRemainingTime(remainingTime()))
+    console.log('remainingTime: ', remainingTime())
+    console.log('differentTime: ', differentTime())
+    console.log('loading: ', loading)
+
+    const handleClaim = () => {
+        setDisableButton(true)
+        const rewards: Rewards = assets.reduce((acc, asset) => {
+            const reward = (Math.min(asset.value, asset.range[1]) * asset.APY / (365 / 1));
+            const decimals = asset.name === "UHS" ? 9 : 6;
+
+            // Переименовываем "USD₮" в "USDT"
+            const assetName = asset.name === "USD₮" ? "USDT" : asset.name;
+
+            if (!acc[assetName]) {
+                acc[assetName] = 0;
+            }
+            acc[assetName] += reward * (10 ** decimals);
+            return acc;
+        }, {});
+
+        console.log('Rewards:', rewards);
+        if (uhsId) {
+            claim(uhsId, rewards, "uwClaim", setDisableButton)
+        }
+    };
+
     useEffect(() => {
         updateAssetsUH()
     }, [updateAssetsUH])
+
+    useEffect(() => {
+        if (uhsId) {
+            fetchLastClaim(uhsId)
+        }
+    }, [fetchLastClaim, uhsId])
+
+
+
+    const isClaimDisabled = lastClaimTimestamp ? differentTime() > 0 : false;
 
     return (
         <>
@@ -79,7 +151,10 @@ export const HoldUW = () => {
                 }
 
             </div> */}
-                        <button style={{ fontSize: '1.3rem', padding: '0 0.5rem', backgroundColor: 'rgb(71, 85, 105)', color: 'white', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 10px 0px', border: '1px solid lightgray', marginBottom: '0.3rem' }}>Claim all</button>
+                        <button
+                            onClick={() => handleClaim()}
+                            disabled={isClaimDisabled || loading || disableButton}
+                            style={{ fontSize: '1.3rem', padding: '0 0.5rem', backgroundColor: 'rgb(71, 85, 105)', color: isClaimDisabled ? 'gray' : loading ? 'gray' : disableButton ? 'gray' : 'white', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 10px 0px', border: '1px solid lightgray', marginBottom: '0.3rem' }}>{isClaimDisabled ? formatRemainingTime(remainingTime()) : loading ? '...' : disableButton ? '...' : 'Claim all'}</button>
                     </div>
                 </ul>
             }

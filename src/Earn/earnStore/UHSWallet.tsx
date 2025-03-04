@@ -2,6 +2,8 @@
 import { create } from 'zustand'
 import { UseUHSWallet } from './types'
 
+import { useHold, useHoldUH } from './hold';
+
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
@@ -50,14 +52,51 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
     ],
     status: 'loading',
     recBalance: false,
-    saveTx: async (uhsId, ufAddress, currency, amount) => {
+    claim: async (uhsId, rewards, wallType, setDisableButton) => {
+        console.log('for claim: ', uhsId, rewards);
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_SECRET_HOST}claim/${wallType}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uhsId, rewards }),
+            });
 
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('claim res:', data);
+
+        } catch (error) {
+            console.error('Error claim res:', error);
+        } finally {
+            if (wallType === 'twClaim') {
+                const { fetchLastClaim } = useHold.getState();
+                await fetchLastClaim(uhsId);
+            }
+
+            if (wallType === 'uwClaim') {
+                const { fetchLastClaim } = useHoldUH.getState();
+                await fetchLastClaim(uhsId);
+            }
+
+            get().getBalance(uhsId);
+
+            console.log('finally')
+            setDisableButton(false)
+        }
+
+    },
+    saveTx: async (uhsId, ufAddress, currency, amount) => {
+        const isUsdt = currency === 'USD₮' ? 'USDT' : currency; // Проверяем, является ли валюта USDT
         try {
             const response = await fetch(
                 `${import.meta.env.VITE_SECRET_HOST}uhsbalances/saveTx`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ uhsId, ufAddress, currency, amount }),
+                    body: JSON.stringify({ uhsId, ufAddress, isUsdt, amount }),
             });
 
             if (!response.ok) {

@@ -14,6 +14,7 @@ import s from './hold.module.css'
 export const HOLD = () => {
     const { hold, setHold } = useEarnNav(state => state)
     const uhsId = useAuth(state => state.userId)
+    //const allAuthData = useAuth(state => state)
 
     const { recBalance, getBalance } = useUHSWallet(state => state)
 
@@ -23,7 +24,7 @@ export const HOLD = () => {
         }
     }, [getBalance, recBalance, uhsId])
 
-    console.log('uhsId: ', typeof uhsId)
+    //console.log('allAuthData: ', allAuthData)
 
     return (
         < /* style={{ overflowY: 'auto' }} */>
