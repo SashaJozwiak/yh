@@ -85,17 +85,17 @@ export const HoldUW = () => {
     const isClaimDisabled = lastClaimTimestamp ? differentTime() > 0 : false;
 
     return (
-        <>
+        <div style={{ overflowY: 'auto', marginBottom: '6rem' }}>
             {assets.filter(asset => asset.value >= asset.range[0]).length <= 0 && <div style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold', color: 'gray' }}>not enough assets</div>}
 
             {assets.filter(asset => asset.value >= asset.range[0]).length > 0 &&
 
-                <ul style={{ overflowY: 'auto',/*  paddingBottom: '1rem', */ margin: '0.6rem', border: '2px solid', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem', borderBottomLeftRadius: '0.3rem', borderBottomRightRadius: '0.3rem', backgroundColor: 'rgb(58, 70, 88)' }}>
+                <ul style={{ /* overflowY: 'auto', *//*  paddingBottom: '1rem', */ margin: '0.6rem', border: '2px solid', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem', borderBottomLeftRadius: '0.3rem', borderBottomRightRadius: '0.3rem', backgroundColor: 'rgb(58, 70, 88)' }}>
 
                     {assets.filter(asset => asset.value >= asset.range[0]).map((asset) => {
 
                         return (
-                            <li key={asset.address} style={{ /* marginBottom: "0.5rem", */ padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', /* alignItems: 'center', */ backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray' }}>
+                            <li key={asset.address} style={{ /* marginBottom: "0.5rem", */ padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', /* alignItems: 'center', */ /* backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray' */ borderBottom: '1px solid gray' }}>
                                 <div className={s.block}>
                                     <div>
                                         {asset.name}
@@ -202,6 +202,6 @@ export const HoldUW = () => {
                     )
                 })}
             </ul>
-        </>
+        </div>
     )
 }

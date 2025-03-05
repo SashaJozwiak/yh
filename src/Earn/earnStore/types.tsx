@@ -60,6 +60,8 @@ export interface Nav {
     isOpenWallet: boolean;
     tool: string;
     hold: string;
+    tasks: string;
+    setTasks: (tasks: string) => void;
     setHold: (hold: string) => void;
     setTool: (tool: string) => void;
     setIsOpenWallet: (isOpen: boolean) => void;
@@ -111,3 +113,25 @@ export interface UseHistory {
 
 
 
+// ========== TASKS ==========
+
+export type TaskStatus = 'completed' | 'not completed';
+
+export interface UhsTask {
+    id: number;
+    title: string;
+    description: string;
+    currency: string;
+    price: number;
+    balance: number;
+    src: string;
+    active: boolean;
+    status: TaskStatus;
+}
+
+export interface UhsTasksStore {
+    tasks: UhsTask[];
+    isLoading: boolean;
+    getTasks: (userId: number) => Promise<void>;
+    checkTask: (uhsUserId: number, userId: number, chatId: string, taskId: number) => Promise<void>;
+}

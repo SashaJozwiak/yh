@@ -1,0 +1,93 @@
+//import React from 'react'
+
+import { useEffect } from "react";
+import { useUhsTasks } from "../../../earnStore/uhstasks"
+import { useAuth, useUserData } from "../../../../store/main";
+
+import s from "./easy.module.css"
+import WebApp from "@twa-dev/sdk";
+
+export const Easy = () => {
+
+    const { tasks, isLoading, getTasks, checkTask } = useUhsTasks(state => state);
+    const userId = useAuth(state => state.userId)
+
+    const externalId = useUserData(state => state.user.id)
+
+    useEffect(() => {
+        if (userId && !tasks.length) {
+            getTasks(userId);
+        }
+    }, [getTasks, tasks.length, userId])
+
+    console.log('tasks:', tasks)
+    console.log('userId:', userId)
+
+    return (
+        <div style={{ overflowY: 'auto', marginBottom: '6rem' }}>
+            {isLoading ? <span className={s.loader}></span> :
+                <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
+                    {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {
+                        return (
+                            <li key={task.id}
+                                style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}
+                            >
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '0.3rem' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <h3>{task.title}</h3>
+                                    </div>
+
+                                    <p style={{ fontStyle: 'normal', fontWeight: '400', fontSize: '1rem', textAlign: 'left' }}>{task.description}</p>
+
+                                    <p style={{ textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic', fontWeight: '300' }}>Available: {task.balance / task.price}</p>
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                    <span style={{ /* textDecoration: 'underline',  */border: '1px solid', padding: '0 0.1rem', borderRadius: '0.3rem', margin: '0.3rem 0' }}> +{task.price / 10 ** (task.currency === 'USDT' ? 6 : 9)} {task.currency}</span>
+                                    <button
+                                        onClick={() => {
+                                            WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                                        }}
+                                        style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>Go</button>
+                                    <button
+                                        onClick={() => {
+                                            if (userId) {
+                                                checkTask(userId, externalId, task.src, task.id)
+                                            }
+                                        }}
+                                        style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>Check</button>
+                                </div>
+                            </li>
+
+                        )
+                    })}
+                </ul >}
+
+            {tasks.filter((task) => task.active && task.status === "completed").length > 0 && <h3 style={{ textAlign: 'center', margin: '1rem', color: 'gray' }}>Completed tasks</h3>}
+
+
+            <ul style={{ opacity: '0.5', overflowY: 'auto', backgroundColor: 'rgb(58, 70, 88)' }}>
+                {tasks.filter((task) => task.active && task.status === "completed").map((task) => {
+                    return (
+                        <li key={task.id}
+                            style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}
+                        >
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '0.3rem' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <h3>{task.title}</h3>
+                                </div>
+
+                                <p style={{ fontStyle: 'normal', fontWeight: '400', fontSize: '1rem', textAlign: 'left' }}>{task.description}</p>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                <span style={{ /* textDecoration: 'underline',  */border: '1px solid', padding: '0 0.1rem', borderRadius: '0.3rem', margin: '0.3rem 0' }}> +{task.price / 10 ** (task.currency === 'USDT' ? 6 : 9)} {task.currency}</span>
+                                <div style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>Go</div>
+                                <div
+                                    style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>Check</div>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul >
+        </div>
+    )
+}
