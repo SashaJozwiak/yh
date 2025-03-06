@@ -82,10 +82,10 @@ export const HoldUW = () => {
 
 
 
-    const isClaimDisabled = lastClaimTimestamp ? differentTime() > 0 : false;
+    const isClaimDisabled = lastClaimTimestamp ? remainingTime() > 0 : false;
 
     return (
-        <div style={{ overflowY: 'auto', marginBottom: '6rem' }}>
+        <div style={{ overflowY: 'auto', marginBottom: '5rem' }}>
             {assets.filter(asset => asset.value >= asset.range[0]).length <= 0 && <div style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold', color: 'gray' }}>not enough assets</div>}
 
             {assets.filter(asset => asset.value >= asset.range[0]).length > 0 &&
@@ -118,9 +118,9 @@ export const HoldUW = () => {
                                 </div>
 
                                 <div className={s.block}>
-                                    <span style={{ fontSize: '1.1rem' }}>APY</span>
+                                    <span style={{ fontSize: '1.1rem' }}>APR</span>
                                     <div style={{ fontStyle: 'italic', fontSize: '0.8rem', opacity: '0.6', color: 'white' }}>
-                                        {roundToFixed((asset.APY * 100), 10)}%
+                                        {roundToFixed((asset.APY * 100), 10)}%+
                                     </div>
                                 </div>
 
@@ -186,9 +186,9 @@ export const HoldUW = () => {
                             </div>
 
                             <div className={s.block}>
-                                <span style={{ fontSize: '1.1rem' }}>APY</span>
+                                <span style={{ fontSize: '1.1rem' }}>APR</span>
                                 <div style={{ fontStyle: 'italic', fontSize: '0.8rem', opacity: '0.6', color: 'white' }}>
-                                    {roundToFixed((asset.APY * 100), 10)}%%
+                                    {roundToFixed((asset.APY * 100), 10)}%+
                                 </div>
                             </div>
 

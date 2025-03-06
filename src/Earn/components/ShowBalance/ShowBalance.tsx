@@ -26,7 +26,7 @@ export const ShowBalance = () => {
     }
 
     const [isDisabled, setIsDisabled] = useState(true);
-    const [countdown, setCountdown] = useState(5);
+    const [countdown, setCountdown] = useState(3);
 
     useEffect(() => {
         let timer;
@@ -51,7 +51,7 @@ export const ShowBalance = () => {
             setHistory((prev) => !prev);
             if (history) {
                 setIsDisabled(true);
-                setCountdown(5);
+                setCountdown(3);
             }
 
         }

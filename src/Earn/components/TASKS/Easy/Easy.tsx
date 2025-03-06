@@ -24,7 +24,7 @@ export const Easy = () => {
     console.log('userId:', userId)
 
     return (
-        <div style={{ overflowY: 'auto', marginBottom: '6rem' }}>
+        <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
             {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                     {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {
@@ -41,7 +41,7 @@ export const Easy = () => {
 
                                     <p style={{ textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic', fontWeight: '300' }}>Available: {task.balance / task.price}</p>
                                 </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end' }}>
                                     <span style={{ /* textDecoration: 'underline',  */border: '1px solid', padding: '0 0.1rem', borderRadius: '0.3rem', margin: '0.3rem 0' }}> +{task.price / 10 ** (task.currency === 'USDT' ? 6 : 9)} {task.currency}</span>
                                     <button
                                         onClick={() => {
@@ -78,8 +78,9 @@ export const Easy = () => {
 
                                 <p style={{ fontStyle: 'normal', fontWeight: '400', fontSize: '1rem', textAlign: 'left' }}>{task.description}</p>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <span style={{ /* textDecoration: 'underline',  */border: '1px solid', padding: '0 0.1rem', borderRadius: '0.3rem', margin: '0.3rem 0' }}> +{task.price / 10 ** (task.currency === 'USDT' ? 6 : 9)} {task.currency}</span>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end' }}>
+                                <span style={{ border: '1px solid', padding: '0 0.1rem', borderRadius: '0.3rem', margin: '0.3rem 0' }}> +{task.price / 10 ** (task.currency === 'USDT' ? 6 : 9)} {task.currency}</span>
                                 <div style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>Go</div>
                                 <div
                                     style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>Check</div>

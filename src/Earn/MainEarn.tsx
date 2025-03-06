@@ -12,6 +12,7 @@ import { useEffect/* , useReducer  */ } from 'react';
 import { HOLD } from './components/HOLD/HOLD';
 import { useUserData } from '../store/main';
 import { Tasks } from './components/TASKS/Tasks';
+import { Launch } from './components/LAUNCH/Launch';
 
 //import s from './mainearn.module.css'
 
@@ -55,6 +56,7 @@ export const MainEarn = () => {
             {ufAddress && isOpenWallet && <ShowBalance />}
             {ufAddress && tool === 'hold' && !isOpenWallet && <HOLD />}
             {ufAddress && tool === 'tasks' && !isOpenWallet && <Tasks />}
+            {ufAddress && tool === 'launch' && !isOpenWallet && <Launch />}
         </>
     )
 }

@@ -61,6 +61,8 @@ export interface Nav {
     tool: string;
     hold: string;
     tasks: string;
+    launch: string;
+    setLaunch: (launch: string) => void;
     setTasks: (tasks: string) => void;
     setHold: (hold: string) => void;
     setTool: (tool: string) => void;
@@ -131,7 +133,27 @@ export interface UhsTask {
 
 export interface UhsTasksStore {
     tasks: UhsTask[];
+    checkBotState: boolean;
+    isLoadingAdd: boolean;
     isLoading: boolean;
+    addTask: (userId: number, title: string, description: string, currency: string, price: number, count: number, balance: number, src: string) => Promise<void>;
     getTasks: (userId: number) => Promise<void>;
     checkTask: (uhsUserId: number, userId: number, chatId: string, taskId: number) => Promise<void>;
+    checkBot: (userId: number, chatId: string) => Promise<void>;
+}
+
+// ============= LAUNCH ==========
+
+
+export interface Startup {
+    id: number;
+    title: string;
+    amount_need: number;
+    amount_collected: number;
+}
+
+export interface StartupStore {
+    startups: Startup[];
+    isLoading: boolean;
+    fetchStartups: () => Promise<void>;
 }

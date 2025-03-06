@@ -16,7 +16,9 @@ export const Menu: React.FC = () => {
             <button
                 onClick={() => setTool('tasks')}
                 className={`${s.button} ${useNav === 'tasks' ? s.on : null}`}>TASKS</button>
-            <button className={s.button}>LAUNCH</button>
+            <button
+                onClick={() => setTool('launch')}
+                className={`${s.button} ${useNav === 'launch' ? s.on : null}`}>LAUNCH</button>
             <button className={s.button}>BUILD</button>
         </div>
     )
