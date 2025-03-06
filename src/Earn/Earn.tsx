@@ -25,7 +25,7 @@ export const Earn = () => {
     const changeNav = useNav((state) => state.setMainNav)
 
     const calculateTimeLeft = (): TimeLeft => {
-        const targetDate = new Date(Date.UTC(2025, 2, 7, 0, 0, 0)).getTime();
+        const targetDate = new Date(Date.UTC(2025, 2, 8, 0, 0, 0)).getTime();
         const now = Date.now();
         const difference = targetDate - now;
 
