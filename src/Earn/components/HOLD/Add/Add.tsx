@@ -8,7 +8,7 @@ export const Add = () => {
     return (
         <>
             <h3 style={{ margin: '0.6rem' }}>
-                {lang === 'ru' ? 'Вы можете отправить заявку на добавление вашего токена.' : 'You can submit a request to add your token for hold.'}
+                {lang === 'ru' ? 'Вы можете отправить заявку на добавление вашего токена или пула.' : 'You can submit a request to add your token or pool for hold.'}
             </h3>
 
             <button

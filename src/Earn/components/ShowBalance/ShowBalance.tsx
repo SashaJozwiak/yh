@@ -10,6 +10,8 @@ import { DepositUp } from "./windows/DepUp";
 import { Withdraw } from "./windows/Withdraw";
 
 import { History } from "./history/History";
+import { useUserData } from "../../../store/main";
+import WebApp from "@twa-dev/sdk";
 
 //import s from "./showbalance.module.css"
 
@@ -21,6 +23,7 @@ export const ShowBalance = () => {
     const UHSWalletAssets = useUHSWallet(state => state.assets)
     const { shares } = useUHSWallet(state => state)
 
+    const lang = useUserData(state => state.user.languageCode)
     const [depWindow, setDepWindow] = useState(false);
     const [withWindow, setWithWindow] = useState(false);
     const [currentAsset, setCurrentAsset] = useState<Asset | null>(null);
@@ -76,6 +79,9 @@ export const ShowBalance = () => {
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 0.6rem' }}>
                 <button
+                    onClick={() => {
+                        WebApp.openLink('https://app.tonco.io/#/swap?from=USD%E2%82%AE&to=UHS');
+                    }}
                     style={{ width: '5rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem', fontStyle: 'italic' }}>
                     Buy UHS</button>
                 <h2 style={{ borderBottom: '1px solid gray' }}>{history ? 'History' : 'Assets'}</h2>
@@ -148,23 +154,23 @@ export const ShowBalance = () => {
                             <button
                                 onClick={() => sendJetton(asset)}
                                 style={{ backgroundColor: 'rgb(22 163 74)', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>
-                                deposit
+                                {lang === 'ru' ? 'пополнить' : 'deposit'}
                             </button>
                             <button
                                 onClick={() => openWithdraw(asset)}
-                                style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>withdraw
+                                style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>{lang === 'ru' ? 'вывести' : 'withdraw'}
                             </button>
                         </div>
                     </li>
 
                 ))}
-                <button
+                {/* <button
                     //onClick={() => sendJetton(asset)}
                     style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', height: '2.5rem', width: '20vw' }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={'1.5rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="gray" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                </button>
+                </button> */}
 
                 <h2 style={{ marginTop: '1rem', /* borderBottom: '1px solid gray', */ marginBottom: '0.6rem' }}>Startups</h2>
 
@@ -174,17 +180,17 @@ export const ShowBalance = () => {
                     return (
                         <li key={share.id} style={{ marginBottom: "0.5rem", padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                                <p style={{ color: 'gray' }}>Title</p>
+                                <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Название' : 'Title'}</p>
                                 <p>Dive Cat</p>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                                <p style={{ color: 'gray' }}>Your share</p>
+                                <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Доля' : 'Share'}</p>
                                 <p>${share.shares}</p>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                                <p style={{ color: 'gray' }}>Total</p>
+                                <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Всего' : 'Total'}</p>
                                 <p>${share.total_shares}</p>
                             </div>
 

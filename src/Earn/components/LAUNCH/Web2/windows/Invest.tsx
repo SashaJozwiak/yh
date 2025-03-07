@@ -215,7 +215,7 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
                     </button>)}
 
                 </div>
-                <h4 style={{ marginTop: '0.5rem', color: 'lightgray' }}>You invest: ${(Number(amount) * Number(currentFullAsset?.priceUsd) || 0).toFixed(2)} </h4>
+                <h4 style={{ marginTop: '0.5rem', color: 'lightgray' }}>In USD: ${(Number(amount) * Number(currentFullAsset?.priceUsd) || 0).toFixed(2)} </h4>
                 {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 10) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>minimum required $10</p>}
                 {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>maximum possible $200</p>}
 

@@ -23,6 +23,7 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
     const ufAddress = useTonAddress();
 
     const uhsId = useAuth(state => state.userId)
+
     const saveTx = useUHSWallet(state => state.saveTx);
 
     function getReadableBalance(assets: Array<Asset>, currentAssets: Asset) {
@@ -125,7 +126,7 @@ export const DepositUp = ({ setDepWindow, currentAsset }) => {
                     <img width={'50rem'} src={currentAsset.jetton.image} alt="jetton icon" />
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <h2 style={{ alignContent: 'center', textAlign: 'left' }}>{currentAsset.jetton.symbol}</h2>
-                        <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic' }}>In wallet: {inWallet.toLocaleString('en', {
+                        <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic' }}>TONwallet: {inWallet.toLocaleString('en', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                         })}</p>

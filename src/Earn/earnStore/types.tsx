@@ -55,6 +55,8 @@ export interface UseUHSWallet {
     assets: Array<Asset>;
     shares: Array<UserInvestment>;
     status: string;
+    recPriceUSDT: boolean,
+    recPriceUHS: boolean,
     recBalance: boolean;
     recShares: boolean;
     withdrawIsLoading: boolean;

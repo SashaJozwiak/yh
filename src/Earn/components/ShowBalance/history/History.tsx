@@ -36,7 +36,7 @@ export const History = () => {
     return (
         <>
             {loading ? <div style={{ display: 'flex', justifyContent: 'center', gap: '3vw', height: '12vh', margin: '1vh 0' }}><span className={s.loader} style={{ margin: '0 auto' }}></span></div> :
-                <div style={{ overflowY: 'auto' }}>
+                <div style={{ overflowY: 'auto', marginBottom: '5rem' }}>
                     <table className={s.table}>
                         <thead>
                             <tr className={s.tr}>

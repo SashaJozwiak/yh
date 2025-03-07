@@ -217,7 +217,7 @@ export const Add = () => {
                 </div>
 
                 <div style={{ display: 'flex', marginTop: '1rem' }}>
-                    <p style={{ textAlign: 'left', fontSize: '0.9rem' }}>
+                    <p style={{ textAlign: 'left', fontSize: '0.9rem', paddingRight: '0.2rem' }}>
                         {lang === 'ru' ? 'Добавьте бота @youhold_bot в свой канал как администратора. Можете забрать у него права, но не удаляйте бота, пока задание присутствует в приложении. Иначе он не сможет проверять выполнение и мы удалим задание без возврата.' : 'Add the @youhold_bot bot to your channel as an administrator. You can take away all its rights, but do not delete the bot while the task is in the App. Otherwise, it will not be able to check the completion and we will delete the task without returning it.'}
                     </p>
                     <div>

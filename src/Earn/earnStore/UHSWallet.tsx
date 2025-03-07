@@ -52,6 +52,8 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
     ],
     shares: [],
     status: 'loading',
+    recPriceUSDT: false,
+    recPriceUHS: false,
     recBalance: false,
     recShares: false,
     withdrawIsLoading: false,
@@ -249,6 +251,7 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
         }));
 
         set({ status: 'loaded' });
+        set({ recPriceUHS: true })
     },
     fetchPrices: async () => {
         set({ status: 'loading' });
@@ -275,6 +278,7 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
                 })),
             }));
             set({ status: 'loaded' });
+            set({ recPriceUSDT: true })
         } catch (error) {
             console.error("Ошибка при получении цен:", error);
         }

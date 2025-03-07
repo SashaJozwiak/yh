@@ -1,5 +1,7 @@
+import { useUserData } from "../../../../store/main"
 
 export const Team1 = () => {
+    const lang = useUserData(state => state.user.languageCode)
     return (
         <>
             <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
@@ -9,12 +11,12 @@ export const Team1 = () => {
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                                 <h3 style={{ color: 'gray' }}>Current work</h3>
-                                <p>Support and development by YouHold app</p>
+                                <p>{lang === 'ru' ? 'Разработка и поддержка проекта YouHold' : 'Support and development by YouHold app'}</p>
                             </div>
 
                             <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                                 <h3 style={{ color: 'gray' }}>Status</h3>
-                                <p>in work</p>
+                                <p style={{ color: 'rgb(22, 163, 74)' }}>in work</p>
                             </div>
                         </div>
                     </li>

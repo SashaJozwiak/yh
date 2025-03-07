@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState, /* useCallback */ } from 'rea
 import { useAuth, useUserData, /* useUserBalances */ } from '../../store/main';
 //import { useBalance } from '../../store/balance';
 import { useNav } from '../../store/nav';
-import { swichLang } from '../../lang/lang.js';
+//import { swichLang } from '../../lang/lang.js';
 
 import { ConnectedWallet, TonConnectButton, useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 //import { useTonConnect } from '@tonconnect/ui-react';
@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
     const nav = useNav((state) => state.nav.main);
 
     const internalId = useUserData((state) => state.user.internalId);
-    const userLang = useUserData((state) => state.user.languageCode);
+    //const userLang = useUserData((state) => state.user.languageCode);
 
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
     const setUser = useUserData((state) => state.setUser);
     const addAddresses = useUserData((state) => state.addAddresses);
 
-    const actualSpeed = useUserData(state => state.balance.speed);
+    //const actualSpeed = useUserData(state => state.balance.speed);
     const isAuth = useUserData(state => state.isAuth);
 
     const setAuthError = useUserData(state => state.setAuthError);
@@ -235,9 +235,24 @@ export const Header: React.FC = () => {
                 </p>
             </button>
 
-            <button className={s.speed}>
-                <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/{swichLang(userLang, 'hours')}</p>
-            </button>
+            {/* <button className={s.speed}>
+                {nav === 'UHS' ? <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        WebApp.openTelegramLink('https://t.me/avtorizator')
+                    }}
+                    style={{ backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}
+                >support</button> : <p>{actualSpeed < 100 ? actualSpeed.toFixed(2) : Math.round(actualSpeed)}/{swichLang(userLang, 'hours')}</p>}
+            </button> */}
+
+            <button
+                onClick={(e) => {
+                    e.preventDefault();
+                    WebApp.openTelegramLink('https://t.me/avtorizator')
+                }}
+                className={s.speed}
+                style={{ backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}
+            >support</button>
 
             <div className={s.settings}>
                 <TonConnectButton className={s.tonbutton} />

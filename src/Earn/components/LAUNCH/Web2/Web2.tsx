@@ -6,6 +6,7 @@ import { useStartupStore } from '../../../earnStore/launch';
 import { Invest } from './windows/Invest'
 
 import s from './web2.module.css'
+import { useUserData } from '../../../../store/main';
 
 
 export const Web2 = () => {
@@ -17,6 +18,8 @@ export const Web2 = () => {
 
     console.log('prices: ', prices[0].priceUsd, prices[1].priceUsd)
     console.log('starups: ', startups)
+
+    const lang = useUserData(state => state.user.languageCode)
 
     const calculateDaysRemaining = () => {
         const now = new Date();
@@ -58,39 +61,40 @@ export const Web2 = () => {
 
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.5rem', gap: '1rem' }}>
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
-                                        <h4 style={{ color: 'lightgray' }}>Raised</h4>
+                                        <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'Собрано' : 'Raised'}</h4>
                                         <h5>{Number(startup.amount_collected).toFixed(0)}/{Number(startup.amount_need).toFixed(0)} USD</h5>
                                     </div>
 
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
-                                        <h4 style={{ color: 'lightgray' }}>Days left</h4>
+                                        <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'Дней ост.' : 'Days left'}</h4>
                                         <h5>{daysRemaining}</h5>
                                     </div>
 
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
-                                        <h4 style={{ color: 'lightgray' }}>Insurance</h4>
+                                        <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'Страхов.' : 'Insurance'}</h4>
                                         <h5>100%</h5>
                                     </div>
                                 </div>
 
                                 {info && <div>
                                     <p style={{ textAlign: 'left', fontWeight: '300' }}>
-                                        Первый лаунч проект — небольшая казуальная игра с рабочим названием "Dive Cat" где кот ловит рыбок. С механиками классической змейки и три в ряд. Для публикации на российских и зарубежных игровых площадках - RU/EN. Часть привлеченных средств пойдет в рекламу на этих игровых площадках. Основная монетизация через рекламу.
+                                        {lang === 'ru' ? 'Пилотный лаунч проект — небольшая казуальная игра с рабочим названием "Dive Cat" где кот ловит рыбок. С механиками классической змейки и три в ряд. Для публикации на российских и зарубежных игровых площадках - RU/EN. Часть привлеченных средств пойдет в рекламу на этих игровых площадках. Основная монетизация через рекламу.' : 'Pilot launch project — a small casual game with the working title "Dive Cat" where a cat catches fish. With mechanics of classic snake and three in a row. For publication on Russian and foreign gaming platforms - RU/EN. Part of the funds raised will go to advertising on these gaming platforms. The main monetization is through advertising.'}
+
                                     </p>
 
                                     <p style={{ textAlign: 'left', fontWeight: '300', paddingTop: '1rem' }}>
-                                        Сбор софинансирования $680 за 70% прибыли. 15% - юхолд, 15% - Фаундер, 70% - держатели акций игры. В этом стартапе YouHold помимо страхования тела вклада дополнительно дофинансирует, если APR будет ниже 12% — за счёт прибыли с уже размещенной игры aim trainer и своей части в 15%. Один инвестор может вложить от 10 до 200 USD. Принимаемые валюты: UHS, USDT.
+                                        {lang === 'ru' ? 'Сбор софинансирования $680 за 70% прибыли. 15% - юхолд, 15% - Фаундер, 70% - держатели акций игры. В этом стартапе YouHold помимо страхования тела вклада дополнительно дофинансирует, если APR будет ниже 12% — за счёт прибыли с уже размещенной игры aim trainer и своей части в 15%. Один инвестор может вложить от 10 до 200 USD. Принимаемые валюты: UHS, USDT.' : 'Collection of co-financing $ 680 for 70% of the profit. 15% - YouHold, 15% - Founder, 70% - holders of shares of the game. In this startup, YouHold, in addition to insuring the deposit body, will additionally finance if the APR is below 12% - due to the profit from the already posted aim trainer game and its share of 15%. One investor can invest from 10 to 200 USD. Accepted currencies: UHS, USDT.'}
                                     </p>
 
                                     <p style={{ textAlign: 'left', fontWeight: '300', paddingTop: '1rem' }}>
-                                        Фаундер проекта: https://t.me/cog_builds
+                                        Project founder: @cog_builds
                                     </p>
 
                                     <p style={{ textAlign: 'left', fontWeight: '300', paddingTop: '1rem' }}>
-                                        Номинальный владелец: YouHold
+                                        Nominee owner: YouHold
                                     </p>
                                     <p style={{ textAlign: 'left', fontWeight: '300' }}>
-                                        Гарант: YouHold
+                                        Guarantor: YouHold
                                     </p>
                                 </div>}
 

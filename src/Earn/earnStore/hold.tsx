@@ -52,11 +52,11 @@ export const useHold = create<UseHold>((set, get) => ({
         const updatedAssets = holdState.assets.map(asset => {
             const matchingJetton = walletState.assets.find(jetton => jetton.jetton.address === asset.address);
             if (matchingJetton) {
-                /* const realBalance = Number((Number(matchingJetton.balance) / (10 ** matchingJetton.jetton.decimals)).toFixed(2));
- */
+                const realBalance = Number((Number(matchingJetton.balance) / (10 ** matchingJetton.jetton.decimals)).toFixed(2));
+
                 return {
                     ...asset,
-                    value: 600,
+                    value: realBalance,
                     //src: matchingJetton.jetton.image
                 };
             }
@@ -119,11 +119,11 @@ export const useHoldUH = create<UseHold>((set, get) => ({
         const updatedAssets = holdState.assets.map(asset => {
             const matchingJetton = walletState.assets.find(jetton => jetton.jetton.address === asset.address);
             if (matchingJetton) {
-                //const realBalance = Number((Number(matchingJetton.balance) / (10 ** matchingJetton.jetton.decimals)).toFixed(2));
+                const realBalance = Number((Number(matchingJetton.balance) / (10 ** matchingJetton.jetton.decimals)).toFixed(2));
 
                 return {
                     ...asset,
-                    value: 550,
+                    value: realBalance,
                     src: matchingJetton.jetton.image
                 };
             }

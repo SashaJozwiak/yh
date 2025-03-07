@@ -78,7 +78,7 @@ export const Withdraw = ({ setWithWindow, currentAsset }) => {
                     <img width={'50rem'} src={currentAsset.jetton.image} alt="jetton icon" />
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <h2 style={{ alignContent: 'center', textAlign: 'left' }}>{currentAsset.jetton.symbol}</h2>
-                        <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic' }}>In wallet: {(currentAsset.balance / 10 ** (currentAsset.jetton.decimals)).toLocaleString('en', {
+                        <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic' }}>UHSwallet: {(currentAsset.balance / 10 ** (currentAsset.jetton.decimals)).toLocaleString('en', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                         })}</p>
@@ -112,6 +112,7 @@ export const Withdraw = ({ setWithWindow, currentAsset }) => {
                         style={{ position: 'absolute', margin: '0 0 auto', background: 'transparent', height: '3rem', width: '2rem', fontSize: '1.5rem' }}>
                         {<Close />}
                     </button>)}
+                    <p style={{ width: '45vw', margin: '0 auto', fontSize: '0.6rem', textAlign: 'end' }}>Fee ~$0.15</p>
 
                 </div>
 
