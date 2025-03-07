@@ -13,6 +13,7 @@ import { HOLD } from './components/HOLD/HOLD';
 import { useUserData } from '../store/main';
 import { Tasks } from './components/TASKS/Tasks';
 import { Launch } from './components/LAUNCH/Launch';
+import { Build } from './components/BUILD/Build';
 
 //import s from './mainearn.module.css'
 
@@ -47,7 +48,6 @@ export const MainEarn = () => {
     }, [getUHSPrice])
 
 
-
     return (
         <>
             {!ufAddress && <h2>Connect wallet, please</h2>}
@@ -57,6 +57,7 @@ export const MainEarn = () => {
             {ufAddress && tool === 'hold' && !isOpenWallet && <HOLD />}
             {ufAddress && tool === 'tasks' && !isOpenWallet && <Tasks />}
             {ufAddress && tool === 'launch' && !isOpenWallet && <Launch />}
+            {ufAddress && tool === 'build' && !isOpenWallet && <Build />}
         </>
     )
 }

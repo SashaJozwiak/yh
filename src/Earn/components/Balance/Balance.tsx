@@ -8,7 +8,7 @@ export const Balance = () => {
     //const [loading] = useState(false)
 
     const { isOpenWallet, setIsOpenWallet } = useEarnNav(state => state);
-    const { assets, status } = useUHSWallet(state => state);
+    const { assets, status, shares } = useUHSWallet(state => state);
 
     const [totalValue, setTotalValue] = useState(0);
 
@@ -22,8 +22,11 @@ export const Balance = () => {
             return sum + assetValue;
         }, 0);
 
-        setTotalValue(total);
-    }, [assets]);
+        const totalShares = shares.reduce((sum, share) => sum + Number(share.shares), 0);
+
+        setTotalValue(total + totalShares);
+
+    }, [assets, shares]);
 
 
     return (

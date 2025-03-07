@@ -1,14 +1,19 @@
 
 import { useEffect, useState } from 'react';
-import s from './web2.module.css'
 import { useUHSWallet } from '../../../earnStore/UHSWallet';
 import { useStartupStore } from '../../../earnStore/launch';
 
+import { Invest } from './windows/Invest'
+
+import s from './web2.module.css'
+
+
 export const Web2 = () => {
     const [info, setinfo] = useState(false)
+    const [investWindow, setInvestWindow] = useState(false)
 
     const prices = useUHSWallet(state => state.assets)
-    const { startups, isLoading, fetchStartups } = useStartupStore(state => state)
+    const { startups, isLoading, isGetStartups, fetchStartups } = useStartupStore(state => state)
 
     console.log('prices: ', prices[0].priceUsd, prices[1].priceUsd)
     console.log('starups: ', startups)
@@ -27,10 +32,13 @@ export const Web2 = () => {
     const daysRemaining = calculateDaysRemaining();
 
     useEffect(() => {
-        fetchStartups();
-    }, [fetchStartups])
+        if (!isGetStartups) {
+            fetchStartups();
+        }
+    }, [fetchStartups, isGetStartups])
 
     return (
+        <>
         <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
             {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
@@ -40,7 +48,7 @@ export const Web2 = () => {
 
                                 <div style={{ display: 'flex', justifyContent: 'space-between', }}>
                                     <h4 style={{ alignContent: 'flex-end', color: 'gray' }}>Game</h4>
-                                    <h3 style={{ alignContent: 'flex-end' }}>Dive Cat</h3>
+                                    <h3 style={{ alignContent: 'flex-end' }}>{startup.title}</h3>
                                     <h4 style={{ border: '1px solid', borderRadius: '0.3rem', padding: '0 0.2rem' }}>{((startup.amount_collected / startup.amount_need) * 100).toFixed(2)}%</h4>
                                 </div>
 
@@ -77,6 +85,13 @@ export const Web2 = () => {
                                     <p style={{ textAlign: 'left', fontWeight: '300', paddingTop: '1rem' }}>
                                         Фаундер проекта: https://t.me/cog_builds
                                     </p>
+
+                                    <p style={{ textAlign: 'left', fontWeight: '300', paddingTop: '1rem' }}>
+                                        Номинальный владелец: YouHold
+                                    </p>
+                                    <p style={{ textAlign: 'left', fontWeight: '300' }}>
+                                        Гарант: YouHold
+                                    </p>
                                 </div>}
 
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -95,19 +110,20 @@ export const Web2 = () => {
                                         </span>
                                     </button>
 
-                                    <button style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
+                                    <button
+                                        onClick={() => setInvestWindow(true)}
+                                        style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
                                         Invest
                                     </button>
                                 </div>
                             </li>
                         )
                     })}
-
-
-
                 </ul >}
 
 
         </div>
+            {investWindow && <Invest setInvestWindow={setInvestWindow} id={startups[0].id} name={startups[0].title} need={startups[0].amount_need} collected={startups[0].amount_collected} />}
+        </>
     )
 }

@@ -39,14 +39,29 @@ export interface Rewards {
     [key: string]: number;
 }
 
+export interface UserInvestment {
+    id: number;
+    userId: number;
+    startupId: number;
+    currency: string;
+    amount: number;
+    shares: number;
+    total_shares: number;
+}
+
 
 export interface UseUHSWallet {
     address: string | null;
     assets: Array<Asset>;
+    shares: Array<UserInvestment>;
     status: string;
     recBalance: boolean;
+    recShares: boolean;
+    withdrawIsLoading: boolean;
     claim: (uhsId: number, rewards: Rewards, wallType: string, setDisableButton: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>;
+    addWithdraw: (userId: number, currency: string, amount: number, walletAddress: string) => Promise<void>;
     saveTx: (uhsId: number, ufAddress: string, currency: string, amount: number) => Promise<void>;
+    getShares: (userId: number | null) => Promise<void>;
     getBalance: (uhsId: number | null) => Promise<void>;
     setWallet: (payload: { address: string | null; assets: Array<Asset> }) => void;
     fetchPrices: () => Promise<void>;
@@ -62,6 +77,8 @@ export interface Nav {
     hold: string;
     tasks: string;
     launch: string;
+    build: string;
+    setBuild: (build: string) => void;
     setLaunch: (launch: string) => void;
     setTasks: (tasks: string) => void;
     setHold: (hold: string) => void;
@@ -84,6 +101,7 @@ export interface assets {
 export interface UseHold {
     assets: Array<assets>;
     lastClaimTimestamp: string;
+    isFetchClaimData: boolean;
     loading: boolean;
     fetchLastClaim: (userId: number) => Promise<void>;
     updateHoldAssets: () => void;
@@ -155,5 +173,9 @@ export interface Startup {
 export interface StartupStore {
     startups: Startup[];
     isLoading: boolean;
+    addIsLoading: boolean;
+    isGetStartups: boolean;
+    addInvest: (userId: number, startupId: number, currency: string, amount: number, amountInUsd: number, total: number) => Promise<void>;
     fetchStartups: () => Promise<void>;
 }
+

@@ -17,7 +17,7 @@ export const HoldTW = () => {
     const limit = useAuth(state => state.limit)
     const claim = useUHSWallet(state => state.claim)
 
-    const { lastClaimTimestamp, loading, fetchLastClaim } = useHold(state => state)
+    const { lastClaimTimestamp, loading, isFetchClaimData, fetchLastClaim } = useHold(state => state)
     const [disableButton, setDisableButton] = useState(false)
 
     const differentTime = () => {
@@ -80,10 +80,10 @@ export const HoldTW = () => {
     }, [updateAssets])
 
     useEffect(() => {
-        if (uhsId) {
+        if (uhsId && !isFetchClaimData) {
             fetchLastClaim(uhsId)
         }
-    }, [fetchLastClaim, uhsId])
+    }, [fetchLastClaim, isFetchClaimData, uhsId])
 
     const isClaimDisabled = lastClaimTimestamp ? remainingTime() > 0 : false;
 

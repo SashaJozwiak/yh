@@ -7,8 +7,10 @@ import { Plus, Close, Question } from "../../svgs";
 import { HoldTW } from './HoldTW/HoldTW';
 import { HoldUW } from "./HoldUW/HoldUW";
 import { Info } from "./Info/Info";
+import { Add } from "./Add/Add";
 
 import s from './hold.module.css'
+
 
 
 export const HOLD = () => {
@@ -16,15 +18,19 @@ export const HOLD = () => {
     const uhsId = useAuth(state => state.userId)
     //const allAuthData = useAuth(state => state)
 
-
-
-    const { recBalance, getBalance } = useUHSWallet(state => state)
+    const { recBalance, recShares, getBalance, getShares } = useUHSWallet(state => state)
 
     useEffect(() => {
         if (!recBalance) {
             getBalance(uhsId);
         }
     }, [getBalance, recBalance, uhsId])
+
+    useEffect(() => {
+        if (!recShares) {
+            getShares(uhsId);
+        }
+    }, [uhsId, getShares, recShares])
 
     //console.log('allAuthData: ', allAuthData)
 
@@ -45,8 +51,10 @@ export const HOLD = () => {
                     </div>
                 </div>
 
-                <button style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
-                    <div><Plus /></div>
+                <button
+                    onClick={hold === 'add' ? () => setHold('twallet') : () => setHold('add')}
+                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
+                    <div>{hold === 'add' ? <Close /> : <Plus />}</div>
                     <div>add</div>
                 </button>
             </header>
@@ -54,6 +62,7 @@ export const HOLD = () => {
             {hold === 'twallet' && <HoldTW />}
             {hold === 'uwallet' && <HoldUW />}
             {hold === 'info' && <Info />}
+            {hold === 'add' && <Add />}
 
         </>
     )

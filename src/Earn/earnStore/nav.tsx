@@ -8,6 +8,8 @@ export const useEarnNav = create<Nav>((set) => ({
     hold: 'twallet',// uwallet, info
     tasks: 'easy', //hard, info, add
     launch: 'web2', // 'web3', info, add
+    build: 'team1', //  team2, info, add
+    setBuild: (build: string) => set({ build }),
     setLaunch: (launch: string) => set({ launch }),
     setTasks: (tasks: string) => set({ tasks }),
     setHold: (hold: string) => set({ hold }),

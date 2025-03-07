@@ -28,6 +28,7 @@ export const useHold = create<UseHold>((set, get) => ({
         },
     ],
     lastClaimTimestamp: '',
+    isFetchClaimData: false,
     loading: true,
     fetchLastClaim: async (userId) => {
         try {
@@ -35,10 +36,11 @@ export const useHold = create<UseHold>((set, get) => ({
             const data = await response.json();
 
             if (response.ok) {
-                set({ lastClaimTimestamp: data.timestamp, loading: false });
+                set({ lastClaimTimestamp: data.timestamp, loading: false, isFetchClaimData: true });
             } else {
                 console.error("Ошибка при получении последней claim транзакции:", data.message);
             }
+
         } catch (error) {
             console.error("Ошибка сети при запросе последней claim транзакции:", error);
         }
@@ -92,6 +94,7 @@ export const useHoldUH = create<UseHold>((set, get) => ({
         },
     ],
     lastClaimTimestamp: '',
+    isFetchClaimData: false,
     loading: true,
     fetchLastClaim: async (userId) => {
         try {
@@ -99,7 +102,7 @@ export const useHoldUH = create<UseHold>((set, get) => ({
             const data = await response.json();
 
             if (response.ok) {
-                set({ lastClaimTimestamp: data.timestamp, loading: false });
+                set({ lastClaimTimestamp: data.timestamp, loading: false, isFetchClaimData: true });
             } else {
                 console.error("Ошибка при получении последней claim транзакции:", data.message);
             }

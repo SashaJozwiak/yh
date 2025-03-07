@@ -1,6 +1,6 @@
 
 import { create } from 'zustand'
-import { UseUHSWallet } from './types'
+import { UseUHSWallet, UserInvestment } from './types'
 
 import { useHold, useHoldUH } from './hold';
 
@@ -50,8 +50,11 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
             priceUsd: 0,
         },
     ],
+    shares: [],
     status: 'loading',
     recBalance: false,
+    recShares: false,
+    withdrawIsLoading: false,
     claim: async (uhsId, rewards, wallType, setDisableButton) => {
         console.log('for claim: ', uhsId, rewards);
         try {
@@ -89,6 +92,30 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
         }
 
     },
+    addWithdraw: async (userId, currency, amount, walletAddress) => {
+        set({ withdrawIsLoading: true });
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsbalances/addWithdraw`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, currency, amount, walletAddress })
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка при получении инвестиций');
+            }
+
+            const data = await response.json();
+            console.log('addWithdrawRequest res:', data);
+
+        } catch (error) {
+            console.error('Ошибка запроса на вывод:', error);
+        } finally {
+            set({ withdrawIsLoading: false });
+            get().getBalance(userId);
+        }
+    },
     saveTx: async (uhsId, ufAddress, currency, amount) => {
         const isUsdt = currency === 'USD₮' ? 'USDT' : currency; // Проверяем, является ли валюта USDT
         try {
@@ -110,6 +137,29 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
             console.error('Error save tx:', error);
         }
 
+    },
+    getShares: async (userId) => {
+        set({ status: 'loading' });
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsbalances/getInvestments/${userId}`);
+
+            if (!response.ok) {
+                throw new Error('Ошибка при получении инвестиций');
+            }
+
+            const data: UserInvestment[] = await response.json();
+
+            console.log('user investments: ', data)
+
+            set({ shares: data });
+
+        } catch (error) {
+            console.error('Ошибка при получении инвестиций:', error);
+        } finally {
+            set({ status: 'loaded' });
+            set({ recShares: true })
+        }
     },
     getBalance: async (uhsId) => {
         set({ status: 'loading' });

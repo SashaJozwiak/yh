@@ -1,28 +1,41 @@
 import { useEffect, useState } from "react";
 import { useUHSWallet } from "../../earnStore/UHSWallet"
+import { useEarnNav } from "./../../earnStore/nav"
 //import { useTonConnectUI } from "@tonconnect/ui-react";
 //import { Address, beginCell } from "@ton/ton";
 
 import { Asset } from "../../earnStore/types";
 
 import { DepositUp } from "./windows/DepUp";
+import { Withdraw } from "./windows/Withdraw";
+
 import { History } from "./history/History";
 
 //import s from "./showbalance.module.css"
 
-
 export const ShowBalance = () => {
+
+    const closeWallet = useEarnNav(state => state.setIsOpenWallet)
+    const openLaunch = useEarnNav(state => state.setTool)
+
     const UHSWalletAssets = useUHSWallet(state => state.assets)
+    const { shares } = useUHSWallet(state => state)
 
     const [depWindow, setDepWindow] = useState(false);
+    const [withWindow, setWithWindow] = useState(false);
     const [currentAsset, setCurrentAsset] = useState<Asset | null>(null);
 
     const [history, setHistory] = useState<boolean>(false);
 
     async function sendJetton(jetton: Asset) {
-        console.log('asset: ', jetton)
         setCurrentAsset(jetton);
         setDepWindow(true);
+    }
+
+    async function openWithdraw(jetton: Asset) {
+        console.log('openWithdraw')
+        setCurrentAsset(jetton);
+        setWithWindow(true);
     }
 
     const [isDisabled, setIsDisabled] = useState(true);
@@ -56,6 +69,8 @@ export const ShowBalance = () => {
 
         }
     };
+
+    //console.log(currentAsset)
 
     return (
         <>
@@ -128,11 +143,17 @@ export const ShowBalance = () => {
                             >buy/sell</button>} */}
 
                         </div>
+
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <button
                                 onClick={() => sendJetton(asset)}
-                                style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>deposit</button>
-                            <button style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>withdraw</button>
+                                style={{ backgroundColor: 'rgb(22 163 74)', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>
+                                deposit
+                            </button>
+                            <button
+                                onClick={() => openWithdraw(asset)}
+                                style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}>withdraw
+                            </button>
                         </div>
                     </li>
 
@@ -145,20 +166,53 @@ export const ShowBalance = () => {
                     </svg>
                 </button>
 
-                <h2 style={{ marginTop: '1rem', borderBottom: '1px solid gray' }}>Startups</h2>
+                <h2 style={{ marginTop: '1rem', /* borderBottom: '1px solid gray', */ marginBottom: '0.6rem' }}>Startups</h2>
 
-                <p style={{ margin: '1rem', color: 'gray' }}>You haven't invested yet.</p>
+                {!(shares.length) && <p style={{ margin: '1rem', color: 'gray' }}>You haven't invested yet.</p>}
+
+                {shares.map(share => {
+                    return (
+                        <li key={share.id} style={{ marginBottom: "0.5rem", padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                <p style={{ color: 'gray' }}>Title</p>
+                                <p>Dive Cat</p>
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                <p style={{ color: 'gray' }}>Your share</p>
+                                <p>${share.shares}</p>
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                <p style={{ color: 'gray' }}>Total</p>
+                                <p>${share.total_shares}</p>
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                <p style={{ color: 'gray' }}>APR</p>
+                                <p>12%+</p>
+                            </div>
+                        </li>
+                    )
+                })}
+
 
                 <button
-                    //onClick={() => setIsOpenWallet(!isOpenWallet)}
+                    onClick={() => {
+                        closeWallet(false)
+                        openLaunch('launch')
+                    }
+                    }
+
                     style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', marginTop: '0.5rem', height: '2.5rem', width: '20vw' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width={'1.5rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="gray" className="size-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width={'1.5rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="white" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                 </button>
             </ul>}
 
             {depWindow && <DepositUp setDepWindow={setDepWindow} currentAsset={currentAsset} />}
+            {withWindow && <Withdraw setWithWindow={setWithWindow} currentAsset={currentAsset} />}
 
         </>
     )
