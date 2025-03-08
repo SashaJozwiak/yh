@@ -112,7 +112,7 @@ export const Withdraw = ({ setWithWindow, currentAsset }) => {
                         style={{ position: 'absolute', margin: '0 0 auto', background: 'transparent', height: '3rem', width: '2rem', fontSize: '1.5rem' }}>
                         {<Close />}
                     </button>)}
-                    <p style={{ width: '45vw', margin: '0 auto', fontSize: '0.6rem', textAlign: 'end' }}>Fee ~$0.15</p>
+                    <p style={{ width: '45vw', margin: '0 auto', fontSize: '0.6rem', textAlign: 'end', color: 'gray' }}>You get {amount} {currentAsset.jetton.symbol} - (~$0.15)</p>
 
                 </div>
 
