@@ -23,6 +23,7 @@ export const Awindow = () => {
 
                 <button
                     onClick={() => closeModal()}
+                    style={{ margin: '0 auto', marginBottom: '1rem', width: '30vw' }}
 
                     className={s.depBtn}>OK</button>
 
