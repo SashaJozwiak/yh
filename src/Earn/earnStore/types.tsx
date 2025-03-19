@@ -181,3 +181,29 @@ export interface StartupStore {
     fetchStartups: () => Promise<void>;
 }
 
+// ======= AIRDROP
+
+export interface AirdropData {
+    houses: number;
+    uh: number;
+    gray_sum: number;
+    gold_sum: number;
+    bronze_sum: number;
+    silver_sum: number;
+    allocation: number;
+    active_friends_count: number;
+    act_friends: number;
+    pays: number;
+    total_sum: number;
+}
+
+export interface AirdropStore {
+    data: AirdropData | null;
+    loading: boolean;
+    error: string | null;
+    showModal: boolean;
+    isFetch: boolean;
+
+    fetchAirdrop: (uhs_id: number, internal_id: number, external_id: number) => Promise<void>;
+    closeModal: () => void;
+}

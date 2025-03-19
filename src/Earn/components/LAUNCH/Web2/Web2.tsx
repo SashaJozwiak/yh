@@ -8,7 +8,6 @@ import { Invest } from './windows/Invest'
 import s from './web2.module.css'
 import { useUserData } from '../../../../store/main';
 
-
 export const Web2 = () => {
     const [info, setinfo] = useState(false)
     const [investWindow, setInvestWindow] = useState(false)

@@ -94,9 +94,9 @@ export const Header: React.FC = () => {
         } else /*if (id !==    757322479 )*/ {
 
             const newUser = {
-                id: 0, /*  946292829 757322479  */
+                id: 946292829, /*  946292829 757322479  */
                 //internalId: null,
-                userName: "Example",
+                userName: "zwiak",
                 languageCode: "ru",
                 userFriendlyAddress: '',
                 rawAddress: '',

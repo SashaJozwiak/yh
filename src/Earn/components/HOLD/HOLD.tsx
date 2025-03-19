@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAuth } from "../../../store/main";
+import { useAuth, useUserData } from "../../../store/main";
 import { useUHSWallet } from "../../earnStore/UHSWallet";
 import { useEarnNav } from "../../earnStore/nav";
 import { Plus, Close, Question } from "../../svgs";
@@ -10,15 +10,26 @@ import { Info } from "./Info/Info";
 import { Add } from "./Add/Add";
 
 import s from './hold.module.css'
-
-
+import { useAirdropStore } from "../../earnStore/airdrop";
+import { Awindow } from "./Awindow";
 
 export const HOLD = () => {
+
+    const { isFetch, showModal, /* closeModal, */ fetchAirdrop } = useAirdropStore();
+
     const { hold, setHold } = useEarnNav(state => state)
     const uhsId = useAuth(state => state.userId)
+    const internal_id = useUserData(state => state.user.internalId)
+    const external_id = useUserData(state => state.user.id)
     //const allAuthData = useAuth(state => state)
 
     const { recBalance, recShares, getBalance, getShares } = useUHSWallet(state => state)
+
+    useEffect(() => {
+        if (uhsId && !isFetch) {
+            fetchAirdrop(uhsId, internal_id, external_id);
+        }
+    }, [external_id, fetchAirdrop, internal_id, isFetch, uhsId]);
 
     useEffect(() => {
         if (!recBalance) {
@@ -32,7 +43,8 @@ export const HOLD = () => {
         }
     }, [uhsId, getShares, recShares])
 
-    //console.log('allAuthData: ', allAuthData)
+
+    console.log('uhsId, internal_id, external_id :', uhsId, internal_id, external_id);
 
     return (
         < /* style={{ overflowY: 'auto' }} */>
@@ -63,6 +75,9 @@ export const HOLD = () => {
             {hold === 'uwallet' && <HoldUW />}
             {hold === 'info' && <Info />}
             {hold === 'add' && <Add />}
+
+            {showModal && <Awindow />}
+
 
         </>
     )

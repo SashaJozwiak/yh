@@ -48,9 +48,9 @@ export const Stages = () => {
                         <li className={s.listelement}>🟢 {swichLang(userLang, 'launch_app')}</li>
                         <li className={s.listelement}>🟢 {swichLang(userLang, 'launch_game')}</li>
                         <li className={s.listelement}>🟢 {swichLang(userLang, 'marketing')}</li>
-                        <li className={`${s.listelement} ${s.ok}`}>🟡 {swichLang(userLang, 'presa')}</li>
-                        <li className={s.listelement}>⚪ {swichLang(userLang, 'airdrop')}</li>
-                        <li style={{ fontSize: '1rem', marginTop: '-1rem', fontStyle: 'italic' }}>&emsp; &emsp; inviting friends</li>
+                        <li className={s.listelement}>🟢 {swichLang(userLang, 'presa')}</li>
+                        <li className={`${s.listelement} ${s.ok}`}>🟡 {swichLang(userLang, 'airdrop')}</li>
+                        <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; inviting friends</li>
                         <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; cards in the game</li>
                         <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; purchases ★</li>
                         <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; houses in the game</li>
