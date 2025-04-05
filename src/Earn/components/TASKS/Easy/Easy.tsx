@@ -34,7 +34,12 @@ export const Easy = () => {
                             >
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '0.3rem' }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                        <h3>{task.title}</h3>
+                                        <h3
+                                            onClick={() => {
+                                                WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                                            }}
+                                            style={{ textDecoration: 'underline' }}
+                                        >{task.title}</h3>
                                     </div>
 
                                     <p style={{ fontStyle: 'normal', fontWeight: '400', fontSize: '1rem', textAlign: 'left' }}>{task.description}</p>
@@ -73,10 +78,16 @@ export const Easy = () => {
                         >
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '0.3rem' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <h3>{task.title}</h3>
+                                    <h3
+                                        onClick={() => {
+                                            WebApp.openTelegramLink(`https://t.me/${task.src.slice(1)}`);
+                                        }}
+                                        style={{ textDecoration: 'underline' }}
+                                    >{task.title}</h3>
                                 </div>
 
                                 <p style={{ fontStyle: 'normal', fontWeight: '400', fontSize: '1rem', textAlign: 'left' }}>{task.description}</p>
+                                <p style={{ textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic', fontWeight: '300' }}>Available: {task.balance / task.price}</p>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end' }}>
