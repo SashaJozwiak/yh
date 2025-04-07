@@ -55,7 +55,7 @@ export const Balance = () => {
             <p>{status === 'loading' ? <span className={s.loader}></span> : <span>{(totalValue).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}<span style={{ fontSize: '1rem' }}> USD{/* ₮ */}</span></span>}</p>
             <button
                 onClick={() => setIsOpenWallet(!isOpenWallet)}
-                style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', height: '2.5rem', marginLeft: '1rem' }}>
+                style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', height: '2.5rem', marginLeft: '1rem', border: isOpenWallet ? '1px solid gray' : '1px solid transparent' }}>
 
                 {isOpenWallet ? <svg xmlns="http://www.w3.org/2000/svg" width={'1.5rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />

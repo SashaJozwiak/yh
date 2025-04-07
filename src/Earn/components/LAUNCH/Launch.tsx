@@ -14,7 +14,7 @@ export const Launch = () => {
             <header style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <button
                     onClick={launch === 'info' ? () => setLaunch('web2') : () => setLaunch('info')}
-                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
+                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: launch === 'info' ? '1px solid #bbbbbb' : '1px solid transparent' }}>
                     <div>{launch === 'info' ? <Close /> : <Question />}</div>
                     <div>info</div>
                 </button>
@@ -28,7 +28,7 @@ export const Launch = () => {
 
                 <button
                     onClick={launch === 'add' ? () => setLaunch('web2') : () => setLaunch('add')}
-                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
+                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: launch === 'add' ? '1px solid #bbbbbb' : '1px solid transparent' }}>
                     <div>{launch === 'add' ? <Close /> : <Plus />}</div>
                     <div>add</div>
                 </button>

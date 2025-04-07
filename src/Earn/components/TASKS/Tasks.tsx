@@ -15,7 +15,7 @@ export const Tasks = () => {
             <header style={{ display: 'flex', justifyContent: 'space-between'/* , border: '1px solid' */ }}>
                 <button
                     onClick={tasks === 'info' ? () => setTasks('easy') : () => setTasks('info')}
-                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
+                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: tasks === 'info' ? '1px solid #bbbbbb' : '1px solid transparent' }}>
                     <div>{tasks === 'info' ? <Close /> : <Question />}</div>
                     <div>info</div>
                 </button>
@@ -29,7 +29,7 @@ export const Tasks = () => {
 
                 <button
                     onClick={tasks === 'add' ? () => setTasks('easy') : () => setTasks('add')}
-                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
+                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: tasks === 'add' ? '1px solid #bbbbbb' : '1px solid transparent' }}>
                     <div>{tasks === 'add' ? <Close /> : <Plus />}</div>
                     <div>add</div>
                 </button>

@@ -14,7 +14,7 @@ export const Info = () => {
             </p>
 
             <p style={{ marginTop: '1rem' }}>
-                {lang === 'ru' ? 'APR — годовая процентная ставка без учета сложных процентов, реальная доходность выше. В случае с фармом на UH Wallet сложные проценты работают автоматически (больше награды с увеличивающегося баланса). Все награды сразу приходят на UH Wallet.' : 'APR — annual interest rate excluding compound interest, the real yield is higher. In the case of farming on the UH Wallet, compound interest works automatically (more reward from an increasing balance).All rewards come to the UH wallet.'}
+                {lang === 'ru' ? 'APR — годовая процентная ставка без учета сложных процентов, реальная доходность выше. В случае с фармом на UH Wallet сложные проценты работают автоматически (больше награды с увеличивающегося баланса). Все награды сразу поступают на UH Wallet.' : 'APR — annual interest rate excluding compound interest, the real yield is higher. In the case of farming on the UH Wallet, compound interest works automatically (more reward from an increasing balance).All rewards come to the UH wallet.'}
             </p>
 
             <p style={{ marginTop: '1rem' }}>

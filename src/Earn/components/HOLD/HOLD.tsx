@@ -51,7 +51,7 @@ export const HOLD = () => {
             <header style={{ display: 'flex', justifyContent: 'space-between'/* , border: '1px solid' */ }}>
                 <button
                     onClick={hold === 'info' ? () => setHold('twallet') : () => setHold('info')}
-                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
+                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: hold === 'info' ? '1px solid #bbbbbb' : '1px solid transparent' }}>
                     <div>{hold === 'info' ? <Close /> : <Question />}</div>
                     <div>info</div>
                 </button>
@@ -65,7 +65,7 @@ export const HOLD = () => {
 
                 <button
                     onClick={hold === 'add' ? () => setHold('twallet') : () => setHold('add')}
-                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>
+                    style={{ fontSize: '1rem', margin: '0.6rem', padding: '0 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: hold === 'add' ? '1px solid #bbbbbb' : '1px solid transparent' }}>
                     <div>{hold === 'add' ? <Close /> : <Plus />}</div>
                     <div>add</div>
                 </button>

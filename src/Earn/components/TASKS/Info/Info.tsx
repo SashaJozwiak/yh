@@ -14,7 +14,7 @@ export const Info = () => {
             </p>
 
             <p style={{ marginTop: '1rem' }}>
-                {lang === 'ru' ? 'По кнопке "Go" вы переходите к выполнению, по кнопке "Check" проверяется выполнение. Все награды приходят на UH Wallet.' : 'By clicking the "Go" button, you proceed to execution, by clicking the "Check" button, the completion is checked. All rewards come to the UH Wallet.'}
+                {lang === 'ru' ? 'По кнопке "Go" вы переходите к выполнению, по кнопке "Check" проверяется выполнение. Все награды поступают на UH Wallet.' : 'By clicking the "Go" button, you proceed to execution, by clicking the "Check" button, the completion is checked. All rewards come to the UH Wallet.'}
             </p>
 
             <p style={{ marginTop: '1rem' }}>
