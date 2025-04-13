@@ -211,6 +211,8 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
             });
             set({ status: 'loaded' });
 
+            console.log('state balance:', get())
+
         } catch (error) {
             console.error('Error get balance:', error);
         }
