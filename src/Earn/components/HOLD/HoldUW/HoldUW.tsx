@@ -6,6 +6,7 @@ import { roundToFixed, formatNumber, formatNumberToo2 } from './../../../../util
 import { Rewards } from '../../../earnStore/types';
 import { useAuth } from '../../../../store/main';
 import { useUHSWallet } from '../../../earnStore/UHSWallet';
+import { useNav } from '../../../../store/nav';
 
 export const HoldUW = () => {
     const assets = useHoldUH(state => state.assets)
@@ -17,6 +18,8 @@ export const HoldUW = () => {
 
     const { lastClaimTimestamp, loading, isFetchClaimData, fetchLastClaim } = useHoldUH(state => state)
     const [disableButton, setDisableButton] = useState(false)
+
+    const changeNav = useNav(state => state.setMainNav)
 
     const differentTime = () => {
         const lastClaimDate = new Date(lastClaimTimestamp);
@@ -51,7 +54,7 @@ export const HoldUW = () => {
     const handleClaim = () => {
         setDisableButton(true)
         const rewards: Rewards = assets.reduce((acc, asset) => {
-            const reward = (Math.min(asset.value, asset.range[1]) * asset.APY / (365 / 1));
+            const reward = (Math.min(asset.value, asset.range[1]) * asset.APY / (365 / (limit / 24)));
             const decimals = asset.name === "UHS" ? 9 : 6;
 
             // Переименовываем "USD₮" в "USDT"
@@ -127,7 +130,7 @@ export const HoldUW = () => {
                                 <div className={s.block}>
                                     <span style={{ fontSize: '1.1rem' }}>Reward</span>
                                     <div style={{ fontStyle: 'italic', fontSize: '0.8rem', opacity: '1' }}>
-                                        {((asset.value > asset.range[1] ? asset.range[1] : asset.value) * asset.APY / (365 / 1)).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {asset.name}
+                                        {((asset.value > asset.range[1] ? asset.range[1] : asset.value) * asset.APY / (365 / (limit / 24))).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {asset.name}
                                     </div>
                                 </div>
                             </li>
@@ -154,7 +157,20 @@ export const HoldUW = () => {
                         <button
                             onClick={() => handleClaim()}
                             disabled={isClaimDisabled || loading || disableButton}
-                            style={{ fontSize: '1.3rem', padding: '0 0.5rem', backgroundColor: 'rgb(71, 85, 105)', color: isClaimDisabled ? 'gray' : loading ? 'gray' : disableButton ? 'gray' : 'white', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 10px 0px', border: '1px solid lightgray', marginBottom: '0.3rem' }}>{isClaimDisabled ? formatRemainingTime(remainingTime()) : loading ? '...' : disableButton ? '...' : 'Claim all'}</button>
+                            style={{ fontSize: '1.3rem', padding: '0 0.5rem', backgroundColor: 'rgb(71, 85, 105)', color: isClaimDisabled ? 'gray' : loading ? 'gray' : disableButton ? 'gray' : 'white', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 10px 0px', border: '1px solid lightgray', marginBottom: '0.3rem' }}>{isClaimDisabled ? formatRemainingTime(remainingTime()) : loading ? '...' : disableButton ? '...' : 'Claim all'}
+                        </button>
+                        <button
+                            onClick={() => changeNav('cabinet')}
+                            style={{ fontSize: '1.3rem', padding: '0 0.3rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 10px 0px', border: '1px solid lightgray', marginBottom: '0.3rem', marginLeft: '0.3rem' }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6" width={16}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008Z" />
+                            </svg>
+
+
+
+                        </button>
                     </div>
                 </ul>
             }

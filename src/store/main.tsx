@@ -2,12 +2,14 @@ import { create } from 'zustand'
 import { User, UseStore, UseUserBalances, UseUserBalancesJ, UseStonFi, UseDedust, UseTonco, BalanceObj, UseAuth } from '../types/stores'
 import { devtools } from 'zustand/middleware'
 import { Address } from "@ton/ton";
-
 import { useWallet } from '../Earn/earnStore/wallet';
-
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
+import { useUHSWallet } from '../Earn/earnStore/UHSWallet';
+
 import WebApp from '@twa-dev/sdk';
+
+const useWalletStore = useUHSWallet;
 
 export const useAuth = create<UseAuth>((set, get) => ({
     userId: null,
@@ -18,6 +20,41 @@ export const useAuth = create<UseAuth>((set, get) => ({
     isError: false,
     isLoading: false,
     isRefreshing: false,
+    updateLimit: async (uhs_id, newLimit, amount) => {
+
+        try {
+            const res = await fetch(`${import.meta.env.VITE_SECRET_HOST}claim/updateLimit`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    uhs_id,
+                    limit: newLimit,
+                    amount, // строка или число — главное, чтобы серверу подошло
+                }),
+            });
+
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.message || 'Failed to update limit');
+
+            const current = get();
+            if (current && current.userId === uhs_id) {
+                set({
+                    ...current,
+                    limit: newLimit,
+                });
+            }
+
+            const { getBalance } = useWalletStore.getState();
+            getBalance(uhs_id)
+
+        } catch (err) {
+            const error = err instanceof Error ? err : new Error('Unknown error');
+            console.error('updateLimit error:', error);
+        }
+    },
+
     refreshToken: async (token) => {
         //auth/refresh
         const isRefreshing = get().isRefreshing;
@@ -166,8 +203,8 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
 
     },
     handleReferral: async (userId, startParam) => {
-        const [refId, refTeamId] = startParam.split("_");
-        const refTeamNum = refTeamId ? Number(refTeamId) : null;
+        //const [refId, refTeamId] = startParam.split("_");
+        //const refTeamNum = refTeamId ? Number(refTeamId) : null;
 
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}preRegAdd`, {
@@ -177,18 +214,26 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 },
                 body: JSON.stringify({
                     userId: Number(userId),
-                    refId: Number(refId),
-                    refTeamId: refTeamNum,
+                    refId: Number(startParam),
+                    //refTeamId: refTeamNum,
                 }),
             });
+
+            if (response.status === 409) {
+                console.log('Referral already exists, skipping insert.');
+                return; // Никакой ошибки, просто выходим
+            }
 
             if (!response.ok) {
                 throw new Error('Failed to add referral data to DB');
             }
 
+
             console.log('Referral data added successfully');
         } catch (error) {
             console.error('handleReferral error:', error);
+        } finally {
+            localStorage.removeItem('UHSrefferer')
         }
     },
     setUser: async (user: Partial<User>) => {

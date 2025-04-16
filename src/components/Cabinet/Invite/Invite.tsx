@@ -1,62 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { useUserData } from '../../../store/main';
+import { useAuth, useUserData } from '../../../store/main';
 import { swichLang } from '../../../lang/lang.js';
 
 import WebApp from '@twa-dev/sdk';
-import { useTeams } from '../../../store/teams';
+import useInviteStore from '../../../Earn/earnStore/UHS_invites.js';
 
 import s from './invite.module.css'
-import { useInvites10 } from '../../../store/invites';
-//import { ClaimInv } from './ClaimInv.tsx';
-
-//import { Top10Inv } from './top10/Top10Inv';
-//import { Claim } from './Claim.tsx'
 
 export const Invite: React.FC = () => {
-    //const [userClaimStatus, setUserClaimStatus] = useState<boolean | null>(null);
+    const { userName, languageCode } = useUserData(state => state.user)
+    const UHSId = useAuth(state => state.userId)
 
-    const { id, userName, languageCode, internalId } = useUserData(state => state.user)
-    const teamId = useTeams(state => state.myTeam.team_id)
-
-    //const top10 = useInvites10(state => state.top10);
-    //const getTop10 = useInvites10(state => state.getTop10);
-
-    const winners = useInvites10(state => state.winners);
-    //const getWinners = useInvites10(state => state.getWinners);
-    //const claim = useInvites10(state => state.addReward)
-
-    //const total = useInvites10(state => state.total);
-
-    const loadStatus = useInvites10(state => state.loadStatus);
-
-
-
-    const [link, setLink] = useState<string>(`https://t.me/youhold_bot/youhold_app?startapp=${id}`);
+    const [link, setLink] = useState<string>(`https://t.me/youhold_bot/youhold_app?startapp=${UHSId}`);
     const [copied, setCopied] = useState<boolean>(false);
-    const [checked, setCheked] = useState<boolean>(!!teamId);
 
-    //console.log('activeFriends: ', activeFriends)
-
-    const [blockBtn, setBlockBtn] = useState<boolean>(true);
-    const checkRewards = useInvites10(state => state.checkRewards);
-    const addReward = useInvites10(state => state.addReward);
-    const rewards = useInvites10(state => state.rewards);
-    const activeFriends = useUserData(state => state.user.refs_active)
-
-    const changeLink = () => {
-        setCheked(prev => {
-            const newIsTeam = !prev;
-            if (newIsTeam) {
-                setLink(`https://t.me/youhold_bot/youhold_app?startapp=${id}_${teamId}`);
-            } else {
-                setLink(`https://t.me/youhold_bot/youhold_app?startapp=${id}`);
-            }
-            return newIsTeam;
-        });
-    }
+    const { status, invitedUsers, fetchInvitedUsers } = useInviteStore(state => state)
 
     const handleCopyClick = () => {
-        //console.log('handleCopyClick')
         navigator.clipboard.writeText(link).then(() => {
             setCopied(true)
             const timerId = setTimeout(() => {
@@ -70,68 +30,22 @@ export const Invite: React.FC = () => {
         });
     }
 
-    //console.log(link)
-
-    /* useEffect(() => {
-        // Здесь обновляем статус после получения данных
-        const userInWinners = winners.find(winner => +(winner.id) === id);
-        setUserClaimStatus(userInWinners ? userInWinners.is_claim : null);
-    }, [winners, id]); */
+    useEffect(() => {
+        const link = `https://t.me/youhold_bot/youhold_app?startapp=${UHSId}`;
+        setLink(link)
+    }, [UHSId])
 
     useEffect(() => {
-        if (teamId && teamId !== 0) {
-            //console.log('authData team: ', authData.ref_team_by);
-            setCheked(true);
-            const linkWithTeam = `https://t.me/youhold_bot/youhold_app?startapp=${id}_${teamId}`;
-            setLink(linkWithTeam)
-        } else {
-            setCheked(false);
-            //console.log('authData no team:', authData);
-            const link = `https://t.me/youhold_bot/youhold_app?startapp=${id}`;
-            setLink(link)
+        if (UHSId) {
+            fetchInvitedUsers(UHSId)
         }
-    }, [id, teamId])
+    }, [UHSId, fetchInvitedUsers])
 
-    /* useEffect(() => {
-        if (!top10.length) {
-            getTop10();
-        }
-    }, [getTop10, top10])
-
-    useEffect(() => {
-        if (total > 992) {
-            getWinners();
-        }
-    }, [getWinners, total]) */
-
-    const userInWinners = winners.find(winner => +(winner.id) === id);
-    //const userClaimStatus = userInWinners ? userInWinners.is_claim : null;
-
-    console.log('winner!!: ', userInWinners?.reward)
-
-    /* const handleClaim = async () => {
-        if (userInWinners?.reward !== undefined) {
-            await claim(id, internalId, userInWinners?.reward);// reward всегда будет числом
-            getWinners();
-        } else {
-            console.error("Reward is undefined");
-        }
-    } */
-
-    useEffect(() => {
-        checkRewards(id)
-        setBlockBtn(false)
-        /* setTimeout(() => {
-            
-        }, 300) */
-
-    }, [checkRewards, id])
-
-    console.log('rewards: ', rewards);
-    console.log('activeFriends: ', activeFriends)
+    //console.log('invitedUsers: ', invitedUsers)
 
     return (
         <>
+            <div style={{ overflowY: 'auto' }}>
             <h2 style={{ marginTop: '0.6rem' }}>{swichLang(languageCode, 'hi')} 👋 {userName}!</h2>
             <h3 >{swichLang(languageCode, 'invite')}</h3>
 
@@ -150,57 +64,6 @@ export const Invite: React.FC = () => {
                     >{copied ? '✅' : '📋'}</button>
                 </div>
 
-                {/* <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto' }}>
-                    <input type="checkbox" id='withteam' readOnly={true} disabled={!teamId || teamId === 0} checked={checked}
-                        style={{
-                            border: '1px solid rgba(14, 165, 233, 0.4)',
-                            borderRadius: '0.25rem',
-                            transform: 'scale(1.3)',
-                            backgroundColor: checked ? 'rgb(22, 163, 74)' : 'transparent',
-                        }}
-                        onChange={changeLink} />
-                    <label htmlFor="withteam" style={{ fontSize: 'calc(1.2vh + 1.2vw)' }}>&nbsp; {swichLang(languageCode, 'inviteand')}</label>
-                </div> */}
-
-                <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto' }}>
-                    <input
-                        type="checkbox"
-                        id="withteam"
-                        readOnly={true}
-                        disabled={!teamId || teamId === 0}
-                        checked={checked}
-                        onChange={changeLink}
-                        style={{ display: 'none' }}
-                    />
-                    <label
-                        htmlFor="withteam"
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            cursor: 'pointer',
-                            fontSize: 'calc(1.2vh + 1.2vw)',
-                        }}
-                    >
-                        <span
-                            style={{
-                                padding: '0 0.25rem',
-                                color: checked ? 'rgb(22, 163, 74)' : 'transparent',
-                                border: checked ? '1px solid rgb(22, 163, 74)' : '1px solid rgb(255, 255, 255)',
-                                borderRadius: '0.25rem',
-                                display: 'inline-block',
-                                marginRight: '0.5rem',
-                                backgroundColor: checked ? 'lightgray' : 'transparent',
-                                transition: 'background-color 0.3s, border 0.3s',
-                                fontWeight: 'bold',
-                                margin: '0 auto'
-
-                            }}
-                        >✓</span>
-                        &nbsp; {swichLang(languageCode, 'inviteand')}
-                    </label>
-                </div>
-
-
                 <button onClick={(e) => {
                     e.preventDefault();
                     const tolink: string = `https://t.me/share/url?url=${link}&text=Hi 👋 Join the holders app`;
@@ -211,95 +74,15 @@ export const Invite: React.FC = () => {
                 ><h3 style={{ display: 'inline-block' }}>{swichLang(languageCode, 'invitebtn')}</h3></button>
             </div>
 
-
-            <div style={{ display: 'flex', flexDirection: 'column', /* border: '2px solid ', */ margin: '2vh 0.3rem 0.3rem', justifyContent: 'center' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '2vh' }}>
-                    <p style={{ margin: 'auto', fontSize: 'calc(1.7vh + 1.7vw)' }}>3 active friends</p>
-                    <button
-                        onClick={() => addReward(id, internalId, 3000)}
-                        disabled={blockBtn || rewards.reward_3000 || activeFriends < 3 || loadStatus}
-                        style={{ opacity: blockBtn ? '0.5' : activeFriends < 3 ? '0.5' : (rewards.reward_3000) ? '0.5' : loadStatus ? '0.5' : '1' }}
-                        className={s.claim} >{rewards.reward_3000 ? 'completed' : 'claim 3000'}<span style={{ color: 'rgb(22, 163, 74)' }}>{!(rewards.reward_3000) ? ' B' : null}</span></button>
-                </div>
-                <div style={{ display: 'inline-flex', paddingBottom: '2vh' }}>
-                    <p style={{ margin: 'auto', fontSize: 'calc(1.7vh + 1.7vw)' }}>5 active friends</p>
-                    <button
-                        onClick={() => addReward(id, internalId, 6000)}
-                        disabled={blockBtn || rewards.reward_6000 || activeFriends < 5 || loadStatus}
-                        style={{ opacity: blockBtn ? '0.5' : activeFriends < 5 ? '0.5' : (rewards.reward_6000) ? '0.5' : loadStatus ? '0.5' : '1' }}
-                        className={s.claim}>{rewards.reward_6000 ? 'completed' : 'claim 6000'}
-                        <span style={{ color: 'rgb(22, 163, 74)' }}>{!(rewards.reward_6000) ? ' B' : null}</span></button>
-                </div>
-                <div
-                    style={{ display: 'inline-flex' }}>
-                    <p style={{ margin: 'auto', fontSize: 'calc(1.7vh + 1.7vw)' }}>10 active friends</p>
-                    <button
-                        onClick={() => addReward(id, internalId, 12000)}
-                        disabled={blockBtn || (rewards.reward_12000) || activeFriends < 10 || loadStatus}
-                        style={{ opacity: blockBtn ? '0.5' : activeFriends < 10 ? '0.5' : (rewards.reward_12000) ? '0.5' : loadStatus ? '0.5' : '1' }}
-                        className={s.claim}>{rewards.reward_12000 ? 'completed' : 'claim 12000'}
-                        <span style={{ color: 'rgb(22, 163, 74)' }}>{!(rewards.reward_12000) ? ' B' : null}</span></button>
-                </div>
-            </div>
-
-            {/* <p style={{ margin: '1rem 1rem' }}>{swichLang(languageCode, 'not_part')}</p> */}
-
-            {/* <h2 className={s.headerlist}> {swichLang(languageCode, 'contest')} <span style={{ color: 'rgb(22 163 74)' }}>38,000B</span></h2> */}
-
-            {/* <div className={s.progressbar}>
-                <div className={s.progress} style={{ width: `${((total / 1000) * 100) < 2 ? 2 : ((total / 1000) * 100)}%` }}></div>
-            </div> */}
-
-            {/* <div style={{ color: total > 999 ? 'rgb(22 163 74)' : 'gray' }}> {total > 999 ? 'Completed!' : swichLang(languageCode, 'contest_desc')} {total > 999 ? null : total}{total > 999 ? null : '/1000'}</div > */}
-
-            {/* <Top10Inv top10={top10} /> */}
-            {/* {id === 0 && <Claim />} */}
-            {/* {total > 999 ?
+                {status === 'loading' ? <span style={{ margin: '2vh auto' }} className={s.loader}></span> :
                 <div>
-                    {userClaimStatus === null ? (
-                        <p style={{ margin: '1rem 1rem' }}>{swichLang(languageCode, 'not_part')}</p>
-                    ) : userClaimStatus ? (
-                        <p style={{ margin: '1rem 1rem' }}>{swichLang(languageCode, 'after_claim')}</p>
-                    ) : (
-                        <>
-                            <button
-                                style={{ border: '1px solid lightgray', background: 'rgb(103 119 142)', borderRadius: '0.25rem', padding: '0.3rem 0.5rem', margin: '1rem auto', height: '2rem', fontSize: 'calc(1.3vh + 1.3vw)', fontWeight: 'bold', color: 'white' }}
-                                onClick={handleClaim}
-                            // eslint-disable-next-line no-unsafe-optional-chaining
-                            >{swichLang(languageCode, 'claim_btn')} {(userInWinners?.reward)?.toLocaleString('ru')} <span style={{ color: 'rgb(22 163 74)' }}>B</span></button>
-                        </>
-                    )}
-                </div> :
-                <>
-            <div className={s.listtitle}>
-                <p>{swichLang(languageCode, 'user')}</p>
-                <p >{swichLang(languageCode, 'afriends')}</p>
-                <p style={{ fontWeight: 'bold' }}>{swichLang(languageCode, 'reward')}</p>
+                        <p style={{ marginBottom: '0.5rem' }}>Total friends: {invitedUsers.length}</p>
+                        <p>Level 1 tasks (+10 UHS): {invitedUsers.filter(user => user.lvl1).length}</p>
+                        <p>Level 2 tasks (+20 UHS): {invitedUsers.filter(user => user.lvl2).length}</p>
+                        <p style={{ marginBottom: '0.5rem' }}>Level 3 task (+40 UHS): {invitedUsers.filter(user => user.lvl3).length}</p>
+                        <h3 >Earned: {invitedUsers.filter(user => user.lvl1).length * 10 + invitedUsers.filter(user => user.lvl2).length * 20 + invitedUsers.filter(user => user.lvl3).length * 40} UHS</h3>
+                    </div >}
             </div>
-            {loadStatus && <span className={s.loader}></span>}
-            {top10.length < 1 ? (
-                <span className={s.loader}></span>
-            ) : (
-                <div className={`${s.list} scrollable`}>
-                    {top10.map((item, indx) => (
-                        <div className={s.listitem} key={item.ref_by | indx}>
-                            <div
-                                className={s.btn}
-                            >
-                                <span className={s.btnspan}>
-                                    {(item.username || 'anonymous').substring(0, 12)}
-                                </span>
-                            </div>
-                            <div>{item.active_friends_count}</div>
-                            <div style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }} className="div">
-                                {indx === 0 ? '12,000 B' : indx === 1 ? '8,000 B' : indx === 2 ? '6,000 B' : indx === 3 ? '4,000 B' : indx === 4 ? '3000 B' : indx === 5 ? '2000 B' : indx === 6 ? '1000 B' : indx === 7 ? '800 B' : indx === 8 ? '600 B' : indx === 9 ? '400 B' : null}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-                </>
-            } */}
 
         </>
     )

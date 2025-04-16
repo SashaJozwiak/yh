@@ -54,6 +54,8 @@ export const Header: React.FC = () => {
 
     const auth = useAuth(state => state.checkNonce);
     const refreshToken = useAuth(state => state.refreshToken)
+    const isAuthUHS = useAuth(state => state.isAuth);
+    const userUHSId = useAuth(state => state.userId);
 
     const [disreload, setDisreload] = useState<boolean>(false);
 
@@ -80,12 +82,16 @@ export const Header: React.FC = () => {
             } */
 
             if (startParam) {
-                handleReferral(newUser.id, startParam).then(() => {
+
+                /* handleReferral(newUser.id, startParam).then(() => {
                     setUser(newUser); // после обработки рефералов
                 }).catch((error: Error) => {
                     console.error('Error handling referral:', error);
                     setUser(newUser); // все равно уст пользователя
-                });
+                }); */
+                localStorage.setItem('UHSrefferer', startParam);
+                setUser(newUser);
+                // Временно записываем реферера 
             } else {
                 setUser(newUser); // Если нет startParam
             }
@@ -110,7 +116,19 @@ export const Header: React.FC = () => {
             } */
         }
         }
-    }, [setUser, handleReferral, startParam, userFromTg, isAuth, setAuthError]);//id
+    }, [setUser, /* handleReferral, */ startParam, userFromTg, isAuth, setAuthError]);//id
+
+    useEffect(() => {
+        if (userUHSId) {
+            const refferer = localStorage.getItem('UHSrefferer');
+            if (refferer) {
+                console.log('userUHSId: ', userUHSId, refferer)
+                handleReferral(userUHSId, refferer);
+            } else {
+                handleReferral(userUHSId, null);
+            }
+        }
+    }, [userUHSId, handleReferral])
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')
@@ -226,7 +244,10 @@ export const Header: React.FC = () => {
         <div className={s.header} style={{ position: nav === 'game' ? 'absolute' : 'static', opacity: nav === 'game' ? 0 : 1 }}>
 
             <button
-                onClick={() => nav === 'cabinet' ? changeNav('hold') : changeNav('cabinet')}
+                style={{ opacity: isAuthUHS ? '1' : '0.5' }}
+                disabled={!isAuthUHS}
+
+                onClick={() => nav === 'cabinet' ? changeNav('UHS') : changeNav('cabinet')}
                 className={`${s.profile} ${nav === 'cabinet' ? s.ontab : null}`}>
                 <p style={{ color: `${nav === 'cabinet' ? 'lightgrey' : 'white'}` }}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6" width={'2rem'}>

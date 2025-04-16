@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useUserData } from '../../../store/main';
-import { useTop100 } from '../../../store/top100';
+import { useAuth, useUserData } from '../../../store/main';
+//import { useTop100 } from '../../../store/top100';
 
 import { swichLang } from '../../../lang/lang.js';
 
-import { formatNumberBal, formatNumberToo } from './../../../utils/formats/bigNumbers';
+//import { /* formatNumberBal, */ formatNumberToo } from './../../../utils/formats/bigNumbers';
 
 import s from './cabdata.module.css'
 import { usePartners } from '../../../store/partners.js';
@@ -13,6 +13,7 @@ import { usePartners } from '../../../store/partners.js';
 import { CalculatedPayment, calculatePartnerPayments, PaymentStats } from '../../../utils/math/calculateUserValue.js';
 import { WithdrawTimer } from './WithdrawTimer.js';
 import { WithdrawPopUp } from './WithdrawPopUp.js';
+import { useUHSWallet } from '../../../Earn/earnStore/UHSWallet.js';
 
 const defaultAvatar = '/yh/gnom_full_tr_150_compressed.png';
 
@@ -22,19 +23,19 @@ export interface CalcData {
 }
 
 export const CabData = () => {
-    const { internalId, userName, refs, refs_active, active_usernames, anonim, languageCode } = useUserData(state => state.user);
+    const { internalId, userName, /* refs,  refs_active,*/ active_usernames, anonim, languageCode } = useUserData(state => state.user);
 
-    const balance = useUserData(state => state.balance.balance);
+    //const balance = useUserData(state => state.balance.balance);
     const setAnonim = useUserData(state => state.setAnonim);
 
     const [isChecked, setIsChecked] = useState(anonim);
     const [isDisabled, setIsDisabled] = useState(false);
-    const [refetchTop100, setRefetchTop100] = useState(false);
+    //const [refetchTop100, setRefetchTop100] = useState(false);
 
     const [reflist, setReflist] = useState(false);
 
-    const top100 = useTop100(state => state.top100);
-    const getTop100 = useTop100(state => state.getTop100);
+    //const top100 = useTop100(state => state.top100);
+    //const getTop100 = useTop100(state => state.getTop100);
 
     const userDetails = usePartners(state => state.userDetails);
     const withdrwan = usePartners(state => state.withdraw);
@@ -44,6 +45,40 @@ export const CabData = () => {
     const [calcData, setCalcData] = useState<CalcData | null>(null);
     const [popUp, setPopUp] = useState<boolean>(false);
 
+    const period = useAuth(state => state.limit);
+    const uhs_id = useAuth(state => state.userId);
+    const { updateLimit } = useAuth(state => state);
+    const balanceUH = useUHSWallet(state => state.assets);
+
+
+    const [myBalance, setMyBalance] = useState<number>(0);
+
+    const byuLimit = (hours: number) => {
+        if (hours === 72) {
+            console.log('hours', hours);
+            if (uhs_id) {
+                updateLimit(uhs_id, hours, 50000000000)
+                //setMyBalance(prev => prev - (50000000000 / 10 ** 9))
+            }
+        }
+
+        if (hours === 168 && period === 72) {
+            console.log('hours', hours);
+            if (uhs_id) {
+                updateLimit(uhs_id, hours, 60000000000)
+                //setMyBalance(prev => prev - (60000000000 / 10 ** 9))
+            }
+        }
+
+        if (hours === 168 && period < 72) {
+            console.log('hours', hours);
+            if (uhs_id) {
+                updateLimit(uhs_id, hours, 110000000000)
+                //setMyBalance(prev => prev - (110000000000 / 10 ** 9))
+            }
+        }
+
+    }
 
     const handleCheckboxChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.checked;
@@ -52,7 +87,7 @@ export const CabData = () => {
         try {
             await setAnonim(internalId, newValue);
             setIsChecked(newValue);
-            setRefetchTop100(true);
+            //setRefetchTop100(true);
         } catch (error) {
             console.error('Ошибка обновления анонимности:', error);
             setIsChecked(anonim);
@@ -66,15 +101,6 @@ export const CabData = () => {
             setIsDisabled(false);
         }, 1200);
     }
-
-    //console.log('active_usernames: ', active_usernames.length);
-
-    useEffect(() => {
-        if (!top100.length || refetchTop100) {
-            setRefetchTop100(false)
-            getTop100();
-        }
-    }, [getTop100, refetchTop100, top100.length])
 
     useEffect(() => {
         setIsChecked(anonim);
@@ -90,7 +116,21 @@ export const CabData = () => {
         }
     }, [active_usernames, calcData, fetchUserDetails, internalId, userDetails, userDetails.length]);
 
-    console.log('userDetails', calculatePartnerPayments(userDetails));
+    //console.log('userDetails', calculatePartnerPayments(userDetails));
+    console.log('period: ', period);
+    console.log('balanceUH: ', balanceUH.find(token => token.jetton.address === "0:3c4aac2fb4c1dee6c0bacbf86505f6bc7c31426959afd34c09e69ef3eae0dfcc"));
+
+    useEffect(() => {
+        if (balanceUH) {
+            const balStr = balanceUH.find(token => token.jetton.address === "0:3c4aac2fb4c1dee6c0bacbf86505f6bc7c31426959afd34c09e69ef3eae0dfcc")?.balance;
+
+            if (balStr !== undefined) {
+                const bal = Number(balStr);
+                setMyBalance(bal / 10 ** 9);
+            }
+        }
+    }, [balanceUH]);
+
 
     return (
         <>
@@ -165,15 +205,17 @@ export const CabData = () => {
                     width='150' height='118' src={defaultAvatar} alt={``} />
                 <div className={s.info}>
                     <p className={s.line}>{swichLang(languageCode, 'user')}: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>
-                    <p className={s.line}>{swichLang(languageCode, 'friends')}: <span style={{ color: 'white' }}>{refs}</span></p>
-                            <p className={s.line}>{swichLang(languageCode, 'afriends')}: <span
+                            <p className={s.line}>Email: ---</p>
+                            <p className={s.line}>UHS: ~{(myBalance).toFixed()}</p>
+                            {/* <p className={s.line}>{swichLang(languageCode, 'friends')}: <span style={{ color: 'white' }}>{refs}</span></p> */}
+                            {/* <p className={s.line}>{swichLang(languageCode, 'afriends')}: <span
                                 onClick={() => refs_active > 0 ? setReflist(true) : null}
-                                style={{ color: 'white', fontWeight: 'bold', borderBottom: '1px solid lightgray' }}>{refs_active}</span></p>
+                                style={{ color: 'white', fontWeight: 'bold', borderBottom: '1px solid lightgray' }}>{refs_active}</span></p> */}
                     {/* <p className={s.line}>Fr. reward: <span style={{ color: 'white' }}>0</span></p> */}
                     {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
-                    <p className={s.line}>{swichLang(languageCode, 'balance')}: <span style={{ color: 'white' }}>{formatNumberBal(balance)}</span></p>
+                            {/* <p className={s.line}>{swichLang(languageCode, 'balance')}: <span style={{ color: 'white' }}>{formatNumberBal(balance)}</span></p> */}
                     {/* <p className={s.line}>аноним: <span style={{ color: 'white' }}>{anonim}</span></p> */}
-                    <div style={{ textAlign: 'left', display: 'flex', gap: '0.2rem' }}>
+                            <div style={{ textAlign: 'left', display: 'flex', gap: '0.2rem' }}>
                         <input type="checkbox"
                             checked={isChecked}
                             disabled={isDisabled}
@@ -203,26 +245,58 @@ export const CabData = () => {
                             &nbsp;
                         </label>
                     </div>
-                </div>
-            </div>
+                        </div>
+                    </div>
 
-            <h2 className={s.headerlist}>{swichLang(languageCode, 'top100')}</h2>
+                    <h2 className={s.headerlist}>{/* {swichLang(languageCode, 'top100')} */} Settings</h2>
 
-            {!top100.length ? <span className={s.loader}></span> :
-                <div className={`${s.list} scrollable`}/*  style={{ padding: '0 1rem' }} */>
+                    <div
+                        className={`${s.list} scrollable`}
+                        style={{ border: '0px solid', color: 'gray', paddingBottom: '5.5rem' }}>
+                        <h3>Hold timer</h3>
+                        <div style={{ display: 'flex', justifyContent: 'space-around', color: 'white' }}>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>
+                                <p style={{ fontWeight: 'bold' }}>1 day</p>
+                                <p>0 UHS</p>
+                                <button
+                                    disabled={true}
+                                    style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', margin: '0 auto', opacity: '0.5' }}>✔</button>
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>
+                                <p style={{ fontWeight: 'bold' }}>3 days</p>
+                                <p>50 UHS</p>
+                                <button
+                                    onClick={() => byuLimit(72)}
+                                    disabled={period > 24}
+                                    style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', margin: '0 auto', opacity: period > 24 ? '0.5' : '1' }}>{period > 24 ? '✔' : 'buy'}</button>
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>
+                                <p style={{ fontWeight: 'bold' }}>7 days</p>
+                                <p>{period !== 72 ? '110' : '60'} UHS</p>
+                                <button
+                                    onClick={() => byuLimit(168)}
+                                    disabled={period >= 168}
+                                    style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', margin: '0 auto', opacity: period >= 168 ? '0.5' : '1' }}>{period >= 168 ? '✔' : 'buy'}</button>
+                            </div>
+
+                        </div>
+                        {/* <p style={{ marginTop: '0.3rem', fontSize: '0.9rem', color: 'gray' }}>Do you have {myBalance.toFixed()} UHS</p> */}
+                    </div>
+
+                    {/* {!top100.length ? <span className={s.loader}></span> :
+                <div className={`${s.list} scrollable`}>
                     {top100.sort((a, b) => b.balance - a.balance).map((item, index) => (
                         <div className={s.listitem} key={item.internal_id}>
                             <div
-                                /* onClick={(e) => {
-                                    e.preventDefault();
-                                    WebApp.openTelegramLink(`https://t.me/${item.username}`);
-                                }} */
-                                className={s.btn}>{/* {index + 1}. */}<span className={s.btnspan}>{index + 1}. {(item.username).substring(0, 20)}</span></div>
+                                className={s.btn}><span className={s.btnspan}>{index + 1}. {(item.username).substring(0, 20)}</span></div>
                             <div>{formatNumberToo(item.balance)} <b>UH</b></div>
                         </div>
                     ))}
                 </div>
-            }
+            } */}
             </>}
 
         </>

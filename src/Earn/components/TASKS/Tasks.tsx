@@ -3,6 +3,7 @@ import { useEarnNav } from "../../earnStore/nav";
 import { Plus, Close, Question } from "../../svgs";
 import { Add } from "./Add/Add";
 import { Easy } from "./Easy/Easy";
+import { Hard } from "./Hard/Hard";
 import { Info } from "./Info/Info";
 
 import s from './tasks.module.css'
@@ -39,7 +40,8 @@ export const Tasks = () => {
                 {tasks === 'info' && <Info />}
                 {tasks === 'add' && <Add />}
                 {tasks === 'easy' && <Easy />}
-                {tasks === 'hard' && <h3 style={{ color: 'gray' }}>No hard tasks now</h3>}
+                {tasks === 'hard' && <Hard />}
+                {/* {tasks === 'hard' && <h3 style={{ color: 'gray' }}>No hard tasks now</h3>} */}
             </>
         </>
     )

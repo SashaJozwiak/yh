@@ -10,12 +10,12 @@ import { useEarnNav } from './earnStore/nav';
 import { ShowBalance } from './components/ShowBalance/ShowBalance';
 import { useEffect/* , useReducer  */ } from 'react';
 import { HOLD } from './components/HOLD/HOLD';
-import { useUserData } from '../store/main';
+import { useAuth, useUserData } from '../store/main';
 import { Tasks } from './components/TASKS/Tasks';
 import { Launch } from './components/LAUNCH/Launch';
 import { Build } from './components/BUILD/Build';
 
-//import s from './mainearn.module.css'
+import s from './mainearn.module.css'
 
 export const MainEarn = () => {
     //const [tonConnectUI] = useTonConnectUI();
@@ -29,6 +29,7 @@ export const MainEarn = () => {
     const tool = useEarnNav(state => state.tool)
 
     const ufAddress = useUserData(state => state.user.userFriendlyAddress)
+    const isAuth = useAuth(state => state.isAuth)
 
     const getPricesUsd = useUHSWallet(state => state.fetchPrices)
     const getUHSPrice = useUHSWallet(state => state.fetchUHSPrice)
@@ -57,14 +58,16 @@ export const MainEarn = () => {
 
     return (
         <>
-            {!ufAddress && <h2>Connect wallet, please</h2>}
-            {ufAddress && <Balance />}
-            {ufAddress && !isOpenWallet && <Menu />}
-            {ufAddress && isOpenWallet && <ShowBalance />}
-            {ufAddress && tool === 'hold' && !isOpenWallet && <HOLD />}
-            {ufAddress && tool === 'tasks' && !isOpenWallet && <Tasks />}
-            {ufAddress && tool === 'launch' && !isOpenWallet && <Launch />}
-            {ufAddress && tool === 'build' && !isOpenWallet && <Build />}
+            {!ufAddress && !isAuth && <h2
+                style={{ margin: '10vh auto' }}
+                className={s.fadeIn}>Connect wallet, please</h2>}
+            {ufAddress && isAuth && <Balance />}
+            {ufAddress && isAuth && !isOpenWallet && <Menu />}
+            {ufAddress && isAuth && isOpenWallet && <ShowBalance />}
+            {ufAddress && isAuth && tool === 'hold' && !isOpenWallet && <HOLD />}
+            {ufAddress && isAuth && tool === 'tasks' && !isOpenWallet && <Tasks />}
+            {ufAddress && isAuth && tool === 'launch' && !isOpenWallet && <Launch />}
+            {ufAddress && isAuth && tool === 'build' && !isOpenWallet && <Build />}
         </>
     )
 }

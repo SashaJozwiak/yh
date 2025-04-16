@@ -41,3 +41,19 @@
       opacity: 0;
     }
   }
+
+
+  .fadeIn {
+    opacity: 0;
+    animation: fadeInAnim 3s ease-in-out forwards;
+    animation-delay: 0.5s;
+  }
+  
+  @keyframes fadeInAnim {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

@@ -207,3 +207,25 @@ export interface AirdropStore {
     fetchAirdrop: (uhs_id: number, internal_id: number, external_id: number) => Promise<void>;
     closeModal: () => void;
 }
+
+
+//UHS invites
+
+export type Invite = {
+    uhs_id: number;
+    uhs_refferer_id: number | null;
+    lvl1: boolean;
+    lvl2: boolean;
+    lvl3: boolean;
+};
+
+export type InviteStore = {
+    inviteData: Invite | null;
+    invitedUsers: Invite[];
+    status: 'idle' | 'loading' | 'success' | 'error';
+    error: string | null;
+    checkHardTask: (uhs_id: number, lvl: number) => Promise<void>;
+    updateLevels: (uhs_id: number, level: number) => Promise<void>;
+    fetchMy: (uhs_id: number) => Promise<void>;
+    fetchInvitedUsers: (uhs_id: number) => Promise<void>;
+};

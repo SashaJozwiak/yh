@@ -6,7 +6,7 @@ export const useNav = create<UseNav>()(devtools((set) => ({
     nav:
     {
         list: true,
-        main: 'hold',
+        main: 'UHS',
         cab: 'data',
         stage: 'stages',
     },

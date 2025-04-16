@@ -30,13 +30,15 @@ export const Cabinet: React.FC = () => {
                 >{swichLang(userLang, 'info')}
                 </button>
                 <button
+                    disabled={true}
                     onClick={() => changeCabNav('transfers')}
+                    style={{ opacity: '0.5' }}
                     className={`${s.cabnavbtn} ${cabNav === 'transfers' ? s.on : null}`}>{swichLang(userLang, 'transfers')}
                 </button>
-                <button
+                {/*  <button
                     onClick={() => changeCabNav('teams')}
                     className={`${s.cabnavbtn} ${cabNav === 'teams' ? s.on : null}`}>{swichLang(userLang, 'teams')}
-                </button>
+                </button> */}
 
             </div>
 

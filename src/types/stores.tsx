@@ -34,7 +34,7 @@ export interface UseStore {
     authError: boolean;
     setAuthError: (isTrue: boolean) => void;
     minusBalance: (price: number) => Promise<void>;
-    handleReferral: (userId: number, startParam: string) => Promise<void>;
+    handleReferral: (userId: number, startParam: string | null) => Promise<void>;
     setUser: (user: Partial<User>) => void;
     addAddresses: (addresses: { userFriendlyAddress: string | null; rawAddress: string | null }) => void;
     setBalanceData: (balance: Partial<BalanceObj>) => void;
@@ -385,6 +385,7 @@ export interface UseAuth {
     isError: boolean;
     isLoading: boolean;
     isRefreshing: boolean;
+    updateLimit: (uhs_id: number, newLimit: number, amount: number) => Promise<void>;
     refreshToken: (token: string) => Promise<void>;
     checkNonce: (proof: Proof, account: Account) => Promise<void>;
 }

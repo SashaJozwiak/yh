@@ -6,6 +6,7 @@ import { useAuth, useUserData } from "../../../../store/main";
 
 import s from "./easy.module.css"
 import WebApp from "@twa-dev/sdk";
+import { useNav } from "../../../../store/nav";
 
 export const Easy = () => {
 
@@ -14,19 +15,24 @@ export const Easy = () => {
 
     const externalId = useUserData(state => state.user.id)
 
+    const changeNav = useNav(state => state.setMainNav)
+
     useEffect(() => {
         if (userId && !tasks.length) {
             getTasks(userId);
         }
     }, [getTasks, tasks.length, userId])
 
-    console.log('tasks:', tasks)
-    console.log('userId:', userId)
-
     return (
         <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
             {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
+                    <li style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                        <h3 style={{ textAlign: 'center' }}>Invite your friends</h3>
+                        <button
+                            onClick={() => changeNav('invite')}
+                            style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>GO</button>
+                    </li>
                     {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {
                         return (
                             <li key={task.id}

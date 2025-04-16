@@ -12,18 +12,18 @@ export const Stages = () => {
     const username = useUserData(state => state.user.userName);
 
     const stages = useNav(state => state.nav.stage);
-    const setStages = useNav(state => state.setStages);
+    //const setStages = useNav(state => state.setStages);
 
     const UHS = useJettonsBalances(state => state.jettons)
     const UHSPool = useTonco(state => state.pools[0])
 
-    console.log('UHS: ', UHS[0], UHSPool.value);
+    //console.log('UHS: ', UHS[0], UHSPool.value);
 
     return (
         <div className={`${s.list} scrollable`}>
             <header style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}
             >
-                <h2 style={{ flex: '0.1' }}></h2>
+                {/* <h2 style={{ flex: '0.1' }}></h2>
                 {stages === 'stages' ? <h2 style={{ flex: '0.8' }}>{swichLang(userLang, 'off_chain')}</h2> : <h2 style={{ flex: '0.8' }}>DAO</h2>}
                 <button
                     onClick={() => {
@@ -38,7 +38,7 @@ export const Stages = () => {
                         backgroundColor: 'rgb(51 65 85)'
                     }}
 
-                >{stages === 'stages' ? 'DAO' : 'STAGES'}</button>
+                >{stages === 'stages' ? 'DAO' : 'STAGES'}</button> */}
             </header>
 
             {stages === 'stages' ?
@@ -49,7 +49,7 @@ export const Stages = () => {
                         <li className={s.listelement}>🟢 {swichLang(userLang, 'launch_game')}</li>
                         <li className={s.listelement}>🟢 {swichLang(userLang, 'marketing')}</li>
                         <li className={s.listelement}>🟢 {swichLang(userLang, 'presa')}</li>
-                        <li className={`${s.listelement} ${s.ok}`}>🟡 {swichLang(userLang, 'airdrop')}</li>
+                        <li className={s.listelement}>🟢 {swichLang(userLang, 'airdrop')}</li>
                         <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; inviting friends</li>
                         <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; cards in the game</li>
                         <li style={{ fontSize: '1rem', fontStyle: 'italic' }}>&emsp; &emsp; purchases ★</li>
@@ -58,8 +58,8 @@ export const Stages = () => {
                     </ul >
                     <h2>{swichLang(userLang, 'on_chain')}</h2>
                     <ul className={s.stagelist}>
+                        <li className={`${s.listelement} ${s.ok}`}>🟡 Store and new tools</li>
                         <li className={s.listelement}>⚪ Web and advanced features</li>
-                        <li className={s.listelement}>⚪ Store and new tools</li>
                         <li className={s.listelement}>⚪ Multichain</li>
                         <li className={s.listelement}>⚪ Decentralization</li>
                     </ul> 
