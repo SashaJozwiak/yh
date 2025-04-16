@@ -22,7 +22,7 @@ export const Cabinet: React.FC = () => {
 
     return (
         <>
-            <BackButton onClick={() => changeNav('hold')} />
+            <BackButton onClick={() => changeNav('UHS')} />
             <div className={s.cabnav}>
                 <button
                     onClick={() => changeCabNav('data')}
