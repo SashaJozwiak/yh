@@ -269,8 +269,8 @@ export const CabData = () => {
                                 <p>50 UHS</p>
                                 <button
                                     onClick={() => byuLimit(72)}
-                                    disabled={period > 24}
-                                    style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', margin: '0 auto', opacity: period > 24 ? '0.5' : '1' }}>{period > 24 ? '✔' : 'buy'}</button>
+                                    disabled={period > 24 || myBalance < 50}
+                                    style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', margin: '0 auto', opacity: period > 24 || myBalance < 50 ? '0.5' : '1' }}>{period > 24 ? '✔' : 'buy'}</button>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>
@@ -278,8 +278,8 @@ export const CabData = () => {
                                 <p>{period !== 72 ? '110' : '60'} UHS</p>
                                 <button
                                     onClick={() => byuLimit(168)}
-                                    disabled={period >= 168}
-                                    style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', margin: '0 auto', opacity: period >= 168 ? '0.5' : '1' }}>{period >= 168 ? '✔' : 'buy'}</button>
+                                    disabled={period >= 168 || myBalance < (period !== 72 ? 110 : 60)}
+                                    style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', margin: '0 auto', opacity: period >= 168 || myBalance < (period !== 72 ? 110 : 60) ? '0.5' : '1' }}>{period >= 168 ? '✔' : 'buy'}</button>
                             </div>
 
                         </div>
