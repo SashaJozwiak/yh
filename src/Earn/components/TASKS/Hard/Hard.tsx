@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAuth, /* useUserData */ } from "../../../../store/main"
 import useInviteStore from "../../../earnStore/UHS_invites"
 import { useWallet } from "../../../earnStore/wallet"
@@ -16,8 +16,11 @@ export const Hard = () => {
     const UHSAssets = useUHSWallet(state => state.assets)
     const { shares } = useUHSWallet(state => state)
 
+    const [checkProcess, setCheckProcess] = useState<boolean>(false);
+
     const handleCheck = (lvl: number) => {
         //checkHardTask(UHSId, lvl)
+        setCheckProcess(true);
         if (lvl === 1) {
             const UHS_ADDRESS = "0:3c4aac2fb4c1dee6c0bacbf86505f6bc7c31426959afd34c09e69ef3eae0dfcc";
             const USDT_ADDRESS = "0:b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe";
@@ -66,6 +69,7 @@ export const Hard = () => {
         if (lvl === 3 && shares.length > 0 && UHSId) {
             updateLevels(UHSId, 3)
         }
+        setTimeout(() => { setCheckProcess(false) }, 1500)
     };
 
     useEffect(() => {
@@ -101,8 +105,8 @@ export const Hard = () => {
                                 onClick={() => {
                                     handleCheck(1)
                                 }}
-                                disabled={inviteData?.lvl1}
-                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold', color: inviteData?.lvl1 ? 'gray' : 'white' }}>Check</button>
+                                disabled={inviteData?.lvl1 || checkProcess}
+                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold', color: inviteData?.lvl1 || checkProcess ? 'gray' : 'white' }}>Check</button>
                         </div>
                     </li>
 
@@ -126,8 +130,8 @@ export const Hard = () => {
                                 onClick={() => {
                                     handleCheck(2)
                                 }}
-                                disabled={inviteData?.lvl2}
-                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold', color: inviteData?.lvl2 ? 'gray' : 'white' }}>Check</button>
+                                disabled={inviteData?.lvl2 || checkProcess}
+                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold', color: inviteData?.lvl2 || checkProcess ? 'gray' : 'white' }}>Check</button>
                         </div>
 
                     </li>
@@ -152,8 +156,8 @@ export const Hard = () => {
                                 onClick={() => {
                                     handleCheck(3)
                                 }}
-                                disabled={inviteData?.lvl3}
-                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold', color: inviteData?.lvl3 ? 'gray' : 'white' }}>Check</button>
+                                disabled={inviteData?.lvl3 || checkProcess}
+                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold', color: inviteData?.lvl3 || checkProcess ? 'gray' : 'white' }}>Check</button>
                         </div>
                     </li>
                 </ul>
