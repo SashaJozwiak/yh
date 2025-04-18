@@ -145,3 +145,37 @@
       opacity: 0;
     }
   }
+
+
+  .listitem {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex: 1 0 30%; 
+    border: 1px solid gray; 
+    
+    padding: 0.6rem 0.5rem; 
+    margin: 0.5rem 0; 
+    border-radius: 0.5rem;
+    //background-color: #00000012;
+    background-color: rgb(58 70 88);
+}
+
+.title {
+    text-align: left;
+    margin: auto auto auto 0;
+    border-bottom:1px solid white;
+}
+
+/* .price {
+  padding:0.2rem;
+  border: 1px solid;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  width: 4rem;
+} */
+
+
+.titleperm {
+  color: white;
+}

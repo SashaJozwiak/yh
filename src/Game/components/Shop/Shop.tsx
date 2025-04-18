@@ -1,6 +1,6 @@
 //import React from 'react'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import s from './shop.module.css'
 import { useGameNav } from '../../state/gameNav'
 import { Potion } from '../Some/PotionSvg';
@@ -8,6 +8,10 @@ import { usePlayCard } from '../../state/playCard';
 
 import { StateForBuy } from '../../types/playCard'
 import { useUserData } from '../../../store/main';
+
+import { useTasks } from '../../../store/tasks';
+import { TimerButtonAd } from '../../../components/Tasks/TimerButtonAd';
+
 
 export const Shop: React.FC = () => {
 
@@ -27,6 +31,13 @@ export const Shop: React.FC = () => {
 
     const balance = useUserData(state => state.balance.balance);
     const minusBalance = useUserData(state => state.minusBalance) 
+
+    const { adReward, getAllTasks } = useTasks(state => state)
+    const { internalId } = useUserData(state => state.user)
+
+    useEffect(() => {
+        getAllTasks(internalId)
+    }, [getAllTasks, internalId])
 
     const changeCart = (id: number, type: string) => {
         const prices = {
@@ -168,6 +179,17 @@ export const Shop: React.FC = () => {
                 {ok && <h4 style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }}>Successful!</h4>}
 
                 <div style={{ marginTop: '1rem' }}>Total cost: <b>{cart['sum']}</b> UH</div>
+            </div>
+
+            <div
+                className={`${s.listitem} ${s.listitemperm}`}
+                style={{ marginTop: '1rem' }}
+            >
+                <div style={{ border: 'none', margin: 'auto auto auto 0' }} className={s.title}>{adReward.title}</div>
+
+                <TimerButtonAd dailyReward={adReward} />
+
+                <div style={{ color: 'white' }} className={s.price}>{adReward.price}<span style={{ color: 'rgb(22, 163, 74)' }}> UH</span></div>
             </div>
 
 
