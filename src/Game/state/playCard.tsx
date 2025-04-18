@@ -389,9 +389,9 @@ export const usePlayCard = create<PlayCardState>()(devtools((set, get) => ({
                 forSave: {
                     ...state.forSave,
                     cards: id === 2004 ? state.forSave.cards + 1 : state.forSave.cards,
-                    UH: id === 2001 ? state.forSave.UH + 50 : id === 2002 ? state.forSave.UH + 100 : state.forSave.UH,
-                    B: id === 2003 ? state.forSave.B + 50 : state.forSave.B,
-                    count: state.forSave.count + 1
+                    UH: id === 2001 || id === 2003 ? state.forSave.UH + 50 : id === 2002 ? state.forSave.UH + 100 : state.forSave.UH,
+                    /*                     B: id === 2003 ? state.forSave.B + 50 : state.forSave.B,
+                                        count: state.forSave.count + 1 */
                 }
             }
         ))

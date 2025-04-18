@@ -32,8 +32,8 @@ export const DeckInfo = ({ setDeckInfo }) => {
 
                     <div>
                         <h3>{userLang === 'ru' ? 'Для чего?' : 'For what?'}</h3>
-                        <p>— {userLang === 'ru' ? 'Увеличивает айрдроп' : 'Increase the airdrop size'};</p>
-                        <p>— {userLang === 'ru' ? 'снижают комиссию за переводы UH в чатах' : 'all card classes reduce fees for UH transfers in chats'} ;</p>
+                        {/*  <p>— {userLang === 'ru' ? 'Увеличивает айрдроп' : 'Increase the airdrop size'};</p>
+                        <p>— {userLang === 'ru' ? 'снижают комиссию за переводы UH в чатах' : 'all card classes reduce fees for UH transfers in chats'} ;</p> */}
                         <p>— {userLang === 'ru' ? 'за золотую карту можно приобрести город на карте мира, а позже заклеймить за ним NFT' : 'for a gold card you can buy a city on the world map and later mint NFT'}.</p>
                         {/* <p>— {userLang === 'ru' ? 'фан' : 'fun'} ☺</p> */}
                     </div>

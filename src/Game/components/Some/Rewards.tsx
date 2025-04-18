@@ -8,7 +8,7 @@ export const Rewards = ({ id }: { id: number }) => {
         ) : id === 2002 ? (
             <h1>UH</h1>
         ) : id === 2003 ? (
-            <span style={{ color: 'green', fontSize: '2vh' }}><span style={{ fontSize: '4vh' }}>🟢</span><br /> 50 B</span >
+                    <h1>UH</h1>
         ) : id === 2004 ? (
             <img width={50} height='50vh' src={empty} alt="empty card pic" />
         ) : null

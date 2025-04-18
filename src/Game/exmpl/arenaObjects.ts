@@ -46,7 +46,7 @@ const items = [
 const rewards = [
     { id: 2001, name: 'Free 50 UH', type: 'rewards', bp: [0, 0], balance: 0, attack: 0 },
     { id: 2002, name: 'Free 100 UH', type: 'rewards', bp: [0, 0], balance: 0, attack: 0 },
-    { id: 2003, name: 'Free 50B', type: 'rewards', bp: [0, 0], balance: 0, attack: 0 },
+    { id: 2003, name: 'Free 50 UH', type: 'rewards', bp: [0, 0], balance: 0, attack: 0 },
     { id: 2004, name: 'Free Card', type: 'rewards', bp: [0, 0], balance: 0, attack: 0 },
 ];
 

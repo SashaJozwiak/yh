@@ -200,11 +200,11 @@ export const Deck: React.FC = () => {
                         className={s.fbtn}
                     >CLAIM <p>({randomCards})</p></button>
                     <button
-                        disabled={true}
+                        //disabled={true}
                         onClick={handleBuy}
-                        style={{ opacity: '0.5' }}
+                        //style={{ opacity: '0.5' }}
                         className={s.fbtn}
-                    ><span style={{ textDecoration: 'line-through' }}>⭐BUY⭐</span><p>Airdrop <br /> Soon</p></button>
+                    ><span /* style={{ textDecoration: 'line-through' }} */>⭐BUY⭐</span>{/* <p>Airdrop <br /> Soon</p> */}</button>
                 </footer>
             </div >
         </>

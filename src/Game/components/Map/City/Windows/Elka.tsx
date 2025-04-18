@@ -95,7 +95,7 @@ export const Elka = ({ setOpenWindow, selectedLocation }) => {
                         </div>
                         <div>
                             <h3>Present for users:</h3>
-                            <span style={{ margin: '0.5rem' }}>300 B</span>
+                            <span style={{ margin: '0.5rem' }}>300 UH</span>
                         </div>
                         <button
                             disabled={isSave}
