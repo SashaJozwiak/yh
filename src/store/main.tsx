@@ -168,6 +168,15 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     miningLoader: false,
     authError: false,
     //setUser: (user: User) => set(() => ({ user })),
+    plusLocalBalance: (bal) => {
+        set((state) => ({
+            ...state,
+            balance: {
+                ...state.balance,
+                balance: state.balance.balance + bal,
+            }
+        }))
+    },
     setAuthError: (isTrue) => set(() => ({ authError: isTrue })),
     minusBalance: async (price) => {
         const user_id = get().user.internalId;
