@@ -32,6 +32,7 @@ export interface UseStore {
     balanceLoader: boolean;
     isAuth: boolean;
     authError: boolean;
+    plusLocalBalance: (bal: number) => void;
     setAuthError: (isTrue: boolean) => void;
     minusBalance: (price: number) => Promise<void>;
     handleReferral: (userId: number, startParam: string | null) => Promise<void>;

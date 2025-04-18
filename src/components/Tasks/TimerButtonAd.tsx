@@ -29,6 +29,7 @@ export const TimerButtonAd = ({ dailyReward }) => {
 
   const [loading, setLoading] = useState(false);// Состояние загрузки
   //const [renderPage, setRenderPAge] = useState(false);
+  const { plusLocalBalance } = useUserData(state => state)
 
   //console.log('adReward/dailyreward: ', dailyReward)
   const onReward = useCallback(() => {
@@ -36,9 +37,10 @@ export const TimerButtonAd = ({ dailyReward }) => {
     WebApp.showConfirm('Bonuses successfully received!', () => {
       // Запускаем getAllTasks после закрытия диалога
       getAllTasks(userInternalId);
+      plusLocalBalance(100)
     });
 
-  }, [getAllTasks, userInternalId]);
+  }, [getAllTasks, plusLocalBalance, userInternalId]);
 
   const onError = useCallback((result) => {
     //alert(JSON.stringify(result, null, 4));

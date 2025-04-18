@@ -34,6 +34,7 @@ export const Shop: React.FC = () => {
 
     const { adReward, getAllTasks } = useTasks(state => state)
     const { internalId } = useUserData(state => state.user)
+    //const {plusLocalBalance} = useUserData(state => state)
 
     useEffect(() => {
         getAllTasks(internalId)
@@ -172,15 +173,6 @@ export const Shop: React.FC = () => {
 
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: '0 0.5rem' }}>
-                <div style={{ marginTop: '1rem' }}>Balance: <b>{Math.floor(balance)}</b> UH</div>
-
-                {loading && <span className={s.loader}></span>}
-                {ok && <h4 style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }}>Successful!</h4>}
-
-                <div style={{ marginTop: '1rem' }}>Total cost: <b>{cart['sum']}</b> UH</div>
-            </div>
-
             <div
                 className={`${s.listitem} ${s.listitemperm}`}
                 style={{ marginTop: '1rem' }}
@@ -189,8 +181,20 @@ export const Shop: React.FC = () => {
 
                 <TimerButtonAd dailyReward={adReward} />
 
-                <div style={{ color: 'white' }} className={s.price}>{adReward.price}<span style={{ color: 'rgb(22, 163, 74)' }}> UH</span></div>
+                <div style={{ color: 'white' }} /* className={s.price} */>+{adReward.price}<span> UH</span></div>
             </div>
+
+
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: '0 0.5rem' }}>
+                <div /* style={{ marginTop: '1rem' }} */>Balance: <b>{Math.floor(balance)}</b> UH</div>
+
+                {loading && <span className={s.loader}></span>}
+                {ok && <h4 style={{ color: 'rgb(22 163 74)', fontWeight: 'bold' }}>Successful!</h4>}
+
+                <div /* style={{ marginTop: '1rem' }} */>Total cost: <b>{cart['sum']}</b> UH</div>
+            </div>
+
+
 
 
             <footer className={s.footer}>
@@ -206,6 +210,9 @@ export const Shop: React.FC = () => {
                     onClick={handleBuy}
                 >BUY</button>
             </footer>
+
+
+
         </div>
     )
 }
