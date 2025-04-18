@@ -61,6 +61,9 @@ export const MainEarn = () => {
             {!ufAddress && !isAuth && <h2
                 style={{ margin: '10vh auto' }}
                 className={s.fadeIn}>Connect wallet, please</h2>}
+            {ufAddress && !isAuth && <h2
+                style={{ margin: '10vh auto' }}
+                className={s.fadeIn}>Reconnect wallet, please</h2>}
             {ufAddress && isAuth && <Balance />}
             {ufAddress && isAuth && !isOpenWallet && <Menu />}
             {ufAddress && isAuth && isOpenWallet && <ShowBalance />}
