@@ -30,9 +30,10 @@ export const Easy = () => {
             const diff = 30 * 60 * 1000 - (now - start); // 30 минут в мс
 
             setTimeLeft(diff > 0 ? diff : 0);
+            setOk(true);
         }, 1000);
 
-        setOk(true);
+
         return () => clearInterval(interval);
     }, [adTaskTimestamp]);
 
