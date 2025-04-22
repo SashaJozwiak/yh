@@ -9,7 +9,6 @@ export const Awindow = () => {
     console.log('ad data: ', data)
 
 
-
     return (
         <div
             //onClick={() => { setAwindow(false) }}
