@@ -153,8 +153,9 @@ export interface UhsTask {
 
 export interface UhsTasksStore {
     tasks: UhsTask[];
-    adTask: boolean,
-    adTaskLoading: boolean,
+    adTask: boolean;
+    adTaskLoading: boolean;
+    adTaskTimestamp: string | null;
     checkBotState: boolean;
     isLoadingAdd: boolean;
     isLoading: boolean;

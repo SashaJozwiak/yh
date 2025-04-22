@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useUhsTasks } from "../../../earnStore/uhstasks"
 import { useAuth, useUserData } from "../../../../store/main";
 
@@ -6,16 +6,37 @@ import s from "./easy.module.css"
 import WebApp from "@twa-dev/sdk";
 import { useNav } from "../../../../store/nav";
 import { AdsgramTask } from './AdsgramTask';
+//import { TimerAdsgram } from "./TimerAdsgram";
 
 export const Easy = () => {
 
-    const { tasks, isLoading, adTask, adTaskLoading, getTasks, checkTask, getAGTask, rewardAdTask } = useUhsTasks(state => state);
+    const { tasks, isLoading, adTask, adTaskLoading, adTaskTimestamp, getTasks, checkTask, getAGTask, rewardAdTask } = useUhsTasks(state => state);
     const userId = useAuth(state => state.userId)
 
     const externalId = useUserData(state => state.user.id)
     //const lang = useUserData(state=>state.user.languageCode)
 
     const changeNav = useNav(state => state.setMainNav)
+
+    const [timeLeft, setTimeLeft] = useState<number>(0);
+
+    useEffect(() => {
+        if (!adTaskTimestamp) return; // 🔒 защита от null
+
+        const interval = setInterval(() => {
+            const start = new Date(adTaskTimestamp).getTime();
+            const now = Date.now();
+            const diff = 30 * 60 * 1000 - (now - start); // 30 минут в мс
+
+            setTimeLeft(diff > 0 ? diff : 0);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [adTaskTimestamp]);
+
+    const minutes = Math.floor(timeLeft / 60000);
+    const seconds = Math.floor((timeLeft % 60000) / 1000);
+
 
     const getAdTaskState = useCallback(() => {
         if (externalId) {
@@ -33,6 +54,7 @@ export const Easy = () => {
         }
     }, [getTasks, tasks.length, userId])
 
+    console.log('timeleft: ', timeLeft)
 
     return (
         <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
@@ -46,8 +68,8 @@ export const Easy = () => {
                     </li>
 
                     <li style={{ /* padding: '0.6rem', */ listStyle: "none", /* display: 'flex', justifyContent: 'space-between', */ backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                        <AdsgramTask debug={false} blockId={"task-10130"} />
-                        {adTask && <button
+                        <AdsgramTask debug={false} blockId={"task-10130"} timeLeft={timeLeft} />
+                        {adTask && timeLeft <= 0 && <button
                             onClick={() => {
                                 if (userId) {
                                     rewardAdTask(userId, externalId)
@@ -57,12 +79,13 @@ export const Easy = () => {
                             style={{ width: '10rem', fontSize: '1rem', margin: '0 0 0.2rem 0', border: '1px solid white', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: adTaskLoading ? '0.5' : '1' }}
                         >Claim 0.01 USDT</button>}
 
-                        {!adTask && <button
+                        {!adTask && timeLeft <= 0 && <button
                             disabled={adTaskLoading}
                             onClick={() => getAdTaskState()}
                             style={{ width: '4rem', fontSize: '1rem', margin: '0 0 0.2rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: '1px solid gray', opacity: adTaskLoading ? '0.5' : '1' }}>
                             CHECK
                         </button>}
+                        {adTaskTimestamp && timeLeft > 0 && <div>{minutes}:{seconds.toString().padStart(2, "0")}</div>}
                     </li>
 
                     {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {

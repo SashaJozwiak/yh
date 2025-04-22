@@ -11,6 +11,7 @@ export const useUhsTasks = create<UhsTasksStore>((set) => ({
     tasks: [],
     adTask: false,
     adTaskLoading: true,
+    adTaskTimestamp: null,
     isLoading: true,
     isLoadingAdd: false,
     checkBotState: false,
@@ -35,6 +36,8 @@ export const useUhsTasks = create<UhsTasksStore>((set) => ({
 
             const data = await response.json();
             console.log('Награда начислена:', data);
+            set({ adTaskTimestamp: new Date().toISOString() })
+
             await getBalance(userId);
 
         } catch (error) {
@@ -55,7 +58,7 @@ export const useUhsTasks = create<UhsTasksStore>((set) => ({
             console.log('AD TASK STATE:', data)
             //set({ tasks: data, isLoading: false });
             //set({ adTaskLoading: false, adTask: data.isTaskActive });
-            set({ adTaskLoading: false, adTask: data.claim });
+            set({ adTaskLoading: false, adTask: data.claim, adTaskTimestamp: data.timestamp });
         } catch (err) {
             console.log('Error fetching tasks:', err);
             set({ adTaskLoading: false });
