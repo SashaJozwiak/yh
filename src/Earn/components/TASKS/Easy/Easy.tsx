@@ -54,7 +54,7 @@ export const Easy = () => {
         }
     }, [getTasks, tasks.length, userId])
 
-    console.log('timeleft: ', timeLeft)
+    //console.log('timeleft: ', timeLeft)
 
     return (
         <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
@@ -67,6 +67,7 @@ export const Easy = () => {
                             style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold' }}>GO</button>
                     </li>
 
+                    {!adTaskLoading &&
                     <li style={{ /* padding: '0.6rem', */ listStyle: "none", /* display: 'flex', justifyContent: 'space-between', */ backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
                         <AdsgramTask debug={false} blockId={"task-10130"} timeLeft={timeLeft} />
                         {adTask && timeLeft <= 0 && <button
@@ -87,6 +88,7 @@ export const Easy = () => {
                         </button>}
                         {adTaskTimestamp && timeLeft > 0 && <div>{minutes}:{seconds.toString().padStart(2, "0")}</div>}
                     </li>
+                    }
 
                     {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {
                         return (
