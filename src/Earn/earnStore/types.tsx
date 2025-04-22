@@ -153,9 +153,13 @@ export interface UhsTask {
 
 export interface UhsTasksStore {
     tasks: UhsTask[];
+    adTask: boolean,
+    adTaskLoading: boolean,
     checkBotState: boolean;
     isLoadingAdd: boolean;
     isLoading: boolean;
+    rewardAdTask: (userId: number, internalId: number) => Promise<void>;
+    getAGTask: (userId: number) => Promise<void>;
     addTask: (userId: number, title: string, description: string, currency: string, price: number, count: number, balance: number, src: string) => Promise<void>;
     getTasks: (userId: number) => Promise<void>;
     checkTask: (uhsUserId: number, userId: number, chatId: string, taskId: number) => Promise<void>;

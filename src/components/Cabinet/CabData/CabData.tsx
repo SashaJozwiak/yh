@@ -248,12 +248,12 @@ export const CabData = () => {
                         </div>
                     </div>
 
-                    <h2 className={s.headerlist}>{/* {swichLang(languageCode, 'top100')} */} Settings</h2>
+                    <h2 className={s.headerlist}>{/* {swichLang(languageCode, 'top100')} */} Hold timer</h2>
 
                     <div
                         className={`${s.list} scrollable`}
-                        style={{ border: '0px solid', color: 'gray', paddingBottom: '5.5rem' }}>
-                        <h3>Hold timer</h3>
+                        style={{ border: '0px solid', color: 'gray', marginTop: '1rem', paddingBottom: '5.5rem' }}>
+                        {/* <h3>Hold timer</h3> */}
                         <div style={{ display: 'flex', justifyContent: 'space-around', color: 'white' }}>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>

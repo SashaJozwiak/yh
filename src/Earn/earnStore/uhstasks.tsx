@@ -9,9 +9,59 @@ const useEarnNavStore = useEarnNav;
 
 export const useUhsTasks = create<UhsTasksStore>((set) => ({
     tasks: [],
+    adTask: false,
+    adTaskLoading: true,
     isLoading: true,
     isLoadingAdd: false,
     checkBotState: false,
+    rewardAdTask: async (userId, internalId) => {
+        set({ adTaskLoading: true });
+        const { getBalance } = uhsWalletStore.getState();
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhstasks/agTaskReward`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    internal_id: internalId
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка при начислении награды: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            console.log('Награда начислена:', data);
+            await getBalance(userId);
+
+        } catch (error) {
+            console.error('Ошибка в rewardAdTask:', error);
+
+        } finally {
+            set({ adTaskLoading: false, adTask: false });
+        }
+    },
+    getAGTask: async (userId) => {
+        //console.log('userIdTasks: ', userId)
+        set({ adTaskLoading: true });
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhstasks/agTaskState?userId=${userId}`);
+            if (!response.ok) throw new Error('Failed to fetch tasks');
+
+            const data = await response.json();
+            console.log('AD TASK STATE:', data)
+            //set({ tasks: data, isLoading: false });
+            //set({ adTaskLoading: false, adTask: data.isTaskActive });
+            set({ adTaskLoading: false, adTask: data.claim });
+        } catch (err) {
+            console.log('Error fetching tasks:', err);
+            set({ adTaskLoading: false });
+        }
+
+    },
     addTask: async (userId, title, description, currency, price, count, balance, src) => {
         set({ isLoadingAdd: true });
         const { getBalance } = uhsWalletStore.getState();

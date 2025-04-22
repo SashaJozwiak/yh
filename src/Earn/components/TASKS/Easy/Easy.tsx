@@ -1,27 +1,41 @@
-//import React from 'react'
-
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useUhsTasks } from "../../../earnStore/uhstasks"
 import { useAuth, useUserData } from "../../../../store/main";
 
 import s from "./easy.module.css"
 import WebApp from "@twa-dev/sdk";
 import { useNav } from "../../../../store/nav";
+import { AdsgramTask } from './AdsgramTask';
 
 export const Easy = () => {
 
-    const { tasks, isLoading, getTasks, checkTask } = useUhsTasks(state => state);
+    const { tasks, isLoading, adTask, adTaskLoading, getTasks, checkTask, getAGTask, rewardAdTask } = useUhsTasks(state => state);
     const userId = useAuth(state => state.userId)
 
     const externalId = useUserData(state => state.user.id)
+    //const lang = useUserData(state=>state.user.languageCode)
 
     const changeNav = useNav(state => state.setMainNav)
+
+    const getAdTaskState = useCallback(() => {
+        if (externalId) {
+            getAGTask(externalId);
+        }
+    }, [externalId, getAGTask]);
+
+    useEffect(() => {
+        getAdTaskState()
+    }, [getAdTaskState])
 
     useEffect(() => {
         if (userId && !tasks.length) {
             getTasks(userId);
         }
     }, [getTasks, tasks.length, userId])
+
+
+
+
 
     return (
         <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
@@ -31,8 +45,29 @@ export const Easy = () => {
                         <h3 style={{ textAlign: 'center' }}>Invite your friends</h3>
                         <button
                             onClick={() => changeNav('invite')}
-                            style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>GO</button>
+                            style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold' }}>GO</button>
                     </li>
+
+                    {userId === 3 && <li style={{ /* padding: '0.6rem', */ listStyle: "none", /* display: 'flex', justifyContent: 'space-between', */ backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                        <AdsgramTask debug={true} blockId={"task-10130"} />
+                        {adTask && <button
+                            onClick={() => {
+                                if (userId) {
+                                    rewardAdTask(userId, externalId)
+                                }
+                            }}
+                            disabled={adTaskLoading}
+                            style={{ width: '10rem', fontSize: '1rem', margin: '0 0 0.2rem 0', border: '1px solid white', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: adTaskLoading ? '0.5' : '1' }}
+                        >Claim 0.02 USDT</button>}
+
+                        {!adTask && <button
+                            disabled={adTaskLoading}
+                            onClick={() => getAdTaskState()}
+                            style={{ width: '4rem', fontSize: '1rem', margin: '0 0 0.2rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: '1px solid gray', opacity: adTaskLoading ? '0.5' : '1' }}>
+                            CHECK
+                        </button>}
+                    </li>}
+
                     {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {
                         return (
                             <li key={task.id}

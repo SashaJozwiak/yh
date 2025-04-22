@@ -269,7 +269,7 @@ export const Header: React.FC = () => {
             <button
                 onClick={(e) => {
                     e.preventDefault();
-                    WebApp.openTelegramLink('https://t.me/avtorizator')
+                    WebApp.openTelegramLink('https://t.me/youhold_chat/2200')
                 }}
                 className={s.speed}
                 style={{ backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useAuth, /* useUserData */ } from "../../../../store/main"
+import { useAuth, useUserData, /* useUserData */ } from "../../../../store/main"
 import useInviteStore from "../../../earnStore/UHS_invites"
 import { useWallet } from "../../../earnStore/wallet"
 
@@ -9,6 +9,7 @@ import { useUHSWallet } from "../../../earnStore/UHSWallet"
 
 export const Hard = () => {
     const UHSId = useAuth(state => state.userId)
+    const lang = useUserData(state => state.user.languageCode) 
 
     const { status, inviteData, fetchMy, updateLevels } = useInviteStore(state => state)
 
@@ -94,7 +95,8 @@ export const Hard = () => {
                             </div>
 
                             <p style={{ fontStyle: 'normal', fontWeight: '400', fontSize: '1rem', textAlign: 'left' }}>
-                                Your total TON-wallet balance USDT + UHS more than $10
+                                {lang === 'ru' ? 'На твоем TON кошельке в сумме USDT и UHS больше чем на $10' : 'Your total TON-wallet balance USDT + UHS more than $10'}
+
                             </p>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', color: 'white' }}>
@@ -119,7 +121,7 @@ export const Hard = () => {
                             </div>
 
                             <p style={{ fontStyle: 'normal', fontWeight: '400', fontSize: '1rem', textAlign: 'left' }}>
-                                Your total UH-wallet balance more than $10
+                                {lang === 'ru' ? 'На твоем UH-кошельке в сумме USDT и UHS больше чем на $10' : 'Your total UH-wallet balance more than $10'}
                             </p>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', color: 'white' }}>
@@ -145,7 +147,7 @@ export const Hard = () => {
                             </div>
 
                             <p style={{ fontStyle: 'normal', fontWeight: '400', fontSize: '1rem', textAlign: 'left' }}>
-                                You invested in any project in the LAUNCH section
+                                {lang === 'ru' ? 'Вы инвестировали в разделе LAUNCH в любой проект' : 'You invested in any project in the LAUNCH section'}
                             </p>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', color: 'white' }}>
