@@ -19,6 +19,7 @@ export const Easy = () => {
     const changeNav = useNav(state => state.setMainNav)
 
     const [timeLeft, setTimeLeft] = useState<number>(0);
+    const [ok, setOk] = useState<boolean>(false);
 
     useEffect(() => {
         if (!adTaskTimestamp) return; // 🔒 защита от null
@@ -31,6 +32,7 @@ export const Easy = () => {
             setTimeLeft(diff > 0 ? diff : 0);
         }, 1000);
 
+        setOk(true);
         return () => clearInterval(interval);
     }, [adTaskTimestamp]);
 
@@ -67,7 +69,7 @@ export const Easy = () => {
                             style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold' }}>GO</button>
                     </li>
 
-                    {!adTaskLoading &&
+                    {!adTaskLoading && ok &&
                     <li style={{ /* padding: '0.6rem', */ listStyle: "none", /* display: 'flex', justifyContent: 'space-between', */ backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
                         <AdsgramTask debug={false} blockId={"task-10130"} timeLeft={timeLeft} />
                         {adTask && timeLeft <= 0 && <button
