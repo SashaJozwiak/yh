@@ -12,10 +12,12 @@ export const AdsgramTask = ({ debug, blockId }: TaskProps) => {
     useEffect(() => {
         const handler = (event: Event) => {
             const customEvent = event as CustomEvent;
-            alert(`reward detail: ${customEvent.detail}`);
+            console.log('reward event:', customEvent);
+            //alert(`reward detail: ${customEvent.detail}`);
         };
 
         const task = taskRef.current;
+
         if (task) {
             task.addEventListener("reward", handler);
         }
