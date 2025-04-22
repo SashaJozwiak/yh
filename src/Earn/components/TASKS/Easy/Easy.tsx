@@ -49,7 +49,7 @@ export const Easy = () => {
                     </li>
 
                     {userId === 3 && <li style={{ /* padding: '0.6rem', */ listStyle: "none", /* display: 'flex', justifyContent: 'space-between', */ backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                        <AdsgramTask debug={true} blockId={"task-10130"} />
+                        <AdsgramTask debug={false} blockId={"task-10130"} />
                         {adTask && <button
                             onClick={() => {
                                 if (userId) {
