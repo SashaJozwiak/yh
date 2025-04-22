@@ -41,7 +41,7 @@ export const AdsgramTask = ({ debug, blockId }: TaskProps) => {
             ref={taskRef}
         >
             <span slot="reward" /* className={styles.reward} */>
-                + 0.02 USDT
+                +0.01 USDT
             </span>
             <div slot="button" style={{ width: '4rem', height: '1.6rem', alignContent: 'center', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif' }} /* className={styles.button} */>
                 GO

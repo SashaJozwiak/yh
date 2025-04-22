@@ -45,7 +45,7 @@ export const Easy = () => {
                             style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold' }}>GO</button>
                     </li>
 
-                    {userId === 3 && <li style={{ /* padding: '0.6rem', */ listStyle: "none", /* display: 'flex', justifyContent: 'space-between', */ backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <li style={{ /* padding: '0.6rem', */ listStyle: "none", /* display: 'flex', justifyContent: 'space-between', */ backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
                         <AdsgramTask debug={false} blockId={"task-10130"} />
                         {adTask && <button
                             onClick={() => {
@@ -63,7 +63,7 @@ export const Easy = () => {
                             style={{ width: '4rem', fontSize: '1rem', margin: '0 0 0.2rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: '1px solid gray', opacity: adTaskLoading ? '0.5' : '1' }}>
                             CHECK
                         </button>}
-                    </li>}
+                    </li>
 
                     {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {
                         return (
