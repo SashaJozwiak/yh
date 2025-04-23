@@ -4,10 +4,10 @@ import styles from "./task.module.css";
 interface TaskProps {
     debug: boolean;
     blockId: string;
-    timeLeft: number;
+    /*  timeLeft: number; */
 }
 
-export const AdsgramTask = ({ debug, blockId, timeLeft }: TaskProps) => {
+export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
     const taskRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export const AdsgramTask = ({ debug, blockId, timeLeft }: TaskProps) => {
 
         const task = taskRef.current;
 
-        if (task && timeLeft <= 0) {
+        if (task /* && timeLeft <= 0 */) {
             task.addEventListener("reward", handler);
         }
 
@@ -28,7 +28,7 @@ export const AdsgramTask = ({ debug, blockId, timeLeft }: TaskProps) => {
                 task.removeEventListener("reward", handler);
             }
         };
-    }, [timeLeft]);
+    }, [/* timeLeft */]);
 
     if (!customElements.get("adsgram-task")) {
         return null;
@@ -44,7 +44,7 @@ export const AdsgramTask = ({ debug, blockId, timeLeft }: TaskProps) => {
             <span slot="reward" /* className={styles.reward} */>
                 +0.01 USDT
             </span>
-            <div slot="button" style={{ width: '4rem', height: '1.6rem', alignContent: 'center', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif', opacity: timeLeft <= 0 ? '1' : '0.5' }} /* className={styles.button} */>
+            <div slot="button" style={{ width: '4rem', height: '1.6rem', alignContent: 'center', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif'/* , opacity: timeLeft <= 0 ? '1' : '0.5' */ }} /* className={styles.button} */>
                 GO
             </div>
             <div slot="done" /* className={styles.button_done} */>
