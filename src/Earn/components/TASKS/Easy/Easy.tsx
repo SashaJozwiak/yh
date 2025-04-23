@@ -77,7 +77,7 @@ export const Easy = () => {
 
                     {/* {adTaskLoading || !ok && <span className={s.loader}></span>} */}
 
-                    {!adTaskLoading && ok && timeLeft <= 0 && userId === 3 &&
+                    {!adTaskLoading && ok && timeLeft <= 0 &&
                         <li style={{ listStyle: "none", backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
                             <AdsgramTask debug={false} blockId={"task-10130"} /* timeLeft={timeLeft} */ />
                         {adTask && timeLeft <= 0 && <button
