@@ -10,7 +10,6 @@ interface TaskProps {
 
 export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
     const taskRef = useRef<HTMLElement | null>(null);
-    //const [isOk, setIsOk] = useState<boolean>(true);
 
     const { isOk, setIsOk } = useUhsTasks(state => state)
 
@@ -24,19 +23,19 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
         const noBanner = (event: Event) => {
             const customEvent = event as CustomEvent;
             console.log(`Can't found banner for block: `, customEvent, customEvent.detail);
-            setIsOk(false);
+            //setIsOk(false);
         };
 
         const onError = (event: Event) => {
             const customEvent = event as CustomEvent;
             console.log(`Error during loading or render for block: `, customEvent, customEvent.detail);
-            setIsOk(false);
+            //setIsOk(false);
         };
 
         const onTooLongSession = (event: Event) => {
             const customEvent = event as CustomEvent;
             console.log(`The session is too long. Please restart the app to get ads: `, customEvent, customEvent.detail);
-            setIsOk(false);
+            //setIsOk(false);
         };
 
         const task = taskRef.current;
@@ -54,6 +53,7 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
                 task.removeEventListener("onBannerNotFound", noBanner);
                 task.removeEventListener("onError", onError);
                 task.removeEventListener("onTooLongSession", onTooLongSession);
+                //setIsOk(true);
             }
         };
     }, [setIsOk]);
