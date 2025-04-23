@@ -22,7 +22,10 @@ export const Easy = () => {
     const [ok, setOk] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!adTaskTimestamp) return; // 🔒 защита от null
+        if (!adTaskTimestamp) {
+            setOk(true);
+            return; // 🔒 защита от null
+        }
 
         const interval = setInterval(() => {
             const start = new Date(adTaskTimestamp).getTime();
@@ -72,7 +75,7 @@ export const Easy = () => {
                             style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold' }}>GO</button>
                     </li>
 
-                    {/* {adTaskLoading || !ok && <span className={s.loader}></span>} */}
+                    {adTaskLoading || !ok && <span className={s.loader}></span>}
 
                     {!adTaskLoading && ok && timeLeft <= 0 &&
                         <li style={{ listStyle: "none", backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -100,7 +103,7 @@ export const Easy = () => {
                     {adTaskTimestamp && timeLeft > 0 && <li
                         style={{ listStyle: "none", backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}
                     >
-                        <div>Next ads task — {minutes}:{seconds.toString().padStart(2, "0")}</div>
+                        <div>Ads task timer — {minutes}:{seconds.toString().padStart(2, "0")}</div>
                     </li>}
 
                     {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {
