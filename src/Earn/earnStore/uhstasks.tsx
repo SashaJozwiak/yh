@@ -16,6 +16,7 @@ export const useUhsTasks = create<UhsTasksStore>((set) => ({
     isLoadingAdd: false,
     checkBotState: false,
     isOk: true,
+    setAdTask: (isTrue) => set({ adTask: isTrue }),
     setIsOk: (isOk) => set({ isOk }),
     rewardAdTask: async (userId, internalId) => {
         set({ adTaskLoading: true });

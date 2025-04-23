@@ -160,6 +160,7 @@ export interface UhsTasksStore {
     isLoadingAdd: boolean;
     isLoading: boolean;
     isOk: boolean;
+    setAdTask: (isTrue: boolean) => void;
     setIsOk: (isOk: boolean) => void;
     rewardAdTask: (userId: number, internalId: number) => Promise<void>;
     getAGTask: (userId: number) => Promise<void>;

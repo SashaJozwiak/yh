@@ -11,12 +11,13 @@ interface TaskProps {
 export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
     const taskRef = useRef<HTMLElement | null>(null);
 
-    const { /* isOk, */ setIsOk } = useUhsTasks(state => state)
+    const { /* isOk, */ setAdTask, setIsOk } = useUhsTasks(state => state)
 
     useEffect(() => {
         const handler = (event: Event) => {
             const customEvent = event as CustomEvent;
             console.log('reward event:', customEvent, customEvent.detail);
+            setAdTask(true);
             //alert(`reward detail: ${customEvent.detail}`);
         };
 
@@ -56,7 +57,7 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
                 setIsOk(true);
             }
         };
-    }, [setIsOk]);
+    }, [setAdTask, setIsOk]);
 
     if (!customElements.get("adsgram-task")) {
         return null;
