@@ -10,7 +10,7 @@ import { AdsgramTask } from './AdsgramTask';
 
 export const Easy = () => {
 
-    const { tasks, isLoading, adTask, adTaskLoading, adTaskTimestamp, getTasks, checkTask, getAGTask, rewardAdTask } = useUhsTasks(state => state);
+    const { tasks, isLoading, adTask, adTaskLoading, adTaskTimestamp, isOk, getTasks, checkTask, getAGTask, rewardAdTask } = useUhsTasks(state => state);
     const userId = useAuth(state => state.userId)
 
     const externalId = useUserData(state => state.user.id)
@@ -90,7 +90,7 @@ export const Easy = () => {
                             style={{ width: '10rem', fontSize: '1rem', margin: '0 0 0.2rem 0', border: '1px solid white', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: adTaskLoading ? '0.5' : '1' }}
                         >Claim 0.01 USDT</button>}
 
-                        {!adTask && timeLeft <= 0 && <button
+                            {!adTask && isOk && timeLeft <= 0 && <button
                             disabled={adTaskLoading}
                             onClick={() => getAdTaskState()}
                             style={{ width: '4rem', fontSize: '1rem', margin: '0 0 0.2rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', border: '1px solid gray', opacity: adTaskLoading ? '0.5' : '1' }}>

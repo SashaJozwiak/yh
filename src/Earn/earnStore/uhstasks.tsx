@@ -15,6 +15,8 @@ export const useUhsTasks = create<UhsTasksStore>((set) => ({
     isLoading: true,
     isLoadingAdd: false,
     checkBotState: false,
+    isOk: true,
+    setIsOk: (isOk) => set({ isOk }),
     rewardAdTask: async (userId, internalId) => {
         set({ adTaskLoading: true });
         const { getBalance } = uhsWalletStore.getState();
