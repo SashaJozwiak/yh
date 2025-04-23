@@ -79,7 +79,7 @@ export const Easy = () => {
 
                     {!adTaskLoading && ok && timeLeft <= 0 && userId === 3 &&
                         <li style={{ listStyle: "none", backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                            <AdsgramTask debug={true} blockId={"task-10130"} /* timeLeft={timeLeft} */ />
+                            <AdsgramTask debug={false} blockId={"task-10130"} /* timeLeft={timeLeft} */ />
                         {adTask && timeLeft <= 0 && <button
                             onClick={() => {
                                 if (userId) {
