@@ -13,19 +13,40 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
     useEffect(() => {
         const handler = (event: Event) => {
             const customEvent = event as CustomEvent;
-            console.log('reward event:', customEvent);
+            console.log('reward event:', customEvent, customEvent.detail);
             //alert(`reward detail: ${customEvent.detail}`);
+        };
+
+        const noBanner = (event: Event) => {
+            const customEvent = event as CustomEvent;
+            console.log(`Can't found banner for block: `, customEvent, customEvent.detail);
+        };
+
+        const onError = (event: Event) => {
+            const customEvent = event as CustomEvent;
+            console.log(`Error during loading or render for block: `, customEvent, customEvent.detail);
+        };
+
+        const onTooLongSession = (event: Event) => {
+            const customEvent = event as CustomEvent;
+            console.log(`The session is too long. Please restart the app to get ads: `, customEvent, customEvent.detail);
         };
 
         const task = taskRef.current;
 
         if (task /* && timeLeft <= 0 */) {
             task.addEventListener("reward", handler);
+            task.addEventListener("onBannerNotFound", noBanner);
+            task.addEventListener("onBannerNotFound", onError);
+            task.addEventListener("onBannerNotFound", onTooLongSession);
         }
 
         return () => {
             if (task) {
                 task.removeEventListener("reward", handler);
+                task.removeEventListener("onBannerNotFound", noBanner);
+                task.removeEventListener("onBannerNotFound", onError);
+                task.removeEventListener("onBannerNotFound", onTooLongSession);
             }
         };
     }, [/* timeLeft */]);
@@ -33,6 +54,8 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
     if (!customElements.get("adsgram-task")) {
         return null;
     }
+
+    console.log('taskRef:', taskRef)
 
     return (
         <adsgram-task

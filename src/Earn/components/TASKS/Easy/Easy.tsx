@@ -48,9 +48,9 @@ export const Easy = () => {
     }, [externalId, getAGTask]);
 
     useEffect(() => {
-        setOk(false);
+        //setOk(false);
         getAdTaskState()
-        setTimeout(() => { setOk(true); }, 1000)
+        //setTimeout(() => { setOk(true); }, 1000)
     }, [getAdTaskState])
 
     useEffect(() => {
