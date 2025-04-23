@@ -19,10 +19,7 @@ export const AdsgramTask = ({ debug, blockId, timeLeft }: TaskProps) => {
 
         const task = taskRef.current;
 
-        if (task) {
-            if (timeLeft > 0) {
-                return;
-            }
+        if (task && timeLeft <= 0) {
             task.addEventListener("reward", handler);
         }
 
