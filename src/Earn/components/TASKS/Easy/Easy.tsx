@@ -89,7 +89,7 @@ export const Easy = () => {
                                 }
                             }}
                             disabled={adTaskLoading}
-                            style={{ width: '10rem', fontSize: '1rem', margin: '0 0 0.2rem 0', border: '1px solid white', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: adTaskLoading ? '0.5' : '1' }}
+                                style={{ width: '10rem', fontSize: '1rem', margin: '0 0 0.2rem 0', border: '1px solid white', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', padding: '0.5rem 0', opacity: adTaskLoading ? '0.5' : '1' }}
                         >Claim 0.01 USDT</button>}
 
                             {/* {!adTask && timeLeft <= 0 && <button
