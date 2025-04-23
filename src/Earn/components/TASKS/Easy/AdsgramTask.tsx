@@ -11,7 +11,7 @@ interface TaskProps {
 export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
     const taskRef = useRef<HTMLElement | null>(null);
 
-    const { isOk, setIsOk } = useUhsTasks(state => state)
+    const { /* isOk, */ setIsOk } = useUhsTasks(state => state)
 
     useEffect(() => {
         const handler = (event: Event) => {
@@ -23,19 +23,19 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
         const noBanner = (event: Event) => {
             const customEvent = event as CustomEvent;
             console.log(`Can't found banner for block: `, customEvent, customEvent.detail);
-            //setIsOk(false);
+            setIsOk(false);
         };
 
         const onError = (event: Event) => {
             const customEvent = event as CustomEvent;
             console.log(`Error during loading or render for block: `, customEvent, customEvent.detail);
-            //setIsOk(false);
+            setIsOk(false);
         };
 
         const onTooLongSession = (event: Event) => {
             const customEvent = event as CustomEvent;
             console.log(`The session is too long. Please restart the app to get ads: `, customEvent, customEvent.detail);
-            //setIsOk(false);
+            setIsOk(false);
         };
 
         const task = taskRef.current;
@@ -53,7 +53,7 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
                 task.removeEventListener("onBannerNotFound", noBanner);
                 task.removeEventListener("onError", onError);
                 task.removeEventListener("onTooLongSession", onTooLongSession);
-                //setIsOk(true);
+                setIsOk(true);
             }
         };
     }, [setIsOk]);
@@ -65,8 +65,7 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
     console.log('taskRef:', taskRef)
 
     return (
-        <>
-            {isOk ? <adsgram-task
+        <adsgram-task
             className={styles.task}
             data-block-id={blockId}
             data-debug={debug}
@@ -81,8 +80,6 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
             <div slot="done" /* className={styles.button_done} */>
                 DONE
             </div>
-            </adsgram-task> : <div style={{ opacity: '0.5' }}>no advertising available</div>}
-        </>
-
+        </adsgram-task> 
     );
 };
