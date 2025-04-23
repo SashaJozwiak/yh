@@ -75,7 +75,7 @@ export const Easy = () => {
                             style={{ width: '4rem', fontSize: '1rem', backgroundColor: 'rgb(30 150 23)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', fontWeight: 'bold' }}>GO</button>
                     </li>
 
-                    {adTaskLoading || !ok && <span className={s.loader}></span>}
+                    {/* {adTaskLoading || !ok && <span className={s.loader}></span>} */}
 
                     {!adTaskLoading && ok && timeLeft <= 0 &&
                         <li style={{ listStyle: "none", backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
