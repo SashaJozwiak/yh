@@ -37,8 +37,8 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
         if (task /* && timeLeft <= 0 */) {
             task.addEventListener("reward", handler);
             task.addEventListener("onBannerNotFound", noBanner);
-            task.addEventListener("onBannerNotFound", onError);
-            task.addEventListener("onBannerNotFound", onTooLongSession);
+            task.addEventListener("onError", onError);
+            task.addEventListener("onTooLongSession", onTooLongSession);
         }
 
         return () => {
