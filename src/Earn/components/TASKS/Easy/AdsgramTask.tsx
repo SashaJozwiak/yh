@@ -45,8 +45,8 @@ export const AdsgramTask = ({ debug, blockId/* , timeLeft */ }: TaskProps) => {
             if (task) {
                 task.removeEventListener("reward", handler);
                 task.removeEventListener("onBannerNotFound", noBanner);
-                task.removeEventListener("onBannerNotFound", onError);
-                task.removeEventListener("onBannerNotFound", onTooLongSession);
+                task.removeEventListener("onError", onError);
+                task.removeEventListener("onTooLongSession", onTooLongSession);
             }
         };
     }, [/* timeLeft */]);
