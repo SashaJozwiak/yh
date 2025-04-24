@@ -41,6 +41,7 @@ export const Header: React.FC = () => {
 
     //const actualSpeed = useUserData(state => state.balance.speed);
     const isAuth = useUserData(state => state.isAuth);
+    const lang = useUserData(state => state.user.languageCode)
 
     const setAuthError = useUserData(state => state.setAuthError);
 
@@ -269,7 +270,12 @@ export const Header: React.FC = () => {
             <button
                 onClick={(e) => {
                     e.preventDefault();
-                    WebApp.openTelegramLink('https://t.me/youhold_chat/2200')
+                    if (lang === 'ru') {
+                        WebApp.openTelegramLink('https://t.me/youhold_chat/2200')
+                    } else {
+                        WebApp.openTelegramLink('https://t.me/youhold_chat/2202')
+                    }
+
                 }}
                 className={s.speed}
                 style={{ backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem' }}
