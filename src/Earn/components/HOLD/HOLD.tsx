@@ -10,12 +10,12 @@ import { Info } from "./Info/Info";
 import { Add } from "./Add/Add";
 
 import s from './hold.module.css'
-import { useAirdropStore } from "../../earnStore/airdrop";
-import { Awindow } from "./Awindow";
+//import { useAirdropStore } from "../../earnStore/airdrop";
+//import { Awindow } from "./Awindow";
 
 export const HOLD = () => {
 
-    const { isFetch, showModal, /* closeModal, */ fetchAirdrop } = useAirdropStore();
+    // const { isFetch, /*showModal,  closeModal, */ fetchAirdrop } = useAirdropStore();
 
     const { hold, setHold } = useEarnNav(state => state)
     const uhsId = useAuth(state => state.userId)
@@ -25,11 +25,11 @@ export const HOLD = () => {
 
     const { recBalance, recShares, getBalance, getShares } = useUHSWallet(state => state)
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (uhsId && !isFetch) {
             fetchAirdrop(uhsId, internal_id, external_id);
         }
-    }, [external_id, fetchAirdrop, internal_id, isFetch, uhsId]);
+    }, [external_id, fetchAirdrop, internal_id, isFetch, uhsId]); */
 
     useEffect(() => {
         if (!recBalance) {
@@ -76,7 +76,7 @@ export const HOLD = () => {
             {hold === 'info' && <Info />}
             {hold === 'add' && <Add />}
 
-            {showModal && <Awindow />}
+
 
 
         </>
