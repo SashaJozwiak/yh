@@ -111,7 +111,7 @@ export const Easy = () => {
                     {tasks.filter((task) => task.active && task.status !== "completed").map((task) => {
                         return (
                             <li key={task.id}
-                                style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}
+                                style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: task.id === 12 ? '1px solid white' : '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}
                             >
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '0.3rem' }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
