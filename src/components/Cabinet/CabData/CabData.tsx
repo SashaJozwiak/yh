@@ -258,6 +258,7 @@ export const CabData = () => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>
                                 <p style={{ fontWeight: 'bold' }}>1 day</p>
+                                <p style={{ fontSize: '0.8rem', fontStyle: 'italic', color: 'whitesmoke' }}>(forever)</p>
                                 <p>0 UHS</p>
                                 <button
                                     disabled={true}
@@ -266,6 +267,7 @@ export const CabData = () => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>
                                 <p style={{ fontWeight: 'bold' }}>3 days</p>
+                                <p style={{ fontSize: '0.8rem', fontStyle: 'italic', color: 'whitesmoke' }}>(forever)</p>
                                 <p>50 UHS</p>
                                 <button
                                     onClick={() => byuLimit(72)}
@@ -275,6 +277,7 @@ export const CabData = () => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>
                                 <p style={{ fontWeight: 'bold' }}>7 days</p>
+                                <p style={{ fontSize: '0.8rem', fontStyle: 'italic', color: 'whitesmoke' }}>(forever)</p>
                                 <p>{period !== 72 ? '110' : '60'} UHS</p>
                                 <button
                                     onClick={() => byuLimit(168)}
