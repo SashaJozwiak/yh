@@ -30,7 +30,7 @@ export const Easy = () => {
         const interval = setInterval(() => {
             const start = new Date(adTaskTimestamp).getTime();
             const now = Date.now();
-            const diff = 30 * 60 * 1000 - (now - start); // 30 минут в мс
+            const diff = 10 * 60 * 1000 - (now - start); // 30 минут в мс
 
             setTimeLeft(diff > 0 ? diff : 0);
             setOk(true);
