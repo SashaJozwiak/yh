@@ -27,6 +27,7 @@ export const Header: React.FC = () => {
     const nav = useNav((state) => state.nav.main);
 
     const internalId = useUserData((state) => state.user.internalId);
+    const externalId = useUserData((state => state.user.id))
     //const userLang = useUserData((state) => state.user.languageCode);
 
     const userFriendlyAddress = useTonAddress();
@@ -124,12 +125,12 @@ export const Header: React.FC = () => {
             const refferer = localStorage.getItem('UHSrefferer');
             if (refferer) {
                 console.log('userUHSId: ', userUHSId, refferer)
-                handleReferral(userUHSId, refferer);
+                handleReferral(externalId, userUHSId, refferer);
             } else {
-                handleReferral(userUHSId, null);
+                handleReferral(externalId, userUHSId, null);
             }
         }
-    }, [userUHSId, handleReferral])
+    }, [userUHSId, handleReferral, externalId])
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')

@@ -211,10 +211,10 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         }
 
     },
-    handleReferral: async (userId, startParam) => {
+    handleReferral: async (externalId, userId, startParam) => {
         //const [refId, refTeamId] = startParam.split("_");
         //const refTeamNum = refTeamId ? Number(refTeamId) : null;
-
+        const userData = WebApp.initData;
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}preRegAdd`, {
                 method: 'POST',
@@ -224,7 +224,8 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                 body: JSON.stringify({
                     userId: Number(userId),
                     refId: Number(startParam),
-                    //refTeamId: refTeamNum,
+                    externalId: Number(externalId),
+                    telegramInitData: userData
                 }),
             });
 
