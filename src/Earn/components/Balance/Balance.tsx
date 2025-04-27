@@ -52,7 +52,25 @@ export const Balance = () => {
                 </g>
                 <text x="35" y="110" fill='white' fontWeight="bold" fontSize='42'>🟢</text>
             </svg>}
-            <p>{status === 'loading' ? <span className={s.loader}></span> : <span>{(totalValue).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}<span style={{ fontSize: '1rem' }}> USD{/* ₮ */}</span></span>}</p>
+            <p>{status === 'loading' ? <span className={s.loader}></span> : <span>{(totalValue).toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<span style={{ fontSize: '1rem' }}> USD</span></span>}</p>
+
+            {/* {status === 'loading' ? (
+                <span className={s.loader}></span>
+            ) : (
+                (() => {
+                    const formatted = (totalValue).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+                    const mainPart = formatted.slice(0, -1); // всё кроме последнего символа
+                    const lastChar = formatted.slice(-1);    // последний символ
+
+                    return (
+                        <span>
+                            {mainPart}
+                            <span style={{ color: 'gray', fontSize: '1rem', }}>{lastChar}</span>
+                            <span style={{ fontSize: '1rem', marginLeft: '4px' }}>USD</span>
+                        </span>
+                    );
+                })()
+            )} */}
             <button
                 onClick={() => setIsOpenWallet(!isOpenWallet)}
                 style={{ backgroundColor: 'rgb(71 85 105)', color: 'white', padding: '0.2rem 0.5rem', alignItems: 'center', borderRadius: '0.3rem', boxShadow: '0px 0px 20px 0px rgb(0 0 0 / 50%)', height: '2.5rem', marginLeft: '1rem', border: isOpenWallet ? '1px solid gray' : '1px solid transparent' }}>
