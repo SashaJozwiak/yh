@@ -136,6 +136,8 @@ const App: React.FC = function () {
     fetchBalances();
   }, [rawAddress, updateBalance, updateBalanceJ, updateStonFiBalance, updateBalanceDedust]); */
 
+  console.log('initData: ', WebApp.initData)
+
   return (
     <>
       {authError && <AuthError />}
