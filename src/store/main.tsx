@@ -215,6 +215,12 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         //const [refId, refTeamId] = startParam.split("_");
         //const refTeamNum = refTeamId ? Number(refTeamId) : null;
         const userData = WebApp.initData;
+
+        if (!userData || userData.length < 10) {
+            console.error('Invalid WebApp.initData:', userData);
+            throw new Error('WebApp.initData is invalid!');
+        }
+
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}preRegAdd`, {
                 method: 'POST',
