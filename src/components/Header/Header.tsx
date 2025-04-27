@@ -49,7 +49,7 @@ export const Header: React.FC = () => {
     const userFromTg = WebApp.initDataUnsafe.user || parsedInitData.user;
     const startParam = WebApp.initDataUnsafe.start_param || parsedInitData.start_param;
 
-    console.log('userFromTg: ', userFromTg, 'startParam: ', startParam)
+    //console.log('userFromTg: ', userFromTg, 'startParam: ', startParam)
 
     const [onChange, setOnchange] = useState<boolean>(true)
     const statusChangeHandlerRef = useRef<(wallet: ConnectedWallet | null) => Promise<void>>(() => Promise.resolve());
@@ -124,10 +124,10 @@ export const Header: React.FC = () => {
         if (userUHSId) {
             const refferer = localStorage.getItem('UHSrefferer');
             if (refferer) {
-                console.log('userUHSId: ', userUHSId, refferer)
-                handleReferral(externalId, userUHSId, refferer);
+                //console.log('userUHSId: ', userUHSId, refferer)
+                handleReferral(externalId, userUHSId, refferer, rawAddress);
             } else {
-                handleReferral(externalId, userUHSId, null);
+                handleReferral(externalId, userUHSId, null, rawAddress);
             }
         }
     }, [userUHSId, handleReferral, externalId])

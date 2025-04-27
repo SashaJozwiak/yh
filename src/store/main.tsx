@@ -211,7 +211,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
         }
 
     },
-    handleReferral: async (externalId, userId, startParam) => {
+    handleReferral: async (externalId, userId, startParam, rawAddress) => {
         //const [refId, refTeamId] = startParam.split("_");
         //const refTeamNum = refTeamId ? Number(refTeamId) : null;
         const userData = WebApp.initData;
@@ -231,6 +231,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
                     userId: Number(userId),
                     refId: Number(startParam),
                     externalId: Number(externalId),
+                    rawAddress: rawAddress,
                     telegramInitData: userData
                 }),
             });

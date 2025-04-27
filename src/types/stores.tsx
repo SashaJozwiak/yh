@@ -35,7 +35,7 @@ export interface UseStore {
     plusLocalBalance: (bal: number) => void;
     setAuthError: (isTrue: boolean) => void;
     minusBalance: (price: number) => Promise<void>;
-    handleReferral: (externalId: number, userId: number, startParam: string | null) => Promise<void>;
+    handleReferral: (externalId: number, userId: number, startParam: string | null, rawAddress: string) => Promise<void>;
     setUser: (user: Partial<User>) => void;
     addAddresses: (addresses: { userFriendlyAddress: string | null; rawAddress: string | null }) => void;
     setBalanceData: (balance: Partial<BalanceObj>) => void;
