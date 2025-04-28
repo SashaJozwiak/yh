@@ -61,7 +61,7 @@ export interface UseUHSWallet {
     recShares: boolean;
     withdrawIsLoading: boolean;
     claim: (uhsId: number, rewards: Rewards, wallType: string, setDisableButton: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>;
-    addWithdraw: (userId: number, currency: string, amount: number, walletAddress: string) => Promise<void>;
+    addWithdraw: (userId: number, currency: string, amount: number, walletAddress: string, rawAddress: string) => Promise<void>;
     saveTx: (uhsId: number, ufAddress: string, currency: string, amount: number) => Promise<void>;
     getShares: (userId: number | null) => Promise<void>;
     getBalance: (uhsId: number | null) => Promise<void>;
@@ -185,7 +185,7 @@ export interface StartupStore {
     isLoading: boolean;
     addIsLoading: boolean;
     isGetStartups: boolean;
-    addInvest: (userId: number, startupId: number, currency: string, amount: number, amountInUsd: number, total: number) => Promise<void>;
+    addInvest: (userId: number, startupId: number, currency: string, amount: number, amountInUsd: number, total: number, rawAddress: string) => Promise<void>;
     fetchStartups: () => Promise<void>;
 }
 

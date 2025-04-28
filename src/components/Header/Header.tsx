@@ -130,7 +130,7 @@ export const Header: React.FC = () => {
                 handleReferral(externalId, userUHSId, null, rawAddress);
             }
         }
-    }, [userUHSId, handleReferral, externalId])
+    }, [userUHSId, handleReferral, externalId, rawAddress])
 
     useEffect(() => {
         //console.log('check rawaddress from wallet')

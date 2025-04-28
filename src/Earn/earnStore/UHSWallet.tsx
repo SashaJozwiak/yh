@@ -94,14 +94,17 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
         }
 
     },
-    addWithdraw: async (userId, currency, amount, walletAddress) => {
+    addWithdraw: async (userId, currency, amount, walletAddress, rawAddress) => {
         set({ withdrawIsLoading: true });
+
+        console.log('rawaddress: ', rawAddress)
+        const token = localStorage.getItem(rawAddress + 'uhs');
 
         try {
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsbalances/addWithdraw`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, currency, amount, walletAddress })
+                body: JSON.stringify({ userId, currency, amount, walletAddress, rawAddress, token })
             });
 
             if (!response.ok) {

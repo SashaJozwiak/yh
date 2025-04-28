@@ -26,6 +26,7 @@ export const Withdraw = ({ setWithWindow, currentAsset }) => {
 
     //const [tonConnectUI] = useTonConnectUI();
     const ufAddress = useTonAddress();
+    const rawAddress = useTonAddress(false);
 
     const uhsId = useAuth(state => state.userId)
     const { withdrawIsLoading, addWithdraw } = useUHSWallet(state => state);
@@ -63,7 +64,7 @@ export const Withdraw = ({ setWithWindow, currentAsset }) => {
     const addWith = () => {
         console.log('addWith: ', uhsId, curr[currentAsset.jetton.symbol], Number(amount), ufAddress)
         if (uhsId && amount !== '' && ufAddress) {
-            addWithdraw(uhsId, curr[currentAsset.jetton.symbol], Number(amount), ufAddress)
+            addWithdraw(uhsId, curr[currentAsset.jetton.symbol], Number(amount), ufAddress, rawAddress)
             setWithWindow(false)
         }
     }

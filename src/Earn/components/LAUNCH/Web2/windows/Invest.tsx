@@ -13,6 +13,7 @@ import { Asset } from '../../../../earnStore/types';
 import { useAuth } from '../../../../../store/main';
 import { useStartupStore } from '../../../../earnStore/launch';
 //import { useUHSWallet } from '../../../../earnStore/UHSWallet';
+import { useTonAddress } from '@tonconnect/ui-react';
 
 const curr = {
     "UHS": "UHS",
@@ -27,7 +28,7 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
 
     const [sumNeed, setSumNeed] = useState(0);
 
-
+    const rawAddress = useTonAddress(false);
 
     const balanceUH = useUHSWallet(state => state.assets);
     const userId = useAuth(state => state.userId);
@@ -131,7 +132,7 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
     const sendInvest = () => {
         //console.log('sendInvest: ', userId, id, currentAsset, Number(amount), ((Number(amount) * Number(currentFullAsset?.priceUsd))), need)
         if (userId) {
-            addInvest(userId, id, currentAsset, Number(amount), ((Number(amount) * Number(currentFullAsset?.priceUsd))), need)
+            addInvest(userId, id, currentAsset, Number(amount), ((Number(amount) * Number(currentFullAsset?.priceUsd))), need, rawAddress)
         }
         setInvestWindow(false);
 

@@ -8,10 +8,13 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
     isLoading: true,
     addIsLoading: false,
     isGetStartups: false,
-    addInvest: async (userId, startupId, currency, amount, amountInUsd, total) => {
+    addInvest: async (userId, startupId, currency, amount, amountInUsd, total, rawAddress) => {
         set({ addIsLoading: true });
 
+
         try {
+            const token = localStorage.getItem(rawAddress + 'uhs');
+
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhslaunch/addInvest`, {
                 method: "POST",
                 headers: {
@@ -24,6 +27,8 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
                     amount,
                     amountInUsd,
                     total,
+                    rawAddress,
+                    token
                 }),
             });
 
