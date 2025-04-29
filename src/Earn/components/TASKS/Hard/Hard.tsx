@@ -86,7 +86,7 @@ export const Hard = () => {
 
     return (
         <>
-            {status === 'loading' ? <span style={{ margin: '2vh auto' }} className={s.loader}></span> : <div style={{ color: 'gray', overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
+            {status === 'loading' ? <span style={{ margin: '2vh auto' }} className={s.loader}></span> : <div style={{ color: 'gray', overflowY: 'auto', /* marginTop: '0.5rem', */ marginBottom: '5rem' }}>
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                     <li style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '0.3rem', color: inviteData?.lvl1 ? 'gray' : 'white' }}>

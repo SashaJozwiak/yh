@@ -47,7 +47,7 @@ export const Web2 = () => {
 
     return (
         <>
-        <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
+            <div style={{ overflowY: 'auto', /* marginTop: '0.5rem', */ marginBottom: '5rem' }}>
                 {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups

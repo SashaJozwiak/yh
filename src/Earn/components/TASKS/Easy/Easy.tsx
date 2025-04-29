@@ -65,7 +65,7 @@ export const Easy = () => {
     //console.log('timeleft: ', timeLeft)
 
     return (
-        <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
+        <div style={{ overflowY: 'auto', /* marginTop: '0.5rem', */ marginBottom: '5rem' }}>
             {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                     <li style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
