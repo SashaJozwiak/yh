@@ -14,7 +14,7 @@ export const Team2 = () => {
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                             <h3 style={{ color: 'gray' }}>Current work</h3>
-                            <p>{lang === 'ru' ? `Разработка игры "Dive Cat"` : `Development of the game "Dive Cat"`}</p>
+                            <p>{lang === 'ru' ? `Игра "Dive Cat"` : `"Dive Cat" game`}</p>
                         </div>
 
                         <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>

@@ -42,7 +42,7 @@ export interface Rewards {
 export interface UserInvestment {
     id: number;
     userId: number;
-    startupId: number;
+    startup_id: number;
     currency: string;
     amount: number;
     shares: number;

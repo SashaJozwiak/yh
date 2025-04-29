@@ -217,7 +217,7 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
 
                 </div>
                 <h4 style={{ marginTop: '0.5rem', color: 'lightgray' }}>In USD: ${(Number(amount) * Number(currentFullAsset?.priceUsd) || 0).toFixed(2)} </h4>
-                {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 10) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>minimum required $10</p>}
+                {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 5) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>minimum required $5</p>}
                 {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>maximum possible $200</p>}
 
                 {!amount || (Number(amount) > checkBalance) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>not enough {currentAsset}</p>}
@@ -226,8 +226,8 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
 
                 <button
                     onClick={() => sendInvest()}
-                    disabled={!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 10) || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) || (Number(amount) > checkBalance) || (Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed) || addIsLoading}
-                    className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: !amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 10) || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) || (Number(amount) > checkBalance) || (Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed) || addIsLoading ? '0.5' : '1' }}>{addIsLoading ? '...' : 'Buy'}</button>
+                    disabled={!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 5) || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) || (Number(amount) > checkBalance) || (Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed) || addIsLoading}
+                    className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: !amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 5) || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) || (Number(amount) > checkBalance) || (Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed) || addIsLoading ? '0.5' : '1' }}>{addIsLoading ? '...' : 'Buy'}</button>
             </div>
         </div >
     )

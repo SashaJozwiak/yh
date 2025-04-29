@@ -11,7 +11,7 @@ import { useUserData } from '../../../../store/main';
 import { langLib, swichLang } from '../translate.js'
 
 export const Web2 = () => {
-    const [info, setinfo] = useState(false)
+    const [info, setinfo] = useState(0)
     const [investWindow, setInvestWindow] = useState(false)
 
     const prices = useUHSWallet(state => state.assets)
@@ -22,18 +22,18 @@ export const Web2 = () => {
 
     const lang = useUserData(state => state.user.languageCode)
 
-    /* const calculateDaysRemaining = () => {
+    const calculateDaysRemaining = () => {
         const now = new Date();
-        const targetDate = new Date('2025-04-29');
+        const targetDate = new Date('2025-06-13');
 
         // Убедимся, что обе даты являются числами
         const differenceInTime = targetDate.getTime() - now.getTime();
         const differenceInDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
 
         return differenceInDays;
-    }; */
+    };
 
-    //const daysRemaining = calculateDaysRemaining();
+    const daysRemaining = calculateDaysRemaining();
 
     useEffect(() => {
         if (!isGetStartups) {
@@ -48,9 +48,11 @@ export const Web2 = () => {
     return (
         <>
         <div style={{ overflowY: 'auto', marginTop: '0.5rem', marginBottom: '5rem' }}>
-                {/* {isLoading ? <span className={s.loader}></span> :
+                {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
-                    {startups.map((startup) => {
+                        {startups
+                            .filter(startup => startup.id > 1)
+                            .map((startup) => {
                         return (
                             <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
 
@@ -72,7 +74,7 @@ export const Web2 = () => {
 
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
                                         <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'Дней ост.' : 'Days left'}</h4>
-                                        <h5>{startup.id === 1 ? daysRemaining : 99}</h5>
+                                        <h5>{startup.id === 2 ? daysRemaining : '~20 May'}</h5>
                                     </div>
 
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
@@ -81,7 +83,7 @@ export const Web2 = () => {
                                     </div>
                                 </div>
 
-                                {info && <div>
+                                {info === startup.id && <div>
                                     <p style={{ textAlign: 'left', fontWeight: '300' }}>
                                         {swichLang(lang, (startup.id), 'one')}
                                     </p>
@@ -104,17 +106,16 @@ export const Web2 = () => {
 
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <button
-                                        onClick={() => setinfo(!info)}
+                                        onClick={() => setinfo((prev) => prev === startup.id ? 0 : startup.id)}
                                         style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>{info ? 'Hide ' : 'Info '}
                                         <span>
-                                            {info ? <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                            {info === startup.id ? <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
                                             </svg>
                                                 : <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
                                                 </svg>}
-
                                         </span>
                                     </button>
 
@@ -127,9 +128,9 @@ export const Web2 = () => {
                             </li>
                         )
                     })}
-                    </ul >} */}
+                    </ul >}
 
-                <h3 style={{ color: 'lightgray', opacity: '0.5', marginBottom: '0.5rem' }}>Completed:</h3>
+                <h3 style={{ color: 'lightgray', opacity: '0.5', marginBottom: '0.5rem' }}>Collected:</h3>
 
                 {isLoading ? <span className={s.loader}></span> :
                     <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
@@ -166,7 +167,7 @@ export const Web2 = () => {
                                             </div>
                                         </div>
 
-                                        {info && <div>
+                                        {info === startup.id && <div>
                                             <p style={{ textAlign: 'left', fontWeight: '300' }}>
                                                 {swichLang(lang, (startup.id), 'one')}
                                             </p>
@@ -189,10 +190,10 @@ export const Web2 = () => {
 
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                             <button
-                                                onClick={() => setinfo(!info)}
+                                                onClick={() => setinfo((prev) => prev === startup.id ? 0 : startup.id)}
                                                 style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>{info ? 'Hide ' : 'Info '}
                                                 <span>
-                                                    {info ? <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                                    {info === startup.id ? <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
                                                     </svg>
@@ -218,7 +219,7 @@ export const Web2 = () => {
 
 
         </div>
-            {investWindow && <Invest setInvestWindow={setInvestWindow} id={startups[0].id} name={startups[0].title} need={startups[0].amount_need} collected={startups[0].amount_collected} />}
+            {investWindow && <Invest setInvestWindow={setInvestWindow} id={2} name={startups[1].title} need={startups[1].amount_need} collected={startups[1].amount_collected} />}
         </>
     )
 }

@@ -11,7 +11,7 @@ export const Team1 = () => {
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                                 <h3 style={{ color: 'gray' }}>Current work</h3>
-                                <p>{lang === 'ru' ? 'Разработка и поддержка проекта YouHold' : 'Support and development by YouHold app'}</p>
+                                <p>{lang === 'ru' ? 'Раздел STORE' : 'STORE section'}</p>
                             </div>
 
                             <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>

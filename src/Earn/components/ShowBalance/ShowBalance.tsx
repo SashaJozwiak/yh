@@ -99,7 +99,7 @@ export const ShowBalance = () => {
                     onClick={handleClick}
                     disabled={isDisabled}
                     //onClick={() => setHistory(prev => !prev)}
-                    style={{ width: '5rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem', fontStyle: 'italic', position: 'relative' }}>
+                    style={{ width: '5rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', marginBottom: '0.5rem', padding: '0.3rem', fontWeight: 'normal', fontSize: '1rem', fontStyle: 'italic', position: 'relative', border: history ? '1px solid white' : '1px solid transparent' }}>
                     {history ? <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 -2 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg> : 'History'}
@@ -181,7 +181,7 @@ export const ShowBalance = () => {
                         <li key={share.id} style={{ marginBottom: "0.5rem", padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Название' : 'Title'}</p>
-                                <p>Dive Cat</p>
+                                <p>{share.startup_id === 1 ? 'Dive Cat' : 'Balls'}</p>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -196,7 +196,7 @@ export const ShowBalance = () => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 <p style={{ color: 'gray' }}>APR</p>
-                                <p>12%+</p>
+                                <p>{share.startup_id === 1 ? '12%+' : '12%'}</p>
                             </div>
                         </li>
                     )

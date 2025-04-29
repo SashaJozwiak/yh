@@ -21,7 +21,7 @@ export const Launch = () => {
 
                 <div style={{ display: 'flex', }}>
                     <div className={s.switch}>
-                        <button onClick={() => setLaunch('web2')} className={`${s.tabs} ${launch === 'web2' ? s.ontab : null}`}>{launch === 'web2' ? '🔵 web2' : '⚪ web2'}</button>
+                        <button onClick={() => setLaunch('web2')} className={`${s.tabs} ${launch === 'web2' ? s.ontab : null}`}>{launch === 'web2' ? '🔵 all' : '⚪ all'}</button>
                         <button onClick={() => setLaunch('web3')} className={`${s.tabs} ${launch == 'web3' ? s.ontab : null}`}>{launch === 'web3' ? '🟢 web3' : '⚪ web3'}</button>
                     </div>
                 </div>
