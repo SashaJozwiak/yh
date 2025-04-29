@@ -107,7 +107,7 @@ export const Web2 = () => {
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <button
                                         onClick={() => setinfo((prev) => prev === startup.id ? 0 : startup.id)}
-                                        style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>{info ? 'Hide ' : 'Info '}
+                                        style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>{info === startup.id ? 'Hide ' : 'Info '}
                                         <span>
                                             {info === startup.id ? <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
@@ -191,7 +191,7 @@ export const Web2 = () => {
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                             <button
                                                 onClick={() => setinfo((prev) => prev === startup.id ? 0 : startup.id)}
-                                                style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>{info ? 'Hide ' : 'Info '}
+                                                style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px' }}>{info === startup.id ? 'Hide ' : 'Info '} 
                                                 <span>
                                                     {info === startup.id ? <svg xmlns="http://www.w3.org/2000/svg" width={'1rem'} fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
