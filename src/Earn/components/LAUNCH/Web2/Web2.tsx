@@ -24,7 +24,7 @@ export const Web2 = () => {
 
     const calculateDaysRemaining = () => {
         const now = new Date();
-        const targetDate = new Date('2025-06-13');
+        const targetDate = new Date('2025-06-14');
 
         // Убедимся, что обе даты являются числами
         const differenceInTime = targetDate.getTime() - now.getTime();
