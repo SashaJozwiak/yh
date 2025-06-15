@@ -51,7 +51,7 @@ export const Web2 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter(startup => startup.id > 1)
+                            .filter(startup => startup.id > 2)
                             .map((startup) => {
                         return (
                             <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -135,7 +135,7 @@ export const Web2 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                     <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter((startup) => startup.id < 2)
+                            .filter((startup) => startup.id < 3)
                             .map((startup) => {
                                 return (
                                     <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -208,7 +208,11 @@ export const Web2 = () => {
                                                 //onClick={() => setInvestWindow(true)}
 
                                                 style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: '0.5' }}>
-                                                {lang === 'ru' ? 'В разработке' : 'In development'}
+                                                {lang === 'ru' ? (
+                                                    startup.id === 2 ? 'В разработке' : 'Публикация'
+                                                ) : (
+                                                    startup.id === 2 ? 'In Development' : 'Publication'
+                                                )}
                                             </button>
                                         </div>
                                     </li>
