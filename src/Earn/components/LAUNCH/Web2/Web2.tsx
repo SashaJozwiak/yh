@@ -24,7 +24,7 @@ export const Web2 = () => {
 
     const calculateDaysRemaining = () => {
         const now = new Date();
-        const targetDate = new Date('2025-06-15');
+        const targetDate = new Date('2025-07-15');
 
         // Убедимся, что обе даты являются числами
         const differenceInTime = targetDate.getTime() - now.getTime();
@@ -51,7 +51,7 @@ export const Web2 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter(startup => startup.id > 3)
+                            .filter(startup => startup.id > 2)
                             .map((startup) => {
                         return (
                             <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -74,7 +74,7 @@ export const Web2 = () => {
 
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
                                         <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'Дней ост.' : 'Days left'}</h4>
-                                        <h5>{startup.id === 2 ? daysRemaining : '~20 May'}</h5>
+                                        <h5>{startup.id === 3 ? daysRemaining : '~20 May'}</h5>
                                     </div>
 
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
@@ -223,7 +223,7 @@ export const Web2 = () => {
 
 
         </div>
-            {investWindow && <Invest setInvestWindow={setInvestWindow} id={2} name={startups[1].title} need={startups[1].amount_need} collected={startups[1].amount_collected} />}
+            {investWindow && <Invest setInvestWindow={setInvestWindow} id={3} name={startups[1].title} need={startups[1].amount_need} collected={startups[1].amount_collected} />}
         </>
     )
 }
