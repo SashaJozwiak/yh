@@ -51,7 +51,7 @@ export const Web2 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter(startup => startup.id > 2)
+                            .filter(startup => startup.id > 3)
                             .map((startup) => {
                         return (
                             <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>

@@ -191,7 +191,7 @@ export const ShowBalance = () => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Всего' : 'Total'}</p>
-                                <p>${share.startup_id === 1 ? '680' : share.startup_id === 2 ? '350' : '680'}</p>
+                                <p>${share.total_shares}</p>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
