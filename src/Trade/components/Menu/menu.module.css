@@ -1,0 +1,31 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background-color: rgb(71 85 105);
+  //height: 3.5rem;
+  padding: 0.5rem 0.6rem 0.5rem;
+  box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 50%);
+  z-index: 200;
+}
+
+.button {
+  flex: 1;
+  background: none;
+
+  padding: 0.5rem;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 3px 0px;
+}
+
+.on {
+  //border-radius: 0.5rem;
+  //background-color: rgb(42,54,73);
+  border: 1px solid white;
+
+  //border: 1px solid transparent;
+}
