@@ -1,18 +1,12 @@
 
 import { create } from 'zustand'
+import { tradeNav } from './types'
 //import { Nav } from './types'
 
-export const useTradeNav = create((set) => ({
-    isOpenWallet: false,
-    tool: 'assets',// hold, tasks,launch, build
-    assets: 'assets',// uwallet, info
-    tasks: 'easy', //hard, info, add
-    launch: 'web2', // 'web3', info, add
-    build: 'team1', //  team2, info, add
-    setBuild: (build: string) => set({ build }),
-    setLaunch: (launch: string) => set({ launch }),
-    setTasks: (tasks: string) => set({ tasks }),
-    setHold: (hold: string) => set({ hold }),
+export const useTradeNav = create<tradeNav>((set) => ({
+    //isOpenWallet: false,
+    tool: 'assets',// assets, shop, services, uh-pay
+    assetsNav: 'assets', //info, sell
     setTool: (tool: string) => set({ tool }),
-    setIsOpenWallet: (isOpen: boolean) => set({ isOpenWallet: isOpen }),
+    setAssetsNav: (aNav: string) => set({ assetsNav: aNav })
 }))

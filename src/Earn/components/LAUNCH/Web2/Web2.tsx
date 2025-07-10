@@ -5,6 +5,8 @@ import { useStartupStore } from '../../../earnStore/launch';
 
 import { Invest } from './windows/Invest'
 
+import WebApp from '@twa-dev/sdk';
+
 import s from './web2.module.css'
 import { useUserData } from '../../../../store/main';
 
@@ -205,13 +207,20 @@ export const Web2 = () => {
                                             </button>
 
                                             <button
-                                                //onClick={() => setInvestWindow(true)}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    if (startup.id === 1) {
+                                                        WebApp.openTelegramLink('https://t.me/cog_builds/6?single')
+                                                    }
+                                                }
 
-                                                style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: '0.5' }}>
+                                                }
+
+                                                style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: startup.id <= 1 ? '1' : '0.5' }}>
                                                 {lang === 'ru' ? (
-                                                    startup.id === 2 ? 'В разработке' : 'Публикация'
+                                                    startup.id === 2 ? 'В разработке' : 'Готово'
                                                 ) : (
-                                                    startup.id === 2 ? 'In Development' : 'Publication'
+                                                        startup.id === 2 ? 'In Development' : 'Ready'
                                                 )}
                                             </button>
                                         </div>

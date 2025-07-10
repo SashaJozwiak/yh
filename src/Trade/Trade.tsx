@@ -2,9 +2,11 @@ import { Balance } from "../Earn/components/Balance/Balance"
 import { ShowBalance } from "../Earn/components/ShowBalance/ShowBalance"
 import { useEarnNav } from "../Earn/earnStore/nav"
 import { useAuth, useUserData } from "../store/main"
+import { Assets } from "./components/Asset/Assets"
 import { Menu } from "./components/Menu/Menu"
 
 import s from './trade.module.css'
+import { useTradeNav } from "./tradeStore/nav"
 
 export const Trade = () => {
 
@@ -12,6 +14,9 @@ export const Trade = () => {
     const isAuth = useAuth(state => state.isAuth)
 
     const isOpenWallet = useEarnNav(state => state.isOpenWallet)
+
+    const tradeNav = useTradeNav(state => state.tool)
+
 
     return (
         <>
@@ -30,6 +35,7 @@ export const Trade = () => {
             {ufAddress && isAuth && <Balance />}
             {ufAddress && isAuth && isOpenWallet && <ShowBalance />}
             {ufAddress && isAuth && !isOpenWallet && <Menu />}
+            {ufAddress && isAuth && !isOpenWallet && tradeNav == 'assets' && <Assets />}
 
         </>
     )
