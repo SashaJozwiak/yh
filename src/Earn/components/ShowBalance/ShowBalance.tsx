@@ -73,7 +73,7 @@ export const ShowBalance = () => {
         }
     };
 
-    //console.log(currentAsset)
+    console.log('shares: ', shares)
 
     return (
         <>

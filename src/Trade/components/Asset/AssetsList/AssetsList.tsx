@@ -1,84 +1,119 @@
-import { useState } from "react";
+import { useEffect } from "react";
 
+import { useTradeAssets } from "../../../tradeStore/assets";
+import { useAuth, useUserData } from "../../../../store/main";
+
+
+
+import cat from '../../../pics/1.png';
 import s from './assetsList.module.css'
+import { useNav } from "../../../../store/nav";
+import { useEarnNav } from "../../../../Earn/earnStore/nav";
+
+
+const currNum = {
+    'USDT': 6,
+    'UHS': 9
+}
+
+const imgs = {
+    1: 'cat',
+}
 
 export const AssetsList = () => {
-    const [isLoading,] = useState(false);
+    const myid = useAuth(state => state.userId)
+    const lang = useUserData(state => state.user.languageCode)
+
+    const changeNav = useNav((state) => state.setMainNav)
+    const setTool = useEarnNav(state => state.setTool)
+
+    const assets = useTradeAssets(state => state.assets)
+    const curr = useTradeAssets(state => state.currency)
+    const isLoadAssets = useTradeAssets(state => state.isLoadAssets)
+    const getAssets = useTradeAssets(state => state.getAssets)
+
+    useEffect(() => {
+        if (!isLoadAssets) {
+            getAssets();
+        }
+    }, [getAssets, isLoadAssets])
+
+    console.log('my id: ', myid);
 
     return (
         <div
             style={{ overflowY: 'auto',/*  overflowX: 'hidden',  *//* marginTop: '0.5rem', */ marginBottom: '5rem' }}
         >
-            {isLoading ? <span className={s.loader}></span> :
+            {!isLoadAssets && !assets.filter(asset => curr === asset.currency).length && <p>No assets for sale now</p>}
+
+            {isLoadAssets ? <span className={s.loader}></span> :
                 <ul
                     style={{ backgroundColor: 'rgb(58, 70, 88)' }}
                 >
-                    {/* <li style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    {assets
+                        .filter(asset => curr === asset.currency)
+                        .sort((a, b) => Number(a.price) - Number(b.price))
+                        .map((asset) => {
+                            return (
+                                <li key={asset.trade_asset_id} style={{ padding: '0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: myid === asset.user_id ? '2px solid white' : '2px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
 
-                        <h3>name</h3>
-                        <h3>share</h3>
-                        <h3>APR</h3>
-                        <h3>price</h3>
-                    </li> */}
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', /* width: '90vw' */ }} >
+                                        <div>
+                                            <h3>{asset.title}</h3>
+                                            {imgs[asset.startup_id] ?
+                                                <img style={{ display: 'block', width: '3rem', margin: '0 auto' }} src={cat} alt="img" /> :
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} width={'4rem'} stroke="currentColor" className="size-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" />
+                                                </svg>
+                                            }
 
-                    <li style={{ padding: '0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                                        </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'space-between', /* width: '90vw' */ }} >
-                            <div>
-                                <h3>DiveCat</h3>
-                                <img style={{ display: 'block' }} src="" alt="img" />
+                                        <div>
+                                            <h3 style={{ border: '1px solid gray', padding: '0 0.3rem', borderRadius: '0.3rem', color: 'gray' }}>{lang === 'ru' ? 'Доля' : 'Share'}</h3>
+                                            <p>{asset.currency}</p>
+                                            <p>{(+asset.amount) / 10 ** currNum[asset.currency]}</p>
 
-                            </div>
+                                        </div>
 
-                            <div>
-                                <h3 style={{ textDecoration: 'underline', background: 'white', padding: '0 0.3rem', color: 'black', borderRadius: '0.3rem' }}>Share</h3>
-                                <p>UHS</p>
-                                <p>1253</p>
+                                        <div>
+                                            <h3 style={{ border: '1px solid gray', padding: '0 0.3rem', borderRadius: '0.3rem', color: 'gray' }}>APR</h3>
+                                            <h3>{asset.apr}%</h3>
+                                        </div>
 
-                            </div>
+                                        <div>
+                                            <h3 style={{ border: '1px solid gray', padding: '0 0.3rem', borderRadius: '0.3rem', color: 'gray' }}>{lang === 'ru' ? 'Цена' : 'Price'}</h3>
+                                            <p>{asset.currency}</p>
+                                            <p>{(+asset.price) / 10 ** currNum[asset.currency]}</p>
 
-                            <div>
-                                <h3 style={{ textDecoration: 'underline', background: 'white', padding: '0 0.3rem', color: 'black', borderRadius: '0.3rem' }}>APR</h3>
-                                <h3>25%</h3>
-                            </div>
-
-                            <div>
-                                <h3 style={{ textDecoration: 'underline', background: 'white', padding: '0 0.3rem', color: 'black', borderRadius: '0.3rem' }}>Price</h3>
-                                <p>UHS</p>
-                                <p>2500</p>
-
-                            </div>
-                        </div>
-
-
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderTop: '1px solid gray' }}>
-                            <button
-                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', padding: '0.3rem 0' }}
-                            >About</button>
-                            <p style={{ fontStyle: 'italic', opacity: '0.7', alignContent: 'center' }}>Fee: <span style={{ textDecoration: 'line-through', color: 'gray' }}>3 UHS</span> 0 UHS </p>
-                            <button
-                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', padding: '0.3rem 0' }}
-                            >BUY</button>
-                        </div>
-                    </li>
-
-                    <li style={{ padding: '0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem'/* , width: '95vw' */ }}>
-                            <div>
-                                <img style={{ display: 'block' }} src="" alt="img" />
-                                <h3>name</h3>
-                            </div>
-
-                            <h3>share</h3>
-                            <h3>APR</h3>
-                            <h3>price</h3>
+                                        </div>
+                                    </div>
 
 
+                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderTop: '1px solid gray' }}>
+                                        <button
+                                            onClick={() => {
+                                                changeNav('UHS')
+                                                setTool('launch')
+                                            }}
+                                            style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(71, 85, 105)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', padding: '0.3rem 0' }}
+                                        >Details</button>
+                                        <p style={{ fontStyle: 'italic', opacity: '0.7', alignContent: 'center' }}>Fee: <span style={{ textDecoration: 'line-through', color: 'gray' }}>3 UHS</span> 0 UHS </p>
 
-                        </div>
+                                        {myid === asset.user_id ? 
+                                            <button
+                                                disabled={true}
+                                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'transparent', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', padding: '0.3rem 0' }}
+                                            >Your</button> :
+                                            <button
+                                                style={{ width: '4rem', fontSize: '1rem', margin: '0.3rem 0', backgroundColor: 'rgb(22, 163, 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', padding: '0.3rem 0' }}
+                                            >BUY</button>}
 
+                                    </div>
 
-                    </li>
+                                </li>
+                            )
+                        })}
 
 
                 </ul>}

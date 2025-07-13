@@ -6,19 +6,15 @@ export const Info = () => {
     return (
         <div style={{ overflowY: 'auto', marginBottom: '5rem', padding: '0.5rem', textAlign: 'left' }}>
             <p>
-                {lang === 'ru' ? 'web2 — IT проекты без криптовалют.' : 'web2 — IT projects without cryptocurrencies.'}
+                {lang === 'ru' ? 'Добро пожаловать на свободный рынок активов. Здесь можно приобрести или продать свою долю. У каждого актива отображается годовая доходность (APR).' : 'Welcome to the free asset market. Here you can sell your share or buy. Each asset displays the annual return (APR).'}
             </p>
 
             <p style={{ marginTop: '1rem' }}>
-                {lang === 'ru' ? 'web3 — криптовалютные и блокейн проекты не ограничивающиеся TON блокчейном.' : 'web3 — cryptocurrency and blockchain projects not limited to TON blockchain.'}
+                {lang === 'ru' ? 'APR меняется раз в месяц после очередной выплаты процентов (~каждое 10 число). APR меняется в зависимости от успехов проекта/сезонности/публикаций на новых площадках (в случае с играми)/etc..' : 'APR changes once a month after the next interest payment (~every 10th). APR changes depending on the success of the project/seasonality/publications on new platforms (in the case of games)/etc..'}
             </p>
 
             <p style={{ marginTop: '1rem' }}>
-                {lang === 'ru' ? 'Вы можете проинвестировать в стартапы, которые YouHold сопровождает и выступает гарантом. В карточке каждого стартапа есть полоса сбора средств, сколько дней до окончания сбора и % страхования от YouHold (подробнее об этом можно почитать в описании каждого стартапа по кнопке).' : 'You can invest in projects that YouHold supports and acts as a guarantor. In the shortcut of each startup there is a fundraising strip, how many days until the end of the collection, and % insurance from YouHold (you can read more about this in the description of each startup by clicking on the button).'}
-            </p>
-
-            <p style={{ marginTop: '1rem' }}>
-                {lang === 'ru' ? 'По кнопке "Add" вы можете в роли фаундера отправить заявку на сбор средств для своего стартапа.' : 'By clicking on the "Add" button, you can, as a founder, send an application to raise funds for your startup.'}
+                {lang === 'ru' ? 'Полный список проектов с их актуальным статусом, этапом, ссылками на них - можно найти в разделе в разделе EARN => во вкладке LAUNCH. Там же можно приобрести доли проектов по их номинальной стоимости пока они на этапе сбора средств.' : 'A full list of projects with their current status, stage, links to them - can be found in the section in the EARN section => in the LAUNCH tab. There you can also buy shares of projects at their nominal value while they are at the fundraising stage.'}
             </p>
         </div>
     )

@@ -26,7 +26,7 @@ export const Web2 = () => {
 
     const calculateDaysRemaining = () => {
         const now = new Date();
-        const targetDate = new Date('2025-07-15');
+        const targetDate = new Date('2025-07-27');
 
         // Убедимся, что обе даты являются числами
         const differenceInTime = targetDate.getTime() - now.getTime();
@@ -232,7 +232,7 @@ export const Web2 = () => {
 
 
         </div>
-            {investWindow && <Invest setInvestWindow={setInvestWindow} id={3} name={startups[1].title} need={startups[1].amount_need} collected={startups[1].amount_collected} />}
+            {investWindow && <Invest setInvestWindow={setInvestWindow} id={3} name={startups[2].title} need={startups[2].amount_need} collected={startups[2].amount_collected} />}
         </>
     )
 }
