@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react'
 import s from './balance.module.css'
 import { useEarnNav } from '../../earnStore/nav'
 import { useUHSWallet } from '../../earnStore/UHSWallet'
+import { useTradeAssets } from '../../../Trade/tradeStore/assets'
 
 export const Balance = () => {
     //const [loading] = useState(false)
 
     const { isOpenWallet, setIsOpenWallet } = useEarnNav(state => state);
     const { assets, status, shares } = useUHSWallet(state => state);
+    const readyTrade = useTradeAssets(state => state.setReady)
 
     const [totalValue, setTotalValue] = useState(0);
 
@@ -25,8 +27,10 @@ export const Balance = () => {
         const totalShares = shares.reduce((sum, share) => sum + Number(share.shares), 0);
 
         setTotalValue(total + totalShares);
+        readyTrade();
 
-    }, [assets, shares]);
+
+    }, [assets, readyTrade, shares]);
 
 
     return (

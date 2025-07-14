@@ -15,6 +15,11 @@ import WebApp from "@twa-dev/sdk";
 
 //import s from "./showbalance.module.css"
 
+const currNum = {
+    'USDT': 6,
+    'UHS': 9
+}
+
 export const ShowBalance = () => {
 
     const closeWallet = useEarnNav(state => state.setIsOpenWallet)
@@ -73,7 +78,7 @@ export const ShowBalance = () => {
         }
     };
 
-    console.log('shares: ', shares)
+    //console.log('shares: ', shares)
 
     return (
         <>
@@ -186,7 +191,7 @@ export const ShowBalance = () => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Доля' : 'Share'}</p>
-                                <p>${share.shares}</p>
+                                {+share.amount / 10 ** currNum[share.currency]} {share.currency}
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>

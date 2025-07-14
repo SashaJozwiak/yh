@@ -1,12 +1,15 @@
 //import { useUserData } from '../../store/main';
 import { useAuth } from '../../store/main';
 import { useNav } from '../../store/nav';
+import { useTradeAssets } from '../../Trade/tradeStore/assets';
 import s from './footer.module.css'
 
 export const Footer: React.FC = () => {
     const nav = useNav((state) => state.nav.main)
     const changeNav = useNav((state) => state.setMainNav)
     //const userId = useUserData(state => state.user.internalId)
+
+    const tradeReady = useTradeAssets(state => state.isReady)
 
     const isAuth = useAuth(state => state.userId)
 
@@ -28,8 +31,8 @@ export const Footer: React.FC = () => {
             </button>
 
             <button
-                disabled={true} //change after acces to balance
-                style={{ opacity: '0.5' }} //change after acces to balance
+                disabled={!tradeReady} //change after acces to balance
+                style={{ opacity: tradeReady ? '1' : '0.5' }} //change after acces to balance
                 onClick={() => changeNav('trade')}
                 className={`${s.btn} ${nav === 'trade' ? s.btnOn : null}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={'2rem'} className="size-6">

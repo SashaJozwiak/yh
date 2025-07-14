@@ -58,9 +58,9 @@ export const Stages = () => {
                     </ul >
                     <h2>{swichLang(userLang, 'on_chain')}</h2>
                     <ul className={s.stagelist}>
-                        <li className={`${s.listelement} ${s.ok}`}>🟡 Store and new tools</li>
-                        <li className={s.listelement}>⚪ Web and advanced features</li>
-                        <li className={s.listelement}>⚪ Multichain</li>
+                        <li className={s.listelement}>🟢 Trade and new tools</li>
+                        <li className={`${s.listelement} ${s.ok}`}>🟡 Web and advanced features</li>
+                        <li className={`${s.listelement} ${s.ok}`}>🟡 Multichain</li>
                         <li className={s.listelement}>⚪ Decentralization</li>
                     </ul> 
                 </div> :

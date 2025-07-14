@@ -24,7 +24,14 @@ export interface Asset {
 export interface TradeAssets {
     assets: Asset[];
     currency: string;
+    isReady: boolean;
+    isBuy: boolean;
     isLoadAssets: boolean;
+    isAddAssets: boolean;
+    setReady: () => void;
+    buy: (userId: number, shareId: number, rawAddress: string, setOK: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>;
+    removeAssets: (userId: number, shareId: number, rawAddress: string) => Promise<void>;
+    addAssets: (userId: number, startupId: number, shareId: number, price: number, rawAddress: string) => Promise<void>;
     getAssets: () => Promise<void>;
     setCurrency: (curr: string) => void;
 }
