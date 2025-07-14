@@ -11,12 +11,12 @@ export const Team1 = () => {
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                                 <h3 style={{ color: 'gray' }}>Current work</h3>
-                                <p>{lang === 'ru' ? 'Раздел STORE' : 'STORE section'}</p>
+                                <p>{lang === 'ru' ? 'Веб-версия и мультичейн' : 'Web-version and multichain'}</p>
                             </div>
 
                             <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                                 <h3 style={{ color: 'gray' }}>Status</h3>
-                                <p style={{ color: 'rgb(22, 163, 74)' }}>finish</p>
+                                <p style={{ color: 'rgb(22, 163, 74)' }}>in progress</p>
                             </div>
                         </div>
                     </li>

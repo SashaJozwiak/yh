@@ -19,7 +19,7 @@ export const Team2 = () => {
 
                         <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                             <h3 style={{ color: 'gray' }}>Status</h3>
-                            <p style={{ color: 'rgb(22, 163, 74)' }}>in work</p>
+                            <p style={{ color: 'rgb(22, 163, 74)' }}>in progress</p>
                         </div>
                     </div>
                 </li>
