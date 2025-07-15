@@ -116,7 +116,7 @@ export const AssetsList = () => {
                                         <div>
                                             <h3 style={{ border: '1px solid gray', padding: '0 0.3rem', borderRadius: '0.3rem', color: 'gray' }}>{lang === 'ru' ? 'Доля' : 'Share'}</h3>
                                             <p>{asset.currency}</p>
-                                            <p>{(+asset.amount) / 10 ** currNum[asset.currency]}</p>
+                                            <p>{((+asset.amount) / 10 ** currNum[asset.currency]).toLocaleString('en')}</p>
 
                                         </div>
 
@@ -128,7 +128,7 @@ export const AssetsList = () => {
                                         <div>
                                             <h3 style={{ border: '1px solid gray', padding: '0 0.3rem', borderRadius: '0.3rem', color: 'gray' }}>{lang === 'ru' ? 'Цена' : 'Price'}</h3>
                                             <p>{asset.currency}</p>
-                                            <p>{(+asset.price) / 10 ** currNum[asset.currency]}</p>
+                                            <p>{((+asset.price) / 10 ** currNum[asset.currency]).toLocaleString('en')}</p>
                                         </div>
                                     </div>
 

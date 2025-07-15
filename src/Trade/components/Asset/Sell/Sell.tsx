@@ -71,7 +71,7 @@ export const Sell = () => {
 
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                     <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Доля' : 'Share'}</p>
-                                    <p>{+share.amount / 10 ** currNum[share.currency]} {share.currency}</p>
+                                    <p>{(+share.amount / 10 ** currNum[share.currency]).toLocaleString('en')} {share.currency}</p>
                                 </div>
 
                                 {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
