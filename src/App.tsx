@@ -28,7 +28,7 @@ import { Earn } from './Earn/Earn';
 import { MainEarn } from './Earn/MainEarn';
 import { Trade } from './Trade/Trade';
 
-//import { postEvent } from '@telegram-apps/sdk';
+import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
 
@@ -65,7 +65,7 @@ const App: React.FC = function () {
       //alert('Authorization error, try again later')
     }
 
-    //postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
+    postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
   }, [authError]);
 
   useEffect(() => {
