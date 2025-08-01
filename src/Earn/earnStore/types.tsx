@@ -176,6 +176,7 @@ export interface UhsTasksStore {
 export interface Startup {
     id: number;
     title: string;
+    apr: number;
     amount_need: number;
     amount_collected: number;
 }

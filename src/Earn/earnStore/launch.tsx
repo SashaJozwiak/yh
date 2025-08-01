@@ -8,6 +8,24 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
     isLoading: true,
     addIsLoading: false,
     isGetStartups: false,
+    /* addInvestForStars: async (userId, startupId, amount, amountInUsd, total, rawAddress) => {
+        set({ addIsLoading: true });
+
+        try {
+            console.log('userUHSId: ', userId, startupId, amount, amountInUsd, total, rawAddress)
+
+
+
+        } catch (error) {
+            console.error("Ошибка при добавлении инвестиций за звезды:", error);
+        } finally {
+            set({ addIsLoading: false });
+            get().fetchStartups();
+            useUHSWallet.getState().getBalance(userId)
+            useUHSWallet.getState().getShares(userId)
+        }
+
+    }, */
     addInvest: async (userId, startupId, currency, amount, amountInUsd, total, rawAddress) => {
         set({ addIsLoading: true });
 

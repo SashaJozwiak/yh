@@ -26,7 +26,7 @@ export const Web2 = () => {
 
     const calculateDaysRemaining = () => {
         const now = new Date();
-        const targetDate = new Date('2025-08-01');
+        const targetDate = new Date('2025-10-01');
 
         // Убедимся, что обе даты являются числами
         const differenceInTime = targetDate.getTime() - now.getTime();
@@ -53,7 +53,7 @@ export const Web2 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                 <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter(startup => startup.id > 2)
+                            .filter(startup => startup.id > 3)
                             .map((startup) => {
                         return (
                             <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -76,12 +76,12 @@ export const Web2 = () => {
 
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
                                         <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'Дней ост.' : 'Days left'}</h4>
-                                        <h5>{startup.id === 3 ? daysRemaining : '~20 May'}</h5>
+                                        <h5>{startup.id === 4 ? daysRemaining : '~20 May'}</h5>
                                     </div>
 
                                     <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
-                                        <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'Страхов.' : 'Insurance'}</h4>
-                                        <h5>{swichLang(lang, (startup.id), 'percent')}</h5>
+                                        <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'APR' : 'APR'}</h4>
+                                        <h5>{/* {swichLang(lang, (startup.id), 'percent')} */}{startup.apr}%</h5>
                                     </div>
                                 </div>
 
@@ -137,7 +137,8 @@ export const Web2 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                     <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter((startup) => startup.id < 3)
+                            .filter((startup) => startup.id < 4)
+                            .sort((a, b) => b.id - a.id)
                             .map((startup) => {
                                 return (
                                     <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -164,8 +165,8 @@ export const Web2 = () => {
                                             </div>
 
                                             <div style={{ display: 'flex', flex: '1', flexDirection: 'column', border: '1px solid', borderRadius: '0.3rem', padding: '0.5rem', gap: '0.5rem', justifyContent: 'space-between' }}>
-                                                <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'Страхов.' : 'Insurance'}</h4>
-                                                <h5>{swichLang(lang, (startup.id), 'percent')}</h5>
+                                                <h4 style={{ color: 'lightgray' }}>{lang === 'ru' ? 'APR' : 'APR'}</h4>
+                                                <h5>{/* {swichLang(lang, (startup.id), 'percent')} */}{startup.apr}%</h5>
                                             </div>
                                         </div>
 
@@ -218,9 +219,9 @@ export const Web2 = () => {
 
                                                 style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: startup.id <= 1 ? '1' : '0.5' }}>
                                                 {lang === 'ru' ? (
-                                                    startup.id === 2 ? 'В разработке' : 'Готово'
+                                                    startup.id >= 2 ? 'В разработке' : 'Готово'
                                                 ) : (
-                                                        startup.id === 2 ? 'In Development' : 'Ready'
+                                                        startup.id >= 2 ? 'In Development' : 'Ready'
                                                 )}
                                             </button>
                                         </div>
@@ -232,7 +233,7 @@ export const Web2 = () => {
 
 
         </div>
-            {investWindow && <Invest setInvestWindow={setInvestWindow} id={3} name={startups[2].title} need={startups[2].amount_need} collected={startups[2].amount_collected} />}
+            {investWindow && <Invest setInvestWindow={setInvestWindow} id={4} name={startups[3].title} need={startups[3].amount_need} collected={startups[3].amount_collected} />}
         </>
     )
 }

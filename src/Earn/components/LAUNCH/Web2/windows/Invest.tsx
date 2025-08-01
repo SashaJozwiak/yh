@@ -176,14 +176,19 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
                             <button
                                 onClick={() => setCurrentAsset('UHS')}
                                 className={`${s.tabs} ${currentAsset === 'UHS' ? s.ontab : null}`}
-                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}>UHS</button>
+                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.3rem' }}>UHS</span></button>
                             <button
                                 onClick={() => setCurrentAsset('USDT')}
                                 className={`${s.tabs} ${currentAsset === 'USDT' ? s.ontab : null}`}
-                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}>USDT</button>
+                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.3rem' }}>USDT</span></button>
+                            <button
+                                onClick={() => setCurrentAsset('STARS')}
+                                className={`${s.tabs} ${currentAsset === 'STARS' ? s.ontab : null}`}
+                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.3rem' }}>⭐!</span></button>
                         </div>
 
-                        <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic', marginTop: '0.5rem' }}>In UHwallet: {checkBalance.toFixed(2)} {currentAsset}</p>
+                        {currentAsset === 'STARS' ? <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic', marginTop: '0.5rem' }}>100⭐ = ~200UHS</p> : <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic', marginTop: '0.5rem' }}>In UHwallet: {checkBalance.toFixed(2)} {currentAsset}</p>}
+
                     </div>
                 </div>
 
@@ -216,18 +221,44 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
                     </button>)}
 
                 </div>
-                <h4 style={{ marginTop: '0.5rem', color: 'lightgray' }}>In USD: ${(Number(amount) * Number(currentFullAsset?.priceUsd) || 0).toFixed(2)} </h4>
-                {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 4.99) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>minimum required $5</p>}
-                {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>maximum possible $200</p>}
+                {currentAsset === 'STARS' ?
+                    <h4 style={{ marginTop: '0.5rem', color: 'lightgray' }}>In USD: ~${(Number(amount) * 0.02 || 0).toFixed(2)} </h4>
+                    : <h4 style={{ marginTop: '0.5rem', color: 'lightgray' }}>In USD: ${(Number(amount) * Number(currentFullAsset?.priceUsd) || 0).toFixed(2)} </h4>}
 
-                {!amount || (Number(amount) > checkBalance) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>not enough {currentAsset}</p>}
+                {currentAsset === 'STARS' ?
+                    <div>
+                        {!amount || (Number(amount) * 0.02 < 4.99) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>minimum required $5</p>}
+                        {!amount || (Number(amount) * 0.02 > 500) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>maximum possible $500</p>}
 
-                {!amount || ((Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed)) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>maximum left ${sumNeed}</p>}
+                        {!amount || ((Number(amount) * 0.02) > Number(sumNeed)) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>maximum left ${sumNeed}</p>}
 
-                <button
-                    onClick={() => sendInvest()}
-                    disabled={!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 5) || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) || (Number(amount) > checkBalance) || (Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed) || addIsLoading}
-                    className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: !amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 5) || (Number(amount) * Number(currentFullAsset?.priceUsd) > 200) || (Number(amount) > checkBalance) || (Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed) || addIsLoading ? '0.5' : '1' }}>{addIsLoading ? '...' : 'Buy'}</button>
+                    </div> :
+
+
+
+                    <div>
+                        {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 4.99) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>minimum required $5</p>}
+                        {!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) > 500) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>maximum possible $500</p>}
+
+                        {!amount || (Number(amount) > checkBalance) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>not enough {currentAsset}</p>}
+
+                        {!amount || ((Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed)) && <p style={{ fontStyle: 'italic', color: '#ff8d8d' }}>maximum left ${sumNeed}</p>}
+                    </div>
+                }
+
+                {currentAsset === 'STARS' ?
+                    <button
+                        onClick={() => sendInvest()}
+                        /* disabled={
+                            !amount || (Number(amount) * 0.02 < 5) || (Number(amount) * 0.02 > 500) || (Number(amount) * 0.02) > Number(sumNeed) || addIsLoading
+                        } */
+                        disabled={true}
+                        className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: /* !amount || (Number(amount) * 0.02 < 5) || (Number(amount) * 0.02 > 500) || (Number(amount) * 0.02) > Number(sumNeed) || addIsLoading ? '0.5' :  */'0.5' }}>{addIsLoading ? '...' : 'soon'}</button>
+                    :
+                    <button
+                        onClick={() => sendInvest()}
+                        disabled={!amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 5) || (Number(amount) * Number(currentFullAsset?.priceUsd) > 500) || (Number(amount) > checkBalance) || (Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed) || addIsLoading}
+                        className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: !amount || (Number(amount) * Number(currentFullAsset?.priceUsd) < 5) || (Number(amount) * Number(currentFullAsset?.priceUsd) > 500) || (Number(amount) > checkBalance) || (Number(amount) * Number(currentFullAsset?.priceUsd)) > Number(sumNeed) || addIsLoading ? '0.5' : '1' }}>{addIsLoading ? '...' : 'Buy'}</button>}
             </div>
         </div >
     )

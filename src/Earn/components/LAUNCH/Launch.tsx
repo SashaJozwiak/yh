@@ -6,6 +6,7 @@ import { Info } from "./Info/Info";
 
 import s from './launch.module.css'
 import { Web2 } from "./Web2/Web2";
+import { Web3 } from "./Web3/Web3"
 
 export const Launch = () => {
     const { launch, setLaunch } = useEarnNav(state => state)
@@ -38,7 +39,8 @@ export const Launch = () => {
                 {launch === 'info' && <Info />}
                 {launch === 'add' && <Add />}
                 {launch === 'web2' && <Web2 />}
-                {launch === 'web3' && <h3 style={{ color: 'gray' }}>No web3 startups now</h3>}
+                {launch === 'web3' && <Web3 />}
+                {/*  {launch === 'web3' && <h3 style={{ color: 'gray' }}>No web3 startups now</h3>} */}
             </>
         </>
     )
