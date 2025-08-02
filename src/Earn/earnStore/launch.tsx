@@ -115,7 +115,8 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
             if (!response.ok) throw new Error('Failed to fetch startups');
 
             const data = await response.json();
-            set({ startups: data, isGetStartups: true });
+            const sortedStartups = [...data].sort((a, b) => a.id - b.id);
+            set({ startups: sortedStartups, isGetStartups: true });
         } catch (error) {
             console.error('Error fetching startups:', error);
         } finally {

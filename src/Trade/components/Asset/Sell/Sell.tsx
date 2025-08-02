@@ -50,6 +50,7 @@ export const Sell = () => {
     }
 
     console.log('assetsAtTrade: ', assetsAtTrade)
+    console.log('shares: ', shares)
     return (
 
         <div
@@ -58,7 +59,8 @@ export const Sell = () => {
             {!shares.filter(share => share.currency === currency).length && <p>You have no assets.</p>}
             {shares
                 .filter(share => share.currency === currency &&
-                    !assetsAtTrade.some(asset => asset.share_id === share.id))
+                    !assetsAtTrade.some(asset => asset.share_id === share.id) &&
+                    share.startup_id !== 4)
                 .map((share) => {
                     return (
                         <li key={share.id} style={{ marginBottom: "0.5rem", padding: '0.3rem 0.6rem', listStyle: "none", /* display: 'flex', */ /* justifyContent: 'space-between', */ alignItems: 'center', backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
@@ -66,7 +68,7 @@ export const Sell = () => {
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                     <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Название' : 'Title'}</p>
-                                    <p>{share.startup_id === 1 ? 'Dive Cat' : share.startup_id === 2 ? 'Balls' : 'UH Game'}</p>
+                                    <p style={{ textAlign: 'left' }}>{share.startup_id === 1 ? 'Dive Cat' : share.startup_id === 2 ? 'Balls' : 'UH Game'}</p>
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -81,10 +83,9 @@ export const Sell = () => {
 
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                     <p style={{ color: 'gray' }}>APR</p>
-                                    <p>{share.startup_id === 1 ? '21%' : '12%'}</p>
+                                    <p>{share.startup_id === 1 ? '21%' : share.startup_id === 2 ? '18%' : share.startup_id === 3 ? '12%' : '19%'}</p>
                                 </div>
                             </div>
-
 
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', alignContent: 'center', marginTop: '0.5rem' }}>
                                 <h4 style={{ alignContent: 'center' }}>{share.currency}: </h4>
