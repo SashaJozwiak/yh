@@ -3,16 +3,53 @@ import { useUHSWallet } from './UHSWallet';
 
 import { StartupStore } from './types'
 
+import WebApp from '@twa-dev/sdk';
+
 export const useStartupStore = create<StartupStore>((set, get) => ({
     startups: [],
     isLoading: true,
     addIsLoading: false,
     isGetStartups: false,
-    /* addInvestForStars: async (userId, startupId, amount, amountInUsd, total, rawAddress) => {
+    addInvestForStars: async (userId, startupId, currency, amount, amountInUsd, total, rawAddress) => {
         set({ addIsLoading: true });
 
+        const title = `${amount} invest in asset`;
+        const description = `invest in asset ~${amount * 0.02} USD`;
+        const price = amount;
+
         try {
-            console.log('userUHSId: ', userId, startupId, amount, amountInUsd, total, rawAddress)
+            console.log('userUHSId: ', userId, startupId, currency, amount, amountInUsd, total, rawAddress)
+            console.log('title, description, amount, price: ', title, description, amount, price)
+
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/starspay`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, description, amount, price }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const invoiceLink = data.invoiceLink;
+            console.log('Ссылка на инвойс получена:', invoiceLink);
+
+            //WebApp.openInvoice(invoiceLink);
+            WebApp.openInvoice(invoiceLink, (status) => {
+                if (status === "paid") {
+                    /* const newRandomCards = amount + get().randomCards;
+                    get().addRandomCards(newRandomCards);
+                    get().saveDeck();
+                    get().saveTransaction(user_id, amount, price); */
+                    get().addInvest(userId, startupId, currency, amount, amountInUsd, total, rawAddress);
+                    console.log('удалось оплатить, карты добавлены')
+                } else {
+                    console.error('Не удалось оплатить');
+                }
+            });
 
 
 
@@ -25,7 +62,7 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
             useUHSWallet.getState().getShares(userId)
         }
 
-    }, */
+    },
     addInvest: async (userId, startupId, currency, amount, amountInUsd, total, rawAddress) => {
         set({ addIsLoading: true });
 

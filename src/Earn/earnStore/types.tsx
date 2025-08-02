@@ -186,6 +186,7 @@ export interface StartupStore {
     isLoading: boolean;
     addIsLoading: boolean;
     isGetStartups: boolean;
+    addInvestForStars: (userId: number, startupId: number, currency: string, amount: number, amountInUsd: number, total: number, rawAddress: string) => Promise<void>;
     addInvest: (userId: number, startupId: number, currency: string, amount: number, amountInUsd: number, total: number, rawAddress: string) => Promise<void>;
     fetchStartups: () => Promise<void>;
 }

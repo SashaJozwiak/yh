@@ -32,7 +32,7 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
 
     const balanceUH = useUHSWallet(state => state.assets);
     const userId = useAuth(state => state.userId);
-    const { addIsLoading, addInvest } = useStartupStore(state => state)
+    const { addIsLoading, addInvest, addInvestForStars } = useStartupStore(state => state)
 
 
     //const [jettonToTx, setJettonToTx] = useState<Asset | null>(null);
@@ -138,6 +138,15 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
 
     }
 
+    const sendInvestForStars = () => {
+
+        if (userId) {
+            addInvestForStars(userId, id, 'UHS', Math.round(Number(amount)), ((Number(amount) * 0.02)), need, rawAddress)
+        }
+        setInvestWindow(false);
+
+    }
+
     useEffect(() => {
         const curAsset = balanceUH.find(asset => curr[asset.jetton.symbol] === currentAsset)
         if (curAsset) {
@@ -176,15 +185,15 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
                             <button
                                 onClick={() => setCurrentAsset('UHS')}
                                 className={`${s.tabs} ${currentAsset === 'UHS' ? s.ontab : null}`}
-                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.3rem' }}>UHS</span></button>
+                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.2rem' }}>UHS</span></button>
                             <button
                                 onClick={() => setCurrentAsset('USDT')}
                                 className={`${s.tabs} ${currentAsset === 'USDT' ? s.ontab : null}`}
-                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.3rem' }}>USDT</span></button>
+                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.2rem' }}>USDT</span></button>
                             <button
                                 onClick={() => setCurrentAsset('STARS')}
                                 className={`${s.tabs} ${currentAsset === 'STARS' ? s.ontab : null}`}
-                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.3rem' }}>⭐!</span></button>
+                                style={{ alignContent: 'center', textAlign: 'left', fontSize: '1.5rem' }}><span style={{ display: 'block', marginBottom: '0.2rem' }}>⭐!</span></button>
                         </div>
 
                         {currentAsset === 'STARS' ? <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic', marginTop: '0.5rem' }}>100⭐ = ~200UHS</p> : <p style={{ color: 'lightgray', textAlign: 'left', fontSize: '0.8rem', fontStyle: 'italic', marginTop: '0.5rem' }}>In UHwallet: {checkBalance.toFixed(2)} {currentAsset}</p>}
@@ -248,12 +257,12 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
 
                 {currentAsset === 'STARS' ?
                     <button
-                        onClick={() => sendInvest()}
+                        onClick={() => sendInvestForStars()}
                         /* disabled={
                             !amount || (Number(amount) * 0.02 < 5) || (Number(amount) * 0.02 > 500) || (Number(amount) * 0.02) > Number(sumNeed) || addIsLoading
                         } */
-                        disabled={true}
-                        className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: /* !amount || (Number(amount) * 0.02 < 5) || (Number(amount) * 0.02 > 500) || (Number(amount) * 0.02) > Number(sumNeed) || addIsLoading ? '0.5' :  */'0.5' }}>{addIsLoading ? '...' : 'soon'}</button>
+                        disabled={false}
+                        className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: !amount || (Number(amount) * 0.02 < 5) || (Number(amount) * 0.02 > 500) || (Number(amount) * 0.02) > Number(sumNeed) || addIsLoading ? '0.5' : '1' }}>{addIsLoading ? '...' : 'soon'}</button>
                     :
                     <button
                         onClick={() => sendInvest()}
