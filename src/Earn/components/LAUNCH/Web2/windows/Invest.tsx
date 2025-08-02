@@ -70,6 +70,8 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
     };
 
     console.log('assets: ', balanceUH);
+    console.log('setInvestWindow, id, name, need, collected : ', setInvestWindow, id, name, need, collected);
+
     //console.log('currentAsset: ', currentAsset);
     //console.log('ufAddress: ', ufAddress, typeof ufAddress);
 

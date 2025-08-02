@@ -186,7 +186,7 @@ export const ShowBalance = () => {
                         <li key={share.id} style={{ marginBottom: "0.5rem", padding: '0.3rem 0.6rem', listStyle: "none", display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Название' : 'Title'}</p>
-                                <p>{share.startup_id === 1 ? 'Dive Cat' : share.startup_id === 2 ? 'Balls' : 'UH Game'}</p>
+                                <p>{share.startup_id === 1 ? 'Dive Cat' : share.startup_id === 2 ? 'Balls' : share.startup_id === 3 ? 'UH Game' : 'Cazic'}</p>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -201,7 +201,7 @@ export const ShowBalance = () => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 <p style={{ color: 'gray' }}>APR</p>
-                                <p>{share.startup_id === 1 ? '21%' : '12%'}</p>
+                                <p>{share.startup_id === 1 ? '21%' : share.startup_id === 2 ? '18%' : share.startup_id === 3 ? '12%' : '19%'}</p>
                             </div>
                         </li>
                     )

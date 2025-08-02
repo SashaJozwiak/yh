@@ -18,8 +18,8 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
         const price = amount;
 
         try {
-            console.log('userUHSId: ', userId, startupId, currency, amount, amountInUsd, total, rawAddress)
-            console.log('title, description, amount, price: ', title, description, amount, price)
+            //console.log('userUHSId: ', userId, startupId, currency, amount, amountInUsd, total, rawAddress)
+            //console.log('title, description, amount, price: ', title, description, amount, price)
 
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}payments/starspay`, {
                 method: 'POST',
@@ -35,7 +35,7 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
 
             const data = await response.json();
             const invoiceLink = data.invoiceLink;
-            console.log('Ссылка на инвойс получена:', invoiceLink);
+            //console.log('Ссылка на инвойс получена:', invoiceLink);
 
             //WebApp.openInvoice(invoiceLink);
             WebApp.openInvoice(invoiceLink, (status) => {
@@ -44,8 +44,9 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
                     get().addRandomCards(newRandomCards);
                     get().saveDeck();
                     get().saveTransaction(user_id, amount, price); */
-                    get().addInvest(userId, startupId, currency, amount, amountInUsd, total, rawAddress);
-                    console.log('удалось оплатить, карты добавлены')
+                    const amounUHS = amount * 2;
+                    get().addInvest(userId, startupId, currency, amounUHS, amountInUsd, total, rawAddress);
+                    //console.log('удалось оплатить, карты добавлены')
                 } else {
                     console.error('Не удалось оплатить');
                 }
