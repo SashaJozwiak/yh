@@ -70,7 +70,7 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
     };
 
     console.log('assets: ', balanceUH);
-    console.log('setInvestWindow, id, name, need, collected : ', setInvestWindow, id, name, need, collected);
+    console.log('setInvestWindow, id, name, need, collected : ', id, name, need, collected);
 
     //console.log('currentAsset: ', currentAsset);
     //console.log('ufAddress: ', ufAddress, typeof ufAddress);
@@ -260,10 +260,10 @@ export const Invest = ({ setInvestWindow, id, name, need, collected }) => {
                 {currentAsset === 'STARS' ?
                     <button
                         onClick={() => sendInvestForStars()}
-                        disabled={
+                        /* disabled={
                             !amount || (Number(amount) * 0.02 < 5) || (Number(amount) * 0.02 > 500) || (Number(amount) * 0.02) > Number(sumNeed) || addIsLoading
-                        }
-                        /* disabled={false} */
+                        } */
+                        disabled={false}
                         className={s.depBtn} style={{ margin: '1rem auto', fontSize: '1rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: !amount || (Number(amount) * 0.02 < 5) || (Number(amount) * 0.02 > 500) || (Number(amount) * 0.02) > Number(sumNeed) || addIsLoading ? '0.5' : '1' }}>{addIsLoading ? '...' : 'Buy'}</button>
                     :
                     <button

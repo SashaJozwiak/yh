@@ -35,7 +35,7 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
 
             const data = await response.json();
             const invoiceLink = data.invoiceLink;
-            //console.log('Ссылка на инвойс получена:', invoiceLink);
+            console.log('Ссылка на инвойс получена:', invoiceLink);
 
             //WebApp.openInvoice(invoiceLink);
             WebApp.openInvoice(invoiceLink, (status) => {
