@@ -45,7 +45,7 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
                     get().saveDeck();
                     get().saveTransaction(user_id, amount, price); */
                     const amounUHS = amount * 2;
-                    get().addInvest(userId, startupId, currency, amounUHS, amountInUsd, total, rawAddress);
+                    get().addInvest2(userId, startupId, currency, amounUHS, amountInUsd, total, rawAddress);
                     //console.log('удалось оплатить, карты добавлены')
                 } else {
                     console.error('Не удалось оплатить');
@@ -63,6 +63,51 @@ export const useStartupStore = create<StartupStore>((set, get) => ({
             useUHSWallet.getState().getShares(userId)
         }
 
+    },
+    addInvest2: async (userId, startupId, currency, amount, amountInUsd, total, rawAddress) => {
+        set({ addIsLoading: true });
+
+
+        try {
+            const token = localStorage.getItem(rawAddress + 'uhs');
+
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhslaunch/addInvest2`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId,
+                    startupId,
+                    currency,
+                    amount,
+                    amountInUsd,
+                    total,
+                    rawAddress,
+                    token
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Ошибка при добавлении инвестиций");
+            }
+
+            console.log('add invest? ', data)
+
+            /* set((state) => ({
+                investments: [...state.investments, { userId, startupId, currency, amount, total }],
+            })); */
+
+        } catch (error) {
+            console.error("Ошибка при добавлении инвестиций:", error);
+        } finally {
+            set({ addIsLoading: false });
+            get().fetchStartups();
+            useUHSWallet.getState().getBalance(userId)
+            useUHSWallet.getState().getShares(userId)
+        }
     },
     addInvest: async (userId, startupId, currency, amount, amountInUsd, total, rawAddress) => {
         set({ addIsLoading: true });
