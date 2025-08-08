@@ -10,6 +10,7 @@
     <link rel="preload" href="/gnom_full_tr_150_compressed.png" as="image">
     <!-- user-scalable=no -->
     <title>YH</title>
+    <link rel="preconnect" href="https://sad.adsgram.ai">
     <!-- Google tag (gtag.js) -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-076ETLZZLZ"></script>
     <script>
@@ -24,6 +25,48 @@
   <body> <!-- maybe class="body" add for scroll fix -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <!-- <script src="https://sad.adsgram.ai/js/sad.min.js"></script> -->
+    <script>
+      (function () {
+        var loaded = false;
+        var timeout = 10000; // 10 секунд таймаут
+
+        function loadAdScript() {
+          if (loaded) return;
+
+          var script = document.createElement('script');
+          script.src = 'https://sad.adsgram.ai/js/sad.min.js';
+          script.async = true;
+          script.crossOrigin = 'anonymous';
+
+          script.onload = function () {
+            loaded = true;
+            console.log('Ad script loaded');
+          };
+
+          script.onerror = function () {
+            console.log('Ad script failed silently');
+          };
+
+          document.body.appendChild(script);
+        }
+
+        // Запускаем загрузку после полной загрузки страницы
+        window.addEventListener('load', function () {
+          loadAdScript();
+
+          // Отменяем загрузку через 10 секунд если не загрузилось
+          setTimeout(function () {
+            if (!loaded) {
+              var scripts = document.querySelectorAll('script[src="https://sad.adsgram.ai/js/sad.min.js"]');
+              scripts.forEach(function (script) {
+                script.remove();
+              });
+              console.log('Ad script loading aborted after timeout');
+            }
+          }, timeout);
+        });
+      })();
+    </script>
   </body>
 </html>
