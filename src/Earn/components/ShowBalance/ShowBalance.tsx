@@ -201,7 +201,7 @@ export const ShowBalance = () => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 <p style={{ color: 'gray' }}>APR</p>
-                                <p>{share.startup_id === 1 ? '21%' : share.startup_id === 2 ? '18%' : share.startup_id === 3 ? '12%' : '19%'}</p>
+                                <p>{share.startup_id === 1 ? '52%' : share.startup_id === 2 ? '18%' : share.startup_id === 3 ? '12%' : '19%'}</p>
                             </div>
                         </li>
                     )
