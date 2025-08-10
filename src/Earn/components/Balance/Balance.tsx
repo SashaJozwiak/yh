@@ -4,13 +4,20 @@ import s from './balance.module.css'
 import { useEarnNav } from '../../earnStore/nav'
 import { useUHSWallet } from '../../earnStore/UHSWallet'
 import { useTradeAssets } from '../../../Trade/tradeStore/assets'
+import { useAuth } from '../../../store/main'
+
+import { useTonAddress/* , useTonConnectUI */ } from '@tonconnect/ui-react';
 
 export const Balance = () => {
     //const [loading] = useState(false)
+    const uhsId = useAuth(state => state.userId)
+    const rawAddress = useTonAddress(false);
 
     const { isOpenWallet, setIsOpenWallet } = useEarnNav(state => state);
     const { assets, status, shares } = useUHSWallet(state => state);
     const readyTrade = useTradeAssets(state => state.setReady)
+    const giftHB = useTradeAssets(state => state.giftHB)
+    const setGiftHB = useTradeAssets(state => state.setGiftHB)
 
     const [totalValue, setTotalValue] = useState(0);
 
@@ -29,8 +36,13 @@ export const Balance = () => {
         setTotalValue(total + totalShares);
         readyTrade();
 
-
     }, [assets, readyTrade, shares]);
+
+    useEffect(() => {
+        if (!giftHB && uhsId && rawAddress) {
+            setGiftHB(uhsId, rawAddress);
+        }
+    }, [giftHB, rawAddress, setGiftHB, uhsId])
 
 
     return (

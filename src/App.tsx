@@ -6,6 +6,7 @@ import { Footer } from './components/Footer/Footer';
 import { Tasks } from './components/Tasks/Tasks';
 import { Stages } from './components/Stages/Stages';
 import { Cabinet } from './components/Cabinet/Cabinet';
+import { GiftWindow } from './giftWindow/GiftWindow';
 
 import { Invite } from './components/Cabinet/Invite/Invite';
 
@@ -27,6 +28,7 @@ import { AuthError } from './AuthError';
 import { Earn } from './Earn/Earn';
 import { MainEarn } from './Earn/MainEarn';
 import { Trade } from './Trade/Trade';
+import { useTradeAssets } from './Trade/tradeStore/assets';
 
 import { postEvent } from '@telegram-apps/sdk';
 
@@ -52,6 +54,8 @@ const App: React.FC = function () {
   const updateStonFiBalance = useStonFi((state) => state.updateBalanceSF)
   const updateBalanceDedust = useDedust((state) => state.updateBalanceDedust);
   const updateBalanceTonco = useTonco((state) => state.updateBalanceTonco);
+
+  const isGiftWindow = useTradeAssets((state) => state.giftWindow);
 
 
   useEffect(() => {
@@ -138,6 +142,7 @@ const App: React.FC = function () {
   }, [rawAddress, updateBalance, updateBalanceJ, updateStonFiBalance, updateBalanceDedust]); */
 
 
+
   return (
     <>
       {authError && <AuthError />}
@@ -153,6 +158,8 @@ const App: React.FC = function () {
       {nav === 'UHS' && <MainEarn />}
       {nav === 'trade' && <Trade />}
       {nav !== 'game1' && <Footer />}
+      {isGiftWindow && <GiftWindow />}
+
     </>
   );
 }

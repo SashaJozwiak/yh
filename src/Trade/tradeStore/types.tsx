@@ -28,6 +28,10 @@ export interface TradeAssets {
     isBuy: boolean;
     isLoadAssets: boolean;
     isAddAssets: boolean;
+    giftHB: boolean;
+    giftWindow: boolean;
+    setGiftWindow: () => void;
+    setGiftHB: (uhs_id: number, wallet_address: string) => Promise<void>;
     setReady: () => void;
     buy: (userId: number, shareId: number, rawAddress: string, setOK: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>;
     removeAssets: (userId: number, shareId: number, rawAddress: string) => Promise<void>;

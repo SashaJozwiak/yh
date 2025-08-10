@@ -14,6 +14,41 @@ export const useTradeAssets = create<TradeAssets>((set, get) => ({
     isLoadAssets: false,
     isAddAssets: false,
     currency: 'UHS',
+    giftHB: false,
+    giftWindow: false,
+    setGiftWindow: () => set({ giftWindow: false }),
+    setGiftHB: async (uhs_id, wallet_address) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhstradeassets/claimHbGift`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    uhs_id, wallet_address
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Ошибка при добавлении инвестиций в трейд");
+            }
+
+            console.log('gift data: ', data);
+            if (data.claimed === false) {
+                set({ giftWindow: true })
+            }
+
+            set({ giftHB: true })
+            await useUHSWallet.getState().getBalance(uhs_id)
+
+
+        } catch (error) {
+            console.error("Ошибка проверки или получения подарка:", error);
+        }
+
+    },
     setReady: () => set({ isReady: true }),
     buy: async (userId, shareId, rawAddress, setOk) => {
         set({ isBuy: true })

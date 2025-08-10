@@ -62,9 +62,10 @@ export const MainEarn = () => {
                 <div>
                     {/* <span style={{ margin: '2vh auto' }} className={s.loader}></span> */}
                     <h2
-                        style={{ margin: '5vh auto' }}
+                        style={{ margin: '5vh auto 1vh auto' }}
                         className={s.fadeIn}>Connect wallet, please
                     </h2>
+                    <h3 className={s.fadeIn} style={{ fontWeight: 'normal', fontStyle: 'italic' }}>(and take 1.23 USDT)</h3>
                 </div>
             }
             {ufAddress && !isAuth && <h2
