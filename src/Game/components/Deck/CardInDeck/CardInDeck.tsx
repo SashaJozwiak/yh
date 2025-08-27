@@ -1,6 +1,3 @@
-//import React from 'react'
-//import investor from '../../../assets/Game/inv3.jpg'
-
 import { useGameNav } from '../../../state/gameNav'
 import { useArena } from '../../../state/mainArena'
 import { usePlayCard } from '../../../state/playCard'
