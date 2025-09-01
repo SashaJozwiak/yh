@@ -12,8 +12,11 @@ import { usePartners } from '../../../store/partners.js';
 
 import { CalculatedPayment, calculatePartnerPayments, PaymentStats } from '../../../utils/math/calculateUserValue.js';
 import { WithdrawTimer } from './WithdrawTimer.js';
-import { WithdrawPopUp } from './WithdrawPopUp.js';
+//import { WithdrawPopUp } from './WithdrawPopUp.js';
 import { useUHSWallet } from '../../../Earn/earnStore/UHSWallet.js';
+
+import { InfoPopUps } from './InfoPopUps';
+
 
 const defaultAvatar = '/yh/gnom_full_tr_150_compressed.png';
 
@@ -23,13 +26,19 @@ export interface CalcData {
 }
 
 export const CabData = () => {
-    const { internalId, userName, /* refs,  refs_active,*/ active_usernames, anonim, languageCode } = useUserData(state => state.user);
+    const { internalId, userName, /* refs,  refs_active,*/ active_usernames, /* anonim, */ languageCode, rawAddress } = useUserData(state => state.user);
+
+    const [email, setEmail] = useState('');
+    const [heirEmail, setHeirEmail] = useState('');
+    const [selectedPeriod, setSelectedPeriod] = useState('off');
+
+    const [isInfoPopUp, setIsInfoPopUp] = useState(false);
 
     //const balance = useUserData(state => state.balance.balance);
-    const setAnonim = useUserData(state => state.setAnonim);
+    //const setAnonim = useUserData(state => state.setAnonim);
 
-    const [isChecked, setIsChecked] = useState(anonim);
-    const [isDisabled, setIsDisabled] = useState(false);
+    //const [isChecked, setIsChecked] = useState(anonim);
+    //const [isDisabled, setIsDisabled] = useState(false);
     //const [refetchTop100, setRefetchTop100] = useState(false);
 
     const [reflist, setReflist] = useState(false);
@@ -43,11 +52,24 @@ export const CabData = () => {
     const loading = usePartners(state => state.loading);
 
     const [calcData, setCalcData] = useState<CalcData | null>(null);
-    const [popUp, setPopUp] = useState<boolean>(false);
+    const [, setPopUp] = useState<boolean>(false);
 
     const period = useAuth(state => state.limit);
     const uhs_id = useAuth(state => state.userId);
     const { updateLimit } = useAuth(state => state);
+
+    const {
+        mail,
+        heirMail,
+        years,
+        setMails,
+        isMailsLoading
+    } = useAuth(state => state);
+
+    //const { mail, heirMail, years } = useAuth(state => state);
+
+    //console.log('rawAddress', rawAddress);
+
     const balanceUH = useUHSWallet(state => state.assets);
 
 
@@ -80,7 +102,7 @@ export const CabData = () => {
 
     }
 
-    const handleCheckboxChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    /* const handleCheckboxChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.checked;
         setIsDisabled(true);
 
@@ -100,11 +122,20 @@ export const CabData = () => {
         setTimeout(() => {
             setIsDisabled(false);
         }, 1200);
-    }
+    } */
 
-    useEffect(() => {
+    /* useEffect(() => {
         setIsChecked(anonim);
-    }, [anonim]);
+    }, [anonim]); */
+
+    const handleSave = () => {
+        if (isMailsLoading) return;
+        const numPeriod = Number(selectedPeriod);
+        if (uhs_id && rawAddress) {
+            setMails(email, heirEmail, numPeriod, uhs_id, rawAddress)
+        }
+
+    };
 
     useEffect(() => {
         if (active_usernames.length >= 10 && userDetails.length === 0) {
@@ -117,8 +148,8 @@ export const CabData = () => {
     }, [active_usernames, calcData, fetchUserDetails, internalId, userDetails, userDetails.length]);
 
     //console.log('userDetails', calculatePartnerPayments(userDetails));
-    console.log('period: ', period);
-    console.log('balanceUH: ', balanceUH.find(token => token.jetton.address === "0:3c4aac2fb4c1dee6c0bacbf86505f6bc7c31426959afd34c09e69ef3eae0dfcc"));
+    //console.log('period: ', period);
+    //console.log('balanceUH: ', balanceUH.find(token => token.jetton.address === "0:3c4aac2fb4c1dee6c0bacbf86505f6bc7c31426959afd34c09e69ef3eae0dfcc"));
 
     useEffect(() => {
         if (balanceUH) {
@@ -132,9 +163,18 @@ export const CabData = () => {
     }, [balanceUH]);
 
 
+
+    useEffect(() => {
+        setEmail(mail || "");
+        setHeirEmail(heirMail || "");
+        setSelectedPeriod(years === 0 ? 'off' : years.toString());
+    }, [mail, heirMail, years]);
+
+
     return (
         <>
-            {popUp && <WithdrawPopUp /* onWithdraw={onWithdraw} */ setPopUp={setPopUp} calcData={calcData} languageCode={languageCode} />}
+            {/* {isInfoPopUp && <InfoPopUp setisInfoPopUp={setIsInfoPopUp} languageCode={languageCode} />} */}
+            {isInfoPopUp && <InfoPopUps setisInfoPopUp={setIsInfoPopUp} languageCode={languageCode} />}
             {reflist ? <div className={`${s.list} scrollable`}>
                 <div
                     onClick={() => setReflist(false)}
@@ -201,12 +241,123 @@ export const CabData = () => {
 
             </div> : <>
             <div className={s.data}>
-                        <img className={s.gnom} style={{ borderRadius: '0.3rem', pointerEvents: "none" }}
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+
+                            <p /* className={s.line} */>{swichLang(languageCode, 'user')}: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>
+
+                            <img className={s.gnom} style={{ borderRadius: '0.3rem', pointerEvents: "none"/* , display: 'inline'  */ }}
                     width='150' height='118' src={defaultAvatar} alt={``} />
+
+
+
+                        </div>
                 <div className={s.info}>
-                    <p className={s.line}>{swichLang(languageCode, 'user')}: <span style={{ color: 'white' }}>{userName.substring(0, 10)}</span></p>
-                            <p className={s.line}>Email: ---</p>
-                            <p className={s.line}>UHS: ~{(myBalance).toFixed()}</p>
+                            {/* Поле для основного email */}
+                            <div className={s.line}>
+                                <label htmlFor="email-input" style={{ display: 'block', marginBottom: '0.1rem' }}>
+                                    Email:
+                                </label>
+                                <input
+                                    id="email-input"
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="your@email.com"
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.2rem',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '0.25rem',
+                                        backgroundColor: '#2a2a2a',
+                                        color: 'white'
+                                    }}
+                                />
+                            </div>
+
+                            {/* Поле для email наследника */}
+                            <div className={s.line}>
+                                <label htmlFor="heir-email-input" style={{ display: 'block', marginBottom: '0.1rem' }}>
+                                    {languageCode === 'ru' ? 'Наслeдник' : 'Heir'} mail:
+                                </label>
+                                <input
+                                    id="heir-email-input"
+                                    type="email"
+                                    value={heirEmail}
+                                    onChange={(e) => setHeirEmail(e.target.value)}
+                                    placeholder="heir@email.com"
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.2rem',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '0.25rem',
+                                        backgroundColor: '#2a2a2a',
+                                        color: 'white'
+                                    }}
+                                />
+                            </div>
+
+                            {/* Чекбокс с выбором периода */}
+                            <div className={s.line}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+                                    <label style={{ display: 'block', marginBottom: '0' }}>
+                                        {/* Years: */}
+                                    </label>
+                                    <div style={{ display: 'flex', flexDirection: 'row', gap: '0.2rem' }}>
+                                        {['off', '2', '3', '5'].map((option) => (
+                                            <label key={option} style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+                                                <input
+                                                    type="radio"
+                                                    name="years-option"
+                                                    value={option}
+                                                    checked={selectedPeriod === option}
+                                                    onChange={(e) => setSelectedPeriod(e.target.value)}
+                                                />
+                                                {option === 'off' ? 'Off' : option}
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Кнопка сохранения */}
+                            <div className={s.line}>
+                                <button
+                                    onClick={handleSave}
+                                    disabled={isMailsLoading}
+                                    style={{
+                                        width: '70%',
+                                        padding: '0.75rem',
+                                        backgroundColor: '#4CAF50',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '0.25rem',
+                                        cursor: 'pointer',
+                                        fontWeight: 'bold',
+                                        opacity: isMailsLoading ? '0.5' : '1',
+                                    }}
+                                >
+                                    {languageCode === 'ru' ? 'Сохранить' : 'Save'}
+                                </button>
+                                <button
+                                    onClick={() => setIsInfoPopUp(true)}
+                                    style={{
+                                        width: '25%',
+                                        padding: '0.75rem',
+                                        marginLeft: '4%',
+                                        border: '1px solid gray',
+
+                                        backgroundColor: 'rgb(42,54,73)',
+                                        color: 'white',
+                                        borderRadius: '0.25rem',
+                                        cursor: 'pointer',
+                                        fontWeight: 'bold'
+                                    }}
+                                >?</button>
+                            </div>
+
+                            {/* <p className={s.line}>Email: ---</p> */}
+                            {/* <p className={s.line}>UHS: ~{(myBalance).toFixed()}</p> */}
                             {/* <p className={s.line}>{swichLang(languageCode, 'friends')}: <span style={{ color: 'white' }}>{refs}</span></p> */}
                             {/* <p className={s.line}>{swichLang(languageCode, 'afriends')}: <span
                                 onClick={() => refs_active > 0 ? setReflist(true) : null}
@@ -215,7 +366,7 @@ export const CabData = () => {
                     {/* <p className={s.line}>Team: <span style={{ color: 'white' }}>{team || `none`}</span></p> */}
                             {/* <p className={s.line}>{swichLang(languageCode, 'balance')}: <span style={{ color: 'white' }}>{formatNumberBal(balance)}</span></p> */}
                     {/* <p className={s.line}>аноним: <span style={{ color: 'white' }}>{anonim}</span></p> */}
-                            <div style={{ textAlign: 'left', display: 'flex', gap: '0.2rem' }}>
+                            {/* <div style={{ textAlign: 'left', display: 'flex', gap: '0.2rem' }}>
                         <input type="checkbox"
                             checked={isChecked}
                             disabled={isDisabled}
@@ -244,16 +395,17 @@ export const CabData = () => {
                             >✓</span>
                             &nbsp;
                         </label>
-                    </div>
+                    </div> */}
                         </div>
                     </div>
 
-                    <h2 className={s.headerlist}>{/* {swichLang(languageCode, 'top100')} */} Hold timer</h2>
+
 
                     <div
                         className={`${s.list} scrollable`}
-                        style={{ border: '0px solid', color: 'gray', marginTop: '1rem', paddingBottom: '5.5rem' }}>
+                        style={{ border: '0px solid', color: 'gray', /* marginTop: '1rem', */ paddingBottom: '5.5rem' }}>
                         {/* <h3>Hold timer</h3> */}
+                        <h2 className={s.headerlist}>{/* {swichLang(languageCode, 'top100')} */} Hold timer</h2>
                         <div style={{ display: 'flex', justifyContent: 'space-around', color: 'white' }}>
 
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '0.5rem', border: '1px solid gray', padding: '1rem', borderRadius: '0.3rem' }}>
@@ -301,6 +453,8 @@ export const CabData = () => {
                 </div>
             } */}
             </>}
+
+
 
         </>
     )

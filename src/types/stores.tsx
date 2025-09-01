@@ -386,6 +386,11 @@ export interface UseAuth {
     isError: boolean;
     isLoading: boolean;
     isRefreshing: boolean;
+    mail: string;
+    heirMail: string;
+    years: number;
+    isMailsLoading: boolean;
+    setMails: (mail: string, heirMail: string, years: number, uhs_id: number, rawAddress: string) => Promise<void>;
     updateLimit: (uhs_id: number, newLimit: number, amount: number) => Promise<void>;
     refreshToken: (token: string) => Promise<void>;
     checkNonce: (proof: Proof, account: Account) => Promise<void>;

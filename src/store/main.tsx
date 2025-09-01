@@ -20,6 +20,50 @@ export const useAuth = create<UseAuth>((set, get) => ({
     isError: false,
     isLoading: false,
     isRefreshing: false,
+    mail: '',
+    heirMail: '',
+    years: 0,
+    isMailsLoading: false,
+    setMails: async (mail, heirMail, years, uhs_id, rawAddress) => {
+        try {
+            set({ isMailsLoading: true })
+            const token = localStorage.getItem(rawAddress + 'uhs');
+
+            const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}uhsmails/saveMails`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mail, heirMail, years, uhs_id, rawAddress, token })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                set({
+                    mail: data.data.email,
+                    heirMail: data.data.heirEmail,
+                    years: data.data.years,
+                    isLoading: false
+                });
+                //return { success: true };
+            } else {
+                const error = await response.json();
+                console.log('errror: ', error)
+                //set({ isError: true, isLoading: false });
+                //return { success: false, error: error.error };
+            }
+
+
+
+        } catch (err) {
+            //maybe clear locstrg?
+            set({ isMailsLoading: false })
+            console.log('error: ', err);
+        } finally {
+            setTimeout(() => {
+                set({ isMailsLoading: false })
+            }, 1000)
+
+        }
+    },
     updateLimit: async (uhs_id, newLimit, amount) => {
 
         try {
@@ -93,7 +137,17 @@ export const useAuth = create<UseAuth>((set, get) => ({
                 address: res.userRes.wallet_address,
             })); */
 
-            set(() => ({ isAuth: true, token: res.token, userId: res.userRes.id, address: res.userRes.wallet_address, limit: res.userRes.limit, isRefreshing: true }))
+            set(() => ({
+                isAuth: true,
+                token: res.token,
+                userId: res.userRes.id,
+                address: res.userRes.wallet_address,
+                limit: res.userRes.limit,
+                isRefreshing: true,
+                mail: res.userRes.email,
+                years: res.userRes.years,
+                heirMail: res.userRes.heir_email
+            }))
 
 
         } catch (err) {
@@ -120,11 +174,19 @@ export const useAuth = create<UseAuth>((set, get) => ({
             }
 
             const res = await response.json()
-            console.log('res auth:', res)
+            console.log('res auth_!:', res)
             //localStorage.setItem('test', 'test');
             localStorage.setItem(res.user.wallet_address + 'uhs', res.token)
 
-            set(() => ({ isAuth: true, token: res.token, userId: res.user.id, address: res.user.wallet_address }))
+            set(() => ({
+                isAuth: true,
+                token: res.token,
+                userId: res.user.id,
+                address: res.user.wallet_address,
+                mail: res.userRes.email,
+                years: res.userRes.years,
+                heirMail: res.userRes.heir_email
+            }))
 
         } catch (err) {
             set(() => ({ isError: true }))
@@ -255,31 +317,7 @@ export const useUserData = create<UseStore>()(devtools((set, get) => ({
     },
     setUser: async (user: Partial<User>) => {
         console.log('user in state: ', user)
-        //set({ balanceLoader: true });
-        /* set((state) => ({
-            ...state,
-            balanceLoader: true,
-        })) */
         try {
-
-            /* const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}authN`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json', 
-                    'accept': 'application/json',       
-                    'Cache-Control': 'no-cache'         
-                },
-                credentials: 'include', 
-                body: JSON.stringify({  
-                    externalId: user.id,
-                    userName: user.userName
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to update user in DB');
-            } */
-
             const response = await fetch(`${import.meta.env.VITE_SECRET_HOST}auth?externalId=${user.id}&userName=${encodeURIComponent(user.userName as string)}`, {
                 method: 'GET',
                 headers: {
