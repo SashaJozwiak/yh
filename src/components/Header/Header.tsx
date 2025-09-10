@@ -105,7 +105,7 @@ export const Header: React.FC = () => {
                 id: 946292829, /*  946292829 757322479  */
                 //internalId: null,
                 userName: "zwiak",
-                languageCode: "ru",
+                languageCode: "en",
                 userFriendlyAddress: '',
                 rawAddress: '',
             };

@@ -6,7 +6,7 @@ import { Footer } from './components/Footer/Footer';
 import { Tasks } from './components/Tasks/Tasks';
 import { Stages } from './components/Stages/Stages';
 import { Cabinet } from './components/Cabinet/Cabinet';
-import { GiftWindow } from './giftWindow/GiftWindow';
+//import { GiftWindow } from './giftWindow/GiftWindow';
 
 import { Invite } from './components/Cabinet/Invite/Invite';
 
@@ -28,8 +28,7 @@ import { AuthError } from './AuthError';
 import { Earn } from './Earn/Earn';
 import { MainEarn } from './Earn/MainEarn';
 import { Trade } from './Trade/Trade';
-import { useTradeAssets } from './Trade/tradeStore/assets';
-
+//import { useTradeAssets } from './Trade/tradeStore/assets';
 import { postEvent } from '@telegram-apps/sdk';
 
 //eruda.init();//just for debug
@@ -55,7 +54,7 @@ const App: React.FC = function () {
   const updateBalanceDedust = useDedust((state) => state.updateBalanceDedust);
   const updateBalanceTonco = useTonco((state) => state.updateBalanceTonco);
 
-  const isGiftWindow = useTradeAssets((state) => state.giftWindow);
+  //const isGiftWindow = useTradeAssets((state) => state.giftWindow);
 
 
   useEffect(() => {
@@ -158,7 +157,7 @@ const App: React.FC = function () {
       {nav === 'UHS' && <MainEarn />}
       {nav === 'trade' && <Trade />}
       {nav !== 'game1' && <Footer />}
-      {isGiftWindow && <GiftWindow />}
+      {/* {isGiftWindow && <GiftWindow />} */}
 
     </>
   );

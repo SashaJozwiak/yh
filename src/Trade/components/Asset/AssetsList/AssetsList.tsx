@@ -6,6 +6,8 @@ import { useAuth, useUserData } from "../../../../store/main";
 import { useTonAddress } from '@tonconnect/ui-react';
 
 import cat from '../../../pics/1.png';
+import balls from '../../../pics/2.webp';
+
 import s from './assetsList.module.css'
 import { useNav } from "../../../../store/nav";
 import { useEarnNav } from "../../../../Earn/earnStore/nav";
@@ -21,7 +23,8 @@ const currNum = {
 }
 
 const imgs = {
-    1: 'cat',
+    1: cat,
+    2: balls,
 }
 
 //const realCurr = (curr: string) => curr === 'USD₮' ? 'USDT' : 'UHS';
@@ -101,11 +104,11 @@ export const AssetsList = () => {
                             return (
                                 <li key={asset.trade_asset_id} style={{ padding: '0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: myid === asset.user_id ? '2px solid white' : '2px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
 
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', /* width: '90vw' */ }} >
-                                        <div>
-                                            <h3>{asset.title}</h3>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' /* width: '90vw' */ }} >
+                                        <div style={{ maxWidth: '25vw' }}>
+                                            <h3 /* style={{ textAlign: 'left' }} */>{(asset.title).split(" ")[0]}</h3>
                                             {imgs[asset.startup_id] ?
-                                                <img style={{ display: 'block', width: '3rem', margin: '0 auto' }} src={cat} alt="img" /> :
+                                                <img style={{ display: 'block', width: '3rem', borderRadius: '0.5rem', margin: '0 auto 0 0' }} src={imgs[asset.startup_id]} alt="img" /> :
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} width={'4rem'} stroke="currentColor" className="size-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" />
                                                 </svg>
