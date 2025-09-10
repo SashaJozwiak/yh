@@ -213,15 +213,19 @@ export const Web2 = () => {
                                                     if (startup.id === 1) {
                                                         WebApp.openTelegramLink('https://t.me/cog_builds/6?single')
                                                     }
+
+                                                    if (startup.id === 2) {
+                                                        WebApp.openTelegramLink('https://t.me/cog_builds/14')
+                                                    }
                                                 }
 
                                                 }
 
-                                                style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: startup.id <= 1 ? '1' : '0.5' }}>
+                                                style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: startup.id <= 2 ? '1' : '0.5' }}>
                                                 {lang === 'ru' ? (
-                                                    startup.id >= 2 ? 'В разработке' : 'Готово'
+                                                    startup.id >= 3 ? 'В разработке' : 'Готово'
                                                 ) : (
-                                                        startup.id >= 2 ? 'In Development' : 'Ready'
+                                                        startup.id >= 3 ? 'In Development' : 'Ready'
                                                 )}
                                             </button>
                                         </div>
