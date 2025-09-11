@@ -30,7 +30,7 @@ import { MainEarn } from './Earn/MainEarn';
 import { Trade } from './Trade/Trade';
 //import { useTradeAssets } from './Trade/tradeStore/assets';
 import { postEvent } from '@telegram-apps/sdk';
-
+//pe
 //eruda.init();//just for debug
 
 /* document.addEventListener('contextmenu', function (e) {
