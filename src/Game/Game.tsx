@@ -62,7 +62,6 @@ export const Game: React.FC = () => {
         changeNeedInit(true)
     }, [changeNeedInit, resetForSave])
 
-
     useEffect(() => {
         const allResources = [...Object.values(charImages), ...icons];
         let loadedCount = 0;
