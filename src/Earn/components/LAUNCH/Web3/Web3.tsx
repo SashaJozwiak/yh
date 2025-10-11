@@ -26,7 +26,7 @@ export const Web3 = () => {
 
     const calculateDaysRemaining = () => {
         const now = new Date();
-        const targetDate = new Date('2025-10-01');
+        const targetDate = new Date('2025-10-11');
 
         // Убедимся, что обе даты являются числами
         const differenceInTime = targetDate.getTime() - now.getTime();
@@ -53,7 +53,7 @@ export const Web3 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                     <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter(startup => startup.id > 3)
+                            .filter(startup => startup.id > 4)
                             .map((startup) => {
                                 return (
                                     <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>

@@ -53,7 +53,7 @@ export const Web2 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                     <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter(startup => startup.id > 3)
+                            .filter(startup => startup.id > 4)
                             .map((startup) => {
                                 return (
                                     <li key={startup.id} style={{ padding: '0.6rem 0.6rem 0 0.6rem', listStyle: "none", display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'rgb(58 70 88)', border: '1px solid gray', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -137,7 +137,7 @@ export const Web2 = () => {
                 {isLoading ? <span className={s.loader}></span> :
                     <ul style={{ backgroundColor: 'rgb(58, 70, 88)' }}>
                         {startups
-                            .filter((startup) => startup.id < 4)
+                            .filter((startup) => startup.id < 5)
                             .sort((a, b) => b.id - a.id)
                             .map((startup) => {
                                 return (
