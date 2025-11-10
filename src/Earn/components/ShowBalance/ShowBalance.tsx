@@ -147,7 +147,7 @@ export const ShowBalance = () => {
                             <span style={{ fontSize: '1.1rem' }}>{Number((Number(asset.balance) / (10 ** asset.jetton.decimals)).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {asset.jetton.symbol}</span>
 
                             <div style={{ fontStyle: 'italic', fontSize: '0.8rem', opacity: '0.6' }}>
-                                ~ {Number((Number(asset.balance) / (10 ** asset.jetton.decimals) * (asset.priceUsd ?? 0)).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} USD</div>
+                                ~ {Number((Number(asset.balance) / (10 ** asset.jetton.decimals) * (asset.priceUsd ?? 0.01)).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} USD</div>
 
                             {/* {asset.jetton.symbol === 'UHS' && <button
                                 style={{ backgroundColor: 'rgb(71, 85, 105)', border: '1px solid gray', borderRadius: '0.3rem', marginTop: '0.3rem', padding: '0.1rem 0.5rem', fontWeight: 'normal', fontSize: '1rem' }}
