@@ -27,7 +27,7 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
                 is_scam: false,
                 is_wallet: false
             },
-            priceUsd: 0,
+            priceUsd: 0.01,
         },
         {
             balance: "0",
@@ -47,7 +47,7 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
                 is_scam: false,
                 is_wallet: false
             },
-            priceUsd: 0,
+            priceUsd: 1,
         },
     ],
     shares: [],
@@ -128,7 +128,7 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
                 `${import.meta.env.VITE_SECRET_HOST}uhsbalances/saveTx`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ uhsId, ufAddress, isUsdt, amount }),
+                body: JSON.stringify({ uhsId, ufAddress, isUsdt, amount }),
             });
 
             if (!response.ok) {
