@@ -218,10 +218,14 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
 
         } catch (error) {
             console.error('Error get balance:', error);
+            set({ status: 'loaded' });
+
+        } finally {
+            set({ status: 'loaded' });
         }
     },
     fetchUHSPrice: async () => {
-        set({ status: 'loading' });
+        //set({ status: 'loading' });
         const client = new ApolloClient({
             uri: 'https://indexer.tonco.io', // Ваш GraphQL endpoint
             cache: new InMemoryCache(),
@@ -286,6 +290,8 @@ export const useUHSWallet = create<UseUHSWallet>((set, get) => ({
             set({ recPriceUSDT: true })
         } catch (error) {
             console.error("Ошибка при получении цен:", error);
+        } finally {
+            set({ status: 'loaded' });
         }
     },
     setWallet: ({ address, assets }) => set({ address, assets }),

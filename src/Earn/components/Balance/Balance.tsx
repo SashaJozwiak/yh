@@ -44,6 +44,8 @@ export const Balance = () => {
         }
     }, [giftHB, rawAddress, setGiftHB, uhsId]) */
 
+    /* console.log('status: ', status) */
+
 
     return (
         <div className={s.balance}>
