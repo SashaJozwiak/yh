@@ -1,0 +1,103 @@
+.container {
+  //border: 2px solid gray;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+}
+
+@keyframes show {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.window {
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(51 65 85);
+  max-width: 80%;
+  max-height: 100%;
+  aspect-ratio: 10 / 17;
+  margin: 0 auto;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 25px rgb(0 0 0 / 50%);
+}
+
+.btnok:active {
+  transform: scale(0.9);
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  //gap: 0.3em;
+  padding: 1rem 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.08);
+  //padding: 0.2rem 1rem;
+  border-radius: 12px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.3rem;
+  object-fit: contain;
+}
+
+.mult {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.cell {
+  position: relative; /* нужно, чтобы multiplier позиционировался внутри */
+  width: 100%;
+  aspect-ratio: 1/1; /* квадратные ячейки */
+}
+
+.img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 0.3rem;
+}
+
+.multiplier {
+  position: absolute;
+  bottom: 4px; /* прижимаем вниз */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}

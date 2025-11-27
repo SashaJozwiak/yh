@@ -59,8 +59,8 @@ export const Sell = () => {
             {!shares.filter(share => share.currency === currency).length && <p>You have no assets.</p>}
             {shares
                 .filter(share => share.currency === currency &&
-                    !assetsAtTrade.some(asset => asset.share_id === share.id) &&
-                    share.startup_id !== 4)
+                    !assetsAtTrade.some(asset => asset.share_id === share.id) /* &&
+                    share.startup_id !== 4 */)
                 .map((share) => {
                     return (
                         <li key={share.id} style={{ marginBottom: "0.5rem", padding: '0.3rem 0.6rem', listStyle: "none", /* display: 'flex', */ /* justifyContent: 'space-between', */ alignItems: 'center', backgroundColor: 'rgb(58 70 88)', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
@@ -68,7 +68,7 @@ export const Sell = () => {
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                     <p style={{ color: 'gray' }}>{lang === 'ru' ? 'Название' : 'Title'}</p>
-                                    <p style={{ textAlign: 'left' }}>{share.startup_id === 1 ? 'Dive Cat' : share.startup_id === 2 ? 'Balls' : 'UH Game'}</p>
+                                    <p style={{ textAlign: 'left' }}>{share.startup_id === 1 ? 'Dive Cat' : share.startup_id === 2 ? 'Balls' : share.startup_id === 3 ? 'UH Game' : 'Cazic'}</p>
                                 </div>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -83,7 +83,7 @@ export const Sell = () => {
 
                                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                     <p style={{ color: 'gray' }}>APR</p>
-                                    <p>{share.startup_id === 1 ? '12%' : share.startup_id === 2 ? '34%' : share.startup_id === 3 ? '12%' : '19%'}</p>
+                                    <p>{share.startup_id === 1 ? '12%' : share.startup_id === 2 ? '12%' : share.startup_id === 3 ? '12%' : '19%'}</p>
                                 </div>
                             </div>
 

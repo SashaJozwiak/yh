@@ -4,7 +4,7 @@ import { Header } from './components/Header/Header';
 import { Main } from './components/Main/Main';
 import { Footer } from './components/Footer/Footer';
 import { Tasks } from './components/Tasks/Tasks';
-import { Stages } from './components/Stages/Stages';
+//import { Stages } from './components/Stages/Stages';
 import { Cabinet } from './components/Cabinet/Cabinet';
 //import { GiftWindow } from './giftWindow/GiftWindow';
 
@@ -28,9 +28,10 @@ import { AuthError } from './AuthError';
 import { Earn } from './Earn/Earn';
 import { MainEarn } from './Earn/MainEarn';
 import { Trade } from './Trade/Trade';
+import { Casik } from './components/Casik/Casik';
 //import { useTradeAssets } from './Trade/tradeStore/assets';
 import { postEvent } from '@telegram-apps/sdk';
-//pe
+
 //eruda.init();//just for debug
 
 /* document.addEventListener('contextmenu', function (e) {
@@ -150,7 +151,7 @@ const App: React.FC = function () {
       {nav === 'bonus' && <Tasks />}
       {/* {nav === 'game' && <BetaPage1 />} */}
       {nav === 'game1' && <Game />}
-      {nav === 'stage' && <Stages />}
+      {nav === 'stage' && <Casik />}
       {nav === 'cabinet' && <Cabinet />}
       {nav === 'invite' && <Invite />}
       {nav === 'earn' && <Earn />}

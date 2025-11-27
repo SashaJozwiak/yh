@@ -11,6 +11,7 @@ import { BackButton } from "@twa-dev/sdk/react";
 
 import s from './cabinet.module.css'
 import { Transfers } from './Transfers/Transfers.tsx';
+import { Stages } from '../Stages/Stages.tsx';
 
 //import { Invite } from './Invite/Invite';
 
@@ -30,10 +31,11 @@ export const Cabinet: React.FC = () => {
                 >{swichLang(userLang, 'info')}
                 </button>
                 <button
-                    disabled={true}
-                    onClick={() => changeCabNav('transfers')}
-                    style={{ opacity: '0.5' }}
-                    className={`${s.cabnavbtn} ${cabNav === 'transfers' ? s.on : null}`}>{swichLang(userLang, 'transfers')}
+                    disabled={false}
+                    onClick={() => changeCabNav('rmap')}
+                    style={{ opacity: '1' }}
+                    className={`${s.cabnavbtn} ${cabNav === 'rmap' ? s.on : null}`}>{/* {swichLang(userLang, 'transfers')} */}
+                    RoadMap
                 </button>
                 {/*  <button
                     onClick={() => changeCabNav('teams')}
@@ -45,6 +47,7 @@ export const Cabinet: React.FC = () => {
             {cabNav === 'data' && <CabData />}
             {cabNav === 'teams' && <Teams />}
             {cabNav === 'transfers' && <Transfers />}
+            {cabNav === 'rmap' && <Stages />}
             {/* {cabNav === 'invite' && <Invite />}  */}
         </>
     )

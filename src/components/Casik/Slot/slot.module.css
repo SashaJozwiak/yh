@@ -1,0 +1,112 @@
+.reelscontainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 auto 1rem auto;
+  padding: 1rem;
+  /* height: 150px;  */ /* 3 символа по 50px */
+  width: fit-content;
+  overflow: hidden;
+  border: 4px solid #444;
+  border-radius: 1rem;
+  background: #222;
+  box-shadow: 0 0 0.5rem #000 inset;
+  background-color: gray;
+}
+
+.reelwindow {
+  width: 60px;
+  height: 146px;
+
+  overflow: hidden;
+  border: 2px solid #333;
+  border-radius: 5px;
+  background: #000;
+  position: relative;
+}
+
+.reelstrip {
+  display: flex;
+  flex-direction: column;
+}
+
+.symbol {
+  height: 50px;
+  width: 60px;
+  font-size: 32px;
+  //border-radius: 0.3rem;
+  //border: 0.9rem solid grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #333;
+  background: radial-gradient(#333, #111);
+}
+
+.panel {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0 auto;
+  padding: 1rem;
+  /* height: 150px;  */ /* 3 символа по 50px */
+  width: fit-content;
+  overflow: hidden;
+  border: 4px solid #444;
+  border-radius: 1rem;
+  background: #222;
+  box-shadow: 0 0 0.5rem #000 inset;
+  background-color: #6f6f6f;
+}
+
+.button {
+  flex: 1;
+  background: none;
+
+  padding: 0.2rem 0.5rem;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 13px 0px;
+  transition: transform 0.05s, box-shadow 0.05s;
+}
+
+.button:active {
+  box-shadow: none; /* убрать тень */
+  transform: scale(0.96); /* чуть уменьшить */
+}
+
+.popScale {
+  animation: scalePop 0.5s ease-out;
+}
+
+@keyframes scalePop {
+  0% {
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.winningSymbol {
+  animation: popWin 0.8s ease-in-out forwards;
+}
+
+@keyframes popWin {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
