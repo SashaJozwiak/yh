@@ -17,8 +17,6 @@ export const Casik = () => {
     const assets = useUHSWallet(state => state.assets);
     const [cazikNav, setCazikNav] = useState('slot') // slot, wheel, loto
 
-    console.log('assets: ', assets)
-
     return (
         <>
             <div className={s.menu}>
