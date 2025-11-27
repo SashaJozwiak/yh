@@ -367,7 +367,7 @@ export const Slot = () => {
                 </button>
             </div>
             {info && <SlotPopUp setInfo={setInfo} />}
-            {!isError && <Error />}
+            {isError && <Error />}
 
         </>
     );
