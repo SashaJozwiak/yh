@@ -80,7 +80,7 @@ const getWeightedRandomSymbol = (weights: WeightedSymbol[]): WeightedSymbol => {
 
 // ---------- COMPONENT ----------
 export const Slot = () => {
-    const { bet, setBet, lastResult, showResult, setShowResult, spin: getSpin } = useSlotStore();
+    const { balance, bet, setBet, lastResult, showResult, setShowResult, spin: getSpin } = useSlotStore();
     const [grid, setGrid] = useState<WeightedSymbol[][]>([
         [
             { symbol: developer, weight: 25 },
@@ -346,7 +346,11 @@ export const Slot = () => {
                         <button
                             key={value}
                             className={s.button}
-                            onClick={() => setBet(value)}
+                            onClick={() => {
+                                if (balance > value) {
+                                    setBet(value)
+                                }
+                            }}
                             style={{
                                 padding: "0.5rem",
                                 border: `0.1rem solid ${bet === value ? "rgb(0 211 48)" : "#959595"}`,
@@ -359,9 +363,9 @@ export const Slot = () => {
                 </div>
                 <button
                     onClick={spin}
-                    disabled={spinning}
+                    disabled={spinning || balance < bet}
                     className={s.button}
-                    style={{ background: spinning ? "#28a745" : "#28a745", fontWeight: "bold", boxShadow: spinning ? 'none' : 'rgba(0, 0, 0, 0.5) 0px 0px 13px 0px', color: spinning ? 'gray' : 'white', transform: spinning ? 'scale(0.96)' : 'scale(1)' }}
+                    style={{ background: spinning || balance < bet ? "#28a745" : "#28a745", fontWeight: "bold", boxShadow: spinning || balance < bet ? 'none' : 'rgba(0, 0, 0, 0.5) 0px 0px 13px 0px', color: spinning || balance < bet ? 'gray' : 'white', transform: spinning || balance < bet ? 'scale(0.96)' : 'scale(1)' }}
                 >
                     Spin!
                 </button>

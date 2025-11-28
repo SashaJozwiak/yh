@@ -8,12 +8,14 @@ interface SpinResult {
 }
 
 interface SlotState {
+    balance: number;
     bet: number;
     loading: boolean;
     lastResult: SpinResult | null;
     showResult: boolean;
     isError: boolean;
 
+    setBalance: (bal: number) => void;
     setError: (error: boolean) => void;
     setShowResult: (show: boolean) => void;
 
@@ -36,12 +38,14 @@ interface SlotState {
 }
 
 export const useSlotStore = create<SlotState>((set, get) => ({
+    balance: 0,
     bet: 0.10,
     loading: false,
     lastResult: null,
     showResult: false,
     isError: false,
 
+    setBalance: (bal) => set({ balance: bal }),
     setShowResult: (show) => set({ showResult: show }),
     setBet: (bet) => set({ bet }),
 
