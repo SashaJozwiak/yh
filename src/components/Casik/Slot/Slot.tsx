@@ -9,6 +9,7 @@ import useSound from "use-sound";
 import spinClick from '../assets/spin-btn.mp3'
 import spinRoll from '../assets/spin-roll.mp3'
 import spinWin from '../assets/spin-win.mp3'
+import roulette from '../assets/roulette.mp3'
 
 import {
     developer,
@@ -80,7 +81,7 @@ const getWeightedRandomSymbol = (weights: WeightedSymbol[]): WeightedSymbol => {
 
 // ---------- COMPONENT ----------
 export const Slot = () => {
-    const { bet, setBet, lastResult, showResult, setShowResult, spin: getSpin } = useSlotStore();
+    const { balance, bet, setBet, lastResult, showResult, setShowResult, spin: getSpin, setError } = useSlotStore();
     const [grid, setGrid] = useState<WeightedSymbol[][]>([
         [
             { symbol: developer, weight: 25 },
@@ -117,24 +118,28 @@ export const Slot = () => {
     const playRollRef = useRef<() => void>(() => { });
     const stopRollRef = useRef<() => void>(() => { });
     const playWinRef = useRef<() => void>(() => { });
+    const roulettemp3 = useRef<() => void>(() => { });
 
     const [playClick] = useSound(spinClick, { volume: 0.5 });
     const [playRoll, rollControls] = useSound(spinRoll, { volume: 0.5, loop: true });
     const [playWin] = useSound(spinWin, { volume: 0.7 });
+    const [playRoulette] = useSound(roulette, { volume: 0.7 })
 
     useEffect(() => {
         playClickRef.current = playClick;
         playRollRef.current = playRoll;
         stopRollRef.current = rollControls.stop;
         playWinRef.current = playWin;
+        roulettemp3.current = playRoulette;
 
         useSlotStore.getState()._setAudioHandlers({
             playClick: () => playClickRef.current(),
             playRoll: () => playRollRef.current(),
             stopRoll: () => stopRollRef.current(),
             playWin: () => playWinRef.current(),
+            playRoulette: () => roulettemp3.current()
         });
-    }, [playClick, playRoll, playWin, rollControls.stop]);
+    }, [playClick, playRoll, playRoulette, playWin, rollControls.stop]);
 
     // -------------------------------------------------------
     // Генерация финальной сетки по ответу бэкенда
@@ -223,6 +228,8 @@ export const Slot = () => {
         // 1. Запрос на сервер
         if (userId) {
             await getSpin(userId, rawAddress);
+        } else {
+            setError(true)
         }
 
 
@@ -346,7 +353,11 @@ export const Slot = () => {
                         <button
                             key={value}
                             className={s.button}
-                            onClick={() => setBet(value)}
+                            onClick={() => {
+                                if (balance > value) {
+                                    setBet(value)
+                                }
+                            }}
                             style={{
                                 padding: "0.5rem",
                                 border: `0.1rem solid ${bet === value ? "rgb(0 211 48)" : "#959595"}`,
@@ -359,16 +370,15 @@ export const Slot = () => {
                 </div>
                 <button
                     onClick={spin}
-                    disabled={spinning}
+                    disabled={spinning || balance < bet}
                     className={s.button}
-                    style={{ background: spinning ? "#28a745" : "#28a745", fontWeight: "bold", boxShadow: spinning ? 'none' : 'rgba(0, 0, 0, 0.5) 0px 0px 13px 0px', color: spinning ? 'gray' : 'white', transform: spinning ? 'scale(0.96)' : 'scale(1)' }}
+                    style={{ background: spinning || balance < bet ? "#28a745" : "#28a745", fontWeight: "bold", boxShadow: spinning || balance < bet ? 'none' : 'rgba(0, 0, 0, 0.5) 0px 0px 13px 0px', color: spinning || balance < bet ? 'gray' : 'white', transform: spinning || balance < bet ? 'scale(0.96)' : 'scale(1)' }}
                 >
                     Spin!
                 </button>
             </div>
             {info && <SlotPopUp setInfo={setInfo} />}
             {isError && <Error />}
-
         </>
     );
 };

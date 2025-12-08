@@ -83,7 +83,7 @@ export const SlotPopUp = ({ setInfo }: PopProps) => {
                 <button
                     onClick={() => setInfo(false)}
                     className={s.btnok}
-                    style={{ height: '10vh', borderRadius: '1rem', margin: '1rem', padding: '0.3rem' }}
+                    style={{ height: '10vh', borderRadius: '1rem', margin: '0.5rem', padding: '0.3rem' }}
                 >
                     <h3>OK</h3>
                 </button>

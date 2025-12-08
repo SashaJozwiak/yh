@@ -1,0 +1,18 @@
+.button {
+  flex: 1;
+  background: none;
+
+  padding: 0.2rem 0.5rem;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 13px 0px;
+  transition: transform 0.05s, box-shadow 0.05s;
+}
+
+.button:active {
+  box-shadow: none; /* убрать тень */
+  transform: scale(0.96); /* чуть уменьшить */
+}
