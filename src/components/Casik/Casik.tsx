@@ -9,6 +9,7 @@ import s from './casik.module.css'
 import { Slot } from './Slot/Slot';
 import { useSlotStore } from './Slot/store/slot';
 import { Wheel } from './Wheel/Wheel';
+import { Loto } from './Loto/Loto';
 
 
 
@@ -38,10 +39,9 @@ export const Casik = () => {
                     onClick={() => setCazikNav('wheel')}
                     className={`${s.button} ${cazikNav === 'wheel' ? s.on : null}`}>WHEEL</button>
                 <button
-                    /* onClick={() => setTool('loto')} */
-                    style={{ opacity: '0.5' }}
-                    className={`${s.button} ${cazikNav === 'services' ? s.on : null}`}>LOTO</button>
-
+                    onClick={() => setCazikNav('loto')}
+                    //style={{ opacity: '0.5' }}
+                    className={`${s.button} ${cazikNav === 'loto' ? s.on : null}`}>LOTO</button>
                 <button
                     onClick={() => {
                         setEarn('UHS')
@@ -61,6 +61,7 @@ export const Casik = () => {
 
             {cazikNav === 'slot' && <Slot />}
             {cazikNav === 'wheel' && <Wheel />}
+            {cazikNav === 'loto' && <Loto />}
 
         </>
     )

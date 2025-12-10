@@ -123,7 +123,7 @@ export const Slot = () => {
     const [playClick] = useSound(spinClick, { volume: 0.5 });
     const [playRoll, rollControls] = useSound(spinRoll, { volume: 0.5, loop: true });
     const [playWin] = useSound(spinWin, { volume: 0.7 });
-    const [playRoulette] = useSound(roulette, { volume: 0.7 })
+    const [playRoulette] = useSound(roulette, { volume: 0.5 })
 
     useEffect(() => {
         playClickRef.current = playClick;
