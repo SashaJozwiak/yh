@@ -223,9 +223,9 @@ export const Web2 = () => {
 
                                                 style={{ fontSize: '1rem', margin: '0.6rem', padding: '0.5rem 1rem', backgroundColor: 'rgb(22 163 74)', borderRadius: '0.3rem', boxShadow: 'rgba(0, 0, 0, 0.5) 0px 0px 3px 0px', opacity: startup.id <= 2 ? '1' : '0.5' }}>
                                                 {lang === 'ru' ? (
-                                                    startup.id >= 3 ? 'В разработке' : 'Готово'
+                                                    startup.id >= 5 ? 'В разработке' : 'Готово'
                                                 ) : (
-                                                    startup.id >= 3 ? 'In Development' : 'Ready'
+                                                        startup.id >= 5 ? 'In Development' : 'Ready'
                                                 )}
                                             </button>
                                         </div>
